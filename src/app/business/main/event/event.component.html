@@ -1,0 +1,63 @@
+<div class="container-fluid Event ">
+  <div class="col-md-12 line">
+      <p class="col-md-2" style="color:white;padding:15px 0 0 2px;font-size:1.5em;font-family:sans-serif;">事件数据列表</p>
+    <form  class="col-md-2" style="margin-top:2.5%;">
+        <select style="height:20px; margin-left: 3%; border-radius: 5px;background-color: white;color: #21333f;" title="">
+          <option value="生产列表1">生产系统1</option>
+          <option value="生产列表1">生产系统2</option>
+          <option value="生产列表1">生产系统3</option>
+          <option value="生产列表1">生产系统4</option>
+        </select>
+    </form>
+  </div>
+  <div class="col-md-12">
+    <table class="col-md-12" style="margin-bottom: 2%;">
+      <tr>
+        <th>订单编号</th>
+        <th>事件信息</th>
+        <th>时间</th>
+        <th>描述</th>
+      </tr>
+      <tr *ngFor="let list of Modal1" data-toggle="modal" data-target="#EventModal"  (click)="Modal(list)" [ngStyle]="{'background-color': BgColor(list['type'])}">
+        <td>{{list['target_id']}}</td>
+        <td>{{list['event_type']}}</td>
+        <td>{{list['event_date']}}</td>
+        <td>{{list['event_name']}}</td>
+      </tr>
+    </table>
+    <a style="margin: 2% 0 1% 90%;text-decoration: none;color: white;font-size: 15px;display: block;" routerLink="/main/event-data">查看更多</a>
+  </div>
+</div>
+<!-- 模态框-->
+<div class="modal fade" id="EventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel" style="color: black">事件列表详情</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" >
+          <div class="col-md-6"  style="margin: 2% 0 0 0;font-size: 20px;" >
+            <table class="modal-table col-md-10" >
+              <tr><td>事件编号：{{Modal2['target_id']}}</td></tr>
+              <tr><td>事件类型：{{Modal2['event_type']}}</td></tr>
+              <tr><td>事件名称：{{Modal2['event_name']}}</td></tr>
+              <tr><td>事件描述：{{Modal2['event_attachment']}}</td></tr>
+                <tr><td>时间：{{Modal2['event_date']}}</td></tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table>
+              <tr><h3>事件详情</h3></tr>
+              <tr><img src="http://via.placeholder.com/400x280" ></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>

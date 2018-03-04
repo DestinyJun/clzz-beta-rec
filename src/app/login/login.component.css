@@ -1,0 +1,114 @@
+.box{
+  border: solid;
+  border-color:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.55);
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  /*height:90%;*/
+  /*margin-left: 29%;*/
+  margin-top: 10%;
+  /*margin-top: 150px;*/
+  position: relative;
+  display: block;
+}
+.container{
+position: fixed;
+}
+a{
+  text-decoration: none;
+}
+.row-1{
+  margin-left: 28%;
+}
+.yuansu{
+  margin-top:28px;
+  float: left;
+  color:#008B8B;
+  padding-left: 20px;
+}
+.cailv{
+  float: left;
+  text-align: left;
+  padding-left:5px;
+}
+
+.link{
+  display: block;
+  color:#008B8B;
+  margin-bottom:20px;
+  margin-top: 10px;
+  margin-left:auto;
+  padding-left: 30px;
+  letter-spacing: 1px;
+}
+.nav{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+.form-group{
+  margin-left: 20px;
+}
+.form-control{
+  background:rgba(0,0,0,.1);
+}
+.row{
+  overflow: visible;
+}
+.btn-default{
+  background:rgba(0,0,0,0);
+  color:#fff;
+  display: block;
+  float: left !important;
+  margin-left:10em;
+}
+.pull-right{
+  display: block;
+  color:#008B8B;
+  float: right !important;
+  margin-right:7em;
+}
+.line{
+  height: 20px;
+  margin-top: 25px;
+}
+#span1{
+  float: left;
+  margin-top: 10px;
+  /*margin-left: 20px;*/
+  margin-left: 10%;
+}
+.h{
+  width:25%;
+  float: left;
+  /*margin-left:2em;*/
+}
+.r{
+  width:25%;
+  float: right;
+  /*margin-right:1.8em;*/
+}
+#icon1 {
+  list-style: none;
+  font-size: 40px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+#icon1 > div {
+  float: left;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.text{
+  display: block;
+  color:#008B8B;
+  text-align: left;
+}
+.lv{
+  font-size: 4px;
+  margin-top: 55px;
+}
+input{
+  color: white;
+}

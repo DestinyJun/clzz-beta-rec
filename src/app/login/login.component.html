@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="box col-md-4 col-sm-8 col-xs-10 col-md-offset-4  col-sm-offset-2 col-xs-offset-1 text-center">
+      <div class="nav col-md-12 col-sm-12 col-xs-12">
+        <div class="row row-1">
+          <h3 class="yuansu ">元素</h3>
+          <h1 class="cailv ">彩铝智造</h1>
+        </div>
+        <a href="#" class="link row col-md-12 col-sm-10 col-xs-8">Already have a CLZC account?Sign in!</a>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <form class="form-horizontal" #Form="ngForm">
+          <div class="form-group ">
+            <label for="inputEmail3" class="col-md-2 col-sm-2 col-xs-2 control-label">User</label>
+            <div class="col-dm-8 col-sm-8 col-xs-7">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required minlength="2" #username="ngModel" [(ngModel)]="usernames" name="userN">
+              <div *ngIf="(username.errors?.required ) && username.touched"><span class="text">输入不能为空</span></div>
+              <div *ngIf="username.errors?.minlength"><span class="text">输入长度不少于2位</span></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-md-2 col-sm-2 col-xs-2 control-label">Password</label>
+            <div class="col-dm-8 col-sm-8 col-xs-7">
+              <input type="password" class="form-control" id="inputPassword3" placeholder="Password" #password="ngModel" required minlength="6"  [(ngModel)]="passwords" name="passW">
+              <div *ngIf="(password.errors?.required) && password.touched"><span class="text">输入不能为空</span></div>
+              <div *ngIf="password.errors?.minlength"><span class="text">输入长度不少于6位</span></div>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <input class="btn btn-default" type="submit" value="Sign In" [disabled]="!Form.form.valid" (click)="ToMain()">
+          <a href="#" class="pull-right">Forget Password?</a>
+        </div>
+      </div>
+      <div class="line col-md-12 col-xs-12">
+        <div class="h"><hr></div>
+        <div id="span1" class="">or Sign in with one click</div>
+        <div class="r"><hr></div>
+      </div>
+      <div  class="lv row col-md-12 col-sm-12 col-xs-12" >
+        <h6>铝合金辊涂板云端智能制造技术平台</h6>
+      </div>
+      <footer class="footer navbar-fixed-bottom ">
+        <div class="cl"><p>贵州中铝彩铝科技有限公司</p></div>
+        <div  class="hongniao"><p>贵阳红鸟智能技术服务有限公司</p></div>
+      </footer>
+    </div>
+  </div>
+</div>
+

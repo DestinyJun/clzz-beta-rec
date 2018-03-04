@@ -1,0 +1,51 @@
+li{
+  margin: 15px;
+  display: inline;
+  float: left;
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+ul,table{
+  font-size: 15px;
+  color: white;
+  list-style-type: none;
+  margin-left: -20px;
+}
+table{
+  margin-left: -80px;
+}
+a:hover{
+  text-decoration: none;
+  display: block;
+  color: #209e91;
+}
+.All_list{
+  margin-left: 0;
+  margin-top: 0;
+  background-color: rgba(33,51,63,0.9);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  color: white;
+}
+.Details{
+  margin-left: 0;
+  margin-top: 0;
+  color: white;
+  background-color: #21333f;
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  border-bottom: rgba(0,0,0,0.2);
+}
+.nav-tabs{
+  border-bottom: none;
+}
+.mnam:hover{
+  background-color:rgba(72,209,204,0.6);
+  border: none;
+}
+.nav-tabs > li.active > a{
+  background-color:rgba(0,255,255,0.1);
+}
+tbody:hover{
+  background-color:rgba(0,255,255,0.2);
+}

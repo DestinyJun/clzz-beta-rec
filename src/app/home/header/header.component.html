@@ -1,0 +1,81 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="container">
+    <div class="col-sm-3">
+      <span class="B">彩铝</span>
+      <a href="#" class="color">超级管理员</a>
+      <span class="lp glyphicon glyphicon-menu-hamburger"></span>
+      <span class="lo glyphicon glyphicon-search">
+        <input class="searchInput" type="text" placeholder="Search for...">
+      </span>
+    </div>
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="questions">
+          有问题？
+          <a class="email">color@aluminum.com</a>
+        </div>
+        <div class="menu">
+          <ul>
+            <li class="dropdown">
+              <a  class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-bell color"></i>
+                <span class="i color" style="background-color:#e85656;position:absolute; ">5</span>
+              </a >
+              <div class="dropdown-menu" style="position: absolute;top:30px;left: -220px;width: 300px; ">
+                <div class="drop_header1">
+                  <strong style="margin-left: 5px">Notifications</strong>
+                  <a style="margin-left: 55px">Settings</a>
+                  <a  style="margin-left: 10px">Mark All as Read</a>
+                </div>
+                <div class="drop_body1">
+                  <div *ngFor="let bell of bellLists;let i = index" class="text">
+                    <img src="{{img[i]}} " style="width:30px;height:30px;">
+                    <div>
+                      <div>{{bell.content}}</div>
+                      <span style="margin-left: 180px;">{{bell.time}}</span>
+                    </div>
+                  </div>
+                </div>
+                <a  style="padding: 0px 70px;;font-size: 8px;">See all notifications</a>
+              </div>
+            </li>
+            <li class="dropdown">
+              <a  class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-envelope color" ></i>
+                <span class="i color" style="background-color:#209e91;position: absolute;">5</span>
+              </a>
+              <div class="dropdown-menu" style="position: absolute;top:30px;left: -200px;width: 300px; ">
+                <div class="drop_header1">
+                  <strong style="margin-left: 5px">Messages</strong>
+                  <a  style="margin-left: 55px">Settings</a>
+                  <a  style="margin-left: 10px">Mark All as Read</a>
+                </div>
+                <div class="drop_body1">
+                  <div *ngFor="let bell of bellLists;let i = index" class="text">
+                    <img src="{{img[i]}}" style="width:30px;height:30px;">
+                    <div>
+                      <div>{{bell.content}}</div>
+                      <span style="margin-left: 180px;">{{bell.time}}</span>
+                    </div>
+                  </div>
+                </div>
+                <a  style="padding: 0px 70px;;font-size: 8px;">See all messages</a>
+              </div>
+            </li>
+          </ul>
+          <a  class="dropdown-toggle" data-toggle="dropdown" style="position: absolute;">
+            <i class="user n"></i>
+          </a>
+          <div class="dropdown-menu" style="position: absolute;top: 35px;left: 90%;" >
+            <ul style="margin: 0px;padding: 0px;color: #000;font-size: 10px;">
+              <li><a><i class="glyphicon glyphicon-user"></i>
+                Profile</a></li>
+              <li><a><i class="glyphicon glyphicon-cog"></i>
+                Settings</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

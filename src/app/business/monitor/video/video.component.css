@@ -1,0 +1,14 @@
+.Camera_select{
+  width: 200px;
+  height: 35px;
+  color: #ffffff;
+  font-size: 16px;
+  padding-left: 60px;
+  margin-bottom: 5%;
+  background-color: rgba(33,51,63,0.9);
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.5);
+  border-radius: 5px;
+}
+.Camera{
+  margin-bottom: 3%;
+}

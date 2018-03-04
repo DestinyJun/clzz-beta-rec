@@ -1,0 +1,61 @@
+<!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
+<div class="Event-DaMo">
+  <div class="row h2 text-center"><b>生产事件数据</b></div>
+  <div class="row"><input type="text" placeholder="请输入要搜索的事件"> <i class="fa fa-search"></i></div>
+  <div class="row">
+    <table class="table table-bordered">
+      <tr>   <th>编号</th>    <th>事件类型</th>  <th>时间</th>   <th>事件名称</th>  <th>附件</th>   </tr>
+      <tr *ngFor="let eventData of eventDatas,let i = index" (click)="eventDataDetail(i)" data-toggle="modal" data-target="#myModal" title="点击查看详情">
+        <td>{{eventData.eventNum}}</td>
+        <td>{{eventData.eventType}}</td>
+        <td>{{eventData.happenTime}}</td>
+        <td>{{eventData.eventName}}</td>
+        <td>{{eventData.attachment}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="modal" id="myModal">
+    <div class="modalContent">
+      <div class="row h2 text-center modalTitle">事件详情</div>
+      <div class="row">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md col-lg-6">
+                <div class="form-inline">
+                  <label >类型：</label>
+                  {{eventDatas[j].eventType}}
+                </div>
+                <div class="form-inline">
+                  <label >时间：</label>
+                  {{eventDatas[j].happenTime}}
+                </div>
+                <div class="form-inline">
+                  <label >事件名称：</label>
+                  {{eventDatas[j].eventName}}
+                </div>
+                <div class="form-inline">
+                  <label >事件描述：</label>
+                  {{eventDatas[j].attachment}}
+                </div>
+                <div class="form-inline">
+                  <label >事件描述：</label>
+                  {{eventDatas[j].eventDesc}}
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md col-lg-6">
+                <div class="thumbnail">
+                  <img src="http://via.placeholder.com/400x280" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>

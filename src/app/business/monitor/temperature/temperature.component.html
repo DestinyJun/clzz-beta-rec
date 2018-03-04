@@ -1,0 +1,10 @@
+<div *ngFor="let i of options" class="container-fluid All_list">
+  <div class="row ">
+    <div class="col-md-6">
+      <div echarts [options]="i.one"></div>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="i.two" echarts [options]="i.two"></div>
+    </div>
+  </div>
+</div>
