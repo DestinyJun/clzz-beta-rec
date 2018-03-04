@@ -1,25 +1,22 @@
 <div class="menu" (mouseleave)="onMouseleave()">
   <!--运动条-->
-  <div
-    #slidingBox class="sliding_box"
-    [ngStyle]="{height: slidinghight.toString()+'px',top:slidingTop.toString()+'px'}">
-  </div>
+  <div #slidingBox class="sliding_box" [ngStyle]="{height: slidinghight.toString()+'px',top:slidingTop.toString()+'px'}"></div>
   <!--导航-->
   <ul #mainul>
     <li
       #mainli *ngFor="let list of navLists;let j = index"
       [ngStyle]="{background:list.clsstate? '#209E91': ''}"
-    >
+      >
       <a
         #mainli_a [ngStyle]="{color:list.clsstate? 'white': ''}"
         (mouseenter)="mainLiMouseEnter(mainli_a)"
         (click)="mainLiClick(mainul,menuul,list)">
         <i style="margin-left:18px;margin-top: 12px;margin-right: 8px;font-size: 15px" class="glyphicon {{classname[j]}} pull-left"></i>
         <span>{{list.title}}</span>
-        <i
-          style="margin-right: 40px;margin-top: 12px; font-size: 15px" class="pull-right"
-          [ngClass]="{'fa': list.children.length, 'fa-angle-down': list.children.length}"
-          [ngStyle]="{transition: 'all 0.3s ease-out',transform: list.open?'rotate(0deg)':'rotate(180deg)'}"></i>
+        <i style="margin-right: 40px;margin-top: 12px; font-size: 15px" class="pull-right"
+           [ngClass]="{'fa': list.children.length, 'fa-angle-down': list.children.length}"
+           [ngStyle]="{transition: 'all 0.3s ease-out',transform: list.open?'rotate(0deg)':'rotate(180deg)'}"
+        ></i>
       </a>
       <ul
         class="menuul childlist" #menuul
