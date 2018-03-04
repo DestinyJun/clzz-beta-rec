@@ -1,0 +1,43 @@
+<div class="cd" style="width: 100%" >
+  <div class="All_list">
+    <div class="we"><span>成品入库</span></div>
+    <table width="90%" align="center" class="table-hover" cellpadding="0" cellspacing="0">
+      <tbody>
+      <tr>
+        <td width="5%" class="y">序号</td>
+        <td width="15%">合同名称</td>
+        <td width="10%">合同编号</td>
+        <td width="10%">产品编号</td>
+        <td width="10%">客户名称</td>
+        <td width="10%">入库时间</td>
+        <td width="10%">入库经办人</td>
+        <td width="10%">出库时间</td>
+        <td width="10%">出库经办人</td>
+      </tr>
+      <tr *ngFor="let order of orders" [routerLink]="['/main/order-information-page']">
+        <td width="5%" class="y">{{order.id}}</td>
+        <td width="15%">{{order.contracttitle}}</td>
+        <td width="10%">{{order.Serialnumber}}</td>
+        <td width="10%">{{order.customertitle}}</td>
+        <td width="10%">{{order.Productnumber}}</td>
+        <td width="10%">{{order.Storagetime}}</td>
+        <td width="10%">{{order.Warehousingagent}}</td>
+        <td width="10%">{{order.deliverytime}}</td>
+        <td width="10%">{{order.Warehousingagent}}</td>
+      </tr>
+      <tfoot>
+      <tr>
+        <td colspan="9" class="text-center"><div class="ng-isolate-scope">
+          <nav  class="ng-scope">
+            <ul class="pagination"><li class="o ng-scope"><a href="#"  class="ng-binding">1</a></li>
+              <li class="ng-scope"><a href="#" class="ng-binding">2</a></li>
+              <li class="ng-scope active"><a href="#" class="ng-binding">3</a></li>
+            </ul>
+          </nav>
+        </div>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

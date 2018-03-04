@@ -1,0 +1,28 @@
+.materialAudit{
+  background-color: #21333f;
+  border-radius: 5px;
+  color: #ffffff;
+  margin-left: 1.5%;
+}
+
+/*样式修改：ZL*/
+.first{
+  background-color:rgba(72,209,204,0.6);
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.first:hover{
+  background-color:#fff;
+  color:black;
+  transform: scale(1.1,1.1);
+}
+tbody tr:hover{
+  background-color:rgba(0,255,255,0.2);
+}
+input{
+  line-height: normal;
+  width: 60px;
+  height: 20px;
+}
+

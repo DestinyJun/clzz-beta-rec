@@ -1,0 +1,36 @@
+<!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
+<div class="All_list">
+  <div class="form-inline">
+    <label>订单查询</label>
+    <input type="text" class="form-control ListSearch" placeholder="搜索你的订单" [formControl]="auditTitle">
+    <i class="fa fa-search"></i>
+  </div>
+  <table class="table table-condensed">
+    <tr>
+      <th>订单编号</th>
+      <th>客户名称</th>
+      <th>合同名称</th>
+      <th>预计发货时间</th>
+      <th>录入人员</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    <tr *ngFor="let order  of orders" [routerLink]="['/main/order-query-detail', order['oid']]" title="点击查看订单详情">
+      <td>{{order['oid']}}</td>
+      <td>{{order['cname']}}</td>
+      <td>{{order['contractname']}}</td>
+      <td>{{order['exdelitime']}}</td>
+      <td>{{order['submitter']}}</td>
+      <td>{{order['ostatus']}}</td>
+      <td><button>删除</button><button [routerLink]="['/main/item']">修改</button></td>
+    </tr>
+  </table>
+  <div class="row order_footer">
+    <button type="button" class="btn btn-primary" (click)="ProPage()">上一页</button>
+    <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
+    共1页,跳到
+    <input type="number" title=""> 页
+  </div>
+</div>
+
+

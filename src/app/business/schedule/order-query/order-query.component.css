@@ -1,0 +1,123 @@
+/*主体样式*/
+.All_list{
+  color: #ffffff;
+  margin: 0 0 2%;
+  border-radius: 0 0 5px 5px;
+  border-top: 1px solid rgba(0,0,0,0.5);
+  background-color: rgba(33,51,63,0.9);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+}
+.form-inline{
+  text-align: center;
+}
+.form-inline label{
+  margin: 0.5% 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+.form-inline input{
+  margin: 0.5%;
+  float: right;
+  border: none;
+  background-color: rgba(0,0,0,0.4);
+}
+.form-inline input:focus,
+.form-inline input:hover{
+  border: none;
+  outline: none;
+}
+.form-inline i{
+  float: right;
+  margin: 0.5% 0;
+  padding: 0.5% 0;
+  font-size: 20px;
+  color: rgba(0,0,0,0.4);
+}
+.form-inline input:hover{
+  border: none;
+  outline: none;
+}
+.form-inline i:hover{
+  transform: scale(1.5,1.5);
+}
+.table-condensed tr:hover{
+  background-color:rgba(96,96,96,0.2);
+}
+.table-condensed tr td button{
+  margin-right: 5%;
+  border: 1px solid #ffffff;
+  background-color: rgba(0,0,0,0);
+}
+.table-condensed tr td button:hover{
+  transform: scale(1.2,1.2);
+}
+.order_footer{
+  text-align: center;
+  padding-bottom: 2%;
+}
+.order_footer input{
+  width: 50px;
+  height: 27px;
+  border: none;
+  padding-left: 1%;
+  border-radius: 3px;
+  background-color: rgba(0,0,0,0.4);
+}
+.order_footer .btn:focus{
+  border: none;
+  outline: none;
+}
+.order_footer .btn-primary{
+  margin-left: 20px;
+}
+
+/*公共样式*/
+table{
+  font-size: 16px;
+}
+.table tr td{
+  border-bottom: 1px solid rgba(192,192,192,0.5);
+}
+.table tr th,
+.table tr td{
+  padding: 1.5% 0 1.5% 2%;
+}
+
+/*详细信息样式*/
+.Details{
+  color: #ffffff;
+  margin: 0 0 2%;
+  padding: 2% 4%;
+  border-radius: 0 0 5px 5px;
+  border-top: 1px solid rgba(0,0,0,0.5);
+  background-color: rgba(33,51,63,0.9);
+}
+.Details button{
+  margin-left: 1%;
+}
+.Details button:hover{
+  transform: scale(1.2,1.2);
+}
+.Details_center{
+  margin-top: 2%;
+}
+.Details_center .text-center{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+.Details_center table td:hover{
+  background-color:rgba(96,96,96,0.2);
+}
+select,
+select > option{
+  width: 60%;
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  background-color: rgba(0,0,0,.3);
+}
+.pass{
+  margin-left: 300px;
+  margin-right: 100px;
+}

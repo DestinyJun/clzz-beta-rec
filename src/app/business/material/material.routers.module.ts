@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {MaterialComponent} from './material.component';
+import {MaterialEntryComponent} from './material-entry/material-entry.component';
+import {MaterialCheckComponent} from './material-check/material-check.component';
+import {MaterialMessageComponent} from './material-message/material-message.component';
 const mainRoutes: Routes = [
   {
     path: '',
     component: MaterialComponent,
     children: [
-      // {path: 'sensor', component: SensorComponent},
+      {path: 'matent', component: MaterialEntryComponent},
+      {path: 'matche', component: MaterialCheckComponent},
+      {path: 'matmes', component: MaterialMessageComponent}
     ]
   },
 ];

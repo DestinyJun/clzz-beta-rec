@@ -9,9 +9,9 @@ const mainRoutes: Routes = [
     path: '',
     component: EquipmentComponent,
     children: [
-      {path: 'devche', component: DeviceChangeComponent},
       {path: 'devhis', component: DeviceHistoryComponent},
       {path: 'devnew', component: DeviceNewComponent},
+      {path: 'devche', component: DeviceChangeComponent},
     ]
   },
 ];

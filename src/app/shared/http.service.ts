@@ -46,10 +46,7 @@ export class HttpService {
   }
 
 }
-export class NameId {
-  name: string|any;
-  id: string|any;
-}
+
 export class OrderList {
   constructor(
     public id: number,

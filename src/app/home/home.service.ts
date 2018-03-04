@@ -23,6 +23,7 @@ export class BellList {
 export class NavListChild {
   constructor(
     public title: string,
-    public setState: boolean
+    public setState: boolean,
+    public routers: string
   ) {}
 }
