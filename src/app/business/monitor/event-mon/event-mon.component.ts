@@ -25,7 +25,7 @@ export class EventMonComponent implements OnInit {
 export class EventDataMonitoring {
   constructor(
     public eventNum: string,
-    public eventType: string,
+    public eventTypes: string,
     public happenTime: string,
     public eventName: string,
     public attachment: string,

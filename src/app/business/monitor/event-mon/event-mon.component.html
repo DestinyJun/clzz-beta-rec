@@ -1,5 +1,5 @@
 <!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
-<div class="Event-DaMo">
+<!--<div class="Event-DaMo">
   <div class="row h2 text-center"><b>生产事件数据</b></div>
   <div class="row"><input type="text" placeholder="请输入要搜索的事件"> <i class="fa fa-search"></i></div>
   <div class="row">
@@ -7,7 +7,7 @@
       <tr>   <th>编号</th>    <th>事件类型</th>  <th>时间</th>   <th>事件名称</th>  <th>附件</th>   </tr>
       <tr *ngFor="let eventData of eventDatas,let i = index" (click)="eventDataDetail(i)" data-toggle="modal" data-target="#myModal" title="点击查看详情">
         <td>{{eventData.eventNum}}</td>
-        <td>{{eventData.eventType}}</td>
+        <td>{{eventData.eventTypes}}</td>
         <td>{{eventData.happenTime}}</td>
         <td>{{eventData.eventName}}</td>
         <td>{{eventData.attachment}}</td>
@@ -59,3 +59,4 @@
       </div>
     </div>
   </div>
+</div>-->

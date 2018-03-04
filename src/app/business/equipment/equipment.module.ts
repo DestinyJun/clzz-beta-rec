@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {NgxEchartsModule} from 'ngx-echarts';
 import {EquipmentRoutersModule} from './equipment.routers.module';
 import {EquipmentComponent} from './equipment.component';
 import {DeviceChangeComponent} from './device-change/device-change.component';
@@ -8,7 +9,8 @@ import {DeviceNewComponent} from './device-new/device-new.component';
 @NgModule({
   imports: [
     CommonModule,
-    EquipmentRoutersModule
+    NgxEchartsModule,
+    EquipmentRoutersModule,
   ],
   declarations: [
     EquipmentComponent,

@@ -50,18 +50,12 @@ export class SidebarComponent implements OnInit {
   public slidinghight: number;
   public slidingTop: number;
   public difulHeight: number;
-  PathContent: string;
-  mainli: any;
-  constructor(private homeService: HomeService, private router: Router) {
+  constructor(private router: Router) {
     this.slidinghight = 0;
     this.slidingTop = -120;
     this.difulHeight = 0;
   }
   ngOnInit() {}
-  pathContentClick(list) {
-    this.PathContent = list;
-  }
-
   onMouseleave() {
     this.slidingTop = -120;
   }
@@ -73,6 +67,7 @@ export class SidebarComponent implements OnInit {
     console.log(mainul, element, list);
     this.difulHeight = 0;
     if (!(list.children.length > 0)) {
+      this.router.navigate(['/home']);
       for (let i = 0; i < mainul.children.length; i++) {
         mainul.children[i].children[1].style.height = '0px';
       }
@@ -108,7 +103,6 @@ export class SidebarComponent implements OnInit {
     }
 
   }
-
   menuliMouseEnter(element) {
     this.slidingTop =  element.offsetTop;
     this.slidinghight = element.offsetHeight;
