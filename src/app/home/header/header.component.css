@@ -1,134 +1,44 @@
-.container{
-  height: 50px;
-  width: 100%;
-  float: left;
-  font-size: 24px;
-  margin-top: 12px;
+.logo{
+  font-size: 22px;
+  font-weight: bold;
+  color:#1F9B8F;
+  line-height: 66px;
+}
+.admin{
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.admin:hover{
   text-decoration: none;
 }
-.menu{
-  float: left;
-  margin-left: -60px;
+.title{
+  display: inline-block;
 }
-ul{
-  margin-right: 50px;
-  margin-left: 30px;
+.so-input{
+  display: inline-block;
+  line-height: 66px;
 }
-ul li{
-  list-style: none;
-  float: left;
-  padding: 0 10px;
+
+/*字体图标*/
+.fa-navicon{
+  margin-left: 15px;
+  font-size: 22px;
+  font-weight: 500;
 }
-.i{
-  border-radius:13px;
-  font-size: 5px;
-  margin-top: -20px;
-  width: 25%;
-  height: 8px;
-}
-span{
-  font-size: 1px;
-  padding: 0;
-  margin-top: -18px;
-}
-.glyphicon-bell:before{
-  margin-right: -4px;
-}
-.glyphicon-envelope:before{
-  margin-right: -4px;
-}
-.p{
-  font-size: 1px;
-  margin-top: -18px;
-  padding: 0;
+/*bootstrap改造*/
+.container-fluid{
+  padding-left: 0;
 }
 .navbar{
-  background-color: rgba(0,0,0,0.85);
-  margin: 0;
-  height: 10px;
-}
-.navbar-header{
-  font-family:  Roboto,sans-serif;
-}
-.col-sm-3{
-  font-size: 15px;
-}
-.col-sm-3,a{
-  text-decoration: none;
-}
-.color{
+  border-radius: 0;
+  background-color: rgba(0,0,0,.7);
+  box-shadow: 2px 0 3px rgba(0,0,0,.7);
+  height: 66px;
   color: white;
-}
-
-a:hover{
-  text-decoration: none;
-}
-.B{
-  color: #209e91;
-}
-.lp{
-  margin-left: 10px;
-  font-size: 13px;
-  color: white;
-  font-weight: lighter;
-}
-.lo{
-  font-size: 1px;
-  font-weight: lighter;
-  color: white;
-  margin-left: 10px;
-}
-.searchInput{
-  background: 0 0;
   border: none;
-  outline: 0;
-  width: 47px;
-  padding: 0;
-  margin-top: -6px;
-  height: 27px;
-}
-
-.row{
-  margin-top: 5px;
-  font-size: 10px;
-  float: right;
-  color: white;
-}
-.email{
-  color: #209e91;
-}
-.row span, .to{
-  margin-left: 10px;
-}
-.user{
-  width: 30px;
-  height: 30px;
-  border-radius: 40px;
-  background-color: bisque;
-  float: right;
-  margin-left: 10px;
-  margin-top: -9px;
-}
-.questions{
-  display: inline;
-  float: left;
-}
-.y{
-  margin-left: 10px;
-  border-radius: 40px;
-}
-.n{
-  margin-top: -20px;
-}
-.drop_header1{
-  color: #7d7d7d;
-  font-size: 8px;
-}
-.text{
-  text-indent: 2em;
-  font-size: 1px;
-  color: gray;
-}
-.menu a:hover{
-  cursor: pointer;
+  padding-left: 15px;
 }
