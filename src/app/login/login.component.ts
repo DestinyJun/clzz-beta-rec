@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +7,10 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  usernames: string;
-  passwords: string;
-  Login: Observable<any>;
-  LoginId: string;
-  cook: string;
-
+  public usernames: string;
+  public passwords: string;
   constructor(private route: Router) { }
-
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
   ToMain() {
     this.route.navigate(['/home']);
   }

@@ -1,114 +1,64 @@
-.box{
-  border: solid;
-  border-color:rgba(0,0,0,.55);
-  background:rgba(0,0,0,.55);
+.login{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.login-box{
+  width: 540px;
+  margin: 0 auto;
   border-radius: 5px;
+  background: rgba(0,0,0,.3);
   color: #fff;
-  text-align: center;
-  /*height:90%;*/
-  /*margin-left: 29%;*/
-  margin-top: 10%;
-  /*margin-top: 150px;*/
-  position: relative;
-  display: block;
+  padding: 32px;
 }
-.container{
-position: fixed;
+.form{
+  padding-right: 20px;
 }
-a{
-  text-decoration: none;
+.btn>span{
+  margin-left: 5px;
 }
-.row-1{
-  margin-left: 28%;
+.btn-primary{
+  border: 1px solid #FFFFFF;
+  border-radius: 5px;
+  background: transparent;
 }
-.yuansu{
-  margin-top:28px;
-  float: left;
-  color:#008B8B;
-  padding-left: 20px;
+.username-verification{
+  position: absolute;
+  top: 36px;
+  left: 16px;
+  color: #209E91;
 }
-.cailv{
-  float: left;
-  text-align: left;
-  padding-left:5px;
+.password-verification{
+  position: absolute;
+  top: 36px;
+  left: 16px;
+  color: #209E91;
 }
 
-.link{
-  display: block;
-  color:#008B8B;
-  margin-bottom:20px;
-  margin-top: 10px;
-  margin-left:auto;
-  padding-left: 30px;
-  letter-spacing: 1px;
+/*bootstrap改造*/
+.col-md-4{
+  position: relative;
 }
-.nav{
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-top: 20px;
-}
-.form-group{
-  margin-left: 20px;
-}
-.form-control{
-  background:rgba(0,0,0,.1);
-}
-.row{
-  overflow: visible;
-}
-.btn-default{
-  background:rgba(0,0,0,0);
-  color:#fff;
-  display: block;
-  float: left !important;
-  margin-left:10em;
+h4{
+  color: #209E91;
 }
 .pull-right{
-  display: block;
-  color:#008B8B;
-  float: right !important;
-  margin-right:7em;
+  color: #209E91;
 }
-.line{
-  height: 20px;
-  margin-top: 25px;
+.pull-right:hover{
+  color: #1F5752;
+  text-decoration: none;
 }
-#span1{
-  float: left;
-  margin-top: 10px;
-  /*margin-left: 20px;*/
-  margin-left: 10%;
+.form-group{
+  position: relative;
 }
-.h{
-  width:25%;
-  float: left;
-  /*margin-left:2em;*/
-}
-.r{
-  width:25%;
-  float: right;
-  /*margin-right:1.8em;*/
-}
-#icon1 {
-  list-style: none;
-  font-size: 40px;
-  color: #fff;
-  margin-bottom: 20px;
-}
-#icon1 > div {
-  float: left;
-  margin-top: 20px;
-  margin-right: 20px;
-}
-.text{
-  display: block;
-  color:#008B8B;
-  text-align: left;
-}
-.lv{
-  font-size: 4px;
-  margin-top: 55px;
-}
-input{
+.form-control{
+  background: transparent;
   color: white;
+  margin-bottom: 10px;
+}
+/*去掉google浏览器恶心的背景框*/
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
 }
