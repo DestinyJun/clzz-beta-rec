@@ -22,7 +22,48 @@
   display: inline-block;
   line-height: 66px;
 }
-
+.user{
+  padding-top: 10px;
+}
+.user>.user-remind,.user-photo{
+  display: inline-block;
+}
+.user-remind{
+  font-size: 18px;
+  position: relative;
+}
+.user-remind-top{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 15px;
+  background: #E85656;
+  color: white;
+  text-align: center;
+  line-height: 16px;
+  font-size: 12px;
+  padding-right: 2px;
+}
+.user-remind-circle{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+.user-photo>img{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #000;
+  overflow: hidden;
+  margin-left: 40px;
+}
 /*字体图标*/
 .fa-navicon{
   margin-left: 15px;
@@ -41,4 +82,7 @@
   color: white;
   border: none;
   padding-left: 15px;
+}
+.navbar-header{
+  float: none;
 }
