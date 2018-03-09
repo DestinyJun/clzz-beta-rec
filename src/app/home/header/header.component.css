@@ -18,19 +18,28 @@
 .title{
   display: inline-block;
 }
-.so-input{
-  display: inline-block;
-  line-height: 66px;
+.title>.admin{
+  cursor:pointer;
 }
+.title>.fa-navicon{
+  cursor:pointer;
+}
+
+
 .user{
   padding-top: 10px;
 }
 .user>.user-remind,.user-photo{
   display: inline-block;
+  position: relative;
 }
 .user-remind{
   font-size: 18px;
   position: relative;
+  cursor: pointer;
+}
+.user-remind>.fa-bell-o:hover{
+  color: #E85656;
 }
 .user-remind-top{
   width: 16px;
@@ -56,6 +65,31 @@
   border: 1px solid transparent;
   border-radius: 50%;
 }
+.user-remind-scroll{
+  position: absolute;
+  top: 50px;
+  left: -291px;
+  width: 315px;
+  color: #7D7D7D;
+  font-size: 12px;
+  max-height: 380px;
+  overflow: hidden;
+}
+.user-remind-scroll .rounded-circle-img{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.user-remind-scroll .list-group-item{
+  border-bottom: 2px solid #CCCCCC;
+  padding: 5px 15px;
+}
+.user-remind-scroll .text-timer{
+  display: inline-block;
+  position: absolute;
+  line-height: 36px;
+  right: 15px;
+}
 .user-photo>img{
   width: 45px;
   height: 45px;
@@ -63,7 +97,18 @@
   background: #000;
   overflow: hidden;
   margin-left: 40px;
+  cursor: pointer;
 }
+.user-photo-toggle{
+  position: absolute;
+  width: 150px;
+  color: #2B404E;
+  top: 57px;
+  left: -75px;
+
+}
+
+
 /*字体图标*/
 .fa-navicon{
   margin-left: 15px;
@@ -85,4 +130,16 @@
 }
 .navbar-header{
   float: none;
+}
+.list-group{
+
+}
+.list-group-item{
+  /*background-color:#FFFFFF;*/
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+.list-group-item>span{
+  margin-left: 10px;
 }

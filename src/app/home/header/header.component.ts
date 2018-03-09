@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HomeService} from '../home.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  public infoToggle: boolean;
+  public scrollToggle: boolean;
+  private navListToggle: boolean;
+  constructor(private homeService: HomeService) {
+    this.infoToggle = true;
+    this.scrollToggle = true;
+    this.navListToggle = true;
+  }
 
   ngOnInit() {
   }
+  public onToggleInfo(): void {
+    this.infoToggle = !this.infoToggle;
+  }
+  public onScrollToggle(): void {
+    this.scrollToggle = !this.scrollToggle;
+  }
+  public onNavListToggle(): void  {}
 
 }

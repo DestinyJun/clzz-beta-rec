@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import  'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class HomeService {
-  constructor() { }
+  public navListToggle: Subject<boolean> = new Subject<boolean>();
+  constructor() {
+
+  }
 }
+
 export class NavList {
   constructor(
     public title: string,
@@ -13,12 +18,6 @@ export class NavList {
     public children: NavListChild[],
     public open: boolean
   ) {}
-}
-export class BellList {
-  constructor(
-    public content: string,
-    public time: string
-) {}
 }
 export class NavListChild {
   constructor(

@@ -8,13 +8,40 @@
   background-color: rgba(0,0,0,0.5);
   overflow: hidden;
 }
-.sliding_box{
-  transition: all 0.2s ease-out;
-  position: absolute;
-  right: 0;
-  width: 5px;
-  background: #209E91;
+.menu-mainli{
+  cursor: pointer;
 }
+.menu-mainli>a{
+  padding-left: 15px;
+}
+.menu-mainli>a>span{
+  margin-left: 15px;
+}
+.menu-mainli-i-before{
+  margin-left:18px;
+  margin-top: 12px;
+  margin-right: 8px;
+  font-size: 12px
+}
+.menu-mainli-i-after{
+  transition: all 0.3s ease-out;
+  margin-right: 40px;
+  margin-top: 12px;
+  font-size: 15px
+}
+.menu-ul{
+  transition: all 0.5s ease-out;
+}
+.menu-ul>li{
+  cursor: pointer;
+}
+.menu-ul>li>a{
+  padding-left: 28px;
+}
+.menu-ul>li>a>span{
+  font-size: 13px;
+}
+
 ul{
   padding: 0;
   transition: all 0.5s ease-out;
@@ -47,5 +74,11 @@ a:hover{
 .pull-right{
   margin-right: 5px;
 }
-
+.sliding_box{
+  transition: all 0.2s ease-out;
+  position: absolute;
+  right: 0;
+  width: 5px;
+  background: #209E91;
+}
 

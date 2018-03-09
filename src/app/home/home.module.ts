@@ -6,6 +6,7 @@ import {HeaderComponent} from './header/header.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeService} from './home.service';
+import {PositionBarComponent} from './position-bar/position-bar.component';
 
 
 
@@ -18,7 +19,8 @@ import {HomeService} from './home.service';
     HomeComponent,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    PositionBarComponent
   ],
   providers: [HomeService],
   bootstrap: []

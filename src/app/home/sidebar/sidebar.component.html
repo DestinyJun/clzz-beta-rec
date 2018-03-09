@@ -3,27 +3,14 @@
   <div #slidingBox class="sliding_box" [ngStyle]="{height: slidinghight.toString()+'px',top:slidingTop.toString()+'px'}"></div>
   <!--导航-->
   <ul #mainul>
-    <li
-      #mainli *ngFor="let list of navLists;let j = index"
-      [ngStyle]="{background:list.clsstate? '#209E91': ''}"
-      >
-      <a
-        #mainli_a [ngStyle]="{color:list.clsstate? 'white': ''}"
-        (mouseenter)="mainLiMouseEnter(mainli_a)"
-        (click)="mainLiClick(mainul,menuul,list)">
-        <i style="margin-left:18px;margin-top: 12px;margin-right: 8px;font-size: 15px" class="glyphicon {{classname[j]}} pull-left"></i>
+    <li class="menu-mainli" #mainli *ngFor="let list of navLists;" [ngStyle]="{background:list.clsstate? '#209E91': ''}">
+      <a #mainli_a [ngStyle]="{color:list.clsstate? 'white': ''}" (mouseenter)="mainLiMouseEnter(mainli_a)" (click)="mainLiClick(mainul,menuul,list)">
+        <i class="menu-mainli-i-before pull-left" [class]="[list.icon]"></i>
         <span>{{list.title}}</span>
-        <i style="margin-right: 40px;margin-top: 12px; font-size: 15px" class="pull-right"
-           [ngClass]="{'fa': list.children.length, 'fa-angle-down': list.children.length}"
-           [ngStyle]="{transition: 'all 0.3s ease-out',transform: list.open?'rotate(0deg)':'rotate(180deg)'}"
-        ></i>
+        <i  class="menu-mainli-i-after pull-right" [ngClass]="{'fa': list.children.length, 'fa-angle-down': list.children.length}" [ngStyle]="{transform: list.open?'rotate(0deg)':'rotate(180deg)'}"></i>
       </a>
-      <ul
-        class="menuul childlist" #menuul
-        [ngStyle]="{transition: 'all 0.5s ease-out'}">
-        <li
-          *ngFor="let listchild of list.children"
-          #menuli [ngStyle]="{background:listchild.setState? '#209E91': ''}">
+      <ul class="menu-ul" #menuul>
+        <li *ngFor="let listchild of list.children" #menuli [ngStyle]="{background:listchild.setState? '#209E91': ''}">
           <a
             [routerLink]="[listchild.routers]"
             #menuli_a [ngStyle]="{color:listchild.setState? 'white': ''}"
