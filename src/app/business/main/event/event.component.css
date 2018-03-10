@@ -1,29 +1,55 @@
-.Event{
-  background-color:rgba(33,51,63,0.9);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-  border-radius: 5px;
-  width: 100%;
+.event-list{
+  color: white;
+  background: rgba(55,96,108,0.3);
 }
-table th,td{
-  font-family: sans-serif;
+.event-list-title{
+  border-bottom: 1px solid rgba(255,255,255,0.3);;
+}
+.event-list-table{
+
+}
+.event-list-title>p{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 10px 5px 15px;
+  margin-bottom: 0;
+}
+.event-list-title>.btn-group{
+  padding: 12px 10px;
+}
+.form-control{
+  background: none;
+  border: none;
+  color: white;
+}
+
+/*公共类 清除浮动 内墙法*/
+.cl{
+  clear: both;
+}
+/*bootstrap改造*/
+.dropdown-menu{
+  top: 43px;
+  left: 10px;
+  min-width: 20px;
+  width: 136px;
+  background-color: rgba(255,255,255,0.1);
+}
+.dropdown-item{
+  padding: 5px 5px;
+  cursor: pointer;
+  color: white;
+}
+.dropdown-item:hover{
+  background: #5BC0DE;
+}
+.btn-primary{
+  background-color: rgba(94,107,118,0.3);
+  border: none;
+}
+.open > .dropdown-toggle.btn-primary{
   color: #fff;
-  padding: 1% 2%;
+  background-color: rgba(94,107,118,0.3);;
+  border: none;
 }
-.modal-dialog {
-  width: 50%;
-}
-.modal-table td{
-  font-family: sans-serif;
-  color: #000000;
-}
-tr:hover{
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.col-md-12 a:hover{
-  cursor: pointer;
-}
-.line{
-  border-bottom: 1px solid rgba(0,0,0,.12);
-  box-shadow: 0 1px 0 0 rgba(255,255,255,.12);
-}
+

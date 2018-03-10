@@ -7,12 +7,15 @@ import {EventComponent} from './event/event.component';
 import {ProductionComponent} from './production/production.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {ListComponent} from './list/list.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   imports: [
     CommonModule,
     MainRoutersModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    BsDropdownModule.forRoot(),
   ],
   declarations: [
     MainComponent,
