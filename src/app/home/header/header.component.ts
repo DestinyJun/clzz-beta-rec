@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../home.service';
 
 @Component({
@@ -6,40 +6,48 @@ import {HomeService} from '../home.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
+  @ViewChild('userRemindScroll')
+   userRemindScroll: ElementRef;
   public infoToggle: boolean;
   public scrollToggle: boolean;
   public navListToggle: boolean;
   public userReminds: UserRemind[];
   public userRemindsChange: any;
-  public numbers: Array<number> = [4, 9, 16, 25];
+  public scrollBarHeight: number;
   constructor(private homeService: HomeService) {
     this.infoToggle = true;
     this.scrollToggle = true;
     this.navListToggle = true;
     this.userReminds = [
-      new UserRemind('故障！', '../../../assets/images/Nasta.png', '一号仓库电机组出现故障', '2018/03/11 19:30:22'),
-      new UserRemind('操作：', '../../../assets/images/Nasta.png', '生产订单添加成功', '2018/03/11 20:03:11'),
-      new UserRemind('警告！：', '../../../assets/images/Nasta.png', '油漆数量不足', '2018/03/11 20:11:35')
+      new UserRemind('danger', '../../../assets/images/Nasta.png', '故障！一号仓库电机组出现故障', new Date('2018/03/11 22:03:11')),
+      new UserRemind('success', '../../../assets/images/Nasta.png', '操作：生产订单添加成功', new Date('2018/03/11 20:03:11')),
+      new UserRemind('warning', '../../../assets/images/Nasta.png', '警告！油漆数量不足', new Date('2018/03/11 20:11:35'))
     ];
-
     this.userRemindsChange = this.userReminds.map((n, index, obj) => {
-      n.userTime = this.getDateDiff(new Date(), n.userTime);
+        n.userTime = this.getDateDiff(new Date(), n.userTime);
+        return obj;
     });
-    console.log(this.userRemindsChange);
   }
 
   ngOnInit() {
   }
-  public onToggleInfo(): void {
-    this.infoToggle = !this.infoToggle;
-  }
-  public onScrollToggle(): void {
-    this.scrollToggle = !this.scrollToggle;
+  ngAfterViewInit(): void {
+    console.log(this.userRemindScroll);
   }
   public onNavListToggle(): void  {}
-  public getDateDiff (nowTime: any, startTime: any): any {
-    let diffTime: any = new Date(nowTime) - new Date(startTime);
+  public onScrollToggle(event): void {
+    if (event.target.innerText === '关闭') {
+      this.scrollToggle = true;
+      return;
+    }
+      this.scrollToggle = !this.scrollToggle;
+  }
+  public onToggleInfo(event): void {
+      this.infoToggle = !this.infoToggle;
+  }
+  public getDateDiff (nowTime: Date, startTime: Date): any {
+    let diffTime = new Date(nowTime) - new Date(startTime);
     let hour = '';
     let minute = '';
     if (((diffTime / 1000) / 60) / 60 > 1) {
@@ -59,6 +67,6 @@ export class UserRemind {
     public classFlag: string,
     public userPhoto: string,
     public userMessage: string,
-    public userTime: string
+    public userTime: Date
   ) {}
 }
