@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../home.service';
+import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +8,23 @@ import {HomeService} from '../home.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-  @ViewChild('userRemindScroll')
-   userRemindScroll: ElementRef;
+  @ViewChild('userRemindScrollContent')
+  userRemindScrollContent: ElementRef; // 大盒子
+  @ViewChild('scrollBox')
+  scrollBox: ElementRef; // 滚动盒子
+  @ViewChild('scrollBoxBar')
+  scrollBoxBar: ElementRef; // 滚动条
+  @ViewChild('scrollListGroup')
+  scrollListGroup: ElementRef; // 内容盒子
   public infoToggle: boolean;
   public scrollToggle: boolean;
   public navListToggle: boolean;
   public userReminds: UserRemind[];
   public userRemindsChange: any;
+  public bigBoxHeight: number;
+  public contentBoxHeight: number;
   public scrollBarHeight: number;
+  public barBoxHeight: string;
   constructor(private homeService: HomeService) {
     this.infoToggle = true;
     this.scrollToggle = true;
@@ -29,11 +39,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         return obj;
     });
   }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
   ngAfterViewInit(): void {
-    console.log(this.userRemindScroll);
+    let t: number;
+    console.log(this.userRemindScrollContent.nativeElement.offsetHeight);
+    this.bigBoxHeight = this.userRemindScrollContent.nativeElement.offsetHeight;
+    this.contentBoxHeight = this.scrollListGroup.nativeElement.offsetHeight;
+    t =  this.bigBoxHeight / this.contentBoxHeight * this.bigBoxHeight;
+    console.log(t);
+    this.barBoxHeight = t.toString() + 'px';
   }
   public onNavListToggle(): void  {}
   public onScrollToggle(event): void {
@@ -46,8 +60,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public onToggleInfo(event): void {
       this.infoToggle = !this.infoToggle;
   }
-  public getDateDiff (nowTime: Date, startTime: Date): any {
-    let diffTime = new Date(nowTime) - new Date(startTime);
+  public getDateDiff (nowTime: Date, endTime: Date): any {
+    let t1 = new Date(nowTime).getTime();
+    let t2 = new Date(endTime).getTime();
+    let diffTime =  t1 - t2 ;
     let hour = '';
     let minute = '';
     if (((diffTime / 1000) / 60) / 60 > 1) {

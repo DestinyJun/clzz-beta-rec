@@ -21,6 +21,7 @@ export class SensorComponent implements OnInit {
   NoDataSensorJson: any;
   option: any;
   SetMap: any;
+  Modularname: string;
   constructor(private activatedRoute: ActivatedRoute,
               private httpSensor: HttpClient,
               private httpAdmin: HttpClient,
@@ -31,8 +32,9 @@ export class SensorComponent implements OnInit {
     this.DeviceSensorInit(this.ModularId);
   }
   ModularIdInit(i) {
-    this.DeviceSensorInit(i);
-    this.ModularId = i;
+    this.DeviceSensorInit(i['mid']);
+    this.ModularId = i['mid'];
+    this.Modularname = i['mname'];
   }
   // 获取系统下模块
   ModularInit() {
@@ -82,7 +84,7 @@ export class SensorComponent implements OnInit {
         const length = this.DeviceSensorJson.length;
         if (length === 0) {
           for (let i = 0; i < lengthNo; i++) {
-            putData.push({'Name': this.NoDataSensorJson[i], 'data': '无数据'});
+            putData.push({'Name': this.NoDataSensorJson[i], 'data': '---'});
           }
         } else {
           for (let i = 0; i < lengthNo; i++) {
@@ -90,7 +92,7 @@ export class SensorComponent implements OnInit {
               if (this.NoDataSensorJson[i]['sid'] === this.DeviceSensorJson[j]['sid']) {
                 putData.push({'Name': this.NoDataSensorJson[i], 'data': this.DeviceSensorJson[j]['sdata']});
               } else if (j === length - 1) {
-                putData.push({'Name': this.NoDataSensorJson[i], 'data': '无数据'});
+                putData.push({'Name': this.NoDataSensorJson[i], 'data': '---'});
               }
             }
           }
