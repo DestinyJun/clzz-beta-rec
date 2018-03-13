@@ -1,64 +1,39 @@
 <!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
-<div class="All_list" style="height: 780px; margin-top: -10px">
-  <table class="table-bordered" width="95%">
-    <!--模块-->
-    <tr>
-      <td width="20%" style="color: white" >
-        生产模块
-      </td>
-      <td width="80%" >
-        <ul *ngFor="let i of Modular">
-          <li (click)="DeviceInit(i.id)">{{i.name}}</li>
-        </ul>
-      </td>
-    </tr>
-    <!--设备-->
-    <tr>
-      <td width="20%" style="color: white" >
-        生产设备
-      </td>
-      <td width="80%" >
-        <ul *ngFor="let i of Device">
-          <li (click)="SensorInit(i.id)" data-toggle="modal" data-target="#SensorModal" aria-label="Close">{{i.name}}</li>
-        </ul>
-      </td>
-    </tr>
-  </table>
-  <div class="row">
-    <div class="col-xs-12 col-12 col-md-4 form-group">
-      <input title="" class="form-control" #drp>
-    </div>
-    <div class="col-xs-12 col-12 col-md-3 form-group">
-      <button class="btn btn-success" (click)="drp.toggle()">Date Range Picker</button>
-    </div>
+<div class="panel-heading">
+  <span>传感器历史数据</span>
+  <!--     分割线      -->
+  <div class="dropdown pull-right">
+    <button class="btn btn-xs btn-info" id="dLabel3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      传感器
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dLabel3">
+      <li *ngFor="let i of Sensor" (click)="MapChart(i.id, i.name)">{{i.name}}</li></ul>
   </div>
+  <!--     分割线         -->
+  <div class="dropdown pull-right">
+    <button class="btn btn-xs btn-info" id="dLabel2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      生产设备
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dLabel2">
+      <li *ngFor="let i of Device" (click)="SensorInit(i.id)" data-toggle="modal" data-target="#SensorModal" aria-label="Close">{{i.name}}</li>
+    </ul>
+  </div>
+  <!--           分割线           -->
+  <div class="dropdown pull-right">
+    <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      生产模块
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dLabel">
+      <li *ngFor="let i of Modular" (click)="DeviceInit(i.id)">{{i.name}}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="panel-body">
   <div echarts [options]="option"></div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="SensorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">传感器</h4>
-      </div>
-      <div class="modal-body">
-        <table>
-          <!--传感器-->
-          <tr>
-            <td width="100%" >
-              <ul *ngFor="let i of Sensor">
-                <li (click)="MapChart(i.id, i.name)" style="color: black" data-dismiss="modal">{{i.name}}</li>
-              </ul>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 

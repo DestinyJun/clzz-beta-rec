@@ -1,12 +1,10 @@
 .event-list{
   color: white;
   background: rgba(55,96,108,0.3);
+  height: 500px;
 }
 .event-list-title{
   border-bottom: 1px solid rgba(255,255,255,0.3);;
-}
-.event-list-table{
-
 }
 .event-list-title>p{
   font-size: 20px;
@@ -17,6 +15,30 @@
 .event-list-title>.btn-group{
   padding: 12px 10px;
 }
+
+.event-list-table{
+  height: 400px;
+  overflow: hidden;
+}
+
+.event-list-footer{
+  margin-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+.event-list-footer>a{
+  color: white;
+  text-decoration: none;
+}
+.event-list-footer>a:hover{
+ text-decoration: none;
+  cursor: pointer;
+}
+
+
+
 .form-control{
   background: none;
   border: none;

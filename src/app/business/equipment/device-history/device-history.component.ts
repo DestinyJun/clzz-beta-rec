@@ -115,7 +115,7 @@ export class DeviceHistoryComponent implements OnInit {
             }
           },
           title: {
-            left: 'center',
+            left: 'left',
             text: SensorName + '数据图',
             textStyle: {
               color: '#fff'
