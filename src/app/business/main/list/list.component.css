@@ -1,48 +1,30 @@
-.All_list{
-  margin-left: 0;
-  margin-top: 0;
-  background-color: rgba(33,51,63,0.9);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-  border-radius: 5px;
-}
-table{
-  background-color: transparent;
-  font-family: sans-serif;
+.order-list{
   color: white;
+  background: rgba(55,96,108,0.3);
+  min-height: 300px;
 }
-.orderlist{
-  width: 100%;
+.order-list-title{
+  border-bottom: 1px solid rgba(255,255,255,0.3);;
 }
-.table-stripe{
-  opacity: 0.5;
+.order-list-title>p{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 10px 5px 15px;
+  margin-bottom: 0;
 }
-.orderlist th,td{
-  padding: 8px;
-  border-bottom: .1em solid rgba(192,192,192,0.5);
-}
-
-.orderlist tr:hover{
-  background-color:rgba(96,96,96,0.5);
-}
-::-webkit-scrollbar{
-  width: .2em;
-}
-::-webkit-scrollbar-thumb{
-  background: rgba(0,0,0,.4);
+.order-list-title>.pull-right{
+  padding: 12px 10px;
   cursor: pointer;
 }
-::-webkit-scrollbar-thumb{
-  background: #d9d9d9;
+.order-list-title>.pull-right>a{
+  color: white;
+  text-decoration: none;
+}
+.order-list-title>.pull-right>a:hover{
+  text-decoration: none;
   cursor: pointer;
 }
-tr:hover{
-  cursor: pointer;
+/*公共类 清除浮动 内墙法*/
+.cl{
+  clear: both;
 }
-.title a:hover{
-  cursor: pointer;
-}
-.line{
-  border-bottom: 1px solid rgba(0,0,0,.12);
-  box-shadow: 0 1px 0 0 rgba(255,255,255,.12);
-}
-

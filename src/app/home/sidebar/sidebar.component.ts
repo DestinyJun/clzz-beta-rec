@@ -62,7 +62,6 @@ export class SidebarComponent implements OnInit {
     this.slidinghight = element.offsetHeight;
   }
   mainLiClick(mainul, element, list) {
-    console.log(mainul, element, list);
     this.difulHeight = 0;
     if (!(list.children.length > 0)) {
       this.router.navigate(['/home']);

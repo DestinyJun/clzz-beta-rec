@@ -20,9 +20,7 @@ export class ListComponent implements OnInit {
     this.orderlist = this.http
       .post('http://120.78.137.182/element/See-Orders', body);
       this.orderlist.subscribe(data => {
-        console.log(data);
         this.Order = data['values'];
-        console.log(this.Order);
       });
   }
 

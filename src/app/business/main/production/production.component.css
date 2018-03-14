@@ -1,3 +1,35 @@
+.product-list{
+  color: white;
+  background: rgba(55,96,108,0.3);
+  height: 500px;
+}
+.product-list-title{
+  border-bottom: 1px solid rgba(255,255,255,0.3);;
+}
+.product-list-title>p{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 10px 15px 15px;
+  margin-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .select{
   color: #21333f;
 }

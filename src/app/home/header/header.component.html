@@ -7,14 +7,24 @@
         <i class="fa fa-navicon" (click)="onNavListToggle()"></i>
       </div>
       <div class="user pull-right">
-        <div class="user-remind" (click)="onScrollToggle()">
+        <div class="user-remind" (click)="onScrollToggle($event)">
           <i class="fa fa-bell-o" aria-hidden="true"></i>
           <div class="user-remind-top">
             <span>5</span>
           </div>
-          <div class="user-remind-circle"></div>
-          <div class="user-remind-scroll" [hidden]="scrollToggle">
-            <ul class="list-group">
+          <!--<div class="user-remind-circle"></div>-->
+        </div>
+        <div  class="user-remind-scroll" [hidden]="scrollToggle">
+          <div class="user-remind-scroll-h4">
+            <span class="pull-left">信息通知</span>
+            <span class="pull-right" (click)="onScrollToggle($event)">关闭</span>
+            <div class="cl"></div>
+          </div>
+          <div class="user-remind-scroll-content" #userRemindScrollContent>
+            <div class="scroll-box" #scrollBox>
+              <div class="scroll-box-bar" #scrollBoxBar [ngStyle]="{height: '30px'}"></div>
+            </div>
+            <ul class="list-group" #scrollListGroup>
               <li class="list-group-item list-group-item-danger">
                 <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
                 <span>故障！一号仓库电机组出现故障！</span>
@@ -78,7 +88,7 @@
             </ul>
           </div>
         </div>
-        <div class="user-photo" (click)="onToggleInfo()">
+        <div class="user-photo" (click)="onToggleInfo($event)">
           <img class="rounded-circle" src="../../../assets/images/Nasta.png" alt="">
           <div class="user-photo-toggle" [hidden]="infoToggle">
             <ul class="list-group">

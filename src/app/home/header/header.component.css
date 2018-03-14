@@ -65,31 +65,62 @@
   border: 1px solid transparent;
   border-radius: 50%;
 }
+.user-remind-scroll-h4{
+   background: #FFFFFF;
+   font-size: 14px;
+   line-height: 20px;
+   padding: 5px 15px;
+   color: #249F93;
+ }
+.user-remind-scroll-h4>span:nth-child(2):hover{
+  cursor: pointer;
+}
+
 .user-remind-scroll{
   position: absolute;
-  top: 50px;
-  left: -291px;
+  top: 67px;
+  right: 102px;
   width: 315px;
   color: #7D7D7D;
   font-size: 12px;
-  max-height: 380px;
+}
+.user-remind-scroll>.user-remind-scroll-content{
+  position: relative;
+  height: 300px;
   overflow: hidden;
 }
-.user-remind-scroll .rounded-circle-img{
+.user-remind-scroll-content>.scroll-box{
+  width: 5px;
+  height: 300px;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  position: absolute;
+}
+.user-remind-scroll-content>.scroll-box>.scroll-box-bar{
+  width: 5px;
+  background: #808080;
+}
+.user-remind-scroll-content>.scroll-box>.scroll-box-bar:hover{
+  cursor: pointer;
+}
+
+.user-remind-scroll .list-group .rounded-circle-img{
   width: 36px;
   height: 36px;
   border-radius: 50%;
 }
-.user-remind-scroll .list-group-item{
+.user-remind-scroll .list-group .list-group-item{
   border-bottom: 2px solid #CCCCCC;
   padding: 5px 15px;
 }
-.user-remind-scroll .text-timer{
+.user-remind-scroll .list-group .text-timer{
   display: inline-block;
   position: absolute;
   line-height: 36px;
   right: 15px;
 }
+
 .user-photo>img{
   width: 45px;
   height: 45px;
@@ -115,6 +146,7 @@
   font-size: 22px;
   font-weight: 500;
 }
+
 /*bootstrap改造*/
 .container-fluid{
   padding-left: 0;
@@ -131,9 +163,6 @@
 .navbar-header{
   float: none;
 }
-.list-group{
-
-}
 .list-group-item{
   /*background-color:#FFFFFF;*/
   border: none;
@@ -142,4 +171,11 @@
 }
 .list-group-item>span{
   margin-left: 10px;
+}
+.cl{
+  clear: both;
+}
+.list-group-item:first-child {
+   border-top-left-radius: 0;
+   border-top-right-radius: 0;
 }

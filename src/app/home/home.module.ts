@@ -7,6 +7,7 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeService} from './home.service';
 import {PositionBarComponent} from './position-bar/position-bar.component';
+import { MessageRemindComponent } from '../message-remind/message-remind.component';
 
 
 
@@ -20,7 +21,8 @@ import {PositionBarComponent} from './position-bar/position-bar.component';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    PositionBarComponent
+    PositionBarComponent,
+    MessageRemindComponent
   ],
   providers: [HomeService],
   bootstrap: []
