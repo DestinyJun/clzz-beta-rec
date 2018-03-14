@@ -1,28 +1,38 @@
-<div class="All_list container-fluid">
-  <div class="title line" style="margin: 1% 0 1% 0;padding-bottom: 1%;">
-    <b style="font-size: 20px;margin-left: 1%;color:rgba(255,255,255,0.9);">订单列表</b>
-    <a style="margin-left: 85%;text-decoration: none;color: white;font-size: 15px;" routerLink="/main/order-query">查看更多</a>
-  </div>
-    <div class="list1 table-responsive" style="border-radius: 5px;margin-right: 1%;">
-      <table class="orderlist" >
-        <thead>
-          <tr>
-            <th><input type="checkbox" title=""></th>
-            <th>ID</th>
-            <th>公司名</th>
-            <th>信息</th>
-            <th>时间</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let list of Order" [routerLink]="['/main/ymain/details', list['oid']]">
-            <td><input type="checkbox" title=""></td>
-                <td>{{list['oid']}}</td>
-                <td>{{list['cname']}}</td>
-                <td>{{list['submitter']}}</td>
-                <td>{{list['subtime']}}</td>
-          </tr>
-          </tbody>
-        </table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="clo-md-12">
+      <div class="order-list">
+        <div class="order-list-title">
+          <p class="pull-left">订单列表</p>
+          <div class="pull-right">
+            <a style="">查看更多</a>
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </div>
+          <div class="cl"></div>
+        </div>
+        <div class="order-list-table">
+          <table class="table" >
+            <thead>
+            <tr>
+              <th><input type="checkbox" title=""></th>
+              <th>ID</th>
+              <th>公司名</th>
+              <th>信息</th>
+              <th>时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let list of Order" [routerLink]="['/main/ymain/details', list['oid']]">
+              <td><input type="checkbox" title=""></td>
+              <td>{{list['oid']}}</td>
+              <td>{{list['cname']}}</td>
+              <td>{{list['submitter']}}</td>
+              <td>{{list['subtime']}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

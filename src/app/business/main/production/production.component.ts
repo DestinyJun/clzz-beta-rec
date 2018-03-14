@@ -131,7 +131,6 @@ export class ProductionComponent implements OnInit {
   ngOnInit() {}
 
   ReSize(event) {
-    console.log(event);
     this.ModalChart = event;
   }
     ReSizeInit() {

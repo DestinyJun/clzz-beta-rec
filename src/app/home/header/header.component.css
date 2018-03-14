@@ -105,7 +105,6 @@
   cursor: pointer;
 }
 
-
 .user-remind-scroll .list-group .rounded-circle-img{
   width: 36px;
   height: 36px;
@@ -147,6 +146,7 @@
   font-size: 22px;
   font-weight: 500;
 }
+
 /*bootstrap改造*/
 .container-fluid{
   padding-left: 0;
@@ -162,9 +162,6 @@
 }
 .navbar-header{
   float: none;
-}
-.list-group{
-
 }
 .list-group-item{
   /*background-color:#FFFFFF;*/

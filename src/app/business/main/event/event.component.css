@@ -15,6 +15,9 @@
 .event-list-title>.btn-group{
   padding: 12px 10px;
 }
+.event-list-title .dropdown-menu{
+  background: rgba(21,30,38,0.9);
+}
 
 .event-list-table{
   height: 400px;
