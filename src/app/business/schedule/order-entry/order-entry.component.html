@@ -1,239 +1,227 @@
-<div class="container-fluid">
-  <div class="order-entry">
-    <div class="order-entry-title">
-      <h4>营销订单录入：</h4>
+<div class="panel-heading">
+  <span>营销订单录入</span>
+</div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">铝板面积</label>
+        <input class="form-control" type="number" id="" [(ngModel)]="Area" >
+      </div>
     </div>
-    <div class="order-entry-form">
-      <form name="" role="form">
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">铝板面积</label>
-              <input class="form-control" type="number" id="" [(ngModel)]="Area" >
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">单价(元/平米)</label>
-              <input class="form-control" type="number" id="" [(ngModel)]="price" >
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">总金额(元)</label>
-              <input class="form-control" type="number" id="" [(ngModel)]="amount" >
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">订单编号</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="oid">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">合同名</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="contractname">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">客户名称</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="cname">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">铝卷厚度</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="Althickness">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">铝卷宽度</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="Alwidth" >
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">材质类型</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="Altype" >
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">面漆方案</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="fprogram">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">底漆方案</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="pprogram" >
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">背漆方案</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="bprogram"  >
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">面漆颜色</label>
-              <select class="form-control" [(ngModel)]="ftype" title="">
-                <option>AOOOOO-白色</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">面漆厚度</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="fthickness">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">面漆成像</label>
-              <select class="form-control" [(ngModel)]="fccd" title="">
-                <option>XXX漆</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">底漆颜色</label>
-              <select class="form-control" [(ngModel)]="ptype" title="">
-                <option>AOOOOO-白色</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">底漆厚度</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="pthickness">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">底漆成像</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="pccd">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">背漆颜色</label>
-              <select class="form-control" [(ngModel)]="btype" title=""><option>AOOOOO-白色</option></select>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">背漆厚度</label>
-              <input class="form-control" type="number" id="" [(ngModel)]="bchickness">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">背漆成像</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="bccd">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">是否双面涂</label>
-              <select class="form-control" [(ngModel)]="doublecloat" title="">
-                <option>1</option>
-                <option>0</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">是否有花纹</label>
-              <select class="form-control" [(ngModel)]="figura" title="">
-                <option>0</option>
-                <option>1</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">生产线</label>
-              <select class="form-control" [(ngModel)]="pro_system" title="">
-                <option >1号生产线</option>
-                <option>2号生产线</option>
-                <option>3号生产线</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">国家</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="country">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">城市</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="province">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">省份</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="city">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">预计交货时间</label>
-              <input class="form-control" type="date" id="" [(ngModel)]="exdelitime">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">预计发货时间</label>
-              <input class="form-control" type="date" id="" [(ngModel)]="exshiptime">
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">联系方式</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="tel">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-4">
-            <div class="form-group">
-              <label class="control-label" for="">地址详情</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="address">
-            </div>
-          </div>
-        </div>
-      </form>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">单价(元/平米)</label>
+        <input class="form-control" type="number" id="" [(ngModel)]="price" >
+      </div>
     </div>
-    <div class="order-entry-button">
-      <button class="btn btn-default">保存</button>
-      <button class="btn btn-default" (click)="Submit()">提交</button>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">总金额(元)</label>
+        <input class="form-control" type="number" id="" [(ngModel)]="amount" >
+      </div>
     </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">订单编号</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="oid">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">合同名</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="contractname">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">客户名称</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="cname">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">铝卷厚度</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="Althickness">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">铝卷宽度</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="Alwidth" >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">材质类型</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="Altype" >
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">面漆方案</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="fprogram">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">底漆方案</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="pprogram" >
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">背漆方案</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="bprogram"  >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">面漆颜色</label>
+        <select class="form-control" [(ngModel)]="ftype" title="">
+          <option>AOOOOO-白色</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">面漆厚度</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="fthickness">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">面漆成像</label>
+        <select class="form-control" [(ngModel)]="fccd" title="">
+          <option>XXX漆</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">底漆颜色</label>
+        <select class="form-control" [(ngModel)]="ptype" title="">
+          <option>AOOOOO-白色</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">底漆厚度</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="pthickness">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">底漆成像</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="pccd">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">背漆颜色</label>
+        <select class="form-control" [(ngModel)]="btype" title=""><option>AOOOOO-白色</option></select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">背漆厚度</label>
+        <input class="form-control" type="number" id="" [(ngModel)]="bchickness">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">背漆成像</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="bccd">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">是否双面涂</label>
+        <select class="form-control" [(ngModel)]="doublecloat" title="">
+          <option>1</option>
+          <option>0</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">是否有花纹</label>
+        <select class="form-control" [(ngModel)]="figura" title="">
+          <option>0</option>
+          <option>1</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">生产线</label>
+        <select class="form-control" [(ngModel)]="pro_system" title="">
+          <option >1号生产线</option>
+          <option>2号生产线</option>
+          <option>3号生产线</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">国家</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="country">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">城市</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="province">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">省份</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="city">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">预计交货时间</label>
+        <input class="form-control" type="date" id="" [(ngModel)]="exdelitime">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">预计发货时间</label>
+        <input class="form-control" type="date" id="" [(ngModel)]="exshiptime">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">联系方式</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="tel">
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <div class="form-group">
+        <label class="control-label" for="">地址详情</label>
+        <input class="form-control" type="text" id="" [(ngModel)]="address">
+      </div>
+    </div>
+  </div>
+  <div class="pull-left">
+    <button class="btn btn-default">保存</button>
+    <button class="btn btn-default" (click)="Submit()">提交</button>
   </div>
 </div>

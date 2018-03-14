@@ -1,36 +1,21 @@
-.order-entry{
+.panel-heading{
   color: #ffffff;
-  border-radius: 5px;
-  background: rgba(55,96,108,0.3);
+  border-radius: 5px 5px 0 0;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.8);
 }
-.order-entry-title{
-  padding: 1% 0 0.5% 2%;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+.panel-body{
+  color: white;
+  border-radius: 0 0 5px 5px;
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
-.form-group{
-  clear: none;
-  padding: 7% 10% 0 10%;
-}
-.control-label{
-  text-align: center;
-  font-size: 15px;
-}
-.form-control{
-  width: 60%;
-  float: right;
-  border: none;
-  border-radius: 3px;
-  background-color: rgba(0,0,0,0.2);
-}
-.order-entry-button{
-  padding: 1% 0;
-  text-align: center;
-}
-.order-entry-button button{
-  width: 100px;
-  color: #FFFFFF;
-  margin-right: 1%;
-  background-color: rgba(255,255,255,0);
+input, select{
+  height: 25px;
+  font-size: 12px;
+  border-radius: 0;
+  padding: 1px 2px;
 }
 
 

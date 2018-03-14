@@ -1,12 +1,12 @@
 .panel-heading{
-  background-color: rgb(27, 42, 54);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.8);
+  background-color: rgba(55,96,108,0.5);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.5);
   font-size: 16px;
   color: white;
 }
 #table{
   margin: auto;
-  background-color: rgba(27, 42, 54,0.9);
+  background-color: rgba(55,96,108,0.3);
   box-shadow:0 2px 1px 0 rgba(0,0,0,0.3);
   border-radius: 5px;
 }
@@ -46,7 +46,4 @@
   background-color: #209E91;
   cursor: pointer;
 }
-#dropdown >.btn-info{
-  background-color: rgb(27, 42, 54);
-  border-color: #21333f;
-}
+

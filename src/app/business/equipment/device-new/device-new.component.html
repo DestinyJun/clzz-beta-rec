@@ -1,19 +1,20 @@
-<div class="All_list container-fluid">
-  <div>
-    <form>
-      <b style="font-size: 20px;margin-left: 1%;color:rgba(255,255,255,0.9);">订单列表</b>
-      <select style="height:20px; margin-left: 3%; border-radius: 5px;background-color: white;color: #21333f;" title="">
-        <option value="生产列表1">生产系统1</option>
-        <option value="生产列表1">生产系统2</option>
-        <option value="生产列表1">生产系统3</option>
-        <option value="生产列表1">生产系统4</option>
-      </select>
-    </form>
+<div class="panel-heading">
+  <span>设备信息清单</span>
+  <div class="dropdown pull-right">
+    <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      生产系统1
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dLabel">
+      <li>生产系统1</li></ul>
   </div>
-  <div class="list1 table-responsive" style="border-radius: 5px;height: 442px;margin-right: 1%;">
-    <table class="orderlist" >
+</div>
+<div class="panel-body">
+  <div class="table-responsive">
+    <table class="table table-bordered">
       <thead>
       <tr>
+        <th></th>
         <th>设备名称</th>
         <th>铭牌</th>
         <th>生产厂家</th>
@@ -24,7 +25,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr  *ngFor="let list of DeviceInformation" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+      <tr  *ngFor="let list of DeviceInformation;let i = index">
+        <td>{{i}}</td>
         <td>{{list['dname']}}</td>
         <td>{{list['dmodel']}}</td>
         <td>{{list['dvender']}}</td>
@@ -37,7 +39,3 @@
     </table>
   </div>
 </div>
-<button type="button" class="btn btn-primary"
-        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-  Live demo
-</button>
