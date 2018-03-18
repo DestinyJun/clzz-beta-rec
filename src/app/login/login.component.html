@@ -30,7 +30,7 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary" [disabled]="!Form.form.valid" (click)="ToMain()">
+          <button (onkey.enter)="ToMain()" type="submit" class="btn btn-primary" [disabled]="!Form.form.valid" (click)="ToMain()">
             登<span>录</span>
           </button>
           <a href="#" class="pull-right">忘记密码?</a>

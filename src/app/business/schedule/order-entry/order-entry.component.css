@@ -1,3 +1,6 @@
+.container-fluid{
+  padding: 0 40px;
+}
 .panel-heading{
   color: #ffffff;
   border-radius: 5px 5px 0 0;
@@ -11,11 +14,15 @@
   background-color: rgba(55,96,108,0.3);
   box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
+.panel-heading > span{
+  font-size: 16px;
+}
 input, select{
+  border-radius: 3px;
+  border: 0;
+  background-color: rgba(103,151,157,0.3);
+  color: #FFFFFF;
   height: 25px;
-  font-size: 12px;
-  border-radius: 0;
-  padding: 1px 2px;
 }
 
 

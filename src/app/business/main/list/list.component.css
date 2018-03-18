@@ -1,30 +1,25 @@
-.order-list{
+.panel-heading{
+  background-color: rgba(55,96,108,0.5);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.3);
+  border-radius: 5px 5px 0 0;
   color: white;
-  background: rgba(55,96,108,0.3);
-  min-height: 300px;
 }
-.order-list-title{
-  border-bottom: 1px solid rgba(255,255,255,0.3);;
+.panel-heading > span{
+  font-size: 16px;
 }
-.order-list-title>p{
-  font-size: 20px;
-  font-weight: bold;
-  padding: 15px 10px 5px 15px;
-  margin-bottom: 0;
+.panel-body{
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 0 0 5px 5px;
+  color: white;
 }
-.order-list-title>.pull-right{
-  padding: 12px 10px;
+.table-striped > tbody >tr:nth-of-type(odd){
+  background-color: rgba(33,51,63,0.5);
+}
+.table > tbody > tr > td, .table > tbody > tr > th{
+  border-top: none;
+}
+a{
   cursor: pointer;
 }
-.order-list-title>.pull-right>a{
-  color: white;
-  text-decoration: none;
-}
-.order-list-title>.pull-right>a:hover{
-  text-decoration: none;
-  cursor: pointer;
-}
-/*公共类 清除浮动 内墙法*/
-.cl{
-  clear: both;
-}
+

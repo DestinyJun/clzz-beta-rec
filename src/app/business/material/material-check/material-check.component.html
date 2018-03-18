@@ -1,91 +1,93 @@
-<div class="panel-heading">
-  <span>原材料审核清单</span>
-  <div class="pull-right">
-    <button (click)="hid=false"  class="btn btn-xs btn-info">铝卷</button>
-    <button (click)="hid=true"  class="btn btn-xs btn-info">油漆</button>
+<div class="container-fluid">
+  <div class="panel-heading">
+    <span>原材料审核清单</span>
+    <div class="pull-right">
+      <button (click)="hid=false"  class="btn btn-xs btn-info">铝卷</button>
+      <button (click)="hid=true"  class="btn btn-xs btn-info">油漆</button>
+    </div>
   </div>
-</div>
-<div id="table" class="panel-body" *ngIf="!hid">
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th></th>
-        <th>类型</th>
-        <th>采购单编号</th>
-        <th>生产厂家</th>
-        <th>入库时间</th>
-        <th>单价</th>
-        <th>重量</th>
-        <th>状态</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let aluminum of aluminums;let i = index">
-        <td>{{i}}</td>
-        <td>铝板</td>
-        <td>{{aluminum['purchase']}}</td>
-        <td>{{aluminum['supname']}}</td>
-        <td>{{aluminum['idt']}}</td>
-        <td>{{aluminum['Alprice']}}</td>
-        <td>{{aluminum['Alexweight']}}吨</td>
-        <td>{{aluminum['status']}}</td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="8">
-          <button type="button" class="btn btn-primary " (click)="ProAluminumPage()">上一页</button>
-          <button type="button" class="btn btn-primary" (click)="NextAluminumPage()">下一页</button>
-          共1页
-          ,跳到 <input type="number" title=""> 页
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+  <div id="table" class="panel-body" *ngIf="!hid">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th></th>
+          <th>类型</th>
+          <th>采购单编号</th>
+          <th>生产厂家</th>
+          <th>入库时间</th>
+          <th>单价</th>
+          <th>重量</th>
+          <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let aluminum of aluminums;let i = index">
+          <td>{{i}}</td>
+          <td>铝板</td>
+          <td>{{aluminum['purchase']}}</td>
+          <td>{{aluminum['supname']}}</td>
+          <td>{{aluminum['idt']}}</td>
+          <td>{{aluminum['Alprice']}}</td>
+          <td>{{aluminum['Alexweight']}}吨</td>
+          <td>{{aluminum['status']}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="8">
+            <button type="button" class="btn btn-primary " (click)="ProAluminumPage()">上一页</button>
+            <button type="button" class="btn btn-primary" (click)="NextAluminumPage()">下一页</button>
+            共1页
+            ,跳到 <input type="number" title=""> 页
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
-</div>
-<div class="panel-body" *ngIf="hid">
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th></th>
-        <th>类型</th>
-        <th>采购单编号</th>
-        <th>生产厂家</th>
-        <th>入库时间</th>
-        <th>单价</th>
-        <th>重量</th>
-        <th>状态</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let print of prints;let i =index">
-        <td>{{i}}</td>
-        <td>油漆</td>
-        <td>{{print['purchase']}}</td>
-        <td>{{print['supname']}}</td>
-        <td>{{print['idt']}}</td>
-        <td>{{print['price']}}</td>
-        <td>{{print['paex_weight']}}吨</td>
-        <td>{{print['status']}}</td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="8">
-          <button type="button" class="btn btn-primary " (click)="ProPrintPage()">上一页</button>
-          <button type="button" class="btn btn-primary" (click)="NextPrintPage()">下一页</button>
-          共1页
-          ,跳到 <input type="number" title=""> 页
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+  <div class="panel-body" *ngIf="hid">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th></th>
+          <th>类型</th>
+          <th>采购单编号</th>
+          <th>生产厂家</th>
+          <th>入库时间</th>
+          <th>单价</th>
+          <th>重量</th>
+          <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let print of prints;let i =index">
+          <td>{{i}}</td>
+          <td>油漆</td>
+          <td>{{print['purchase']}}</td>
+          <td>{{print['supname']}}</td>
+          <td>{{print['idt']}}</td>
+          <td>{{print['price']}}</td>
+          <td>{{print['paex_weight']}}吨</td>
+          <td>{{print['status']}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="8">
+            <button type="button" class="btn btn-primary " (click)="ProPrintPage()">上一页</button>
+            <button type="button" class="btn btn-primary" (click)="NextPrintPage()">下一页</button>
+            共1页
+            ,跳到 <input type="number" title=""> 页
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
-</div>
 
+</div>
 
 
 <!--// detail-->

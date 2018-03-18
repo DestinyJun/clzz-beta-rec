@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +8,8 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   public usernames: string;
   public passwords: string;
-  constructor(private route: Router) { }
+  constructor(private route: Router) {
+  }
   ngOnInit() {}
   ToMain() {
     this.route.navigate(['/home']);

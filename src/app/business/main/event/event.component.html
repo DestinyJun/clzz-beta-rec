@@ -1,46 +1,42 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="event-list">
-        <div class="event-list-title">
-          <p class="pull-left">事件数据列表</p>
-          <div class="btn-group pull-right" dropdown>
-            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-              请选择事件类型...
-            </button>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item">订单类事件</a></li>
-              <li role="menuitem"><a class="dropdown-item">生产类事件</a></li>
-              <li role="menuitem"><a class="dropdown-item">监控类事件</a></li>
-              <li role="menuitem"><a class="dropdown-item">操作类事件</a>
-              </li>
-            </ul>
-          </div>
-          <div class="cl"></div>
-        </div>
-        <div class="event-list-table">
-          <table class="table">
-            <tr>
-              <th>订单编号</th>
-              <th>事件信息</th>
-              <th>时间</th>
-              <th>描述</th>
-            </tr>
-            <tr *ngFor="let list of Modal1" data-toggle="modal" data-target="#EventModal"  (click)="Modal(list)">
-              <td>{{list['target_id']}}</td>
-              <td>{{list['event_type']}}</td>
-              <td>{{list['event_date']}}</td>
-              <td>{{list['event_name']}}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="event-list-footer">
-          <a style="">查看更多</a>
-          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-        </div>
-      </div>
-    </div>
+<div class="panel-heading">
+  <span>事件数据列表</span>
+  <div class="dropdown pull-right">
+    <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      请选择事件类型...
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dLabel">
+      <li>订单类事件</li>
+      <li>生产类事件</li>
+      <li>监控类事件</li>
+      <li>操作类事件
+      </li>
+    </ul>
   </div>
+</div>
+<div class="panel-body">
+  <div id="table" class="table-responsive">
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>订单编号</th>
+        <th>事件信息</th>
+        <th>时间</th>
+        <th>描述</th>
+      </tr>
+      <tr *ngFor="let list of Modal1;let i = index" data-toggle="modal" data-target="#EventModal"  (click)="Modal(list)">
+        <th>{{i}}</th>
+        <td>{{list['target_id']}}</td>
+        <td>{{list['event_type']}}</td>
+        <td>{{list['event_date']}}</td>
+        <td>{{list['event_name']}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="panel-footer">
+  <a>查看更多</a>
+  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 </div>
 <!-- 模态框-->
 <div class="modal fade" id="EventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
