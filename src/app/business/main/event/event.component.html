@@ -24,8 +24,8 @@
         <th>时间</th>
         <th>描述</th>
       </tr>
-      <tr *ngFor="let list of Modal1;let i = index" data-toggle="modal" data-target="#EventModal"  (click)="Modal(list)">
-        <th>{{i}}</th>
+      <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template)">
+        <td>{{i}}</td>
         <td>{{list['target_id']}}</td>
         <td>{{list['event_type']}}</td>
         <td>{{list['event_date']}}</td>
@@ -71,3 +71,14 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+<ng-template #template>
+  <div class="modal-header">
+    <div class="modal-title pull-left">Modal</div>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal
+  </div>
+</ng-template>

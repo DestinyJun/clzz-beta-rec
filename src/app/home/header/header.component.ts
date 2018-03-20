@@ -3,6 +3,7 @@ import {HomeService} from '../home.service';
 import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {LoginIdService} from '../../remind/login-id.service';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public contentBoxHeight: number;
   public scrollBarHeight: number;
   public barBoxHeight: string;
-  constructor(private homeService: HomeService, private route: Router, private http: HttpClient) {
+  constructor(private homeService: HomeService, private route: Router, private http: HttpClient, private Id: LoginIdService) {
     this.infoToggle = true;
     this.scrollToggle = true;
     this.navListToggle = true;
@@ -62,10 +63,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
   loginOut() {
     const sid = '{\n' +
-      '\t"sid":"AC94WEBN"\n' +
+      '\t"sid":"' + this.Id.getId() + '"\n' +
       '}';
     this.http.post('http://120.78.137.182/element-admin/user/logout', sid)
-      .subscribe(data => console.log(data));
+      .subscribe();
     this.route.navigate(['/login']);
   }
   public onToggleInfo(event): void {

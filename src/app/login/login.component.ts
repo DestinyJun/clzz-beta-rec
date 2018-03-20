@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {LoginIdService} from '../remind/login-id.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class LoginComponent implements OnInit {
   public user: FormGroup;
   public sid: string;
-  constructor(private route: Router, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private route: Router, private fb: FormBuilder, private http: HttpClient, private Id: LoginIdService) {
     this.user = this.fb.group( {
       username: ['', Validators.required],
       passwords: ''
@@ -23,13 +24,13 @@ export class LoginComponent implements OnInit {
       '\t"upwd":"' + this.user.get('passwords').value + '",\n' +
       '\t"module":"WEBN"\n' +
       '}';
-    console.log(body);
     this.http.post('http://120.78.137.182/element-admin/user/login', body)
       .subscribe(data => {
-        console.log(data);
         if (data['status'] === '10') {
-          this.sid = data['sid'];
+          this.Id.InitId(data['sid']);
           this.route.navigate(['/home']);
+        } else if (data['status'] === '14') {
+          window.confirm('用户已在线');
         } else {
           window.confirm('用户名或密码错误');
         }
