@@ -1,0 +1,23 @@
+.panel-body{
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  color: white;
+}
+.progress {
+  background-color: rgba(103,151,157,0.3);
+  height: 18px;
+}
+.progress-bar-info{
+  background-color: #209e91;
+}
+.panel-body input{
+  border-radius: 3px;
+  border: 0;
+  background-color: rgba(103,151,157,0.3);
+  color: #FFFFFF;
+  height: 30px;
+}
+.panel-body #photo{
+  margin-bottom: 20px;
+}

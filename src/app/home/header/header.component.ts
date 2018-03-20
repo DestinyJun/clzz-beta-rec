@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {HomeService} from '../home.service';
 import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +10,8 @@ import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  @Input() infoToggle: boolean;
+  @Input() infoTg: boolean;
   @ViewChild('userRemindScrollContent')
   userRemindScrollContent: ElementRef; // 大盒子
   @ViewChild('scrollBox')
@@ -16,7 +20,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   scrollBoxBar: ElementRef; // 滚动条
   @ViewChild('scrollListGroup')
   scrollListGroup: ElementRef; // 内容盒子
-  public infoToggle: boolean;
   public scrollToggle: boolean;
   public navListToggle: boolean;
   public userReminds: UserRemind[];
@@ -25,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public contentBoxHeight: number;
   public scrollBarHeight: number;
   public barBoxHeight: string;
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService, private route: Router, private http: HttpClient) {
     this.infoToggle = true;
     this.scrollToggle = true;
     this.navListToggle = true;
@@ -56,6 +59,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       return;
     }
       this.scrollToggle = !this.scrollToggle;
+  }
+  loginOut() {
+    const sid = '{\n' +
+      '\t"sid":"AC94WEBN"\n' +
+      '}';
+    this.http.post('http://120.78.137.182/element-admin/user/logout', sid)
+      .subscribe(data => console.log(data));
+    this.route.navigate(['/login']);
   }
   public onToggleInfo(event): void {
       this.infoToggle = !this.infoToggle;

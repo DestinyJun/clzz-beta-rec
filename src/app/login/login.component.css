@@ -60,5 +60,5 @@ h4{
 }
 /*去掉google浏览器恶心的背景框*/
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
 }

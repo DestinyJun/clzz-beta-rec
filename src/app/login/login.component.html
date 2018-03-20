@@ -5,32 +5,29 @@
       <h4>铝合金辊涂板云端智能制造技术平台</h4>
     </div>
     <div class="form">
-    <form class="form-horizontal" #Form="ngForm">
+    <form class="form-horizontal" [formGroup]="user" novalidate>
       <div class="form-group ">
         <label for="username" class="col-sm-2 control-label">账号</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="username" placeholder="请输入账号" required minlength="2"
-                 #username="ngModel" [(ngModel)]="usernames" name="userN" autocomplete="off">
+          <input type="text" class="form-control" id="username" placeholder="请输入账号" formControlName="username" required minlength="2" autocomplete="off">
           <div class="username-verification">
-            <div *ngIf="(username.errors?.required ) && username.touched"><span class="text">输入不能为空</span></div>
-            <div *ngIf="username.errors?.minlength"><span class="text">输入长度不少于2位</span></div>
+            <div class="pull-left" *ngIf="user.get('username').touched&&user.get('username').value.length < 2"><span class="text">输入长度不少于2位</span></div>
           </div>
         </div>
       </div>
       <div class="form-group">
         <label for="password" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="password" placeholder="请输入密码" #password="ngModel"
-                 required minlength="6" [(ngModel)]="passwords" name="passW" autocomplete="off">
+          <input type="password" class="form-control" id="password" placeholder="请输入密码" formControlName="passwords"
+                 required minlength="6" autocomplete="off">
           <div class="password-verification">
-            <div *ngIf="(password.errors?.required) && password.touched"><span class="text">输入不能为空</span></div>
-            <div *ngIf="password.errors?.minlength"><span class="text">输入长度不少于6位</span></div>
+            <div *ngIf="user.get('passwords').touched&&user.get('passwords').value.length < 6"><span class="text">输入长度不少于6位</span></div>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button (onkey.enter)="ToMain()" type="submit" class="btn btn-primary" [disabled]="!Form.form.valid" (click)="ToMain()">
+          <button type="submit" class="btn btn-primary" (click)="ToMain()" (onkey.enter)="ToMain()" [disabled]="user.invalid">
             登<span>录</span>
           </button>
           <a href="#" class="pull-right">忘记密码?</a>

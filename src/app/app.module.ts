@@ -5,12 +5,14 @@ import {AppRouterModule} from './app.router.module';
 import {AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RemindComponent } from './based/remind/remind.component';
+import {ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     BrowserModule,
     AppRouterModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
