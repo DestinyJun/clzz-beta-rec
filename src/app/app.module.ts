@@ -5,18 +5,23 @@ import {AppRouterModule} from './app.router.module';
 import {AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RemindComponent } from './based/remind/remind.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {LoginIdService} from './remind/login-id.service';
+import {ModalModule} from 'ngx-bootstrap';
 @NgModule({
   imports: [
     BrowserModule,
     AppRouterModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
     RemindComponent
   ],
-  providers: [],
+  providers: [LoginIdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

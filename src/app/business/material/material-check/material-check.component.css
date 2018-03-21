@@ -1,28 +1,29 @@
-.materialAudit{
-  background-color: #21333f;
-  border-radius: 5px;
+.container-fluid{
+  padding: 0 40px;
+}
+.panel-heading{
   color: #ffffff;
-  margin-left: 1.5%;
+  border-radius: 5px 5px 0 0;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.8);
 }
-
-/*样式修改：ZL*/
-.first{
-  background-color:rgba(72,209,204,0.6);
+.panel-body{
   color: white;
-  border-radius: 5px;
-  font-size: 15px;
+  border-radius: 0 0 5px 5px;
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
-.first:hover{
-  background-color:#fff;
-  color:black;
-  transform: scale(1.1,1.1);
+.table-bordered > tbody >tr >td{
+  border: 1px solid rgba(255,255,255,0.3);
 }
-tbody tr:hover{
-  background-color:rgba(0,255,255,0.2);
+.table-bordered > thead >tr >th{
+  border: 1px solid rgba(255,255,255,0.8);
 }
-input{
-  line-height: normal;
-  width: 60px;
-  height: 20px;
+.table-bordered > tfoot{
+  text-align: center;
+}
+.table-bordered > tfoot > tr>td{
+  border: 1px solid rgba(0,0,0,0);
 }
 

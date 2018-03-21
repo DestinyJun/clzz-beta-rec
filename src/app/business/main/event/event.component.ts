@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpService} from '../../../shared/http.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-event',
@@ -14,7 +15,8 @@ export class EventComponent implements OnInit {
   public event: Observable<any>;
   public Modal1: Array<any>;
   public Modal2: any;
-  constructor(private http: HttpService) {
+  modalRef: BsModalRef;
+  constructor(private http: HttpService, private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -23,6 +25,10 @@ export class EventComponent implements OnInit {
     this.event.subscribe(data => {
       this.Modal1 = data['values'];
     });
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
   Modal(list) {
    this.Modal2 = list;

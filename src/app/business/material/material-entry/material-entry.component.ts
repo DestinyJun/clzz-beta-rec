@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class MaterialEntryComponent implements OnInit {
 
+  hid = false;
   aluminumspage = 1;
   printpage = 1;
   aluminums = [];

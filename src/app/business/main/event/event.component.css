@@ -1,80 +1,45 @@
-.event-list{
+.panel-heading{
+  background-color: rgba(55,96,108,0.5);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.3);
+  border-radius: 5px 5px 0 0;
   color: white;
-  background: rgba(55,96,108,0.3);
-  height: 500px;
 }
-.event-list-title{
-  border-bottom: 1px solid rgba(255,255,255,0.3);;
+.panel-heading > span{
+  font-size: 16px;
 }
-.event-list-title>p{
-  font-size: 20px;
-  font-weight: bold;
-  padding: 15px 10px 5px 15px;
-  margin-bottom: 0;
+.panel-body{
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 0;
+  color: white;
 }
-.event-list-title>.btn-group{
-  padding: 12px 10px;
+.panel-heading > .dropdown{
+  margin-right: 10px;
 }
-.event-list-title .dropdown-menu{
-  background: rgba(21,30,38,0.9);
-}
-
-.event-list-table{
-  height: 400px;
-  overflow: hidden;
-}
-
-.event-list-footer{
-  margin-top: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 15px;
+.panel-heading > .dropdown > ul{
+  background-color: rgba(33,51,63,1);
+  text-align: center;
   cursor: pointer;
 }
-.event-list-footer>a{
-  color: white;
-  text-decoration: none;
+.panel-heading > .dropdown > ul >li:hover{
+  background-color: #1F9B8F;
 }
-.event-list-footer>a:hover{
- text-decoration: none;
+.table-striped > tbody >tr:nth-of-type(odd){
+  background-color: rgba(33,51,63,0.5);
+}
+.table-striped > tbody > tr:hover{
+  cursor: pointer;
+  background-color: rgba(75, 117, 143, 0.55);
+}
+.table > tbody > tr > td, .table > tbody > tr > th{
+  border-top: none;
+}
+.panel-footer{
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  border-radius: 0 0 5px 5px;
+  color: white;
+}
+a{
   cursor: pointer;
 }
-
-
-
-.form-control{
-  background: none;
-  border: none;
-  color: white;
-}
-
-/*公共类 清除浮动 内墙法*/
-.cl{
-  clear: both;
-}
-/*bootstrap改造*/
-.dropdown-menu{
-  top: 43px;
-  left: 10px;
-  min-width: 20px;
-  width: 136px;
-  background-color: rgba(255,255,255,0.1);
-}
-.dropdown-item{
-  padding: 5px 5px;
-  cursor: pointer;
-  color: white;
-}
-.dropdown-item:hover{
-  background: #5BC0DE;
-}
-.btn-primary{
-  background-color: rgba(94,107,118,0.3);
-  border: none;
-}
-.open > .dropdown-toggle.btn-primary{
-  color: #fff;
-  background-color: rgba(94,107,118,0.3);;
-  border: none;
-}
-

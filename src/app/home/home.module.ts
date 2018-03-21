@@ -8,7 +8,7 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeService} from './home.service';
 import {PositionBarComponent} from './position-bar/position-bar.component';
 import { MessageRemindComponent } from '../message-remind/message-remind.component';
-
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
 
 
 @NgModule({
@@ -22,7 +22,8 @@ import { MessageRemindComponent } from '../message-remind/message-remind.compone
     SidebarComponent,
     FooterComponent,
     PositionBarComponent,
-    MessageRemindComponent
+    MessageRemindComponent,
+    PersonalInfoComponent
   ],
   providers: [HomeService],
   bootstrap: []

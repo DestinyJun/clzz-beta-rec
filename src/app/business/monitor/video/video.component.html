@@ -1,152 +1,155 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3 col-sm-3">
-      <select class="Camera_select">
-        <option value="1">列表1</option>
-        <option value="2">列表2</option>
-        <option value="3">列表3</option>
-        <option value="4">列表4</option>
-        <option value="5">列表5</option>
-      </select>
+  <div class="panel-heading">
+    <span>视频数据监视</span>
+    <div class="dropdown pull-right">
+      <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        生产系统1
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dLabel">
+        <li>生产系统1</li></ul>
     </div>
     <!--<div class="col-md-9 col-sm-9"><app-ypath-navgation></app-ypath-navgation></div>-->
   </div>
-  <div class="row Camera">
-    <div class="Camera1 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc1"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/102?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc1"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/102?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc2"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/202?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
     </div>
-    <div class="Camera2 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc2"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/202?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
+    <div class="row">
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc3"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/302?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc4"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/402?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc5"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/502?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
+      <div class="col-md-6">
+        <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                width="100%"
+                height="450"
+                id="vlc6"
+                events="true">
+          <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/602?transportmode-unicast" />
+          <param name="ShowDisplay" value="True" />
+          <param name="AutoLoop" value="False" />
+          <param name="AutoPlay" value="False" />
+          <param name="Volume" value="50" />
+          <param name="toolbar" value="true" />
+          <param name="StartTime" value="0" />
+          <embed pluginspage="http://www.videolan.org"
+                 type="application/x-vlc-plugin"
+                 version="VideoLAN.VLCPlugin.2"
+                 width="100%"
+                 height="450"
+                 toolbar="true"
+                 namev="vlc">
+        </OBJECT>
+      </div>
     </div>
   </div>
-  <div class="row Camera">
-    <div class="Camera3 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc3"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/302?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
-    </div>
-    <div class="Camera4 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc4"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/402?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
-    </div>
-  </div>
-  <div class="row Camera">
-    <div class="Camera5 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc5"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/502?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
-    </div>
-    <div class="Camera6 col-md-6 col-sm-6">
-      <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-              width="100%"
-              height="450"
-              id="vlc6"
-              events="true">
-        <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/602?transportmode-unicast" />
-        <param name="ShowDisplay" value="True" />
-        <param name="AutoLoop" value="False" />
-        <param name="AutoPlay" value="False" />
-        <param name="Volume" value="50" />
-        <param name="toolbar" value="true" />
-        <param name="StartTime" value="0" />
-        <embed pluginspage="http://www.videolan.org"
-               type="application/x-vlc-plugin"
-               version="VideoLAN.VLCPlugin.2"
-               width="100%"
-               height="450"
-               toolbar="true"
-               namev="vlc">
-      </OBJECT>
-    </div>
-  </div>
+
 </div>

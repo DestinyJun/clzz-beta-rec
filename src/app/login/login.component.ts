@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +9,7 @@ import {HttpClient} from '@angular/common/http';
 export class LoginComponent implements OnInit {
   public usernames: string;
   public passwords: string;
-  constructor(
-    private route: Router,
-    private http: HttpClient
-  ) {}
+  constructor(private route: Router) { }
   ngOnInit() {}
   ToMain() {
     this.route.navigate(['/home']);
