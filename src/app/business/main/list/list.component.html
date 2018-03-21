@@ -10,7 +10,7 @@
     <table class="table table-striped" >
       <thead>
       <tr>
-        <th><input type="checkbox" title=""><span>全选</span></th>
+        <th><span>#</span></th>
         <th>ID</th>
         <th>公司名</th>
         <th>信息</th>
@@ -18,8 +18,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let list of Order;let i =index" [routerLink]="['/main/ymain/details', list['oid']]">
-        <td><input type="checkbox" title="">{{i}}</td>
+      <tr *ngFor="let list of Order;let i =index" (click)="modal(list)">
+        <td>{{i}}</td>
         <td>{{list['oid']}}</td>
         <td>{{list['cname']}}</td>
         <td>{{list['submitter']}}</td>

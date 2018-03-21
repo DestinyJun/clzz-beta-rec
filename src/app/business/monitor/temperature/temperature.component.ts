@@ -21,14 +21,12 @@ export class TemperatureComponent implements OnInit {
 
   ngOnInit() {
     this.getSensorId();
-    setTimeout(() => { console.log(this.SensorDataTime);
-      console.log(this.SensorDataValue[0]); this.TemperatureMap(); }, 500);
+    setTimeout(() => {this.TemperatureMap(); }, 500);
 
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
       data = data['sensor'];
-      console.log(data);
       const length = data.length;
       for (let i = 0; i < length; i++) {
         this.SensorId.push(data[i]['sid']);
@@ -47,7 +45,6 @@ export class TemperatureComponent implements OnInit {
         '}';
       this.httpSensorData.post('http://120.78.137.182/element/seesensordata', body)
         .subscribe(data => {
-          console.log(data);
           const SDtime = [];
           const SDvalue = [];
           const DLength = data['values'].length;

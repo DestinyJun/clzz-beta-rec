@@ -26,5 +26,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
   }
+  modal(value) {
+    console.log(value);
+  }
 
 }

@@ -1,10 +1,10 @@
-<!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
+
 <div class="container-fluid">
   <div class="panel-heading">
     感知层即时数据
     <div class="dropdown pull-right" id="dropdown">
       <button id="dLabel" class="btn btn-xs btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{Modularname || Modular[0]['mname']}}
+        {{Modularname}}
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
@@ -20,10 +20,10 @@
       <tbody>
       <tr  *ngFor="let i of DeviceSensor;let j = index">
         <td>{{2 * j + 1}}</td>
-        <td>{{i['one']['Name']['dname']}} - {{i['one']['Name']['sname']}}</td>
+        <td (click)="modal(i)">{{i['one']['Name']['dname']}} - {{i['one']['Name']['sname']}}</td>
         <td>{{i['one']['data']}}</td>
         <td *ngIf="i['two']">{{2 * j + 2}}</td>
-        <td *ngIf="i['two']">{{i['two']['Name']['dname']}} - {{i['two']['Name']['sname'] }}</td>
+        <td (click)="modal(i)" *ngIf="i['two']">{{i['two']['Name']['dname']}} - {{i['two']['Name']['sname'] }}</td>
         <td *ngIf="i['two']">{{i['two']['data']}}</td>
       </tr>
       </tbody>
@@ -31,19 +31,4 @@
   </div>
 
 </div>
-<!-- Modal -->
-<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body" echarts [options]="option" style="height: 400px;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="StopMapChart()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>-->
+

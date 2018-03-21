@@ -16,15 +16,16 @@ export class SensorComponent implements OnInit {
   DeviceSensor: Array<any> = [];
   NoDataSensorJson: any;
   option: any;
-  Modularname: string;
+  Modularname = '驱动机';
   constructor(private activatedRoute: ActivatedRoute,
               private httpSensor: HttpClient,
               private httpAdmin: HttpClient,
               private httpDeviceSensor: HttpClient,
-              private httpNoDataSensor: HttpClient) {}
-  ngOnInit() {
+              private httpNoDataSensor: HttpClient) {
     this.ModularInit();
     this.DeviceSensorInit(this.ModularId);
+  }
+  ngOnInit() {
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
@@ -38,10 +39,8 @@ export class SensorComponent implements OnInit {
       '}';
     this.httpAdmin.post('http://120.78.137.182/element/SeeSystemModular', body)
       .subscribe( data => {
-        console.log(data);
         data = data['system'][0]['modular'];
         this.ModularJson = data;
-        console.log(this.ModularJson);
         const length = this.ModularJson.length;
         for (let i = 0; i < length; i++) {
           this.Modular.push(this.ModularJson[i]);
@@ -53,10 +52,8 @@ export class SensorComponent implements OnInit {
     const body = '{\n' +
       '\t"mid":"' + MId + '"\n' +
       '}';
-    console.log(body);
     this.httpDeviceSensor.post('http://120.78.137.182/element/find/devicename/sensorname/sensordata', body)
       .subscribe(data => {
-        console.log(data);
         data = data['values'];
         this.DeviceSensorJson = data;
         this.NoDataSensorInit(MId);
@@ -67,13 +64,9 @@ export class SensorComponent implements OnInit {
     const body = '{\n' +
       '\t"mid":"' + MId + '"\n' +
       '}';
-    console.log(body);
     this.httpNoDataSensor.post('http://120.78.137.182/element/find/modular/device/sensor/name', body)
       .subscribe(data => {
-        console.log(data);
         this.NoDataSensorJson = data['values'];
-        console.log(this.NoDataSensorJson);
-        console.log(this.DeviceSensorJson);
         const putData = [];
         const lengthNo = this.NoDataSensorJson.length;
         const length = this.DeviceSensorJson.length;
@@ -92,7 +85,6 @@ export class SensorComponent implements OnInit {
             }
           }
         }
-        console.log(putData);
         const deviceSensor: Array<any> = [];
         let putlength = putData.length;
         if (putlength % 2 === 0) {
@@ -106,9 +98,11 @@ export class SensorComponent implements OnInit {
           }
           deviceSensor.push({'one': putData[putlength], 'two': ''});
         }
-        console.log(deviceSensor);
         this.DeviceSensor = deviceSensor;
-        console.log(this.DeviceSensor);
       });
+  }
+
+  modal(value) {
+    console.log(value);
   }
 }
