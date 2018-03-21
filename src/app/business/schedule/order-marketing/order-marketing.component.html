@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let order  of orders;let i = index"  title="点击查看订单详情">
-          <td>{{(this.page - 1) * this.row + i + 1}}</td>
+          <td>{{(page - 1) * row + i + 1}}</td>
           <td>{{order['oid']}}</td>
           <td>{{order['cname']}}</td>
           <td>{{order['contractname']}}</td>

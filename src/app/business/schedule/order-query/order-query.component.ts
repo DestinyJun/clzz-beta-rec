@@ -49,10 +49,10 @@ export class OrderQueryComponent implements OnInit {
     }
   }
   SkipPage(value) {
-    if (this.AllOrders > value  * this.row) {
+    if (this.AllOrders > value  * this.row && value > 0) {
       this.page = value;
       this.SeeOrders();
-    } else if (this.AllOrders > (value - 1) * this.row) {
+    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
       this.page = value;
       this.SeeOrders();
     }

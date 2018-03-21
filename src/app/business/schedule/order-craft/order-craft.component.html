@@ -6,7 +6,6 @@
       <i class="fa fa-search"></i>
     </div>
   </div>
-
   <div class="panel-body">
     <div id="table" class="table-responsive">
       <table class="table table-bordered">
@@ -21,7 +20,7 @@
           <th>操作</th>
         </tr>
         <tr *ngFor="let order of orders;let i =index">
-          <td>{{i}}</td>
+          <td>{{(page - 1) * row + i + 1}}</td>
           <td>{{order.oid}}</td>
           <td>{{order.cname}}</td>
           <td>{{order.conname}}</td>
@@ -48,5 +47,4 @@
       </table>
     </div>
   </div>
-
 </div>
