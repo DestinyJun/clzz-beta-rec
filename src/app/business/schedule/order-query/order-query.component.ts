@@ -48,12 +48,31 @@ export class OrderQueryComponent implements OnInit {
       this.SeeOrders();
     }
   }
+  SkipPage(value) {
+    if (this.AllOrders > value  * this.row) {
+      this.page = value;
+      this.SeeOrders();
+    } else if (this.AllOrders > (value - 1) * this.row) {
+      this.page = value;
+      this.SeeOrders();
+    }
+  }
   DeleteOrder(oid) {
     window.confirm('确认删除吗？');
     const body = '{"delete_id":"' + oid + '"}';
     this.http.post('http://120.78.137.182/element/Del-Orders', body)
       .subscribe(data => {
         this.SeeOrders(); });
+  }
+  PageNumber() {
+    const i = this.AllOrders % this.row;
+    if (i === 0 && this.AllOrders > this.row) {
+      return this.AllOrders / this.row;
+    } else if ( i === 0) {
+      return this.AllOrders / this. row;
+    } else {
+      return (this.AllOrders - i ) / this.row + 1;
+    }
   }
   modal(value) {
     console.log(value);

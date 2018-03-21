@@ -28,8 +28,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let i of aluminums;let j =index" [routerLink]="['/main/marketing-order-detail', i['purchase'], 0]">
-          <td>{{j}}</td>
+        <tr *ngFor="let i of aluminums;let j =index">
+          <td>{{(aluminumspage - 1) * row + j + 1}}</td>
           <td>铝卷</td>
           <td>{{i.purchase}}</td>
           <td>{{i.subtime}}</td>
@@ -68,7 +68,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let i of prints;let j = index">
-          <td>{{j}}</td>
+          <td>{{(printpage - 1) * row + j + 1}}</td>
           <td>油漆</td>
           <td>{{i.purchase}}</td>
           <td>{{i.subtime}}</td>

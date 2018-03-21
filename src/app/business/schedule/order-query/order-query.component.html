@@ -37,10 +37,11 @@
         <tfoot>
         <tr>
           <td colspan="8">
+            <span>当前第{{page}}页</span>
             <button type="button" class="btn btn-primary" (click)="ProPage()">上一页</button>
             <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共{{AllOrders / row | number:'1.0-0'}}页,跳到
-            <input type="number" title=""> 页
+            共{{PageNumber()}}页,跳到
+            <input type="number" #skip title="" (keyup.enter)="SkipPage(skip.value)" > 页
           </td>
         </tr>
         </tfoot>

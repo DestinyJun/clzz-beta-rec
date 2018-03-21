@@ -1,28 +1,31 @@
 .container-fluid{
-  padding: 0 40px;
+  padding: 0;
 }
-.panel-heading{
-  color: #ffffff;
-  border-radius: 5px 5px 0 0;
-  border-top: 1px solid rgba(0,0,0,0.2);
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.8);
+.modal-content{
+  position: relative;
+  width: 150%;
+  left: -100px;
+}
+.modal-header{
+  color: #fff;
+  background-color: #2e403c;
+}
+.modal-body{
+  padding: 0;
 }
 .panel-body{
   color: white;
   border-radius: 0 0 5px 5px;
-  background-color: rgba(55,96,108,0.3);
+  background-color: rgba(23, 42, 49, 0.8);
   box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-}
-.panel-heading > span{
-  font-size: 16px;
 }
 input, select{
   border-radius: 3px;
   border: 0;
-  background-color: rgba(103,151,157,0.3);
+  background-color: rgba(103,151,157,0.8);
   color: #FFFFFF;
   height: 25px;
 }
+
 
 

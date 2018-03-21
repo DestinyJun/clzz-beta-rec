@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-order-entry',
@@ -8,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class OrderEntryComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  modalRef: BsModalRef;
   Area: number;
   price: number;
   amount: number;
@@ -43,6 +45,11 @@ export class OrderEntryComponent implements OnInit {
   exshiptime: string;
   tel: string;
   address: string;
+
+  constructor(private http: HttpClient, private modalService: BsModalService) {}
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
   ngOnInit() {
   }
   Submit() {
@@ -85,5 +92,7 @@ export class OrderEntryComponent implements OnInit {
     this.http.post('http://192.168.43.203:8080/element/Add-Orders', body)
       .subscribe(data => console.log(data));
   }
+
+
 
 }
