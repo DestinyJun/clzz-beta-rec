@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HomeService, NavList, NavListChild} from '../home.service';
+import {PositionNameService} from '../../remind/position-name.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -47,12 +48,15 @@ export class SidebarComponent implements OnInit {
   public slidinghight: number;
   public slidingTop: number;
   public difulHeight: number;
-  constructor(private router: Router, private homeService: HomeService) {
+  constructor(private router: Router, private homeService: HomeService, private Name: PositionNameService) {
     this.slidinghight = 0;
     this.slidingTop = -120;
     this.difulHeight = 0;
   }
   ngOnInit() {}
+  PullName(name) {
+    this.Name.InitName(name);
+  }
   onMouseleave() {
     this.slidingTop = -120;
   }

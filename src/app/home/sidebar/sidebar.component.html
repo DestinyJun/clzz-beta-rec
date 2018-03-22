@@ -3,7 +3,7 @@
   <div #slidingBox class="sliding_box" [ngStyle]="{height: slidinghight.toString()+'px',top:slidingTop.toString()+'px'}"></div>
   <!--导航-->
   <ul #mainul>
-    <li class="menu-mainli" #mainli *ngFor="let list of navLists;" [ngStyle]="{background:list.clsstate? '#209E91': ''}">
+    <li class="menu-mainli" #mainli *ngFor="let list of navLists;" [ngStyle]="{background:list.clsstate? '#209E91': ''}" (click)="PullName(list.title)">
       <a #mainli_a [ngStyle]="{color:list.clsstate? 'white': ''}" (mouseenter)="mainLiMouseEnter(mainli_a)" (click)="mainLiClick(mainul,menuul,list)">
         <i class="menu-mainli-i-before pull-left" [class]="[list.icon]"></i>
         <span>{{list.title}}</span>

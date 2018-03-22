@@ -8,6 +8,7 @@ import { RemindComponent } from './based/remind/remind.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LoginIdService} from './remind/login-id.service';
 import {ModalModule} from 'ngx-bootstrap';
+import { DepartmentButtonComponent } from './based/department-button/department-button.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -19,7 +20,8 @@ import {ModalModule} from 'ngx-bootstrap';
   ],
   declarations: [
     AppComponent,
-    RemindComponent
+    RemindComponent,
+    DepartmentButtonComponent
   ],
   providers: [LoginIdService],
   bootstrap: [AppComponent]

@@ -9,6 +9,7 @@ import {HomeService} from './home.service';
 import {PositionBarComponent} from './position-bar/position-bar.component';
 import { MessageRemindComponent } from '../message-remind/message-remind.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
+import {PositionNameService} from '../remind/position-name.service';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { PersonalInfoComponent } from './personal-info/personal-info.component';
     MessageRemindComponent,
     PersonalInfoComponent
   ],
-  providers: [HomeService],
+  providers: [HomeService, PositionNameService],
   bootstrap: []
 })
 export class HomeModule {}
