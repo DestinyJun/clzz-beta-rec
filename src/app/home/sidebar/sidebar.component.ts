@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HomeService, NavList, NavListChild} from '../home.service';
+import {PositionNameService} from '../../remind/position-name.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,8 +17,7 @@ export class SidebarComponent implements OnInit {
       new NavListChild('视频数据即时监视', false, 'monitor/video'),
       new NavListChild('事件数据监视', false, 'monitor/event'),
       new NavListChild('温度数据即时监视', false, 'monitor/temperature'),
-      new NavListChild('厚度数据即时监视', false, 'monitor/thickness'),
-      new NavListChild('生产一键运行', false, 'monitor/prorun')
+      new NavListChild('厚度数据即时监视', false, 'monitor/thickness')
     ] , true),
     new NavList('设备运行', 'fa fa-th-large', false, [
       new NavListChild('感知历史数据', false, 'equipment/devhis'),
@@ -48,12 +48,15 @@ export class SidebarComponent implements OnInit {
   public slidinghight: number;
   public slidingTop: number;
   public difulHeight: number;
-  constructor(private router: Router, private homeService: HomeService) {
+  constructor(private router: Router, private homeService: HomeService, private Name: PositionNameService) {
     this.slidinghight = 0;
     this.slidingTop = -120;
     this.difulHeight = 0;
   }
   ngOnInit() {}
+  PullName(name) {
+    this.Name.InitName(name);
+  }
   onMouseleave() {
     this.slidingTop = -120;
   }

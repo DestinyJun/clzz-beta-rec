@@ -11,6 +11,7 @@ export class OrderQueryComponent implements OnInit {
 
   page = 1;
   orders = [];
+  row = 10;
   getauditmsg: any;
   AllOrders: number;
   public auditTitle: FormControl = new FormControl();
@@ -24,10 +25,9 @@ export class OrderQueryComponent implements OnInit {
   SeeOrders() {
     const body = '{\n' +
       '\t"page":"' + this.page + '",\n' +
-      '\t"row":"10",\n' +
+      '\t"row":"' + this.row + '",\n' +
       '\t"status":"1"\n' +
       '}';
-    console.log(body);
     this.http.post('http://120.78.137.182/element/See-Orders', body)
       .subscribe(data => {
         console.log(data);
@@ -48,14 +48,37 @@ export class OrderQueryComponent implements OnInit {
       this.SeeOrders();
     }
   }
+  SkipPage(value) {
+    if (this.AllOrders > value  * this.row && value > 0) {
+      this.page = value;
+      this.SeeOrders();
+    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
+      this.page = value;
+      this.SeeOrders();
+    }
+  }
   DeleteOrder(oid) {
-    const body = '"delete_id":"' + oid + '"';
+    window.confirm('确认删除吗？');
+    const body = '{"delete_id":"' + oid + '"}';
     this.http.post('http://120.78.137.182/element/Del-Orders', body)
-      .subscribe(data => { console.log(data);
+      .subscribe(data => {
         this.SeeOrders(); });
   }
+  PageNumber() {
+    const i = this.AllOrders % this.row;
+    if (i === 0 && this.AllOrders > this.row) {
+      return this.AllOrders / this.row;
+    } else if ( i === 0) {
+      return this.AllOrders / this. row;
+    } else {
+      return (this.AllOrders - i ) / this.row + 1;
+    }
+  }
+  modal(value) {
+    console.log(value);
+  }
   ModifyOrder(oid) {
-    const body = '"delete_id":"' + oid + '"';
+    const body = '{"delete_id":"' + oid + '"}';
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
       .subscribe(data => console.log(data));
   }

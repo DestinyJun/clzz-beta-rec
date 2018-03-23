@@ -11,6 +11,7 @@ export class MaterialEntryComponent implements OnInit {
   hid = false;
   aluminumspage = 1;
   printpage = 1;
+  row = 5;
   aluminums = [];
   prints = [];
   AllOrders: number;
@@ -28,7 +29,7 @@ export class MaterialEntryComponent implements OnInit {
     if (mode === 0) {
       const body = '{\n' +
         '\t"page":"' + this.aluminumspage + '",\n' +
-        '\t"row":"5",\n' +
+        '\t"row":"' + this.row + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
       console.log(body);
@@ -41,7 +42,7 @@ export class MaterialEntryComponent implements OnInit {
     } else {
       const body = '{\n' +
         '\t"page":"' + this.printpage + '",\n' +
-        '\t"row":"5",\n' +
+        '\t"row":"' + this.row + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
       console.log(body);

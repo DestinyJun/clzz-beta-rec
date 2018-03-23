@@ -24,7 +24,7 @@
         <th>时间</th>
         <th>描述</th>
       </tr>
-      <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template)">
+      <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
         <td>{{i}}</td>
         <td>{{list['target_id']}}</td>
         <td>{{list['event_type']}}</td>
@@ -39,38 +39,6 @@
   <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 </div>
 <!-- 模态框-->
-<div class="modal fade" id="EventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel" style="color: black">事件列表详情</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row" >
-          <div class="col-md-6"  style="margin: 2% 0 0 0;font-size: 20px;" >
-            <table class="modal-table col-md-10" >
-              <tr><td>事件编号：{{Modal2['target_id']}}</td></tr>
-              <tr><td>事件类型：{{Modal2['event_type']}}</td></tr>
-              <tr><td>事件名称：{{Modal2['event_name']}}</td></tr>
-              <tr><td>事件描述：{{Modal2['event_attachment']}}</td></tr>
-                <tr><td>时间：{{Modal2['event_date']}}</td></tr>
-            </table>
-          </div>
-          <div class="col-md-6">
-            <table>
-              <tr><h3>事件详情</h3></tr>
-              <tr><img src="http://via.placeholder.com/400x280" ></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-</div>
 <ng-template #template>
   <div class="modal-header">
     <div class="modal-title pull-left">Modal</div>

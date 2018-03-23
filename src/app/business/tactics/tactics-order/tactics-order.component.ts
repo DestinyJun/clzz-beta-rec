@@ -77,7 +77,7 @@ export class TacticsOrderComponent implements OnInit {
           }
         },
         title: {
-          text: '贵铝订单数据分析'
+          text: '彩铝订单数据分析'
         },
         tooltip: {},
 

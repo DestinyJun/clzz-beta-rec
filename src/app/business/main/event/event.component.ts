@@ -27,23 +27,9 @@ export class EventComponent implements OnInit {
     });
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>, value) {
+    console.log(value);
     this.modalRef = this.modalService.show(template);
   }
-  Modal(list) {
-   this.Modal2 = list;
-  }
-  BgColor(type) {
-    let bgColor = '';
-    switch (type) {
-      case 4: bgColor = this.color[4]; break;
-      case 3: bgColor = this.color[3]; break;
-      case 2: bgColor = this.color[2]; break;
-      case 1: bgColor = this.color[1]; break;
-      case 0: bgColor = this.color[0]; break;
-    }
-    return bgColor;
-  }
-
 }
 

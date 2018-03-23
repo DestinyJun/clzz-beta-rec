@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PositionNameService} from '../../remind/position-name.service';
 
 @Component({
   selector: 'app-position-bar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PositionBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public Name: PositionNameService) {}
 
   ngOnInit() {
   }

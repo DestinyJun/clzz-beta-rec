@@ -9,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 export class OrderCraftComponent implements OnInit {
 
   page = 1;
+  row = 10;
   orders = [];
   AllOrders: number;
 
@@ -27,7 +28,7 @@ export class OrderCraftComponent implements OnInit {
   SeeOrders() {
     const body = '{\n' +
       '\t"page":"' + this.page + '",\n' +
-      '\t"row":"10",\n' +
+      '\t"row":"' + this.row + '",\n' +
       '\t"status":"3"\n' +
       '}';
     console.log(body);
@@ -37,6 +38,25 @@ export class OrderCraftComponent implements OnInit {
         this.orders = data['values'];
         this.AllOrders = data['number'];
       });
+  }
+  PageNumber() {
+    const i = this.AllOrders % this.row;
+    if (i === 0 && this.AllOrders > this.row) {
+      return this.AllOrders / this.row;
+    } else if ( i === 0) {
+      return this.AllOrders / this. row;
+    } else {
+      return (this.AllOrders - i ) / this.row + 1;
+    }
+  }
+  SkipPage(value) {
+    if (this.AllOrders > value  * this.row && value > 0) {
+      this.page = value;
+      this.SeeOrders();
+    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
+      this.page = value;
+      this.SeeOrders();
+    }
   }
   NextPage() {
     if (this.AllOrders > this.page * 10) {

@@ -46,11 +46,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
   ngAfterViewInit(): void {
     let t: number;
-    console.log(this.userRemindScrollContent.nativeElement.offsetHeight);
     this.bigBoxHeight = this.userRemindScrollContent.nativeElement.offsetHeight;
     this.contentBoxHeight = this.scrollListGroup.nativeElement.offsetHeight;
     t =  this.bigBoxHeight / this.contentBoxHeight * this.bigBoxHeight;
-    console.log(t);
     this.barBoxHeight = t.toString() + 'px';
   }
   public onNavListToggle(): void  {}

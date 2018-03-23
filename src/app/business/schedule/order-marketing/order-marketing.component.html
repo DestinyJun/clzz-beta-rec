@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="panel-heading">
-    <span>营销订单查询</span>
+    <span>营销审核订单</span>
     <div id="search" class="form-inline pull-right">
-      <input type="text" class="form-control" placeholder="搜索你的订单">
+      <input type="text" class="form-control" placeholder="搜索订单">
       <i class="fa fa-search"></i>
     </div>
   </div>
@@ -23,23 +23,27 @@
         </thead>
         <tbody>
         <tr *ngFor="let order  of orders;let i = index"  title="点击查看订单详情">
-          <td>{{i}}</td>
+          <td>{{(page - 1) * row + i + 1}}</td>
           <td>{{order['oid']}}</td>
           <td>{{order['cname']}}</td>
           <td>{{order['contractname']}}</td>
           <td>{{order['exdelitime']}}</td>
           <td>{{order['submitter']}}</td>
           <td>{{order['ostatus']}}</td>
-          <td><button class="btn btn-xs btn-danger">删除</button><button class="btn btn-xs btn-info">修改</button></td>
+          <td>
+            <button class="btn btn-xs btn-info">修改</button>
+            <button class="btn btn-xs btn-success">审核</button>
+          </td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
           <td colspan="8">
+            <span>当前第{{page}}页</span>
             <button type="button" class="btn btn-primary" (click)="ProPage()">上一页</button>
             <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共1页,跳到
-            <input type="number" title=""> 页
+            共{{PageNumber()}}页,跳到
+            <input type="number" #skip title="" (keyup.enter)="SkipPage(skip.value)" > 页
           </td>
         </tr>
         </tfoot>
