@@ -12,8 +12,9 @@ export class OrderQueryComponent implements OnInit {
   page = 1;
   orders = [];
   row = 10;
-  getauditmsg: any;
+  order = new Order();
   AllOrders: number;
+  read = true;
   public auditTitle: FormControl = new FormControl();
 
   constructor(private http: HttpClient) {
@@ -58,11 +59,13 @@ export class OrderQueryComponent implements OnInit {
     }
   }
   DeleteOrder(oid) {
-    window.confirm('确认删除吗？');
-    const body = '{"delete_id":"' + oid + '"}';
-    this.http.post('http://120.78.137.182/element/Del-Orders', body)
-      .subscribe(data => {
-        this.SeeOrders(); });
+    if (window.confirm('确认删除吗？') ) {
+      const body = '{"delete_id":"' + oid + '"}';
+      this.http.post('http://120.78.137.182/element/Del-Orders', body)
+        .subscribe(data => {
+          this.SeeOrders();
+        });
+    }
   }
   PageNumber() {
     const i = this.AllOrders % this.row;
@@ -75,7 +78,11 @@ export class OrderQueryComponent implements OnInit {
     }
   }
   modal(value) {
+    this.order = value;
     console.log(value);
+  }
+  remodal(): void {
+    this.read = false;
   }
   ModifyOrder(oid) {
     const body = '{"delete_id":"' + oid + '"}';
@@ -85,10 +92,38 @@ export class OrderQueryComponent implements OnInit {
 }
 
 export class Order {
-  oid: string;
+  address: string;
+  allength: string;
+  althickness: string;
+  altype: string;
+  amount: string;
+  alwidth: string;
+  bccd: string;
+  bchickness: string;
+  bchicknessw: string;
+  bprogram: string;
+  btype: string;
   cname: string;
   contractname: string;
+  doublecloat: string;
   exdelitime: string;
+  exshiptime: string;
+  fccd: string;
+  figure: string;
+  fprogram: string;
+  fthickness: string;
+  fthicknessw: string;
+  ftype: string;
+  oid: string;
+  ostatus: string;
+  pccd: string;
+  price: string;
+  pthickness: string;
+  ptype: string;
   submitter: string;
-  ostatus: number;
+  subtime: string;
+  tel: string;
+  country: string;
+  province: string;
+  city: string;
 }

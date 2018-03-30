@@ -1,3 +1,4 @@
+/*主体样式*/
 .container-fluid{
   padding: 0 40px;
 }
@@ -26,6 +27,10 @@
 #table .table-bordered > tbody >tr >td{
   border: 1px solid rgba(255,255,255,0.3);
 }
+#table .table-bordered > tbody > tr:hover{
+  cursor: pointer;
+  background-color: rgba(75, 117, 143, 0.55);
+}
 #table .table-bordered > thead >tr >th{
   border: 1px solid rgba(255,255,255,0.8);
 }
@@ -35,26 +40,6 @@
 #table .table-bordered > tfoot > tr>td{
   border: 1px solid rgba(0,0,0,0);
 }
-.modal-header{
-  background-color: rgba(55,96,108,0.8);
-  color: #FFFFFF;
-  border: none;
-}
-.modal-body{
-  background-color: rgba(55,96,108,0.5);
-  color: #FFFFFF;
-}
-.modal-footer{
-  padding-top: 8px;
-  background-color: rgba(55,96,108,0.8);
-  height: 50px;
-  color: #FFFFFF;
-}
-.modal-content{
-  color: #FFFFFF;
-  padding: 15px;
-  text-align: center;
-}
-.row > div{
-  margin-bottom: 15px;
+input{
+  color: #000;
 }

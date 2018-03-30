@@ -20,15 +20,24 @@
       <tbody>
       <tr  *ngFor="let i of DeviceSensor;let j = index">
         <td>{{2 * j + 1}}</td>
-        <td (click)="modal(i)">{{i['one']['Name']['dname']}} - {{i['one']['Name']['sname']}}</td>
+        <td (click)="modal2(i.one)" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['one']['Name']['dname']}} - {{i['one']['Name']['sname']}}</td>
         <td>{{i['one']['data']}}</td>
         <td *ngIf="i['two']">{{2 * j + 2}}</td>
-        <td (click)="modal(i)" *ngIf="i['two']">{{i['two']['Name']['dname']}} - {{i['two']['Name']['sname'] }}</td>
+        <td (click)="modal2(i.two)" *ngIf="i['two']" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['two']['Name']['dname']}} - {{i['two']['Name']['sname'] }}</td>
         <td *ngIf="i['two']">{{i['two']['data']}}</td>
       </tr>
       </tbody>
     </table>
   </div>
-
 </div>
 
+<!-- 模态框-->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div echarts [options]="option" style="width: 100%;height:600px;background-color: #21333f; text-align: center" ></div>
+    </div>
+  </div>
+</div>

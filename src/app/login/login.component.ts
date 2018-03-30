@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
     this.http.post('http://120.78.137.182/element-admin/user/login', body)
       .subscribe(data => {
         if (data['status'] === '10') {
-          this.Id.InitId(data['sid']);
+          this.Id.set('user', data['sid']);
+          console.log(this.Id);
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           window.confirm('用户已在线');

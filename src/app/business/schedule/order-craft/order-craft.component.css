@@ -38,3 +38,26 @@
 input{
   color: #000;
 }
+.modal-header{
+  background-color: rgba(55,96,108,0.8);
+  color: #FFFFFF;
+  border: none;
+}
+.modal-body{
+  background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
+.modal-footer{
+  padding-top: 8px;
+  background-color: rgba(55,96,108,0.8);
+  height: 50px;
+  color: #FFFFFF;
+}
+.modal-content{
+  color: #FFFFFF;
+  padding: 15px;
+  text-align: center;
+}
+.row > div{
+  margin-bottom: 15px;
+}

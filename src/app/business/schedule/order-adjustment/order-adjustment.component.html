@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="panel-heading">
+    <span>工艺订单清单</span>
+    <div id="search" class="form-inline pull-right">
+      <input type="text" class="form-control" placeholder="搜索订单">
+      <i class="fa fa-search"></i>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div id="table" class="table-responsive">
+      <table class="table table-bordered">
+        <tr>
+          <th></th>
+          <th>订单编号</th>
+          <th>客户名称</th>
+          <th>合同名称</th>
+          <th>预计发货时间</th>
+          <th>录入人员</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+        <tr *ngFor="let order of orders;let i =index">
+          <td>{{(page - 1) * row + i + 1}}</td>
+          <td>{{order.oid}}</td>
+          <td>{{order.cname}}</td>
+          <td>{{order.conname}}</td>
+          <td>{{order.exshiptime}}</td>
+          <td>{{order.submitter}}</td>
+          <td>{{order.audit}}</td>
+          <td>
+            <button class="btn btn-xs btn-info" (click)="up(i)">上移</button>
+            <button class="btn btn-xs btn-success" (click)="down(i)">下移</button>
+          </td>
+        </tr>
+
+        <tfoot>
+        <tr>
+          <td colspan="8">
+            <span>当前第{{page}}页</span>
+            <button type="button" class="btn btn-primary" (click)="ProPage()">上一页</button>
+            <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
+            共{{PageNumber()}}页,跳到
+            <input type="number" #skip title="" (keyup.enter)="SkipPage(skip.value)" > 页
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+

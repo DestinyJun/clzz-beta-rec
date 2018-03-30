@@ -2,15 +2,14 @@
   <span>事件数据列表</span>
   <div class="dropdown pull-right">
     <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      请选择事件类型...
+      {{eventType || '请选择事件类型...'}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dLabel">
-      <li>订单类事件</li>
-      <li>生产类事件</li>
-      <li>监控类事件</li>
-      <li>操作类事件
-      </li>
+      <li (click)="EventT('订单类事件')">订单类事件</li>
+      <li (click)="EventT('生产类事件')">生产类事件</li>
+      <li (click)="EventT('监控类事件')">监控类事件</li>
+      <li (click)="EventT('操作类事件')">操作类事件</li>
     </ul>
   </div>
 </div>
@@ -41,12 +40,44 @@
 <!-- 模态框-->
 <ng-template #template>
   <div class="modal-header">
-    <div class="modal-title pull-left">Modal</div>
+    <div class="modal-title pull-left">详细信息</div>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    This is a modal
+    <div class="row">
+      <div class="col-md-4">
+        <span>事件Id: {{Modal2.event_id}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>事件类型: {{Modal2.event_type}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>事件名: {{Modal2.event_name}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <span>所在生产线: {{Modal2.pro_system}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>事件发生时间:{{Modal2.event_date}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>type:{{Modal2.type}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <span>target_id:{{Modal2.target_id}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>附件:{{Modal2.event_attachment}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
   </div>
 </ng-template>

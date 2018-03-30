@@ -86,10 +86,11 @@ export class OrderEntryComponent implements OnInit {
       '\t"province":"' + this.province + '",\n' +
       '\t"city":"' + this.city + '",\n' +
       '\t"price":"' + this.price + '",\n' +
+      '\t"deviation":"' + 0.5 + '",\n' +
       '\t"amount":"' + this.amount + '"\n' +
       '}';
     console.log(body);
-    this.http.post('http://192.168.43.203:8080/element/Add-Orders', body)
+    this.http.post('http://120.78.137.182/element/Add-Orders', body)
       .subscribe(data => console.log(data));
   }
 

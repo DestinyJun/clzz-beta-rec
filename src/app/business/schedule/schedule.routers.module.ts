@@ -5,6 +5,7 @@ import {OrderEntryComponent} from './order-entry/order-entry.component';
 import {OrderQueryComponent} from './order-query/order-query.component';
 import {OrderMarketingComponent} from './order-marketing/order-marketing.component';
 import {OrderCraftComponent} from './order-craft/order-craft.component';
+import {OrderAdjustmentComponent} from './order-adjustment/order-adjustment.component';
 const mainRoutes: Routes = [
   {
     path: '',
@@ -13,7 +14,8 @@ const mainRoutes: Routes = [
       {path: 'ordent', component: OrderEntryComponent},
       {path: 'ordque', component: OrderQueryComponent},
       {path: 'ordmar', component: OrderMarketingComponent},
-      {path: 'ordcra', component: OrderCraftComponent}
+      {path: 'ordcra', component: OrderCraftComponent},
+      {path: 'ordadj', component: OrderAdjustmentComponent}
     ]
   },
 ];

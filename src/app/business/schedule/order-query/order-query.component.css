@@ -41,5 +41,17 @@
   border: 1px solid rgba(0,0,0,0);
 }
 input{
-  color: #000;
+  border-radius: 3px;
+  border: 0;
+  background-color: rgba(103,151,157,0.8);
+  color: #FFFFFF;
+  height: 25px;
+}
+.modal-body{
+  padding: 0;
+}
+.modal-content{
+  text-align: left;
+  padding: 0;
+  border-radius: 0 0 6px 6px;
 }

@@ -1,15 +1,34 @@
 import { Injectable } from '@angular/core';
-
+import {Provider} from '@angular/core';
 @Injectable()
 export class LoginIdService {
 
-  private Sid: string;
-  constructor() { }
+  public localStorage: any;
 
-  InitId(id: string) {
-    this.Sid = id;
+  constructor() {
+    if (!localStorage) {
+      throw new Error('Current browser does not support Local Storage');
+    }
+    this.localStorage = localStorage;
   }
-  getId() {
-    return this.Sid;
+
+  public set(key: string, value: string): void {
+    this.localStorage[key] = value;
+  }
+
+  public get(key: string): string {
+    return this.localStorage[key] || false;
+  }
+
+  public setObject(key: string, value: any): void {
+    this.localStorage[key] = JSON.stringify(value);
+  }
+
+  public getObject(key: string): any {
+    return JSON.parse(this.localStorage[key] || '{}');
+  }
+
+  public remove(key: string): any {
+    this.localStorage.removeItem(key);
   }
 }

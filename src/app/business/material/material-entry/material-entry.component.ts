@@ -9,6 +9,7 @@ import {HttpClient} from '@angular/common/http';
 export class MaterialEntryComponent implements OnInit {
 
   hid = false;
+  modalhid = false;
   aluminumspage = 1;
   printpage = 1;
   row = 5;
@@ -32,10 +33,8 @@ export class MaterialEntryComponent implements OnInit {
         '\t"row":"' + this.row + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
-      console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {
-          console.log(data);
           this.aluminums = data['values1'];
           this.AOrders = data['number'];
         });
@@ -45,10 +44,8 @@ export class MaterialEntryComponent implements OnInit {
         '\t"row":"' + this.row + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
-      console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {
-          console.log(data);
           this.prints = data['values2'];
           this.POrders = data['number'];
         });
@@ -62,10 +59,8 @@ export class MaterialEntryComponent implements OnInit {
         '\t"status":"' + status + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
-      console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {
-          console.log(data);
           this.aluminums = data['values1'];
           this.AOrders = data['number'];
         });
@@ -76,10 +71,8 @@ export class MaterialEntryComponent implements OnInit {
         '\t"status":"' + status + '",\n' +
         '\t"mode":"' + mode + '"\n' +
         '}';
-      console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {
-          console.log(data);
           this.prints = data['values2'];
           this.POrders = data['number'];
         });
@@ -126,17 +119,15 @@ export class Aluminum {
   type = '铝卷';
   purchase: string;
   pro_system: string;
-  subtime: string;
-  amount: number;
-  weight: number;
-  ostatus: number;
+  altype: string;
+  alweight: number;
+  alwidth: number;
 }
 export class Print {
   type = '油漆';
-  purchase: string;
-  pro_system: string;
-  subtime: string;
-  amount: number;
-  weight: number;
-  ostatus: number;
+  ptype: string;
+  price: string;
+  pname: string;
+  purchase: number;
+  paint_weight: number;
 }

@@ -32,7 +32,7 @@
           <td>{{order['ostatus']}}</td>
           <td>
             <button class="btn btn-xs btn-info">修改</button>
-            <button class="btn btn-xs btn-success">审核</button>
+            <button class="btn btn-xs btn-success" (click)="ModalValue(order)" data-toggle="modal" data-target=".bs-example-modal-lg">审核</button>
           </td>
         </tr>
         </tbody>
@@ -52,4 +52,81 @@
   </div>
 
 
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-md-3"><span>合同名: {{order.contractname}}</span></div>
+        <div class="col-md-3"><span>客户名: {{order.cname}}</span></div>
+        <div class="col-md-3"><span>单价: {{order.price}}</span></div>
+        <div class="col-md-3"><span>总价: {{order.amount}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>铝板类型: {{order.altype}}</span></div>
+        <div class="col-md-3"><span>铝板长度: {{order.allength}}</span></div>
+        <div class="col-md-3"><span>铝板宽度: {{order.alwidth}}</span></div>
+        <div class="col-md-3"><span>铝板厚度: {{order.althickness}}</span></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3"><span>背漆类型: {{order.btype}}</span></div>
+        <div class="col-md-3"><span>背漆方案选择: {{order.bprogram}}</span></div>
+        <div class="col-md-3"><span>背漆厚度: {{order.bchickness}}</span></div>
+        <div class="col-md-3"><span>背漆厚度: {{order.bchicknessw}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>背漆成像: {{order.bccd}}</span></div>
+        <div class="col-md-3"><span>背漆干膜修正: {{order.bdry_film}}</span></div>
+        <div class="col-md-3"><span>背漆湿膜修正: {{order.bwet_film}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>面漆类型: {{order.ftype}}</span></div>
+        <div class="col-md-3"><span>面漆厚度: {{order.fthickness}}</span></div>
+        <div class="col-md-3"><span>面漆厚度: {{order.fthicknessw}}</span></div>
+        <div class="col-md-3"><span>面漆方案: {{order.fccd}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>面漆生产线: {{order.fprogram}}</span></div>
+        <div class="col-md-3"><span>面漆干膜修正: {{order.fdry_film}}</span></div>
+        <div class="col-md-3"><span>面漆湿膜修正: {{order.fwet_film}}</span></div>
+        <div class="col-md-3"><span>花纹: {{order.figure}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>底漆类型: {{order.ptype}}</span></div>
+        <div class="col-md-3"><span>底漆厚度: {{order.pthicknessw}}</span></div>
+        <div class="col-md-3"><span>底漆厚度: {{order.pthickness}}</span></div>
+        <div class="col-md-3"><span>底漆成像: {{order.pccd}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>底漆干膜修正: {{order.pdry_film}}</span></div>
+        <div class="col-md-3"><span>底漆湿膜修正: {{order.pwet_film}}</span></div>
+        <div class="col-md-3"><span>底漆生产线: {{order.pprogram}}</span></div>
+        <div class="col-md-3"><span>是否双面涂: {{order.doublecloat}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>Id: {{order.oid}}</span></div>
+        <div class="col-md-3"><span>状态: {{order.ostatus}}</span></div>
+        <div class="col-md-3"><span>控制误差: {{order.deviation}}</span></div>
+        <div class="col-md-3"><span>审核人: {{order.auditor}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>提交人: {{order.submitter}}</span></div>
+        <div class="col-md-3"><span>提交时间: {{order.subtime}}</span></div>
+        <div class="col-md-3"><span>录入员: {{order.audit}}</span></div>
+        <div class="col-md-3"><span>录入时间: {{order.audittime}}</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"><span>地址: {{order.address}}</span></div>
+        <div class="col-md-3"><span>联系电话: {{order.tel}}</span></div>
+        <div class="col-md-3"><span>预计交货时间: {{order.exdelitime}}</span></div>
+        <div class="col-md-3"><span>预计发货时间: {{order.exshiptime}}</span></div>
+      </div>
+      <div class="row">
+        <button class="btn btn-success" (click)="pass(order.oid)" data-toggle="modal" data-target=".bs-example-modal-lg">通过</button>
+        <button class="btn btn-danger" (click)="Nopass(order.oid)" data-toggle="modal" data-target=".bs-example-modal-lg">不通过</button>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -31,7 +31,7 @@
           <td>{{order['submitter']}}</td>
           <td>{{order['ostatus']}}</td>
           <td><button class="btn btn-xs btn-danger" (click)="DeleteOrder(order['oid'])">删除</button>
-            <button class="btn btn-xs btn-info" (click)="modal(order)">修改</button></td>
+            <button class="btn btn-xs btn-info" (click)="modal(order);remodal()" data-toggle="modal" data-target=".bs-example-modal-lg">修改</button></td>
         </tr>
         </tbody>
         <tfoot>
@@ -49,5 +49,164 @@
     </div>
   </div>
 
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-heading">
+        <span> 详细信息</span>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <form class="form-inline">
+              <label>合同名:</label>
+              <input type="text" title="" value=" {{order.contractname}}" [disabled]="read">
+            </form>
+          </div>
+          <div class="col-md-3">
+            <form class="form-inline">
+              <label>客户名: </label>
+              <input type="text" title="" value=" {{order.cname}}" [disabled]="read">
+            </form>
+          </div>
+          <div class="col-md-3">
+            <form class="form-inline">
+              <label>单价: </label>
+              <input type="text" title="" value=" {{order.price}}" [disabled]="read">
+            </form>
+          </div>
+          <div class="col-md-3">
+            <form class="form-inline">
+              <label>总价: </label>
+              <input type="text" title="" value=" {{order.amount}}" [disabled]="read">
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>铝板类型: </label>
+            <input type="text" title="" value=" {{order.altype}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>铝板长度: </label>
+            <input type="text" title="" value=" {{order.allength}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>铝板宽度: </label>
+            <input type="text" title="" value=" {{order.alwidth}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>铝板厚度: </label>
+            <input type="text" title="" value=" {{order.althickness}}" [disabled]="read">
+          </form></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>背漆类型: </label>
+            <input type="text" title="" value=" {{order.btype}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>背漆方案选择: </label>
+            <input type="text" title="" value=" {{order.bprogram}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>背漆厚度: </label>
+            <input type="text" title="" value=" {{order.bchickness}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>背漆厚度: </label>
+            <input type="text" title="" value=" {{order.bchicknessw}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>背漆成像: </label>
+            <input type="text" title="" value=" {{order.bccd}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>面漆类型: </label>
+            <input type="text" title="" value=" {{order.ftype}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>面漆厚度: </label>
+            <input type="text" title="" value=" {{order.fthickness}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>面漆厚度: </label>
+            <input type="text" title="" value=" {{order.fthicknessw}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>面漆方案: </label>
+            <input type="text" title="" value=" {{order.fccd}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>花纹: </label>
+            <input type="text" title="" value=" {{order.figure}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>底漆类型: </label>
+            <input type="text" title="" value=" {{order.ptype}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>底漆厚度: </label>
+            <input type="text" title="" value=" {{order.pthickness}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>底漆成像: </label>
+            <input type="text" title="" value=" {{order.pccd}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>是否双面涂: </label>
+            <input type="text" title="" value=" {{order.doublecloat}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form>
+            <label>Id  : </label>
+            <input type="text" title="" value=" {{order.oid}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>状态: </label>
+            <input type="text" title="" value=" {{order.ostatus}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>提交人: </label>
+            <input type="text" title="" value=" {{order.submitter}}" [disabled]="read">
+          </form></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3"><form class="form-inline">
+            <label>收货地址: </label>
+            <input type="text" title="" value=" {{order.address}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>联系电话: </label>
+            <input type="text" title="" value=" {{order.tel}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>预计交货时间: </label>
+            <input type="text" title="" value=" {{order.exdelitime}}" [disabled]="read">
+          </form></div>
+          <div class="col-md-3"><form class="form-inline">
+            <label>预计发货时间: </label>
+            <input type="text" title="" value=" {{order.exshiptime}}" [disabled]="read">
+          </form></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
