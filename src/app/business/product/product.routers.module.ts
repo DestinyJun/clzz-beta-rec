@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ProductComponent} from './product.component';
 import {ProductEntryComponent} from './product-entry/product-entry.component';
 import {ProductOutComponent} from './product-out/product-out.component';
+import {ProductEntringComponent} from './product-entring/product-entring.component';
 const mainRoutes: Routes = [
   {
     path: '',
@@ -10,6 +11,7 @@ const mainRoutes: Routes = [
     children: [
       {path: 'procent', component: ProductEntryComponent},
       {path: 'procout', component: ProductOutComponent},
+      {path: 'proenting', component: ProductEntringComponent}
     ]
   },
 ];

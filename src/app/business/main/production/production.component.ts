@@ -131,10 +131,10 @@ export class ProductionComponent implements OnInit {
   }
 
   ReSize(event) {
-    setTimeout(() => event.resize(), 500);
+    this.ModalChart = event;
   }
   ReSizeInit() {
-    setTimeout(() => this.ModalChart.resize(), 500);
+    setTimeout(() => this.ModalChart.resize(), 200);
   }
   }
 export class Order {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {LoginIdService} from '../../../remind/login-id.service';
 
 @Component({
   selector: 'app-order-marketing',
@@ -14,7 +15,7 @@ export class OrderMarketingComponent implements OnInit {
   order = new Order();
   AllOrders: number;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private user: LoginIdService) {
   }
 
   ngOnInit() {
@@ -73,19 +74,42 @@ export class OrderMarketingComponent implements OnInit {
   pass(oid) {
     const body = '{\n' +
       '"oid":"' + oid + '",\n' +
-      '"auditor":"' + '未知' + '",\n' +
+      '"auditor":"' + this.user.get('userName') + '",\n' +
       '"status":"2"}';
     console.log(body);
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.SeeOrders();
+      });
   }
   Nopass(oid) {
     const body = '{\n' +
       '"oid":"' + oid + '",\n' +
-      '"auditor":"' + '未知' + '",\n' +
-      '"status":"1"}';
+      '"auditor":"' + this.user.get('userName') + '",\n' +
+      '"status":"11"}';
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.SeeOrders();
+      });
+  }
+  status(value): string {
+    if (value === 0) {
+      return '未提交';
+    } else if (value === 1) {
+      return '已提交';
+    } else if (value === 2) {
+      return '销售经理已审核';
+    } else if (value === 3) {
+      return '生产经理已审核';
+    } else if (value === 4) {
+      return '正在生产';
+    } else if (value === 5) {
+      return '成品已入库';
+    } else if (value === 6) {
+      return '成品已出库';
+    }
   }
 }
 export class Order {

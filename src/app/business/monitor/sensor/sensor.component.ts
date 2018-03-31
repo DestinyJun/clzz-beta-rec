@@ -12,6 +12,7 @@ export class SensorComponent implements OnInit {
   Modular: Array<any> = [];
   ModularJson: any;
   ModularId = 'mod0001';
+  ModalChart: any;
   DeviceSensorJson: any;
   DeviceSensor: Array<any> = [];
   NoDataSensorJson: any;
@@ -218,5 +219,11 @@ export class SensorComponent implements OnInit {
   modal2(value) {
     this.MapChart(value.Name.sid, value.Name.sname);
     console.log(value);
+  }
+  ReSize(event) {
+    this.ModalChart = event;
+  }
+  ReSizeInit() {
+    setTimeout(() => this.ModalChart.resize(), 200);
   }
 }

@@ -25,7 +25,6 @@ export class SidebarComponent implements OnInit {
       new NavListChild('设备更换', false, 'equipment/devche'),
     ] , true),
     new NavList('生产排程', 'fa fa-outdent', false, [
-      new NavListChild('营销订单录入', false, 'schedule/ordent'),
       new NavListChild('订单查询', false, 'schedule/ordque'),
       new NavListChild('营销订单审核', false, 'schedule/ordmar'),
       new NavListChild('生产工艺审核', false, 'schedule/ordcra'),
@@ -37,8 +36,9 @@ export class SidebarComponent implements OnInit {
       new NavListChild('原材料信息', false, 'material/matmes')
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
-      new NavListChild('成品入库', false, 'product/procent'),
-      new NavListChild('成品出库监控', false, 'product/procout'),
+      new NavListChild('成品未入库', false, 'product/proenting'),
+      new NavListChild('成品已入库', false, 'product/procent'),
+      new NavListChild('成品已出库', false, 'product/procout'),
     ] , true),
     new NavList('策略分析', 'fa fa-graduation-cap', false, [
       new NavListChild('地图策略分析', false, 'tactics/tacmap'),

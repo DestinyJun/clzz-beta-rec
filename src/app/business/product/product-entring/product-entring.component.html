@@ -14,10 +14,10 @@
             订单编号
           </th>
           <th>
-            订单总卷数
+            已入库数量
           </th>
           <th>
-            已出库数量
+            成品产出时间
           </th>
           <th>
             状态
@@ -31,8 +31,8 @@
         <tr *ngFor="let order of orders;let i = index">
           <td>{{i + 1}}</td>
           <td>{{order.oid}}</td>
-          <td>{{order.totalnum}}</td>
-          <td>{{order.prooutnum}}</td>
+          <td>{{order.numofware}}</td>
+          <td>{{order.idt}}</td>
           <td>{{order.status}}</td>
           <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid]">打印</button></td>
         </tr>

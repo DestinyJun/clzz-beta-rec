@@ -1,7 +1,8 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import {LoginIdService} from '../../../remind/login-id.service';
 
 @Component({
   selector: 'app-order-entry',
@@ -46,7 +47,8 @@ export class OrderEntryComponent implements OnInit {
   tel: string;
   address: string;
 
-  constructor(private http: HttpClient, private modalService: BsModalService) {}
+  @Output() submit = new EventEmitter();
+  constructor(private http: HttpClient, private modalService: BsModalService, private user: LoginIdService) {}
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -71,13 +73,13 @@ export class OrderEntryComponent implements OnInit {
       '\t"pprogram":"' + this.pprogram + '",\n' +
       '\t"pccd":"' + this.pccd + '",\n' +
       '\t"doublecloat":"' + this.doublecloat + '",\n' +
-      '\t"figura":"' + this.figura + '",\n' +
+      '\t"figura":"' + 1 + '",\n' +
       '\t"bchickness":"' + this.bchickness + '",\n' +
       '\t"btype":"' + this.btype + '",\n' +
       '\t"bprogram":"' + this.bprogram + '",\n' +
       '\t"bccd":"' + this.bccd + '",\n' +
       '\t"address":"' + this.address + '",\n' +
-      '\t"submitter":"' + this.submitter + '",\n' +
+      '\t"submitter":"' + this.user.get('userName') + '",\n' +
       '\t"exdelitime":"' + this.exdelitime + '",\n' +
       '\t"exshiptime":"' + this.exshiptime + '",\n' +
       '\t"pro_system":"' + this.pro_system + '",\n' +
@@ -90,7 +92,9 @@ export class OrderEntryComponent implements OnInit {
       '}';
     console.log(body);
     this.http.post('http://120.78.137.182/element/Add-Orders', body)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {console.log(data);
+      this.submit.emit(true);
+      });
   }
 
 

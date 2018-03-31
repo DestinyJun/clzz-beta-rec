@@ -1,3 +1,43 @@
-<div style="text-align: center; color: white;">
-  <h1>暂无发布，敬请期待</h1>
+<div class="container-fluid">
+  <div class="panel-heading">
+    <span>成品出库</span>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            订单编号
+          </th>
+          <th>
+            订单总卷数
+          </th>
+          <th>
+            成品出库时间
+          </th>
+          <th>
+            状态
+          </th>
+          <th>
+            操作
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let order of orders;let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{order.oid}}</td>
+          <td>{{order.totalnum}}</td>
+          <td>{{order.idt}}</td>
+          <td>{{order.status}}</td>
+          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid]">打印</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

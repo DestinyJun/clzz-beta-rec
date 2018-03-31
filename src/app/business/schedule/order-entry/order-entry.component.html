@@ -1,9 +1,9 @@
 
-<button type="button" class="btn btn-primary" (click)="openModal(template)">新增</button>
+<button type="button" class="btn btn-primary btn-xs" (click)="openModal(template)">新增</button>
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">营销订单录入</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right " aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -27,12 +27,6 @@
             <div class="form-group">
               <label class="control-label" for="">总金额(元)</label>
               <input class="form-control" type="number" id="" [(ngModel)]="amount" >
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <div class="form-group">
-              <label class="control-label" for="">订单编号</label>
-              <input class="form-control" type="text" id="" [(ngModel)]="oid">
             </div>
           </div>
         </div>
@@ -166,8 +160,8 @@
             <div class="form-group">
               <label class="control-label" for="">是否有花纹</label>
               <select class="form-control" [(ngModel)]="figura" title="">
-                <option>0</option>
-                <option>1</option>
+                <option>有花纹</option>
+                <option>无花纹</option>
               </select>
             </div>
           </div>
@@ -175,7 +169,7 @@
             <div class="form-group">
               <label class="control-label" for="">生产线</label>
               <select class="form-control" [(ngModel)]="pro_system" title="">
-                <option >1号生产线</option>
+                <option>1号生产线</option>
                 <option>2号生产线</option>
                 <option>3号生产线</option>
               </select>
@@ -229,8 +223,8 @@
           </div>
         </div>
         <div class="pull-left">
-          <button class="btn btn-info">保存</button>
-          <button class="btn btn-success" (click)="Submit()">提交</button>
+          <button class="btn btn-info" (click)="modalRef.hide()" aria-label="Close">保存</button>
+          <button class="btn btn-success" (click)="Submit();modalRef.hide()" aria-label="Close">提交</button>
         </div>
       </div>
     </div>

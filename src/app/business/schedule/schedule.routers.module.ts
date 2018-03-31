@@ -11,7 +11,6 @@ const mainRoutes: Routes = [
     path: '',
     component: ScheduleComponent,
     children: [
-      {path: 'ordent', component: OrderEntryComponent},
       {path: 'ordque', component: OrderQueryComponent},
       {path: 'ordmar', component: OrderMarketingComponent},
       {path: 'ordcra', component: OrderCraftComponent},

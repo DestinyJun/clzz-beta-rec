@@ -10,7 +10,7 @@ export class ProductEntryComponent implements OnInit {
 
   orders: Order[] = [];
   constructor(private http: HttpClient) {
-    this.http.post('http://120.78.137.182/element-plc/finished/find-produce-information', '')
+    this.http.post('http://120.78.137.182/element-plc/finished/find-finished-warehouse', '')
       .subscribe(data => {
         this.orders = data['values'];
         console.log(data);
@@ -23,8 +23,8 @@ export class Order {
 
   constructor(
     public  oid: string,
-    public  numofware: string,
-    public  idt: string,
+    public  totalnum: string,
+    public  prooutnum: string,
     public  status: string,
   ) {}
 }

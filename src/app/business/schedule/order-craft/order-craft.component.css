@@ -55,9 +55,13 @@ input{
 }
 .modal-content{
   color: #FFFFFF;
-  padding: 15px;
-  text-align: center;
+  text-align: left;
+  padding: 0;
+  border-radius: 0 0 6px 6px;
 }
 .row > div{
   margin-bottom: 15px;
+}
+.modal-body{
+  padding: 0;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LoginIdService} from '../../../remind/login-id.service';
 
 @Component({
   selector: 'app-order-craft',
@@ -13,9 +15,21 @@ export class OrderCraftComponent implements OnInit {
   orders = [];
   order = new Order();
   AllOrders: number;
+  read = true;
+  film: FormGroup;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService
+  ) {
     this.SeeOrders();
+    this.film = this.fb.group({
+      fdry_film: ['', Validators.required],
+      fwet_film: ['', Validators.required],
+      bdry_film: ['', Validators.required],
+      bwet_film: ['', Validators.required],
+      pdry_film: ['', Validators.required],
+      pwet_film: ['', Validators.required],
+      pro_system: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -71,39 +85,62 @@ export class OrderCraftComponent implements OnInit {
     this.order = value;
     console.log(value);
   }
+  status(value): string {
+    if (value === 0) {
+      return '未提交';
+    } else if (value === 1) {
+      return '已提交';
+    } else if (value === 2) {
+      return '销售经理已审核';
+    } else if (value === 3) {
+      return '生产经理已审核';
+    } else if (value === 4) {
+      return '正在生产';
+    } else if (value === 5) {
+      return '成品已入库';
+    } else if (value === 6) {
+      return '成品已出库';
+    }
+  }
   pass(oid) {
     const body = '  {\n' +
       '"oid":"' + oid + '",\n' +
-      '"pro_auditor":"阿福",\n' +
-      '"fdry_film":"2.1",\n' +
-      '"fwet_film":"4.7",\n' +
-      '"pdry_film":"2.1",\n' +
-      '"pwet_film":"4.7",\n' +
-      '"bdry_film":"2.1",\n' +
-      '"bwet_film":"4.7",\n' +
+      '"pro_auditor":"' + this.user.get('userName') + '",\n' +
+      '"fdry_film":"' + this.film.get('fdry_film').value + '",\n' +
+      '"fwet_film":"' + this.film.get('fwet_film').value + '",\n' +
+      '"pdry_film":"' + this.film.get('pdry_film').value + '",\n' +
+      '"pwet_film":"' + this.film.get('pwet_film').value + '",\n' +
+      '"bdry_film":"' + this.film.get('bdry_film').value + '",\n' +
+      '"bwet_film":"' + this.film.get('bwet_film').value + '",\n' +
       '"status":"3",\n' +
-      '"pro_system":"天际线"\n' +
+      '"pro_system":"' + this.film.get('pro_system').value + '"\n' +
       '}';
     console.log(body);
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.SeeOrders();
+      });
   }
   Nopass(oid) {
     const body = '  {\n' +
       '"oid":"' + oid + '",\n' +
-      '"pro_auditor":"阿福",\n' +
-      '"fdry_film":"2.1",\n' +
-      '"fwet_film":"4.7",\n' +
-      '"pdry_film":"2.1",\n' +
-      '"pwet_film":"4.7",\n' +
-      '"bdry_film":"2.1",\n' +
-      '"bwet_film":"4.7",\n' +
-      '"status":"3",\n' +
-      '"pro_system":"天际线"\n' +
+      '"pro_auditor":"' + this.user.get('userName') + '",\n' +
+      '"fdry_film":"' + this.film.get('fdry_film').value + '",\n' +
+      '"fwet_film":"' + this.film.get('fwet_film').value + '",\n' +
+      '"pdry_film":"' + this.film.get('pdry_film').value + '",\n' +
+      '"pwet_film":"' + this.film.get('pwet_film').value + '",\n' +
+      '"bdry_film":"' + this.film.get('bdry_film').value + '",\n' +
+      '"bwet_film":"' + this.film.get('bwet_film').value + '",\n' +
+      '"status":"11",\n' +
+      '"pro_system":"' + this.film.get('pro_system').value + '"\n' +
       '}';
     console.log(body);
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.SeeOrders();
+      });
   }
 
 }

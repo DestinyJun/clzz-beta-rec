@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
-  selector: 'app-product-out',
-  templateUrl: './product-out.component.html',
-  styleUrls: ['./product-out.component.css']
+  selector: 'app-product-entring',
+  templateUrl: './product-entring.component.html',
+  styleUrls: ['./product-entring.component.css']
 })
-export class ProductOutComponent implements OnInit {
+export class ProductEntringComponent implements OnInit {
 
   orders: Order[] = [];
   constructor(private http: HttpClient) {
-    this.http.post('http://120.78.137.182/element-plc/finished/find-warehouse-out-record', '')
+    this.http.post('http://120.78.137.182/element-plc/finished/find-produce-information', '')
       .subscribe(data => {
         this.orders = data['values'];
         console.log(data);
@@ -23,7 +23,7 @@ export class Order {
 
   constructor(
     public  oid: string,
-    public  totalnum: string,
+    public  numofware: string,
     public  idt: string,
     public  status: string,
   ) {}

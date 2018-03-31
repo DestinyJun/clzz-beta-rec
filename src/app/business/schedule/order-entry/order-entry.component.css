@@ -20,10 +20,11 @@
   box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
 input, select{
-  border-radius: 3px;
+  padding-top: 2px;
+  font-size: 12px;
+  border-radius: 1px;
   border: 0;
-  background-color: rgba(103,151,157,0.8);
-  color: #FFFFFF;
+  color: #000;
   height: 25px;
 }
 
