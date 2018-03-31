@@ -9,7 +9,7 @@ import {LoginComponent} from './login.component';
     CommonModule,
     LoginRoutersModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     LoginComponent
