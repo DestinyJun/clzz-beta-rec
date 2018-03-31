@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class QrcodeComponent implements OnInit {
 
   elementType: 'url' | 'canvas' | 'imag' = 'url';
-  value = 'http://120.78.138.104:8080/panda/#/orderpage';
+  value = 'http://22/';
   L = 'H';
   oid: string;
   constructor(private route: ActivatedRoute) {

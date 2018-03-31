@@ -55,7 +55,6 @@ export class OrderEntryComponent implements OnInit {
   Submit() {
     this.Allength = this.Area / this.Alwidth;
     const body = ' {\n' +
-      '\t"oid":"' + this.oid + '",\n' +
       '\t"cname":"' + this.cname + '",\n' +
       '\t"contractname":"' + this.contractname + '",\n' +
       '\t"tel":"' + this.tel + '",\n' +

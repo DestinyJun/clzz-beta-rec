@@ -44,7 +44,7 @@ export class OrderAdjustmentComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];
-        this.AllOrders = data['number'];
+        this.AllOrders = data['values'].length;
       });
   }
   NextPage() {
