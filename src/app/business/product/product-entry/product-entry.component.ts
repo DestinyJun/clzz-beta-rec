@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-product-entry',
@@ -7,18 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductEntryComponent implements OnInit {
 
-  orders: Order[] = [
-    new Order(1, '彩铝产业合同', 'PW1101AG101PW', '小明', 1023, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(2, '彩铝产业合同', 'PW1101AG101PW', '小王', 1024, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(3, '彩铝产业合同', 'PW1101AG101PW', '小刚', 1025, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(4, '彩铝产业合同', 'PW1101AG101PW', '小梅', 1026, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(5, '彩铝产业合同', 'PW1101AG101PW', '小红', 1027, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(6, '彩铝产业合同', 'PW1101AG101PW', '小强', 1028, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(7, '彩铝产业合同', 'PW1101AG101PW', '小静', 1029, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(8, '彩铝产业合同', 'PW1101AG101PW', '小华', 1030, '2017.12.30', '小李', '2018.1.14', '小王'),
-    new Order(9, '彩铝产业合同', 'PW1101AG101PW', '小芳', 1031, '2017.12.30', '小李', '2018.1.14', '小王')
-  ];
-  constructor() {
+  orders: Order[] = [];
+  constructor(private http: HttpClient) {
+    this.http.post('http://120.78.137.182/element-plc/finished/find-produce-information', '')
+      .subscribe(data => {
+        this.orders = data['values'];
+        console.log(data);
+      });
   }
   ngOnInit() {
   }
@@ -26,15 +22,10 @@ export class ProductEntryComponent implements OnInit {
 export class Order {
 
   constructor(
-    public  id: number,
-    public  contracttitle: string,
-    public  Serialnumber: string,
-    public  customertitle: string,
-    public  Productnumber: number,
-    public  Storagetime: string,
-    public  Warehousing_agent: string,
-    public  deliverytime: string,
-    public  Warehousingagent: string,
+    public  oid: string,
+    public  numofware: string,
+    public  idt: string,
+    public  status: string,
   ) {}
 }
 

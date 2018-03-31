@@ -60,12 +60,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.scrollToggle = !this.scrollToggle;
   }
   loginOut() {
-    const sid = '{\n' +
-      '\t"sid":"' + this.Id.getId() + '"\n' +
-      '}';
+    const sid = '{ "sid":"' + this.Id.get('user') + '"}';
+    console.log(sid);
     this.http.post('http://120.78.137.182/element-admin/user/logout', sid)
-      .subscribe();
-    this.route.navigate(['/login']);
+      .subscribe(data => {
+        this.route.navigate(['/login']);
+      });
   }
   public onToggleInfo(event): void {
       this.infoToggle = !this.infoToggle;

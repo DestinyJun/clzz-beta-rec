@@ -4,26 +4,20 @@
 <div class="panel-body">
   <div class="table-responsive">
     <table class="table table-bordered">
+      <tbody>
       <tr>
-        <td>订单编号：{{orderList[0].id}}</td>
-        <td>铝卷厚度：{{orderList[0].Aluminumt}}</td>
-        <td>铝卷长度：{{orderList[0].Aluminuml}}</td>
+        <td>铝卷型号</td><td>{{order['altype']}}</td><td>铝卷长度</td><td>{{order['allength']}}</td>
       </tr>
       <tr>
-        <td>铝卷亮度：{{orderList[0].Aluminumb}}</td>
-        <td>面漆颜色：{{orderList[0].Paintc}}</td>
-        <td>面漆厚度：{{orderList[0].Paintt}}</td>
+        <td>铝卷宽度</td><td>{{order['alwidth']}}</td><td>铝卷厚度</td><td>{{order['althickness']}}</td>
       </tr>
       <tr>
-        <td>底漆颜色：{{orderList[0].primerc}}</td>
-        <td>底漆厚度：{{orderList[0].primertt}}</td>
-        <td>背漆颜色：{{orderList[0].Ofpaintc}}</td>
+        <td>面漆型号</td><td>{{order['ftype']}}</td><td>面漆厚度</td><td>{{order['fthickness']}}</td>
       </tr>
       <tr>
-        <td>背漆厚度：{{orderList[0].Ofpaintt}}</td>
-        <td>是否双面涂：{{orderList[0].Doublesided}}</td>
-        <td>预计交货时间：{{orderList[0].time1}}</td>
+        <td>面漆成像</td><td>{{order['fccd']}}</td><td>面漆方案</td><td>{{order['fprogram']}}</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </div>

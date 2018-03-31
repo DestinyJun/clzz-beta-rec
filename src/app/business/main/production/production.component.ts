@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {OrderList} from '../../../shared/http.service';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-production',
@@ -7,7 +8,7 @@ import {OrderList} from '../../../shared/http.service';
   styleUrls: ['./production.component.css']
 })
 export class ProductionComponent implements OnInit {
-  public orderList: OrderList[];
+  public order = new Order();
   public options = {
 
     tooltip : {
@@ -113,27 +114,36 @@ export class ProductionComponent implements OnInit {
       ]
   };
   public ModalChart: any;
-  constructor() {
-    this.orderList = [
-      new OrderList(1, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(2, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', false, '1h6m', '7h5m'),
-      new OrderList(3, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(4, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', false, '1h6m', '7h5m'),
-      new OrderList(5, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(6, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(7, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(8, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(9, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m'),
-      new OrderList(10, '测试名', '信息', '1h5m', '2cm', '4cm', '32', '红色', '5cm', 'blue', '56cm', '灰色', '40cm', true, '1h6m', '7h5m')
-    ];
+  constructor(private http: HttpClient ) {
+    this.http.post('http://120.78.137.182/element-plc/order/audited', '')
+      .subscribe(data => {
+        const length = data['values'].length;
+        for (let i = 0; i < length; i++) {
+          if (data['values'][i]['status'] === 1) {
+            this.order = data['values'][i];
+            break;
+          }
+        }
+      });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ReSize(event) {
-    this.ModalChart = event;
+    setTimeout(() => event.resize(), 500);
   }
-    ReSizeInit() {
-      setTimeout(() => this.ModalChart.resize(), 500);
-    }
+  ReSizeInit() {
+    setTimeout(() => this.ModalChart.resize(), 500);
   }
+  }
+export class Order {
+  altype: string;
+  allength: string;
+  alwidth: string;
+  althickness: string;
+  ftype: string;
+  fthickness: string;
+  fccd: string;
+  fprogram: string;
+}

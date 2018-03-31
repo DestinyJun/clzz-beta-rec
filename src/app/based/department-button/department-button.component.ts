@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-department-button',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DepartmentButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    this.http.post('http://120.78.137.182/element-admin/department/tree', '')
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 
   ngOnInit() {
   }
