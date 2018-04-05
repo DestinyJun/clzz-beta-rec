@@ -63,3 +63,6 @@ span{
 .row > div{
   margin-bottom: 15px;
 }
+label{
+  display: block;
+}

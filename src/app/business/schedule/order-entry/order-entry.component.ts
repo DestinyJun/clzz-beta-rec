@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-order-entry',
@@ -12,83 +13,86 @@ import {LoginIdService} from '../../../remind/login-id.service';
 export class OrderEntryComponent implements OnInit {
 
   modalRef: BsModalRef;
-  Area: number;
-  price: number;
-  amount: number;
-
-  submitter = '未知';
-  Allength: number;
-  oid: string;
-  contractname: string;
-  cname: string;
-  Althickness: number;
-  Alwidth: number;
-  Altype: string;
-  fprogram: string;
-  pprogram: string;
-  bprogram: string;
+  order: FormGroup;
   ftype: string;
-  fthickness: string;
   fccd: string;
   ptype: string;
-  pthickness: string;
-  pccd: string;
   btype: string;
-  bchickness: string;
-  bccd: string;
-  doublecloat: string;
-  figura: string;
   pro_system: string;
-  country: string;
-  province: string;
-  city: string;
-  exdelitime: string;
-  exshiptime: string;
-  tel: string;
-  address: string;
+  figura: string;
+  doublecloat: string;
+  submitter = '未知';
 
   @Output() submit = new EventEmitter();
-  constructor(private http: HttpClient, private modalService: BsModalService, private user: LoginIdService) {}
+  constructor(private http: HttpClient, private modalService: BsModalService, private user: LoginIdService, private fb: FormBuilder) {
+    this.order = this.fb.group({
+      Area: ['', Validators.required],
+      price: ['', Validators.required],
+      amount: ['', Validators.required],
+      Allength: ['', Validators.required],
+      oid: ['', Validators.required],
+      contractname: ['', Validators.required],
+      cname: ['', Validators.required],
+      Althickness: ['', Validators.required],
+      Alwidth: ['', Validators.required],
+      Altype: ['', Validators.required],
+      fprogram: ['', Validators.required],
+      pprogram: ['', Validators.required],
+      bprogram: ['', Validators.required],
+      fthickness: ['', Validators.required],
+      pthickness: ['', Validators.required],
+      pccd: ['', Validators.required],
+      bchickness: ['', Validators.required],
+      bccd: ['', Validators.required],
+      country: ['', Validators.required],
+      province: ['', Validators.required],
+      city: ['', Validators.required],
+      exdelitime: ['', Validators.required],
+      exshiptime: ['', Validators.required],
+      tel: ['', Validators.required],
+      address: ['', Validators.required]
+    });
+  }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
   ngOnInit() {
   }
   Submit() {
-    this.Allength = this.Area / this.Alwidth;
+    this.order.patchValue({'Allength': this.order.get('Area').value / this.order.get('Alwidth').value});
     const body = ' {\n' +
-      '\t"cname":"' + this.cname + '",\n' +
-      '\t"contractname":"' + this.contractname + '",\n' +
-      '\t"tel":"' + this.tel + '",\n' +
-      '\t"Altype":"' + this.Altype + '",\n' +
-      '\t"Allength":"' + this.Area / this.Alwidth + '",\n' +
-      '\t"Alwidth":"' + this.Alwidth + '",\n' +
-      '\t"Althickness":"' + this.Althickness + '",\n' +
-      '\t"fthickness":"' + this.fthickness + '",\n' +
+      '\t"cname":"' + this.order.get('cname').value + '",\n' +
+      '\t"contractname":"' + this.order.get('contractname').value + '",\n' +
+      '\t"tel":"' + this.order.get('tel').value + '",\n' +
+      '\t"Altype":"' + this.order.get('Altype').value + '",\n' +
+      '\t"Allength":"' + this.order.get('Area').value / this.order.get('Alwidth').value + '",\n' +
+      '\t"Alwidth":"' + this.order.get('Alwidth').value + '",\n' +
+      '\t"Althickness":"' + this.order.get('Althickness').value + '",\n' +
+      '\t"fthickness":"' + this.order.get('fthickness').value + '",\n' +
       '\t"ftype":"' + this.ftype + '",\n' +
-      '\t"fprogram":"' + this.fprogram + '",\n' +
+      '\t"fprogram":"' + this.order.get('fprogram').value + '",\n' +
       '\t"fccd":"' + this.fccd + '",\n' +
-      '\t"pthickness":"' + this.pthickness + '",\n' +
+      '\t"pthickness":"' + this.order.get('pthickness').value + '",\n' +
       '\t"ptype":"' + this.ptype + '",\n' +
-      '\t"pprogram":"' + this.pprogram + '",\n' +
-      '\t"pccd":"' + this.pccd + '",\n' +
+      '\t"pprogram":"' + this.order.get('pprogram').value + '",\n' +
+      '\t"pccd":"' + this.order.get('pccd').value + '",\n' +
       '\t"doublecloat":"' + this.doublecloat + '",\n' +
       '\t"figura":"' + 1 + '",\n' +
-      '\t"bchickness":"' + this.bchickness + '",\n' +
+      '\t"bchickness":"' + this.order.get('bchickness').value + '",\n' +
       '\t"btype":"' + this.btype + '",\n' +
-      '\t"bprogram":"' + this.bprogram + '",\n' +
-      '\t"bccd":"' + this.bccd + '",\n' +
-      '\t"address":"' + this.address + '",\n' +
-      '\t"submitter":"' + this.user.get('userName') + '",\n' +
-      '\t"exdelitime":"' + this.exdelitime + '",\n' +
-      '\t"exshiptime":"' + this.exshiptime + '",\n' +
+      '\t"bprogram":"' + this.order.get('bprogram').value + '",\n' +
+      '\t"bccd":"' + this.order.get('bccd').value + '",\n' +
+      '\t"address":"' + this.order.get('address').value + '",\n' +
+      '\t"submitter":"' + this.user.get('submitter') + '",\n' +
+      '\t"exdelitime":"' + this.order.get('exdelitime').value + '",\n' +
+      '\t"exshiptime":"' + this.order.get('exshiptime').value + '",\n' +
       '\t"pro_system":"' + this.pro_system + '",\n' +
-      '\t"country":"' + this.country + '",\n' +
-      '\t"province":"' + this.province + '",\n' +
-      '\t"city":"' + this.city + '",\n' +
-      '\t"price":"' + this.price + '",\n' +
+      '\t"country":"' + this.order.get('country').value + '",\n' +
+      '\t"province":"' + this.order.get('province').value + '",\n' +
+      '\t"city":"' + this.order.get('city').value + '",\n' +
+      '\t"price":"' + this.order.get('price').value + '",\n' +
       '\t"deviation":"' + 0.5 + '",\n' +
-      '\t"amount":"' + this.amount + '"\n' +
+      '\t"amount":"' + this.order.get('amount').value + '"\n' +
       '}';
     console.log(body);
     this.http.post('http://120.78.137.182/element/Add-Orders', body)

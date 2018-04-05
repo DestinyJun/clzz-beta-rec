@@ -36,9 +36,9 @@ export class SidebarComponent implements OnInit {
       new NavListChild('原材料信息', false, 'material/matmes')
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
-      new NavListChild('成品未入库', false, 'product/proenting'),
-      new NavListChild('成品已入库', false, 'product/procent'),
-      new NavListChild('成品已出库', false, 'product/procout'),
+      new NavListChild('待入库成品', false, 'product/proenting'),
+      new NavListChild('已入库成品', false, 'product/procent'),
+      new NavListChild('已出库成品', false, 'product/procout'),
     ] , true),
     new NavList('策略分析', 'fa fa-graduation-cap', false, [
       new NavListChild('地图策略分析', false, 'tactics/tacmap'),

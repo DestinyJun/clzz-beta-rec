@@ -72,3 +72,6 @@ input{
   width: 40%;
   text-align: center;
 }
+label{
+  display: block;
+}

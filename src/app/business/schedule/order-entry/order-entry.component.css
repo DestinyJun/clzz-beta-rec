@@ -1,32 +1,51 @@
 .container-fluid{
   padding: 0;
 }
-.modal-content{
-  position: relative;
-  width: 150%;
-  left: -100px;
-}
-.modal-header{
-  color: #fff;
-  background-color: #2e403c;
+.panel-heading{
+  color: #ffffff;
+  border-radius: 5px 5px 0 0;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  background-color: rgba(55,96,108,0.3);
+  box-shadow:0 1px 1px 0 rgba(0,0,0,0.8);
 }
 .modal-body{
+  background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
+.modal-footer{
+  padding-top: 8px;
+  background-color: rgba(55,96,108,0.8);
+  height: 50px;
+  color: #FFFFFF;
+}
+.modal-content{
+  color: #FFFFFF;
   padding: 0;
+  text-align: left;
 }
 .panel-body{
   color: white;
   border-radius: 0 0 5px 5px;
-  background-color: rgba(23, 42, 49, 0.8);
+  background-color: rgba(55,96,108,0.3);
   box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
 input, select{
-  padding-top: 2px;
-  font-size: 12px;
-  border-radius: 1px;
-  border: 0;
   color: #000;
-  height: 25px;
+  border-radius: 0;
+  border-width: 2px;
+  border-color: #fff;
+  height: 26px;
+  padding: 1px 0 1px 0;
 }
-
+select{
+  width: 100%;
+  display: block;
+}
+.row > div{
+  margin-bottom: 15px;
+}
+label{
+  display: block;
+}
 
 

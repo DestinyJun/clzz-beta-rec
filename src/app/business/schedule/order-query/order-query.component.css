@@ -40,18 +40,32 @@
 #table .table-bordered > tfoot > tr>td{
   border: 1px solid rgba(0,0,0,0);
 }
-input{
-  border-radius: 3px;
-  border: 0;
-  background-color: rgba(103,151,157,0.8);
-  color: #FFFFFF;
-  height: 25px;
-}
 .modal-body{
-  padding: 0;
+  background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
+.modal-footer{
+  padding-top: 8px;
+  background-color: rgba(55,96,108,0.8);
+  height: 50px;
+  color: #FFFFFF;
 }
 .modal-content{
-  text-align: left;
+  color: #FFFFFF;
   padding: 0;
-  border-radius: 0 0 6px 6px;
+  text-align: left;
+}
+input{
+  color: #000;
+  border-radius: 0;
+  border-width: 2px;
+  border-color: #fff;
+  height: 26px;
+  padding: 1px 0 1px 0;
+}
+.row > div{
+  margin-bottom: 15px;
+}
+label{
+  display: block;
 }

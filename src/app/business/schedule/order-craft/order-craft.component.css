@@ -65,3 +65,6 @@ input{
 .modal-body{
   padding: 0;
 }
+label{
+  display: block;
+}
