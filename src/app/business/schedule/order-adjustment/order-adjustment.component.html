@@ -28,8 +28,8 @@
           <td>{{order.submitter}}</td>
           <td>{{order.status}}</td>
           <td>
-            <button class="btn btn-xs btn-info" (click)="up(i)">上移</button>
-            <button class="btn btn-xs btn-success" (click)="down(i)">下移</button>
+            <button class="btn btn-xs btn-info" (click)="up(i)" [disabled]="i < 1">上移</button>
+            <button class="btn btn-xs btn-success" (click)="down(i)" [disabled]="i===AllOrders-1">下移</button>
           </td>
         </tr>
 

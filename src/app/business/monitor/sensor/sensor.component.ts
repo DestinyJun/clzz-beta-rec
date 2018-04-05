@@ -224,6 +224,6 @@ export class SensorComponent implements OnInit {
     this.ModalChart = event;
   }
   ReSizeInit() {
-    setTimeout(() => this.ModalChart.resize(), 200);
+    setTimeout(() => this.ModalChart.resize(), 500);
   }
 }

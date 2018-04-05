@@ -8,6 +8,7 @@ import {ProductionComponent} from './production/production.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {ListComponent} from './list/list.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +17,8 @@ import { BsDropdownModule } from 'ngx-bootstrap';
     MainRoutersModule,
     NgxEchartsModule,
     BsDropdownModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     MainComponent,

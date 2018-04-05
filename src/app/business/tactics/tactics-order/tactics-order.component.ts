@@ -57,7 +57,7 @@ export class TacticsOrderComponent implements OnInit {
 
     this.option = {
       baseOption: {
-        backgroundColor: '#fff',
+        backgroundColor: '#37606C',
         timeline: {
           // y: 0,
           axisType: 'category',
@@ -77,7 +77,10 @@ export class TacticsOrderComponent implements OnInit {
           }
         },
         title: {
-          text: '彩铝订单数据分析'
+          text: '彩铝订单数据分析',
+          textStyle: {
+            color: '#fff'
+          }
         },
         tooltip: {},
 
@@ -93,7 +96,12 @@ export class TacticsOrderComponent implements OnInit {
             'axisLabel': {'interval': 0},
             'data': ['1', '\n2', '3', '\n4', '5', '\n6', '7', '\n8', '9', '\n10', '11', '\n12', '13', '\n14',
               '15', '\n16', '17', '\n18', '19', '\n20', '21', '\n22', '23', '\n24', '25', '\n26', '27', '\n28', '29', '\n30', '31'],
-            splitLine: {show: false}
+            splitLine: {show: false},
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            }
           }
         ],
         yAxis: [
@@ -101,7 +109,12 @@ export class TacticsOrderComponent implements OnInit {
             type: 'value',
             name: '订单数',
             // max: 53500
-            max : 100
+            max : 100,
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            }
           }
         ],
         series: [
