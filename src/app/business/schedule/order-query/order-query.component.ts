@@ -171,6 +171,7 @@ export class OrderQueryComponent implements OnInit {
     this.http.post('http://120.78.137.182/element/Update-Orders', body)
       .subscribe(data => {
         console.log(data);
+        this.SeeOrders();
       });
   }
 }

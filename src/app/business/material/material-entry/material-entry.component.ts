@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-material-entry',
@@ -18,7 +19,56 @@ export class MaterialEntryComponent implements OnInit {
   AllOrders: number;
   AOrders: number;
   POrders: number;
-  constructor(private http: HttpClient) {
+  AL: FormGroup;
+  paint: FormGroup;
+  supid: Array<string> = [];
+  Alweight: Array<string> = [];
+  psupid: Array<string> = [];
+  paint_weight: Array<string> = [];
+  supnum: Array<string> = [];
+  diluent_weight: Array<string> = [];
+  As: Array<string> = [];
+  Asd: Array<string> = [];
+  Asp: Array<string> = [];
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+
+    this.AL = this.fb.group({
+      purchase: ['', [Validators.required]],
+      Alexweight: ['', [Validators.required]],
+      Altype: ['', [Validators.required]],
+      Alwidth: ['', [Validators.required]],
+      Althickness: ['', [Validators.required]],
+      Aldensity: ['', [Validators.required]],
+      Alprice: ['', [Validators.required]],
+      supname: ['', [Validators.required]],
+      wid: ['', [Validators.required]],
+      pro_system: ['', [Validators.required]],
+      amount: ['', [Validators.required]],
+      auditor: ['', [Validators.required]]
+    });
+    this.paint = this.fb.group({
+      pname: ['', Validators.required],
+      purchase: ['', Validators.required],
+      pdensity: ['', Validators.required],
+      pcondensate: ['', Validators.required],
+      ptype: ['', Validators.required],
+      pvolatile: ['', Validators.required],
+      price: ['', Validators.required],
+      paex_weight: ['', Validators.required],
+      diluent_id: ['', Validators.required],
+      supname: ['', Validators.required],
+      wid: ['', Validators.required],
+      auditor: ['', Validators.required],
+      dname: ['', Validators.required],
+      dtype: ['', Validators.required],
+      condensate: ['', Validators.required],
+      dvolatile: ['', Validators.required],
+      dprice: ['', Validators.required],
+      diex_weight: ['', Validators.required],
+      pro_system: ['', Validators.required],
+      pamount: ['', Validators.required],
+      damount: ['', Validators.required]
+    })
   }
 
   ngOnInit() {
@@ -26,6 +76,21 @@ export class MaterialEntryComponent implements OnInit {
     this.SeeOrders(1);
   }
 
+  addF() {
+    this.supid.push('');
+    this.Alweight.push('');
+    this.As.push('');
+  }
+  addFp() {
+    this.paint_weight.push('');
+    this.psupid.push('');
+    this.Asp.push('');
+  }
+  addFd() {
+    this.diluent_weight.push('');
+    this.supnum.push('');
+    this.Asd.push('');
+  }
   SeeOrders(mode) {
     if (mode === 0) {
       const body = '{\n' +

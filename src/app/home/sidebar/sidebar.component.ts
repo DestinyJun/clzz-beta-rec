@@ -22,7 +22,6 @@ export class SidebarComponent implements OnInit {
     new NavList('设备运行', 'fa fa-th-large', false, [
       new NavListChild('感知历史数据', false, 'equipment/devhis'),
       new NavListChild('设备信息', false, 'equipment/devnew'),
-      new NavListChild('设备更换', false, 'equipment/devche'),
     ] , true),
     new NavList('生产排程', 'fa fa-outdent', false, [
       new NavListChild('订单查询', false, 'schedule/ordque'),
@@ -31,9 +30,9 @@ export class SidebarComponent implements OnInit {
       new NavListChild('任务调排', false, 'schedule/ordadj'),
     ] , true),
     new NavList('原材料管理', 'fa fa-sitemap', false, [
-      new NavListChild('原材料录入', false, 'material/matent'),
+      new NavListChild('原材料查询', false, 'material/matmes'),
       new NavListChild('原材料审核', false, 'material/matche'),
-      new NavListChild('原材料信息', false, 'material/matmes')
+      new NavListChild('原材料录入', false, 'material/matent'),
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
       new NavListChild('待入库成品', false, 'product/proenting'),
@@ -55,8 +54,14 @@ export class SidebarComponent implements OnInit {
     this.difulHeight = 0;
   }
   ngOnInit() {}
-  PullName(name) {
-    this.Name.InitName(name);
+  PullName(name, event) {
+    event.stopPropagation();
+    this.Name.set('positionName', name);
+  }
+  PullMain(name) {
+    if (name === '首页') {
+      this.Name.set('positionName', name);
+    }
   }
   onMouseleave() {
     this.slidingTop = -120;

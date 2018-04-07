@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {EquipmentRoutersModule} from './equipment.routers.module';
 import {EquipmentComponent} from './equipment.component';
-import {DeviceChangeComponent} from './device-change/device-change.component';
 import {DeviceHistoryComponent} from './device-history/device-history.component';
 import {DeviceNewComponent} from './device-new/device-new.component';
 @NgModule({
@@ -14,7 +13,6 @@ import {DeviceNewComponent} from './device-new/device-new.component';
   ],
   declarations: [
     EquipmentComponent,
-    DeviceChangeComponent,
     DeviceHistoryComponent,
     DeviceNewComponent
   ],

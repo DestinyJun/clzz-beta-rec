@@ -5,10 +5,13 @@ import {MaterialRoutersModule} from './material.routers.module';
 import {MaterialEntryComponent} from './material-entry/material-entry.component';
 import {MaterialCheckComponent} from './material-check/material-check.component';
 import {MaterialMessageComponent} from './material-message/material-message.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    MaterialRoutersModule
+    MaterialRoutersModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     MaterialComponent,

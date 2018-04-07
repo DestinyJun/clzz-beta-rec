@@ -68,3 +68,7 @@ input{
 label{
   display: block;
 }
+#film > form{
+  padding: 0 15px 0 15px;
+}
+

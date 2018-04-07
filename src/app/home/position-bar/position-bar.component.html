@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <ul class="list">
-    <li class="list-left">{{Name.getName() || '主页'}}</li>
+    <li class="list-left">{{Name.get('positionName')|| '主页'}}</li>
     <li class="list-child ">
       <i>/</i>
-      {{Name.getName()  || '主页'}}
+      {{Name.get('positionName')|| '主页'}}
     </li>
     <li class="list-main " [routerLink]="['/home']">首页 </li>
   </ul>

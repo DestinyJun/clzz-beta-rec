@@ -16,6 +16,7 @@
 <div class="panel-body">
   <div id="table" class="table-responsive">
     <table class="table table-striped">
+      <thead>
       <tr>
         <th>#</th>
         <th>订单编号</th>
@@ -23,6 +24,8 @@
         <th>时间</th>
         <th>描述</th>
       </tr>
+      </thead>
+      <tbody>
       <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
         <td>{{i}}</td>
         <td>{{list['target_id']}}</td>
@@ -30,6 +33,7 @@
         <td>{{list['event_date']}}</td>
         <td>{{list['event_name']}}</td>
       </tr>
+      </tbody>
     </table>
   </div>
 </div>

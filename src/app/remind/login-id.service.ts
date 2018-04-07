@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Provider} from '@angular/core';
 @Injectable()
 export class LoginIdService {
 
