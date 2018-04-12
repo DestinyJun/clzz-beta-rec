@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
+import {LoginIdService} from '../../../remind/login-id.service';
 
 @Component({
   selector: 'app-material-entry',
@@ -9,28 +10,22 @@ import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 })
 export class MaterialEntryComponent implements OnInit {
 
-  hid = false;
-  modalhid = false;
-  aluminumspage = 1;
-  printpage = 1;
-  row = 5;
-  aluminums = [];
-  prints = [];
-  AllOrders: number;
-  AOrders: number;
-  POrders: number;
-  AL: FormGroup;
-  paint: FormGroup;
-  supid: Array<string> = [];
-  Alweight: Array<string> = [];
-  psupid: Array<string> = [];
-  paint_weight: Array<string> = [];
-  supnum: Array<string> = [];
-  diluent_weight: Array<string> = [];
-  As: Array<string> = [];
-  Asd: Array<string> = [];
-  Asp: Array<string> = [];
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  @Output() subAL = new EventEmitter();
+  public hid = false;
+  public AL: FormGroup;
+  public paint: FormGroup;
+  public supid: Array<string> = [];
+  public Alweight: Array<number> = [];
+  public psupid: Array<string> = [];
+  public paint_weight: Array<number> = [];
+  public supnum: Array<string> = [];
+  public diluent_weight: Array<number> = [];
+  public As: Array<string> = [];
+  public Asd: Array<string> = [];
+  public Asp: Array<string> = [];
+  private alJson = new ALJson();
+  private paintJson = new PaintJson();
+  constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService) {
 
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
@@ -68,131 +63,125 @@ export class MaterialEntryComponent implements OnInit {
       pro_system: ['', Validators.required],
       pamount: ['', Validators.required],
       damount: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit() {
-    this.SeeOrders(0);
-    this.SeeOrders(1);
   }
-
+  public submitAL(): void {
+    this.alJson.purchase = this.AL.get('purchase').value;
+    this.alJson.Alexweight = this.AL.get('Alexweight').value;
+    this.alJson.Altype = this.AL.get('Altype').value;
+    this.alJson.Alwidth = this.AL.get('Alwidth').value;
+    this.alJson.Althickness = this.AL.get('Althickness').value;
+    this.alJson.Aldensity = this.AL.get('Aldensity').value;
+    this.alJson.Alprice = this.AL.get('Alprice').value;
+    this.alJson.supname = this.AL.get('supname').value;
+    this.alJson.wid = this.AL.get('wid').value;
+    this.alJson.auditor = this.user.get('userName');
+    this.alJson.pro_system = this.AL.get('pro_system').value;
+    for (let i = 0; i < this.As.length; i++) {
+      this.alJson.arr.push({supid: this.supid[i], Alweight: this.Alweight[i]});
+    }
+    console.log(JSON.stringify(this.alJson));
+    this.http.post('http://120.78.137.182/element/Add-Aluminum', JSON.stringify(this.alJson))
+      .subscribe(data => {
+        console.log(data);
+        this.subAL.emit();
+      });
+  }
+  public submitPaint() {
+    this.paintJson.purchase = this.paint.get('purchase').value;
+    this.paintJson.pname = this.paint.get('pname').value;
+    this.paintJson.pdensity = this.paint.get('pdensity').value;
+    this.paintJson.pcondensate = this.paint.get('pcondensate').value;
+    this.paintJson.ptype = this.paint.get('ptype').value;
+    this.paintJson.pvolatile = this.paint.get('pvolatile').value;
+    this.paintJson.price = this.paint.get('price').value;
+    this.paintJson.paex_weight = this.paint.get('paex_weight').value;
+    this.paintJson.supname = this.paint.get('supname').value;
+    this.paintJson.wid = this.paint.get('wid').value;
+    this.paintJson.auditor = this.user.get('userName');
+    this.paintJson.dname = this.paint.get('dname').value;
+    this.paintJson.dtype = this.paint.get('dtype').value;
+    this.paintJson.condensate = this.paint.get('condensate').value;
+    this.paintJson.dvolatile = this.paint.get('dvolatile').value;
+    this.paintJson.dprice = this.paint.get('dprice').value;
+    this.paintJson.diex_weight = this.paint.get('diex_weight').value;
+    this.paintJson.pro_system = this.paint.get('pro_system').value;
+    for ( let i = 0; i < this.Asp.length; i++) {
+      this.paintJson.arr1.push({supid: this.psupid[i], paint_weight: this.paint_weight[i]});
+    }
+    for ( let i = 0; i < this.Asd.length; i++) {
+      this.paintJson.arr2.push({supnum: this.supnum[i], diluent_weight: this.diluent_weight[i]});
+    }
+    console.log(JSON.stringify(this.paintJson));
+    this.http.post('http://120.78.137.182/element/Add-Paint', JSON.stringify(this.paintJson))
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
   addF() {
     this.supid.push('');
-    this.Alweight.push('');
+    this.Alweight.push(0);
     this.As.push('');
   }
   addFp() {
-    this.paint_weight.push('');
+    this.paint_weight.push(0);
     this.psupid.push('');
     this.Asp.push('');
   }
   addFd() {
-    this.diluent_weight.push('');
+    this.diluent_weight.push(0);
     this.supnum.push('');
     this.Asd.push('');
   }
-  SeeOrders(mode) {
-    if (mode === 0) {
-      const body = '{\n' +
-        '\t"page":"' + this.aluminumspage + '",\n' +
-        '\t"row":"' + this.row + '",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
-        .subscribe(data => {
-          this.aluminums = data['values1'];
-          this.AOrders = data['number'];
-        });
-    } else {
-      const body = '{\n' +
-        '\t"page":"' + this.printpage + '",\n' +
-        '\t"row":"' + this.row + '",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
-        .subscribe(data => {
-          this.prints = data['values2'];
-          this.POrders = data['number'];
-        });
-    }
-  }
-  SeeOrdersStatus(mode, status) {
-    if (mode === 0) {
-      const body = '{\n' +
-        '\t"page":"' + this.aluminumspage + '",\n' +
-        '\t"row":"5",\n' +
-        '\t"status":"' + status + '",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
-        .subscribe(data => {
-          this.aluminums = data['values1'];
-          this.AOrders = data['number'];
-        });
-    } else {
-      const body = '{\n' +
-        '\t"page":"' + this.printpage + '",\n' +
-        '\t"row":"5",\n' +
-        '\t"status":"' + status + '",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
-        .subscribe(data => {
-          this.prints = data['values2'];
-          this.POrders = data['number'];
-        });
-    }
-  }
-  NextAluminumPage() {
-    if (this.AllOrders > this.aluminumspage * 10) {
-      this.aluminumspage++;
-      this.SeeOrders(0);
-    }
-  }
-
-  ProAluminumPage() {
-    if (this.aluminumspage > 1) {
-      this.aluminumspage--;
-      this.SeeOrders(0);
-    }
-  }
-
-  SkipAluminumPage(i: number) {
-    if (i * 5 < this.AllOrders && i > 0) {}
-    this.SeeOrders(0);
-  }
-  NextPrintPage() {
-    if (this.AllOrders > this.printpage * 10) {
-      this.printpage++;
-      this.SeeOrders(1);
-    }
-  }
-
-  ProPrintPage() {
-    if (this.printpage > 1) {
-      this.printpage--;
-      this.SeeOrders(1);
-    }
-  }
-
-  SkipPrintPage(i: number) {
-    if (i * 5 < this.AllOrders && i > 0) {}
-    this.SeeOrders(1);
-  }
 }
-export class Aluminum {
-  type = '铝卷';
+export class Arr {
+  supid: string;
+  Alweight: number;
+}
+export class ALJson  {
   purchase: string;
+  Alexweight: number;
+  Altype: string;
+  Alwidth: number;
+  Althickness: number;
+  Aldensity: string;
+  Alprice: number;
+  supname: string;
+  wid: string;
+  auditor: string;
   pro_system: string;
-  altype: string;
-  alweight: number;
-  alwidth: number;
+  arr: Array<Arr> = [];
 }
-export class Print {
-  type = '油漆';
-  ptype: string;
-  price: string;
-  pname: string;
-  purchase: number;
+export class PArr {
   paint_weight: number;
+  supid: string;
+}
+export class DArr {
+  diluent_weight: number;
+  supnum: string;
+}
+export class PaintJson {
+  purchase: string;
+  pname: string;
+  pdensity: number;
+  pcondensate: number;
+  ptype: string;
+  pvolatile: number;
+  price: number;
+  paex_weight: number;
+  supname: string;
+  wid: string;
+  auditor: string;
+  dname: string;
+  dtype: string;
+  condensate: number;
+  dvolatile: number;
+  dprice: number;
+  diex_weight: number;
+  pro_system: string;
+  arr1: Array<PArr> = [];
+  arr2: Array<DArr> = [];
 }

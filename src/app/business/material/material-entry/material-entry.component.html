@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="panel-heading">
-    <span>原材料录入清单</span>
+    <span>原材料录入</span>
     <div class="pull-right">
       <div>
         <button class="btn btn-xs btn-info" (click)="hid = true">铝卷</button>
@@ -9,7 +9,6 @@
     </div>
   </div>
   <div class="panel-body" *ngIf="hid">
-    <form>
       <div class="form">
         <form [formGroup]="AL" novalidate>
           <div class="row">
@@ -83,6 +82,12 @@
                 <input type="text" id="auditor" formControlName="auditor">
               </div>
             </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="pro_system">生产系统:</label>
+                <input type="text" id="pro_system" formControlName="pro_system">
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -90,11 +95,6 @@
             </div>
           </div>
           <div class="row" *ngFor="let s of As;let i = index">
-            <div class="col-md-3 col-xs-6">
-              <div style="text-align: center;font-size: 15px;padding-top: 5px">
-                <span>{{i+1}}</span>
-              </div>
-            </div>
             <div class="col-md-3 col-xs-6">
               <div class="form-group">
                 <label for="supid">分卷号:</label>
@@ -109,8 +109,14 @@
             </div>
           </div>
         </form>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <button class="btn btn-success btn-md" (click)="submitAL()" data-toggle="modal" data-target="#add">提交</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
   </div>
   <div class="panel-body" *ngIf="!hid">
     <form>
@@ -187,6 +193,12 @@
                 <input type="text" id="pauditor" formControlName="auditor">
               </div>
             </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="pwid">仓库号:</label>
+                <input type="text" id="pwid" formControlName="wid">
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-3 col-xs-6">
@@ -233,6 +245,12 @@
                 <input type="number" id="dvolatile" formControlName="dvolatile">
               </div>
             </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="ppro_system">生产系统:</label>
+                <input type="number" id="ppro_system" formControlName="pro_system">
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -240,11 +258,6 @@
             </div>
           </div>
           <div class="row" *ngFor="let s of Asp;let i = index">
-            <div class="col-md-3 col-xs-6">
-              <div style="text-align: center;font-size: 15px;padding-top: 5px">
-                <span>{{i+1}}</span>
-              </div>
-            </div>
             <div class="col-md-3 col-xs-6">
               <div class="form-group">
                 <label for="psupid">分卷号:</label>
@@ -265,11 +278,6 @@
           </div>
           <div class="row" *ngFor="let s of Asd;let i = index">
             <div class="col-md-3 col-xs-6">
-              <div style="text-align: center;font-size: 15px;padding-top: 5px">
-                <span>{{i+1}}</span>
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
               <div class="form-group">
                 <label for="supnum">分卷号:</label>
                 <input type="text" id="supnum" [(ngModel)]="supnum[i]" [ngModelOptions]="{standalone: true}">
@@ -285,14 +293,14 @@
         </form>
       </div>
     </form>
-  </div>
-
-</div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      1
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <button class="btn btn-success btn-md" data-toggle="modal" data-target="#add" (click)="submitPaint()">提交</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 

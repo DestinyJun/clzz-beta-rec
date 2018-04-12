@@ -11,17 +11,18 @@ export class OrderAdjustmentComponent implements OnInit {
   orders = [];
   row = 10;
   AllOrders: number;
+  oid = new Oid();
   constructor(private http: HttpClient) {
     this.SeeOrders();
   }
   up(j) {
+    this.oid = {oidone: this.orders[j]['oid'], oidtwo: this.orders[j - 1]['oid']};
     const body = '{\n' +
       '\t"oidone":"' + this.orders[j]['oid'] + '",\n' +
       '\t"oidtwo":"' + this.orders[j - 1]['oid'] + '"\n' +
       '}';
-    console.log(this.orders[j]['oid']);
-    console.log(this.orders[j - 1]['oid']);
-    this.http.post('http://120.78.137.182/element-plc/order/shift-up', body)
+    console.log(body);
+    this.http.post('http://120.78.137.182/element-plc/order/shift-up', this.oid)
       .subscribe(data => {
         this.SeeOrders();
       });
@@ -80,4 +81,8 @@ export class OrderAdjustmentComponent implements OnInit {
   }
 
   ngOnInit() {}
+}
+export class Oid {
+  oidone: string;
+  oidtwo: string;
 }

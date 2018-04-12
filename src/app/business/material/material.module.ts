@@ -6,6 +6,7 @@ import {MaterialEntryComponent} from './material-entry/material-entry.component'
 import {MaterialCheckComponent} from './material-check/material-check.component';
 import {MaterialMessageComponent} from './material-message/material-message.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {InfoStatusService} from '../../remind/info-status.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MaterialCheckComponent,
     MaterialMessageComponent
   ],
-  providers: [],
+  providers: [InfoStatusService],
 })
 export class MaterialModule { }

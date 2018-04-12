@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 export class LoginIdService {
 
   public localStorage: any;
-
+// userName userId
   constructor() {
     if (!localStorage) {
       throw new Error('Current browser does not support Local Storage');
