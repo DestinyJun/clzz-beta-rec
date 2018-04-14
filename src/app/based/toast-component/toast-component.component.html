@@ -1,0 +1,6 @@
+<div class="toast weui-toast" [hidden]="!show">
+  <p class="weui-toast__content">
+    <span *ngIf="type === 'warn'" class="warn">{{content}}</span>
+    <span *ngIf="type === 'info'" class="info">{{content}}</span>
+  </p>
+</div>

@@ -17,34 +17,45 @@ export class OrderAdjustmentComponent implements OnInit {
   }
   up(j) {
     this.oid = {oidone: this.orders[j]['oid'], oidtwo: this.orders[j - 1]['oid']};
-    const body = '{\n' +
-      '\t"oidone":"' + this.orders[j]['oid'] + '",\n' +
-      '\t"oidtwo":"' + this.orders[j - 1]['oid'] + '"\n' +
-      '}';
+    const body = {
+      'OidOne': + this.orders[j]['oid'] ,
+      'OidTwo': + this.orders[j - 1]['oid']
+      };
     console.log(body);
-    this.http.post('http://120.78.137.182/element-plc/order/shift-up', this.oid)
+    this.http.post('http://120.78.137.182/element-plc/order/mobile-function', this.oid)
       .subscribe(data => {
         this.SeeOrders();
       });
   }
   down(j) {
-    const body = '{\n' +
-      '\t"oidone":"' + this.orders[j]['oid'] + '",\n' +
-      '\t"oidtwo":"' + this.orders[j + 1]['oid'] + '"\n' +
-      '}';
-    this.http.post('http://120.78.137.182/element-plc/order/shift-down', body)
+    const body = {
+      'OidOne': this.orders[j]['oid'],
+      'OidTwo': this.orders[j + 1]['oid']
+    };
+    this.http.post('http://120.78.137.182/element-plc/order/mobile-function', body)
       .subscribe(data => this.SeeOrders());
   }
   SeeOrders() {
-    const body = '{\n' +
-      '\t"page":"' + this.page + '",\n' +
-      '\t"row":"' + this.row + '",\n' +
-      '\t"status":"1"\n' +
-      '}';
+    const body = {
+      'page': this.page ,
+      'row': this.row ,
+      'status': 1
+      };
     this.http.post('http://120.78.137.182/element-plc/order/audited', body)
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];
+
+        for (let i = 0; i < this.orders.length; i++) {
+          for ( let j = i + 1; j < this.orders.length; j++) {
+            if (this.orders[j].priority < this.orders[i].priority) {
+              const od = this.orders[j];
+              this.orders[j] = this.orders[i];
+              this.orders[i] = od;
+            }
+          }
+        }
+        console.log(this.orders);
         this.AllOrders = data['values'].length;
       });
   }

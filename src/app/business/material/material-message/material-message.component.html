@@ -34,7 +34,8 @@
           <td>{{i.alexweight * i.alprice}}</td>
           <td>{{i.alexweight}}</td>
           <td>{{Status(i.status)}}</td>
-          <td><button class="btn btn-xs btn-success">打印</button></td>
+          <td><button class="btn btn-xs btn-success">打印</button>
+            <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(i.purchase)">详情</button></td>
         </tr>
         <tfoot>
         <tr>
@@ -71,7 +72,8 @@
           <td>{{i.paint_weight * i.price}}</td>
           <td>{{i.paint_weight}}</td>
           <td>{{i.used}}</td>
-          <td><button class="btn btn-xs btn-success">打印</button></td>
+          <td><button class="btn btn-xs btn-success">打印</button>
+          <button class="btn btn-xs btn-info" (click)="MessagePaint(i.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button></td>
         </tr>
         <tfoot>
         <tr>
@@ -93,6 +95,300 @@
     <div class="modal-content">
       <div style="margin: 0 -40px">
         <app-material-entry (subAL)="SeeOrders()"></app-material-entry>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="messageAL">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content" style="margin: 0 -40px">
+      <div class="panel-heading">
+        <span>详细信息</span>
+      </div>
+      <div class="panel-body" >
+        <form [formGroup]="AL" novalidate>
+          <div class="row">
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="purchase">采购单号:</label>
+                <input type="text" id="purchase" formControlName="purchase">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Alexweight">总重量:</label>
+                <input type="number" id="Alexweight" formControlName="alex_weight">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Alprice">单价:</label>
+                <input type="number" id="Alprice" formControlName="al_price">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="amount">总价:</label>
+                <input type="number" id="amount" formControlName="amount">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Altype">铝卷型号:</label>
+                <input type="text" id="Altype" formControlName="al_type">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Alwidth">铝卷宽度:</label>
+                <input type="number" id="Alwidth" formControlName="al_width">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Althickness">铝卷厚度:</label>
+                <input type="number" id="Althickness" formControlName="al_thickness">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Aldensity">铝卷密度:</label>
+                <input type="number" id="Aldensity" formControlName="al_density">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="wid">仓库号:</label>
+                <input type="text" id="wid" formControlName="w_id">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="supname">厂家名称:</label>
+                <input type="text" id="supname" formControlName="supplier">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="auditor">录入人员:</label>
+                <input type="text" id="auditor" formControlName="auditor">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="pro_system">生产系统:</label>
+                <input type="text" id="pro_system" formControlName="pro_system">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>分卷</h3>
+            </div>
+          </div>
+          <div class="row" *ngFor="let s of supid;let i = index">
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="supid">分卷号:</label>
+                <input type="text" id="supid" [(ngModel)]="supid[i]" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+              <div class="form-group">
+                <label for="Alweight">分卷重量:</label>
+                <input type="text" id="Alweight" [(ngModel)]="Alweight[i]" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="messagePaint">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-body">
+        <form>
+          <div class="form">
+            <form [formGroup]="paint" novalidate>
+              <div class="row">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="ppurchase">采购单号:</label>
+                    <input type="text" id="ppurchase" formControlName="purchase">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="paex_weight">总重量:</label>
+                    <input type="number" id="paex_weight" formControlName="paex_weight">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="price">单价:</label>
+                    <input type="number" id="price" formControlName="price">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pamount">总价:</label>
+                    <input type="number" id="pamount" formControlName="pamount">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pname">油漆名称:</label>
+                    <input type="text" id="pname" formControlName="pname">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pcondensate">油漆固化物含量:</label>
+                    <input type="number" id="pcondensate" formControlName="pcondensate">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pvolatile">油漆挥发份含量:</label>
+                    <input type="number" id="pvolatile" formControlName="pvolatile">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pdensity">油漆密度:</label>
+                    <input type="number" id="pdensity" formControlName="pdensity">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="ptype">油漆类型:</label>
+                    <input type="text" id="ptype" formControlName="ptype">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="psupname">厂家名称:</label>
+                    <input type="text" id="psupname" formControlName="supname">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pauditor">录入人员:</label>
+                    <input type="text" id="pauditor" formControlName="auditor">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="pwid">仓库号:</label>
+                    <input type="text" id="pwid" formControlName="wid">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="dname">稀释剂名称:</label>
+                    <input type="text" id="dname" formControlName="dname">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="diex_weight">稀释剂总重量:</label>
+                    <input type="number" id="diex_weight" formControlName="diex_weight">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="dprice">稀释剂单价:</label>
+                    <input type="number" id="dprice" formControlName="dprice">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="damount">稀释剂总价:</label>
+                    <input type="number" id="damount" formControlName="damount">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="dtype">稀释剂类型:</label>
+                    <input type="text" id="dtype" formControlName="dtype">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="condensate">稀释剂固化物含量:</label>
+                    <input type="number" id="condensate" formControlName="condensate">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="dvolatile">稀释剂挥发份含量:</label>
+                    <input type="number" id="dvolatile" formControlName="dvolatile">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="ppro_system">生产系统:</label>
+                    <input type="number" id="ppro_system" formControlName="pro_system">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-md btn-success">添加油漆桶</button>
+                </div>
+              </div>
+              <div class="row" *ngFor="let s of psupid;let i = index">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="psupid">分卷号:</label>
+                    <input type="text" id="psupid" [(ngModel)]="psupid[i]" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="paint_weight">分卷重量:</label>
+                    <input type="text" id="paint_weight" [(ngModel)]="paint_weight[i]" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-md btn-success">添加稀释剂桶</button>
+                </div>
+              </div>
+              <div class="row" *ngFor="let s of supnum;let i = index">
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="supnum">分卷号:</label>
+                    <input type="text" id="supnum" [(ngModel)]="supnum[i]" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                  <div class="form-group">
+                    <label for="diluent_weight">分卷重量:</label>
+                    <input type="text" id="diluent_weight" [(ngModel)]="diluent_weight[i]" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </form>
       </div>
     </div>
   </div>

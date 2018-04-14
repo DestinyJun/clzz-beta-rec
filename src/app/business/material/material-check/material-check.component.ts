@@ -31,11 +31,11 @@ export class MaterialCheckComponent implements OnInit {
   }
   SeeOrders(mode) {
     if (mode === 0) {
-      const body = '{\n' +
-        '\t"page":"' + this.aluminumspage + '",\n' +
-        '\t"row":"5",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
+      const body = {
+        'page': this.aluminumspage ,
+        'row': 5,
+        'mode':  mode
+        };
       console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {
@@ -44,11 +44,11 @@ export class MaterialCheckComponent implements OnInit {
           this.AOrders = data['number'];
         });
     } else {
-      const body = '{\n' +
-        '\t"page":"' + this.printpage + '",\n' +
-        '\t"row":"5",\n' +
-        '\t"mode":"' + mode + '"\n' +
-        '}';
+      const body = {
+        'page': this.printpage ,
+        'row': 5,
+        'mode':  mode
+      };
       console.log(body);
       this.http.post('http://120.78.137.182/element/findrawpage', body)
         .subscribe(data => {

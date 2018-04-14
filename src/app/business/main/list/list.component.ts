@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {packageChunkSort} from '@angular/cli/utilities/package-chunk-sort';
 
 @Component({
   selector: 'app-list',

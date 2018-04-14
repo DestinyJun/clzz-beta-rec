@@ -12,6 +12,9 @@ import { DepartmentButtonComponent } from './based/department-button/department-
 import { QrcodeComponent } from './based/qrcode/qrcode.component';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
 import { OrderpageComponent } from './based/orderpage/orderpage.component';
+import { ToastComponentComponent } from './based/toast-component/toast-component.component';
+import {UtilsService} from './remind/utils.service';
+
 
 @NgModule({
   imports: [
@@ -29,8 +32,9 @@ import { OrderpageComponent } from './based/orderpage/orderpage.component';
     DepartmentButtonComponent,
     QrcodeComponent,
     OrderpageComponent,
+    ToastComponentComponent,
   ],
-  providers: [LoginIdService],
+  providers: [LoginIdService, UtilsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
