@@ -5,6 +5,7 @@ import {EquipmentRoutersModule} from './equipment.routers.module';
 import {EquipmentComponent} from './equipment.component';
 import {DeviceHistoryComponent} from './device-history/device-history.component';
 import {DeviceNewComponent} from './device-new/device-new.component';
+import {EquipmentHttpService} from '../../remind/business/equipment-http.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,6 @@ import {DeviceNewComponent} from './device-new/device-new.component';
     DeviceHistoryComponent,
     DeviceNewComponent
   ],
-  providers: [],
+  providers: [EquipmentHttpService],
 })
 export class EquipmentModule { }

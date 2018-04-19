@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {CanActivate, RouterModule, Routes} from '@angular/router';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {QrcodeComponent} from './based/qrcode/qrcode.component';
 import {DepartmentButtonComponent} from './based/department-button/department-button.component';
 import {OrderpageComponent} from './based/orderpage/orderpage.component';
 import {ToastComponentComponent} from './based/toast-component/toast-component.component';
+import {CanrouteService} from './remind/canroute.service';
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', loadChildren: 'app/login/login.module#LoginModule'},
-  {path: 'home', loadChildren: 'app/home/home.module#HomeModule'},
-  {path: 'qrcode/:id', component: QrcodeComponent},
-  {path: 'department', component: DepartmentButtonComponent},
-  {path: 'orderpage', component: OrderpageComponent},
-  {path: 'toast', component: ToastComponentComponent}
+  {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
+  {path: 'qrcode/:id', component: QrcodeComponent, canActivate: [CanrouteService]},
+  {path: 'department', component: DepartmentButtonComponent, canActivate: [CanrouteService]},
+  {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
+  {path: 'toast', component: ToastComponentComponent, canActivate: [CanrouteService]}
 ];
 
 @NgModule({

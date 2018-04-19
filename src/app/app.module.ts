@@ -14,6 +14,7 @@ import {NgxQRCodeModule} from 'ngx-qrcode2';
 import { OrderpageComponent } from './based/orderpage/orderpage.component';
 import { ToastComponentComponent } from './based/toast-component/toast-component.component';
 import {UtilsService} from './remind/utils.service';
+import {CanrouteService} from './remind/canroute.service';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import {UtilsService} from './remind/utils.service';
     OrderpageComponent,
     ToastComponentComponent,
   ],
-  providers: [LoginIdService, UtilsService],
+  providers: [LoginIdService, UtilsService, CanrouteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@ import {VideoComponent} from './video/video.component';
 import {EventMonComponent} from './event-mon/event-mon.component';
 import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
-import {ProRunComponent} from './pro-run/pro-run.component';
+import {MonitorHttpService} from '../../remind/business/monitor-http.service';
 
 
 @NgModule({
@@ -25,8 +25,7 @@ import {ProRunComponent} from './pro-run/pro-run.component';
     EventMonComponent,
     TemperatureComponent,
     ThicknessComponent,
-    ProRunComponent
   ],
-  providers: [HttpService],
+  providers: [HttpService, MonitorHttpService],
 })
 export class MonitorModule { }

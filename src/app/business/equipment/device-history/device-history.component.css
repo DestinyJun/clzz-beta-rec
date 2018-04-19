@@ -19,7 +19,7 @@
 .panel-heading > .dropdown{
   margin-right: 10px;
 }
-#sensor > .dropdown-menu{
+ .dropdown-menu{
   overflow-y: scroll;
   height: 200px;
 }

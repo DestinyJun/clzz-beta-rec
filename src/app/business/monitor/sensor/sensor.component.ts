@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
+import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
 
 @Component({
   selector: 'app-sensor',
@@ -9,8 +10,7 @@ import * as echarts from 'echarts';
   styleUrls: ['./sensor.component.css']
 })
 export class SensorComponent implements OnInit {
-  Modular: Array<any> = [];
-  ModularJson: any;
+  Modular: Array<object> = [];
   ModularId = 'mod0001';
   ModalChart: any;
   DeviceSensorJson: any;
@@ -20,10 +20,7 @@ export class SensorComponent implements OnInit {
   Datas: any;
   Modularname = '驱动机';
   constructor(private activatedRoute: ActivatedRoute,
-              private httpSensor: HttpClient,
-              private httpAdmin: HttpClient,
-              private httpDeviceSensor: HttpClient,
-              private httpNoDataSensor: HttpClient) {
+              private http: MonitorHttpService) {
     this.ModularInit();
     this.DeviceSensorInit(this.ModularId);
   }
@@ -36,25 +33,16 @@ export class SensorComponent implements OnInit {
   }
   // 获取系统下模块
   ModularInit() {
-    const body = '{\n' +
-      '\t"sysid":"sys0001"\n' +
-      '}';
-    this.httpAdmin.post('http://120.78.137.182/element/SeeSystemModular', body)
+    this.http.SeeSystemModular({sysid: 'sys0001'})
       .subscribe( data => {
-        data = data['system'][0]['modular'];
-        this.ModularJson = data;
-        const length = this.ModularJson.length;
-        for (let i = 0; i < length; i++) {
-          this.Modular.push(this.ModularJson[i]);
-        }
+        console.log(data);
+        this.Modular = data['values'][0]['modular'];
+        console.log(this.Modular);
       });
   }
 // 获取模块下设备-传感器-最新值-id
   DeviceSensorInit(MId) {
-    const body = '{\n' +
-      '\t"mid":"' + MId + '"\n' +
-      '}';
-    this.httpDeviceSensor.post('http://120.78.137.182/element/find/devicename/sensorname/sensordata', body)
+    this.http.FindDevicenameSensornameSensordata({mid: MId})
       .subscribe(data => {
         data = data['values'];
         this.DeviceSensorJson = data;
@@ -63,10 +51,7 @@ export class SensorComponent implements OnInit {
   }
 // 增加无数据设备传感器
   NoDataSensorInit(MId) {
-    const body = '{\n' +
-      '\t"mid":"' + MId + '"\n' +
-      '}';
-    this.httpNoDataSensor.post('http://120.78.137.182/element/find/modular/device/sensor/name', body)
+    this.http.modularDeviceSensorName({mid: MId})
       .subscribe(data => {
         this.NoDataSensorJson = data['values'];
         const putData = [];
@@ -105,10 +90,7 @@ export class SensorComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string) {
-    const bodyM = '{\n' +
-      '\t"sid":"' + body + '"\n' +
-      '}';
-    this.Datas = this.httpSensor.post('http://120.78.137.182/element/seesensordata', bodyM);
+    this.Datas = this.http.seesensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
         console.log(d);

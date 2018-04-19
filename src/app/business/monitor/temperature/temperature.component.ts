@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
@@ -9,14 +10,13 @@ import {Observable} from 'rxjs/Observable';
 export class TemperatureComponent implements OnInit {
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
-  SensorData: Array<any> = [];
   SensorDataTime: Array<any>[] = [];
   SensorDataValue: Array<any>[] = [];
   SensorDataName: Array<any>[] = [];
   option: Array<any> = [];
   options: Array<any> = [];
-  constructor(private httpSensorId: HttpClient, private httpSensorData: HttpClient) {
-    this.Temperature = this.httpSensorId.post('http://120.78.137.182/element/find/temperature/sensor', {});
+  constructor(private http: MonitorHttpService) {
+    this.Temperature = this.http.FindTemperatureSensor();
   }
 
   ngOnInit() {
@@ -26,7 +26,8 @@ export class TemperatureComponent implements OnInit {
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
-      data = data['sensor'];
+      console.log(data);
+      data = data['values'];
       const length = data.length;
       for (let i = 0; i < length; i++) {
         this.SensorId.push(data[i]['sid']);
@@ -40,10 +41,7 @@ export class TemperatureComponent implements OnInit {
     const SDValue = [];
     const SDName = [];
     for (let i = 0; i < length; i++) {
-      const body = '{\n' +
-        '\t"sid":"' + this.SensorId[i] + '"\n' +
-        '}';
-      this.httpSensorData.post('http://120.78.137.182/element/seesensordata', body)
+      this.http.seesensordata({sid : this.SensorId[i]})
         .subscribe(data => {
           const SDtime = [];
           const SDvalue = [];

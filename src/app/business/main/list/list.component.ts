@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {packageChunkSort} from '@angular/cli/utilities/package-chunk-sort';
 
 @Component({
   selector: 'app-list',
@@ -73,6 +72,10 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    this.http.post('', {}, {
+      headers: headers
+    });
   }
   modal(value): void {
     console.log(value);

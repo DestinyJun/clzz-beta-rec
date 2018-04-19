@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
+import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
 
 @Component({
   selector: 'app-device-history',
@@ -22,9 +22,9 @@ export class DeviceHistoryComponent implements OnInit {
   Sensor: Array<NameId> = [];
   constructor(
     private activatedRoute: ActivatedRoute,
-    private httpSensor: HttpClient,
-    private httpAdmin: HttpClient,
-    private httpDevice: HttpClient) {}
+    private httpSensor: EquipmentHttpService,
+    private httpAdmin: EquipmentHttpService,
+    private httpDevice: EquipmentHttpService) {}
 
   ngOnInit() {
     this.ModularInit();
@@ -32,39 +32,43 @@ export class DeviceHistoryComponent implements OnInit {
   /*模块初始化数据*/
   ModularInit(MId = 0, DId = 0) {
     const modular = [];
-    this.httpAdmin.post('http://120.78.137.182/element/SeeAdministration', '')
+    this.httpAdmin.SeeAdministration()
       .subscribe( data => {
         console.log(data);
-        const i: Array<any> = data['system'][0]['modular'];
-        const length = i.length;
-        for (let j = 0; j < length; j++) {
-          const name = String(i[j]['mname']);
-          const id = String(i[j]['mid']);
-          modular.push({name, id});
+        const system: Array<object> = data['system'];
+        for (let i = 0; i < system.length; i++) {
+          for ( const pro in system[i]) {
+            if (pro === 'modular') {
+              const m: Array<object> = system[i]['modular'];
+              for (let j = 0; j < m.length; j++) {
+                const name = String(m[j]['mname']);
+                const id = String(m[j]['mid']);
+                modular.push({name, id});
+              }
+              console.log(modular);
+              this.DeviceInit(modular[MId].id);
+              this.Modular = modular;
+            }
+          }
         }
-        console.log(modular);
-        this.DeviceInit(modular[MId].id);
-        this.Modular = modular;
       });
   }
   /*设备初始化数据*/
-  DeviceInit(MId) {
+  DeviceInit(Mid) {
     const device = [];
-    const body = '{\n' +
-      '\t\t"mid":"' + MId + '"\n' +
-      '}';
-    this.httpDevice.post('http://120.78.137.182/element/SeeModular-Device-Sensor', body)
+    this.httpDevice.SeeModularDeviceSensor({mid: Mid})
       .subscribe(data => {
         console.log(data);
-        const i: Array<any> = data['modular'][0]['device'];
-        const length = i.length;
-        for (let j = 0; j < length; j++) {
-          const name = String(i[j]['dname']);
-          const id = String(i[j]['did']);
-          device.push({name, id});
-        }
-        this.SensorInit(device[0].id);
-        this.Device = device;
+        const d: Array<object> = data['values'][0]['device'];
+            const length = d.length;
+            for (let j = 0; j < length; j++) {
+              const name = String(d[j]['dname']);
+              const id = String(d[j]['did']);
+              device.push({name, id});
+            }
+            this.SensorInit(device[0].id);
+            this.Device = device;
+
       });
 
   }
@@ -74,10 +78,10 @@ export class DeviceHistoryComponent implements OnInit {
     const body = '{\n' +
       '\t\t"did":"' + DId + '"\n' +
       '}';
-    this.httpSensor.post('http://120.78.137.182/element/SeeDeviceSensor', body)
+    this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
         console.log(data);
-        const i: Array<any> = data['device'][0]['sensor'];
+        const i: Array<any> = data['values'][0]['sensor'];
         const length = i.length;
         for (let j = 0; j < length; j++) {
           const name = String(i[j]['sname']);
@@ -90,11 +94,7 @@ export class DeviceHistoryComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string) {
-    const bodyM = '{\n' +
-      '\t"sid":"' + body + '"\n' +
-      '}';
-    console.log(bodyM);
-    this.Datas = this.httpSensor.post('http://120.78.137.182/element/seesensordata', bodyM);
+    this.Datas = this.httpSensor.seesensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
         console.log(d);

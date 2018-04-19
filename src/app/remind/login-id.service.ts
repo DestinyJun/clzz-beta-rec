@@ -2,32 +2,32 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoginIdService {
 
-  public localStorage: any;
+  public sessionStorage: any;
 // userName userId
   constructor() {
-    if (!localStorage) {
-      throw new Error('Current browser does not support Local Storage');
+    if (!sessionStorage) {
+      throw new Error('Current browser does not support Session Storage');
     }
-    this.localStorage = localStorage;
+    this.sessionStorage = sessionStorage;
   }
 
   public set(key: string, value: string): void {
-    this.localStorage[key] = value;
+    this.sessionStorage[key] = value;
   }
 
   public get(key: string): string {
-    return this.localStorage[key] || false;
+    return this.sessionStorage[key] || false;
   }
 
   public setObject(key: string, value: any): void {
-    this.localStorage[key] = JSON.stringify(value);
+    this.sessionStorage[key] = JSON.stringify(value);
   }
 
   public getObject(key: string): any {
-    return JSON.parse(this.localStorage[key] || '{}');
+    return JSON.parse(this.sessionStorage[key] || '{}');
   }
 
   public remove(key: string): any {
-    this.localStorage.removeItem(key);
+    this.sessionStorage.removeItem(key);
   }
 }

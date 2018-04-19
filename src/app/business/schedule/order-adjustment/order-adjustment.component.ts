@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
 
 @Component({
   selector: 'app-order-adjustment',
@@ -12,28 +13,33 @@ export class OrderAdjustmentComponent implements OnInit {
   row = 10;
   AllOrders: number;
   oid = new Oid();
-  constructor(private http: HttpClient) {
+  constructor(private http: ScheduleHttpService) {
     this.SeeOrders();
   }
   up(j) {
-    this.oid = {oidone: this.orders[j]['oid'], oidtwo: this.orders[j - 1]['oid']};
-    const body = {
-      'OidOne': + this.orders[j]['oid'] ,
-      'OidTwo': + this.orders[j - 1]['oid']
-      };
-    console.log(body);
-    this.http.post('http://120.78.137.182/element-plc/order/mobile-function', this.oid)
+    this.http.OrderMobileFunction({
+      oidone: this.orders[j]['oid'] ,
+      oidtwo: this.orders[j - 1]['oid'],
+      priorityone: this.orders[j]['priority'],
+      prioritytwo: this.orders[j - 1]['priority']
+    })
       .subscribe(data => {
+        console.log(data);
         this.SeeOrders();
       });
   }
   down(j) {
-    const body = {
-      'OidOne': this.orders[j]['oid'],
-      'OidTwo': this.orders[j + 1]['oid']
-    };
-    this.http.post('http://120.78.137.182/element-plc/order/mobile-function', body)
-      .subscribe(data => this.SeeOrders());
+    this.http.OrderMobileFunction({
+      oidone: this.orders[j]['oid'] ,
+      oidtwo: this.orders[j + 1]['oid'],
+      priorityone: this.orders[j]['priority'],
+      prioritytwo: this.orders[j + 1]['priority']
+    })
+      .subscribe(data => {
+        console.log(data);
+        this.SeeOrders();
+
+      });
   }
   SeeOrders() {
     const body = {
@@ -41,7 +47,7 @@ export class OrderAdjustmentComponent implements OnInit {
       'row': this.row ,
       'status': 1
       };
-    this.http.post('http://120.78.137.182/element-plc/order/audited', body)
+    this.http.OrderAudited()
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];

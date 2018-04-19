@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
 
 @Component({
   selector: 'app-device-new',
@@ -8,16 +8,12 @@ import {HttpClient} from '@angular/common/http';
 })
 export class DeviceNewComponent implements OnInit {
 
-  constructor(private httpDevice: HttpClient) { }
+  constructor(private httpDevice: EquipmentHttpService) { }
 
   page = 1;
   DeviceInformation = [];
   ngOnInit() {
-    const body = '\t{\n' +
-      '\t"page":"' + this.page + '",\n' +
-      '\t"row":"10"\n' +
-      '}';
-    this.httpDevice.post('http://120.78.137.182/element/find/device/information', body)
+    this.httpDevice.FindDeviceInformation({ page: this.page, row: 10})
       .subscribe(data => {
         this.DeviceInformation = data['values'];
         console.log(this.DeviceInformation);
