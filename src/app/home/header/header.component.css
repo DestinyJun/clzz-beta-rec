@@ -66,11 +66,10 @@
   border-radius: 50%;
 }
 .user-remind-scroll-h4{
-   background: #FFFFFF;
    font-size: 14px;
    line-height: 20px;
    padding: 5px 15px;
-   color: #249F93;
+   color: white;
  }
 .user-remind-scroll-h4>span:nth-child(2):hover{
   cursor: pointer;
@@ -79,10 +78,11 @@
 .user-remind-scroll{
   position: absolute;
   top: 67px;
-  right: 102px;
+  right: 1px;
   width: 315px;
   color: #7D7D7D;
   font-size: 12px;
+  background:rgba(45,157,190,0.8);
 }
 .user-remind-scroll>.user-remind-scroll-content{
   position: relative;

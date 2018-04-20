@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {HttpService} from '../../../shared/http.service';
 
 @Component({
   selector: 'app-material-entry',
@@ -25,7 +26,7 @@ export class MaterialEntryComponent implements OnInit {
   public Asp: Array<string> = [];
   private alJson = new ALJson();
   private paintJson = new PaintJson();
-  constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService, private req: HttpService) {
 
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
@@ -91,6 +92,7 @@ export class MaterialEntryComponent implements OnInit {
       });
   }
   public submitPaint() {
+    this.req.addEvent.emit('提交成功');
     this.paintJson.purchase = this.paint.get('purchase').value;
     this.paintJson.pname = this.paint.get('pname').value;
     this.paintJson.pdensity = this.paint.get('pdensity').value;

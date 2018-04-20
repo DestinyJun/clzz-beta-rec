@@ -4,6 +4,7 @@ import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {LoginIdService} from '../../remind/login-id.service';
+import {HttpService} from '../../shared/http.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   scrollBoxBar: ElementRef; // 滚动条
   @ViewChild('scrollListGroup')
   scrollListGroup: ElementRef; // 内容盒子
+  public remindTxt: string;
   public scrollToggle: boolean;
   public navListToggle: boolean;
   public userReminds: UserRemind[];
@@ -29,7 +31,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public contentBoxHeight: number;
   public scrollBarHeight: number;
   public barBoxHeight: string;
-  constructor(private homeService: HomeService, private route: Router, private http: HttpClient, private Id: LoginIdService) {
+  constructor(private req: HttpService , private homeService: HomeService, private route: Router, private http: HttpClient, private Id: LoginIdService) {
     this.infoToggle = true;
     this.scrollToggle = true;
     this.navListToggle = true;
@@ -43,7 +45,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         return obj;
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.req.addEvent.subscribe(
+      data => {
+        this.remindTxt = data;
+        this.scrollToggle = false;
+        setTimeout(() => {
+          this.scrollToggle = true;
+        }, 3000);
+      }
+    );
+  }
   ngAfterViewInit(): void {
     let t: number;
     this.bigBoxHeight = this.userRemindScrollContent.nativeElement.offsetHeight;
@@ -67,8 +79,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         this.route.navigate(['/login']);
       });
   }
-  public onToggleInfo(event): void {
+  public onToggleInfo(event: any): void {
       this.infoToggle = !this.infoToggle;
+  }
+  public onLeaveToggle(event: any): void {
+    this.infoToggle = true;
   }
   public getDateDiff (nowTime: Date, endTime: Date): any {
     let t1 = new Date(nowTime).getTime();
