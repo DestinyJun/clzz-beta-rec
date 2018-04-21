@@ -9,7 +9,7 @@ import {NgxEchartsModule} from 'ngx-echarts';
 import {ListComponent} from './list/list.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {MainHttpService} from '../../remind/business/main-http.service';
 
 @NgModule({
   imports: [
@@ -26,6 +26,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ProductionComponent,
     ListComponent
   ],
-  providers: [HttpService],
+  providers: [HttpService, MainHttpService],
 })
 export class MainModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {MainHttpService} from '../../../remind/business/main-http.service';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
   public orderlist: Observable<any>;
   public orders: Array<any>;
   public order: FormGroup;
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: MainHttpService, private fb: FormBuilder) {
     this.order = this.fb.group({
       address: [{value: '', disabled: true}],
       allength: [{value: '', disabled: true}],
@@ -60,22 +61,18 @@ export class ListComponent implements OnInit {
       tel: [{value: '', disabled: true}]
     });
     const body = {
-      'page': '1',
-      'row': '5',
-      'status': '0'
+      page: 1,
+      row: 5,
+      status: 0
     };
     this.orderlist = this.http
-      .post('http://120.78.137.182/element/See-Orders', body);
+      .SeeOrders(body)
       this.orderlist.subscribe(data => {
         this.orders = data['values'];
       });
   }
 
   ngOnInit() {
-    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    this.http.post('', {}, {
-      headers: headers
-    });
   }
   modal(value): void {
     console.log(value);

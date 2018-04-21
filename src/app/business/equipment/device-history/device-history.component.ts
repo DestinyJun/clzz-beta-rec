@@ -12,9 +12,6 @@ import {EquipmentHttpService} from '../../../remind/business/equipment-http.serv
 export class DeviceHistoryComponent implements OnInit {
 
   sid: string;
-  starttime: Date;
-  deadline: Date;
-  bsRangeValue: any;
   option: any;
   Datas: Observable<any>;
   Device: Array<NameId> = [];
@@ -75,9 +72,6 @@ export class DeviceHistoryComponent implements OnInit {
   /*传感器初始化数据*/
   SensorInit(DId) {
     const sensor = [];
-    const body = '{\n' +
-      '\t\t"did":"' + DId + '"\n' +
-      '}';
     this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
         console.log(data);
