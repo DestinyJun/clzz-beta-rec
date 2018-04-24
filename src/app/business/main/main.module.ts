@@ -7,7 +7,7 @@ import {EventComponent} from './event/event.component';
 import {ProductionComponent} from './production/production.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {ListComponent} from './list/list.component';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import {BsDropdownModule, ModalModule} from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MainHttpService} from '../../remind/business/main-http.service';
 

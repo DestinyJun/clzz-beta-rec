@@ -7,6 +7,7 @@ import {MaterialCheckComponent} from './material-check/material-check.component'
 import {MaterialMessageComponent} from './material-message/material-message.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfoStatusService} from '../../remind/info-status.service';
+import {MaterialHttpService} from '../../remind/business/material-http.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,6 @@ import {InfoStatusService} from '../../remind/info-status.service';
     MaterialCheckComponent,
     MaterialMessageComponent
   ],
-  providers: [InfoStatusService],
+  providers: [InfoStatusService, MaterialHttpService],
 })
 export class MaterialModule { }

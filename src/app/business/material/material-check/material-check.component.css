@@ -26,4 +26,6 @@
 .table-bordered > tfoot > tr>td{
   border: 1px solid rgba(0,0,0,0);
 }
-
+input{
+  color: #000000;
+}

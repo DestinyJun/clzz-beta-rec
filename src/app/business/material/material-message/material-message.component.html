@@ -71,7 +71,7 @@
           <td>{{i.idt}}</td>
           <td>{{i.paint_weight * i.price}}</td>
           <td>{{i.paint_weight}}</td>
-          <td>{{i.used}}</td>
+          <td>{{Used(i.used)}}</td>
           <td><button class="btn btn-xs btn-success">打印</button>
           <button class="btn btn-xs btn-info" (click)="MessagePaint(i.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button></td>
         </tr>
@@ -350,38 +350,38 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-md btn-success">添加油漆桶</button>
+                  <button class="btn btn-md btn-success">油漆分桶</button>
                 </div>
               </div>
               <div class="row" *ngFor="let s of psupid;let i = index">
                 <div class="col-md-3 col-xs-6">
                   <div class="form-group">
-                    <label for="psupid">分卷号:</label>
+                    <label for="psupid">分桶号:</label>
                     <input type="text" id="psupid" [(ngModel)]="psupid[i]" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>
                 <div class="col-md-3 col-xs-6">
                   <div class="form-group">
-                    <label for="paint_weight">分卷重量:</label>
+                    <label for="paint_weight">分桶重量:</label>
                     <input type="text" id="paint_weight" [(ngModel)]="paint_weight[i]" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-md btn-success">添加稀释剂桶</button>
+                  <button class="btn btn-md btn-success">稀释剂分桶</button>
                 </div>
               </div>
               <div class="row" *ngFor="let s of supnum;let i = index">
                 <div class="col-md-3 col-xs-6">
                   <div class="form-group">
-                    <label for="supnum">分卷号:</label>
+                    <label for="supnum">分桶号:</label>
                     <input type="text" id="supnum" [(ngModel)]="supnum[i]" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>
                 <div class="col-md-3 col-xs-6">
                   <div class="form-group">
-                    <label for="diluent_weight">分卷重量:</label>
+                    <label for="diluent_weight">分桶重量:</label>
                     <input type="text" id="diluent_weight" [(ngModel)]="diluent_weight[i]" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>

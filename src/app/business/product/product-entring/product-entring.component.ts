@@ -18,6 +18,17 @@ export class ProductEntringComponent implements OnInit {
   }
   ngOnInit() {
   }
+  Status(i): string {
+    if (i === 0) {
+      return '未入库';
+    } else if (i === 1) {
+      return '正在入库';
+    } else if (i === 2) {
+      return '已全部入库';
+    } else if (i === 4) {
+      return '已全出库';
+    }
+  }
 }
 export class Order {
 

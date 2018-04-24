@@ -11,7 +11,7 @@ const appRoutes: Routes = [
   {path: 'login', loadChildren: 'app/login/login.module#LoginModule'},
   {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
   {path: 'qrcode/:id', component: QrcodeComponent, canActivate: [CanrouteService]},
-  {path: 'department', component: DepartmentButtonComponent, canActivate: [CanrouteService]},
+  {path: 'department', component: DepartmentButtonComponent},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
   {path: 'toast', component: ToastComponentComponent, canActivate: [CanrouteService]}
 ];

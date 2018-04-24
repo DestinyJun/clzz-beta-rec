@@ -31,8 +31,8 @@ export class OrderMarketingComponent implements OnInit {
     this.http.SeeOrders(body)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values'];
-        this.AllOrders = data['number'];
+        this.orders = data['values']['datas'];
+        this.AllOrders = data['values']['number'];
       });
   }
   PageNumber() {

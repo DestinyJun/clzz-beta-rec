@@ -11,9 +11,11 @@ import {MainHttpService} from '../../../remind/business/main-http.service';
 })
 export class ListComponent implements OnInit {
 
+
   public orderlist: Observable<any>;
-  public orders: Array<any>;
+  public orders: Array<object>;
   public order: FormGroup;
+  public buttonDisabled = [true, true, true, true, true, true, true, true];
   constructor(private http: MainHttpService, private fb: FormBuilder) {
     this.order = this.fb.group({
       address: [{value: '', disabled: true}],
@@ -66,9 +68,10 @@ export class ListComponent implements OnInit {
       status: 0
     };
     this.orderlist = this.http
-      .SeeOrders(body)
+      .SeeOrders(body);
       this.orderlist.subscribe(data => {
-        this.orders = data['values'];
+        console.log(data);
+        this.orders = data['values']['datas'];
       });
   }
 
@@ -76,6 +79,13 @@ export class ListComponent implements OnInit {
   }
   modal(value): void {
     console.log(value);
+    let i;
+    for (i = 0; i < value.ostatus - 1; i++) {
+      this.buttonDisabled[i] = false;
+    }
+    for (; i < 8; i++) {
+      this.buttonDisabled[i] = true;
+    }
     this.order.patchValue(value);
   }
 

@@ -83,8 +83,8 @@ export class MaterialEntryComponent implements OnInit {
     for (let i = 0; i < this.As.length; i++) {
       this.alJson.arr.push({supid: this.supid[i], Alweight: this.Alweight[i]});
     }
-    console.log(JSON.stringify(this.alJson));
-    this.http.post('http://120.78.137.182/element/Add-Aluminum', JSON.stringify(this.alJson))
+    console.log(this.alJson);
+    this.http.post('http://120.78.137.182/element/Add-Aluminum', this.alJson)
       .subscribe(data => {
         console.log(data);
         this.subAL.emit();
@@ -115,8 +115,8 @@ export class MaterialEntryComponent implements OnInit {
     for ( let i = 0; i < this.Asd.length; i++) {
       this.paintJson.arr2.push({supnum: this.supnum[i], diluent_weight: this.diluent_weight[i]});
     }
-    console.log(JSON.stringify(this.paintJson));
-    this.http.post('http://120.78.137.182/element/Add-Paint', JSON.stringify(this.paintJson))
+    console.log(this.paintJson);
+    this.http.post('http://120.78.137.182/element/Add-Paint', this.paintJson)
       .subscribe(data => {
         console.log(data);
       });

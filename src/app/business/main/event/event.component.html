@@ -27,7 +27,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
-        <td>{{i}}</td>
+        <td>{{i + 1}}</td>
         <td>{{list['target_id']}}</td>
         <td>{{list['event_type']}}</td>
         <td>{{list['event_date']}}</td>

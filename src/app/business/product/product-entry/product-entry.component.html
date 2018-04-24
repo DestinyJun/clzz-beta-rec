@@ -21,7 +21,7 @@
           <td>{{order.oid}}</td>
           <td>{{order.totalnum}}</td>
           <td>{{order.prooutnum}}</td>
-          <td>{{order.status}}</td>
+          <td>{{Status(order.status)}}</td>
           <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid]">打印</button></td>
         </tr>
         </tbody>
