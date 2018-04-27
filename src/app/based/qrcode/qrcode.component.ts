@@ -12,8 +12,13 @@ export class QrcodeComponent implements OnInit {
   value = 'http://22/';
   L = 'H';
   oid: string;
+  aluminumcode: string;
+  aluminumlength: string;
   constructor(private route: ActivatedRoute) {
-    this.value += this.route.snapshot.params['id'];
+    this.oid = this.route.snapshot.params['oid'];
+    this.aluminumcode = this.route.snapshot.params['aluminumcode'];
+    this.aluminumlength = this.route.snapshot.params['aluminumlength'];
+    this.value += this.oid;
   }
 
   ngOnInit() {

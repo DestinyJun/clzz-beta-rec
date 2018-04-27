@@ -30,7 +30,11 @@ export class ThicknessComponent implements OnInit, OnDestroy {
     // initialize chart options:
     this.options = {
       title: {
-        text: 'Dynamic Data + Time Axis'
+        text: 'Dynamic Data + Time Axis',
+        center: 'center',
+        textStyle: {
+          color: 'white'
+        }
       },
       tooltip: {
         trigger: 'axis',
@@ -47,6 +51,16 @@ export class ThicknessComponent implements OnInit, OnDestroy {
         type: 'time',
         splitLine: {
           show: false
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
         }
       },
       yAxis: {
@@ -54,6 +68,16 @@ export class ThicknessComponent implements OnInit, OnDestroy {
         boundaryGap: [0, '100%'],
         splitLine: {
           show: false
+        },
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
         }
       },
       series: [{

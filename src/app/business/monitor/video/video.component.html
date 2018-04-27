@@ -9,19 +9,22 @@
       <ul class="dropdown-menu" aria-labelledby="dLabel">
         <li>生产系统1</li></ul>
     </div>
-    <!--<div class="col-md-9 col-sm-9"><app-ypath-navgation></app-ypath-navgation></div>-->
+    <div>
+
+    </div>
   </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-md-9">
         <div class="row">
           <div class="col-md-6">
-            <div>1号监视</div>
+            <div (click)="f(vlc11)">1号监视</div>
             <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+                    codebase = "http://download.videolan.org/pub/videolan/vlc/last/win64/axvlc.cab"
                     width="100%"
                     height="450"
                     id="vlc1"
-                    events="true">
+              #vlc11>
               <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/102?transportmode-unicast" />
               <param name="ShowDisplay" value="True" />
               <param name="AutoLoop" value="False" />
@@ -31,7 +34,7 @@
               <param name="StartTime" value="0" />
               <embed pluginspage="http://www.videolan.org"
                      type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
+                     version="VideoLAN.VLCPlugin.3.0.2"
                      width="100%"
                      height="450"
                      toolbar="true"
@@ -54,7 +57,7 @@
               <param name="StartTime" value="0" />
               <embed pluginspage="http://www.videolan.org"
                      type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
+                     version="VideoLAN.VLCPlugin.3.0.2"
                      width="100%"
                      height="450"
                      toolbar="true"

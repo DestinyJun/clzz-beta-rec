@@ -14,6 +14,7 @@ export class OrderEntryComponent implements OnInit {
 
   modalRef: BsModalRef;
   order: FormGroup;
+
   ftype: string;
   fccd: string;
   ptype: string;
@@ -99,6 +100,7 @@ export class OrderEntryComponent implements OnInit {
       this.submit.emit(true);
       });
   }
+
 
 
 

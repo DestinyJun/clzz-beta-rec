@@ -9,9 +9,9 @@
         <tr>
           <th>#</th>
           <th>订单编号</th>
-          <th>已入库数量</th>
-          <th>成品产出时间</th>
-          <th>状态</th>
+          <th>铝卷单卷编号</th>
+          <th>铝卷单卷长度</th>
+          <th>单卷出产时间</th>
           <th>操作</th>
         </tr>
         </thead>
@@ -19,10 +19,10 @@
         <tr *ngFor="let order of orders;let i = index">
           <td>{{i + 1}}</td>
           <td>{{order.oid}}</td>
-          <td>{{order.numofware}}</td>
+          <td>{{order.aluminumcode}}</td>
+          <td>{{order.aluminumlength}}米</td>
           <td>{{order.idt}}</td>
-          <td>{{Status(order.status)}}</td>
-          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid]">打印</button></td>
+          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid, order.aluminumcode, order.aluminumlength]">打印</button></td>
         </tr>
         </tbody>
       </table>

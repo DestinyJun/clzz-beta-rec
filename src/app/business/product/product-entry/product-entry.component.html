@@ -9,23 +9,38 @@
         <tr>
           <th>#</th>
           <th>订单编号</th>
-          <th>订单总卷数</th>
-          <th>已出库数量</th>
-          <th>状态</th>
+          <th>铝卷单卷编号</th>
+          <th>铝卷单卷长度</th>
+          <th>出产时间</th>
+          <th>入库时间</th>
           <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let order of orders;let i = index">
+        <tr *ngFor="let product of products;let i = index">
           <td>{{i + 1}}</td>
-          <td>{{order.oid}}</td>
-          <td>{{order.totalnum}}</td>
-          <td>{{order.prooutnum}}</td>
-          <td>{{Status(order.status)}}</td>
-          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',order.oid]">打印</button></td>
+          <td>{{product.oid}}</td>
+          <td>{{product.aluminumcode}}</td>
+          <td>{{product.aluminumlength}}米</td>
+          <td>{{product.warehousingindate}}</td>
+          <td>{{product.idt}}</td>
+          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode',product.oid, product.aluminumcode, product.aluminumlength]">打印</button>
+            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" (click)="SeeOrders(product.oid)">转单</button>
+          </td>
         </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="panel-body">
+        <h5>选择待生产订单</h5>
+        <h6 style="text-align: center" (click)="confirm(i['oid'])" *ngFor="let i of orders">订单号:{{i['oid']}}</h6>
+        <button class="pull-right btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">关闭</button>
+      </div>
     </div>
   </div>
 </div>

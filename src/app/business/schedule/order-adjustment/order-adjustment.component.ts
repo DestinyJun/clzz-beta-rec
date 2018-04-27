@@ -41,11 +41,6 @@ export class OrderAdjustmentComponent implements OnInit {
       });
   }
   SeeOrders() {
-    const body = {
-      'page': this.page ,
-      'row': this.row ,
-      'status': 1
-      };
     this.http.OrderAudited()
       .subscribe(data => {
         console.log(data);

@@ -63,7 +63,7 @@ export class DeviceHistoryComponent implements OnInit {
               const id = String(d[j]['did']);
               device.push({name, id});
             }
-            this.SensorInit(device[0].id);
+            this.SensorInit(device[1].id);
             this.Device = device;
 
       });
@@ -158,7 +158,7 @@ export class DeviceHistoryComponent implements OnInit {
             handleStyle: {
               color: '#fff',
               shadowBlur: 3,
-              shadowColor: 'rgba(0, 0, 0, 0.6)',
+              shadowColor: 'rgba(255,255,255,0.6)',
               shadowOffsetX: 2,
               shadowOffsetY: 2
             }

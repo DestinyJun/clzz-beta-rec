@@ -25,7 +25,7 @@ export class ScheduleHttpService {
   public OrderMobileFunction(move: object): Observable<any> {
     const body = this.parameterSerialization(move);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element-plc/order/mobile-function', move, {
+    return this.http.post('http://120.78.137.182/element-plc/order/mobile-function', body, {
       headers: this.headers
     });
   }

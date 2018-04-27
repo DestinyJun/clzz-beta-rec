@@ -5,6 +5,7 @@ import {ProductRoutersModule} from './product.routers.module';
 import {ProductOutComponent} from './product-out/product-out.component';
 import {ProductEntryComponent} from './product-entry/product-entry.component';
 import {ProductEntringComponent} from './product-entring/product-entring.component';
+import {ProductHttpService} from '../../remind/business/product-http.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,6 @@ import {ProductEntringComponent} from './product-entring/product-entring.compone
     ProductOutComponent,
     ProductEntringComponent
   ],
-  providers: [],
+  providers: [ProductHttpService],
 })
 export class ProductModule { }

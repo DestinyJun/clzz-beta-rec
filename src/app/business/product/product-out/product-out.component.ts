@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ProductHttpService} from '../../../remind/business/product-http.service';
 
 @Component({
   selector: 'app-product-out',
@@ -9,8 +10,8 @@ import {HttpClient} from '@angular/common/http';
 export class ProductOutComponent implements OnInit {
 
   orders: Order[] = [];
-  constructor(private http: HttpClient) {
-    this.http.post('http://120.78.137.182/element-plc/finished/find-warehouse-out-record', '')
+  constructor(private http: ProductHttpService) {
+    this.http.findwarehouseout()
       .subscribe(data => {
         this.orders = data['values'];
         console.log(data);
@@ -34,8 +35,10 @@ export class Order {
 
   constructor(
     public  oid: string,
-    public  totalnum: string,
+    public  warehousingindate: string,
     public  idt: string,
-    public  status: string,
+    public  warehousingoutdate: string,
+    public  aluminumcode: string,
+    public aluminumlength: string
   ) {}
 }

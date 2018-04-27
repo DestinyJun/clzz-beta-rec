@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ProductHttpService} from '../../../remind/business/product-http.service';
+import {asWindowsPath} from '@angular-devkit/core';
 
 @Component({
   selector: 'app-product-entry',
@@ -8,15 +10,48 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ProductEntryComponent implements OnInit {
 
-  orders: Order[] = [];
-  constructor(private http: HttpClient) {
-    this.http.post('http://120.78.137.182/element-plc/finished/find-finished-warehouse', '')
+  products: Array<Products>;
+  orders: Array<object>;
+  oid: string;
+  constructor(private http: ProductHttpService) {
+    this.http.findfinishedwarehouse()
       .subscribe(data => {
-        this.orders = data['values'];
+        this.products = data['values'];
         console.log(data);
       });
   }
   ngOnInit() {
+  }
+
+  confirm(i) {
+    if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
+      this.http.amendorder({targetcode: i, oid: this.oid})
+        .subscribe(data => {
+          if (data['status'] === '10') {
+            window.confirm('转单成功');
+          } else {
+            window.confirm('转单失败');
+          }
+        });
+    }
+  }
+  SeeOrders(j): void {
+    this.oid = j;
+    const body = {
+      page: 1,
+      row: 20,
+      status: 1,
+    };
+    this.http.OrderAudited()
+      .subscribe(data => {
+        const ord: Array<object> = [];
+        for (let i = 0; i < data['values'].length; i++) {
+          if (data['values'][i]['status'] === 1) {
+            ord.push(data['values'][i]);
+          }
+        }
+        this.orders = ord;
+      });
   }
   Status(i): string {
     if (i === 0) {
@@ -30,13 +65,14 @@ export class ProductEntryComponent implements OnInit {
     }
   }
 }
-export class Order {
+export class Products {
 
   constructor(
     public  oid: string,
-    public  totalnum: string,
-    public  prooutnum: string,
-    public  status: string,
+    public  aluminumlength: string,
+    public  aluminumcode: string,
+    public  idt: string,
+    public warehousingindate: string
   ) {}
 }
 
