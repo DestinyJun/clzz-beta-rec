@@ -16,7 +16,6 @@ export class DeviceNewComponent implements OnInit {
     this.httpDevice.FindDeviceInformation({ page: this.page, row: 10})
       .subscribe(data => {
         this.DeviceInformation = data['values'];
-        console.log(this.DeviceInformation);
       });
   }
 

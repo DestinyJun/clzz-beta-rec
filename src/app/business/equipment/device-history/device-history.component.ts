@@ -74,7 +74,6 @@ export class DeviceHistoryComponent implements OnInit {
     const sensor = [];
     this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
-        console.log(data);
         const i: Array<any> = data['values'][0]['sensor'];
         const length = i.length;
         for (let j = 0; j < length; j++) {
@@ -91,7 +90,6 @@ export class DeviceHistoryComponent implements OnInit {
     this.Datas = this.httpSensor.seesensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
-        console.log(d);
         const length = d['values'].length;
         const dates = [];
         const data = [];

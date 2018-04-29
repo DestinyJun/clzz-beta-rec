@@ -9,12 +9,11 @@ import {ProductHttpService} from '../../../remind/business/product-http.service'
 })
 export class ProductEntringComponent implements OnInit {
 
-  orders: Order[] = [];
+  public orders: Order[] = [];
   constructor(private http: ProductHttpService) {
     this.http.findproduceinformation()
       .subscribe(data => {
         this.orders = data['values'];
-        console.log(data);
       });
   }
   ngOnInit() {
@@ -37,6 +36,6 @@ export class Order {
     public  oid: string,
     public  aluminumcode: string,
     public  idt: string,
-    public  aluminumlength: string,
+    public  aluminumlength: string
   ) {}
 }

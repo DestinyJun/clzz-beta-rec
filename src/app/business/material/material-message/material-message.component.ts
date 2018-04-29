@@ -116,7 +116,6 @@ export class MaterialMessageComponent implements OnInit {
         'row': this.row,
         'mode': this.MaterialStatus.getNumber('mode')
       };
-      console.log(body);
       this.http.findrawpage(body)
         .subscribe(data => {
           console.log(data);
@@ -130,10 +129,8 @@ export class MaterialMessageComponent implements OnInit {
         'row': this.row,
         'mode': this.MaterialStatus.getNumber('mode')
       };
-      console.log(body);
       this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
           this.paints = data['values']['datas'];
           this.MaterialStatus.set('Paint-number', data['values']['number']);
         });
@@ -183,7 +180,6 @@ export class MaterialMessageComponent implements OnInit {
     const body = {
       'purchase': purchase
     };
-    console.log(body);
     this.http.SeeAluminum(body)
       .subscribe(data => {
         console.log(data['data'][0]);
@@ -206,7 +202,6 @@ export class MaterialMessageComponent implements OnInit {
     };
     this.http.SeePaint(body)
       .subscribe(data => {
-        console.log(data);
         const ps: Array<string> = [];
         const pw: Array<number> = [];
         for (let i = 0; i < data['data1'][0]['arr1'].length; i++) {

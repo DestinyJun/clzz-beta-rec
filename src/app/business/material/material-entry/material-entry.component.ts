@@ -86,7 +86,6 @@ export class MaterialEntryComponent implements OnInit {
     console.log(this.alJson);
     this.http.post('http://120.78.137.182/element/Add-Aluminum', this.alJson)
       .subscribe(data => {
-        console.log(data);
         this.subAL.emit();
       });
   }
@@ -118,7 +117,6 @@ export class MaterialEntryComponent implements OnInit {
     console.log(this.paintJson);
     this.http.post('http://120.78.137.182/element/Add-Paint', this.paintJson)
       .subscribe(data => {
-        console.log(data);
       });
   }
   addF() {

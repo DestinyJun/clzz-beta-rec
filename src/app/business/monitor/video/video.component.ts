@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VideoComponent implements OnInit {
 
-  constructor() { }
+  public siders: Array<object>;
+  constructor() {
+    this.siders =
+
+  }
 
   ngOnInit() {
   }

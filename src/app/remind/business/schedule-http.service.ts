@@ -68,5 +68,13 @@ export class ScheduleHttpService {
     });
   }
 
+  public FindOrdersId(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/FindOrdersId', body, {
+      headers: this.headers
+    });
+  }
+
 
 }

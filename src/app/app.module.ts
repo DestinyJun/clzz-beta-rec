@@ -16,6 +16,7 @@ import { ToastComponentComponent } from './based/toast-component/toast-component
 import {UtilsService} from './remind/utils.service';
 import {CanrouteService} from './remind/canroute.service';
 import {InfoStatusService} from './remind/info-status.service';
+import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {InfoStatusService} from './remind/info-status.service';
     QrcodeComponent,
     OrderpageComponent,
     ToastComponentComponent,
+    MobieOrderComponent,
   ],
   providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService],
   bootstrap: [AppComponent]

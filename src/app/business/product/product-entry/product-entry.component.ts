@@ -17,7 +17,6 @@ export class ProductEntryComponent implements OnInit {
     this.http.findfinishedwarehouse()
       .subscribe(data => {
         this.products = data['values'];
-        console.log(data);
       });
   }
   ngOnInit() {
@@ -37,11 +36,6 @@ export class ProductEntryComponent implements OnInit {
   }
   SeeOrders(j): void {
     this.oid = j;
-    const body = {
-      page: 1,
-      row: 20,
-      status: 1,
-    };
     this.http.OrderAudited()
       .subscribe(data => {
         const ord: Array<object> = [];
@@ -72,7 +66,8 @@ export class Products {
     public  aluminumlength: string,
     public  aluminumcode: string,
     public  idt: string,
-    public warehousingindate: string
+    public warehousingindate: string,
+    public targetlist: string
   ) {}
 }
 

@@ -22,11 +22,10 @@ export class TemperatureComponent implements OnInit {
   }
 
   ngOnInit() {
-    // setInterval(() => {this.getSensorId(); this.TemperatureMap(); }, 3000);
+    setInterval(() => {this.getSensorId(); this.TemperatureMap(); }, 3000);
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
-      console.log(data);
       data = data['values'];
       const length = data.length;
       for (let i = 0; i < length; i++) {

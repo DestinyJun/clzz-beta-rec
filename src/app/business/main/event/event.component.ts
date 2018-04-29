@@ -29,7 +29,6 @@ export class EventComponent implements OnInit {
   }
   openModal(template: TemplateRef<any>, value) {
     this.Modal2 = value;
-    console.log(template);
     this.modalRef = this.modalService.show(template);
   }
 }

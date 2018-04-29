@@ -14,7 +14,6 @@ export class ProductOutComponent implements OnInit {
     this.http.findwarehouseout()
       .subscribe(data => {
         this.orders = data['values'];
-        console.log(data);
       });
   }
   ngOnInit() {
@@ -39,6 +38,7 @@ export class Order {
     public  idt: string,
     public  warehousingoutdate: string,
     public  aluminumcode: string,
-    public aluminumlength: string
+    public aluminumlength: string,
+    public targetlist: string
   ) {}
 }

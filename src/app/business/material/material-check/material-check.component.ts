@@ -40,7 +40,6 @@ export class MaterialCheckComponent implements OnInit {
       console.log(body);
       this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
           this.aluminums = data['values']['datas'];
           this.AOrders = data['values']['number'];
         });
@@ -50,10 +49,8 @@ export class MaterialCheckComponent implements OnInit {
         row: 10,
         mode:  mode
       };
-      console.log(body);
       this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
           this.prints = data['values']['datas'];
           this.POrders = data['values']['number'];
         });

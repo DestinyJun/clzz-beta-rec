@@ -111,6 +111,8 @@ export class OrderQueryComponent implements OnInit {
   }
   modal(value) {
     console.log(value);
+    value['doublecloat'] = value['doublecloat'] === '1' ? '是' : '否';
+    value['figure'] = value['figure'] === '1' ? '是' : '否';
     this.orderForm.patchValue(value);
     console.log(this.orderForm);
   }
@@ -153,8 +155,8 @@ export class OrderQueryComponent implements OnInit {
       ptype: this.orderForm.get('ptype').value,
       pprogram: this.orderForm.get('pprogram').value,
       pccd: this.orderForm.get('pccd').value,
-      doublecloat: this.orderForm.get('doublecloat'),
-      figura: this.orderForm.get('figure').value,
+      doublecloat: this.orderForm.get('doublecloat').value  === '是' ? '1' : '0',
+      figura: this.orderForm.get('figure').value === '是' ? '1' : '0',
       bchickness: this.orderForm.get('bchickness').value,
       btype: this.orderForm.get('btype').value,
       bprogram: this.orderForm.get('bprogram').value,
@@ -172,6 +174,11 @@ export class OrderQueryComponent implements OnInit {
     this.http.UpdateOrders(body)
       .subscribe(data => {
         console.log(data);
+        if (data['status'] === '10') {
+          window.confirm('修改成功');
+        } else {
+          window.confirm(data['message']);
+        }
         this.SeeOrders();
       });
   }

@@ -70,7 +70,6 @@ export class ListComponent implements OnInit {
     this.orderlist = this.http
       .SeeOrders(body);
       this.orderlist.subscribe(data => {
-        console.log(data);
         this.orders = data['values']['datas'];
       });
   }
@@ -78,7 +77,6 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
   modal(value): void {
-    console.log(value);
     let i;
     for (i = 0; i < value.ostatus - 1; i++) {
       this.buttonDisabled[i] = false;
