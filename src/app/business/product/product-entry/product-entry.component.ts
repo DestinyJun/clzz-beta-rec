@@ -12,6 +12,7 @@ export class ProductEntryComponent implements OnInit {
 
   products: Array<Products>;
   orders: Array<object>;
+  targetlist: string;
   oid: string;
   constructor(private http: ProductHttpService) {
     this.http.findfinishedwarehouse()
@@ -34,17 +35,13 @@ export class ProductEntryComponent implements OnInit {
         });
     }
   }
-  SeeOrders(j): void {
-    this.oid = j;
-    this.http.OrderAudited()
+  SeeOrders(j, i): void {
+    this.targetlist = j;
+    this.oid = i;
+    this.http.findamendorder({targetlist: j})
       .subscribe(data => {
-        const ord: Array<object> = [];
-        for (let i = 0; i < data['values'].length; i++) {
-          if (data['values'][i]['status'] === 1) {
-            ord.push(data['values'][i]);
-          }
-        }
-        this.orders = ord;
+        console.log(data);
+        this.orders = data['values'];
       });
   }
   Status(i): string {

@@ -40,8 +40,10 @@ export class ProductHttpService {
     });
   }
 
-  public OrderAudited(): Observable<any> {
-    return this.http.post('http://120.78.137.182/element-plc/order/audited', '', {
+  public findamendorder(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element-plc/find-amend-order', body, {
       headers: this.headers
     });
   }
