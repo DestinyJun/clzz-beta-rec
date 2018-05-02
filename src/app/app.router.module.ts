@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   {path: 'department', component: DepartmentButtonComponent},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
   {path: 'toast', component: ToastComponentComponent, canActivate: [CanrouteService]},
-  {path: 'mobie/:oid/:aluminumcode', component: MobieOrderComponent}
+  {path: 'mobie/:targetlist/:aluminumcode', component: MobieOrderComponent}
 ];
 
 @NgModule({

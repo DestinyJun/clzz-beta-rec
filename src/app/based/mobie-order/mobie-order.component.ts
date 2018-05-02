@@ -13,7 +13,7 @@ export class MobieOrderComponent implements OnInit {
   public order: Order;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private route: ActivatedRoute) {
-    this.FindOrdersId({oid: this.route.snapshot.params['oid']})
+    this.FindOrdersId({oid: this.route.snapshot.params['targetlist']})
       .subscribe(data => {
         console.log(data);
         this.order = data['values'][0];

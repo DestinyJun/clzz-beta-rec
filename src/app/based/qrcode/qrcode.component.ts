@@ -19,7 +19,7 @@ export class QrcodeComponent implements OnInit {
     this.oid = this.route.snapshot.params['oid'];
     this.targetlist = this.route.snapshot.params['targetlist'];
     this.aluminumlength = this.route.snapshot.params['aluminumlength'];
-    this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie' + this.targetlist + '/' + this.aluminumcode;
+    this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode;
   }
 
   ngOnInit() {
