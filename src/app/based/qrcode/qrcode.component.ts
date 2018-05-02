@@ -17,6 +17,7 @@ export class QrcodeComponent implements OnInit {
   targetlist: string;
   constructor(private route: ActivatedRoute) {
     this.oid = this.route.snapshot.params['oid'];
+    this.aluminumcode = this.route.snapshot.params['aluminumcode'];
     this.targetlist = this.route.snapshot.params['targetlist'];
     this.aluminumlength = this.route.snapshot.params['aluminumlength'];
     this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode;
