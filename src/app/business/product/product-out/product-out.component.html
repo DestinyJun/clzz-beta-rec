@@ -28,7 +28,7 @@
           <td>{{order.idt}}</td>
           <td>{{order.warehousingindate}}</td>
           <td>{{order.warehousingoutdate}}</td>
-          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode', order.oid, order.aluminumlength, order.targetlist, order.aluminumcode ]">打印</button></td>
+          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode', false, order.oid, order.aluminumlength, order.targetlist, order.aluminumcode ]">打印</button></td>
         </tr>
         </tbody>
       </table>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HomeService, NavList, NavListChild} from '../home.service';
 import {PositionNameService} from '../../remind/position-name.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-sidebar',

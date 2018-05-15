@@ -26,8 +26,8 @@
           <td>{{product.aluminumlength}}米</td>
           <td>{{product.warehousingindate}}</td>
           <td>{{product.idt}}</td>
-          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode' ,product.oid, product.aluminumlength, product.targetlist,product.aluminumcode]">打印</button>
-            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" (click)="SeeOrders(product.targetlist, product.oid)">转单</button>
+          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode' , false, product.oid, product.aluminumlength, product.targetlist,product.aluminumcode]">打印</button>
+            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" (click)="SeeOrders(product.aluminumcode, product.oid, product.targetlist)">转单</button>
           </td>
         </tr>
         </tbody>

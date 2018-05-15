@@ -16,6 +16,8 @@ export class OrderQueryComponent implements OnInit {
   public orderForm: FormGroup;
   public AllOrders: number;
   public read = true;
+  public Color = [];
+  public SelectI: number;
 
   constructor(private http: ScheduleHttpService, private fb: FormBuilder) {
     this.orderForm = this.fb.group({
@@ -36,7 +38,7 @@ export class OrderQueryComponent implements OnInit {
       pprogram: ['', Validators.required],
       pccd: ['', Validators.required],
       doublecloat: ['', Validators.required],
-      figure: ['', Validators.required],
+      figura: ['', Validators.required],
       bchickness: ['', Validators.required],
       btype: ['', Validators.required],
       bprogram: ['', Validators.required],
@@ -55,6 +57,15 @@ export class OrderQueryComponent implements OnInit {
   ngOnInit() {
     this.SeeOrders();
   }
+  Select(i) {
+    for (let j = 0; j < this.Color.length; j++) {
+      if (i !== j) {
+        this.Color[j] = false;
+      }
+    }
+    this.Color[i] = true;
+  }
+
   SeeOrders() {
     const body = {
      page: this.page,
@@ -66,6 +77,14 @@ export class OrderQueryComponent implements OnInit {
         console.log(data);
         this.orders = data['values']['datas'];
         this.AllOrders = data['values']['number'];
+        const Co = [];
+        for (let i = 0; i < this.orders.length; i++) {
+          Co.push(false);
+        }
+        this.Color = Co;
+        if (!this.SelectI) {
+          this.Color[this.SelectI] = true;
+        }
       });
   }
   NextPage() {
@@ -111,8 +130,9 @@ export class OrderQueryComponent implements OnInit {
   }
   modal(value) {
     console.log(value);
-    value['doublecloat'] = value['doublecloat'] === '1' ? '是' : '否';
-    value['figure'] = value['figure'] === '1' ? '是' : '否';
+    value['doublecloat'] = value['doublecloat'] === 1 ? '是' : '否';
+    value['figura'] = value['figura'] === 1 ? '是' : '否';
+    console.log(value);
     this.orderForm.patchValue(value);
     console.log(this.orderForm);
   }
@@ -156,7 +176,7 @@ export class OrderQueryComponent implements OnInit {
       pprogram: this.orderForm.get('pprogram').value,
       pccd: this.orderForm.get('pccd').value,
       doublecloat: this.orderForm.get('doublecloat').value  === '是' ? '1' : '0',
-      figura: this.orderForm.get('figure').value === '是' ? '1' : '0',
+      figura: this.orderForm.get('figura').value === '是' ? '1' : '0',
       bchickness: this.orderForm.get('bchickness').value,
       btype: this.orderForm.get('btype').value,
       bprogram: this.orderForm.get('bprogram').value,

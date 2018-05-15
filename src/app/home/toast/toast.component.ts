@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {UtilsService} from '../../remind/utils.service';
 
 @Component({
-  selector: 'app-toast-component',
-  templateUrl: './toast-component.component.html',
-  styleUrls: ['./toast-component.component.css']
+  selector: 'app-toast',
+  templateUrl: './toast.component.html',
+  styleUrls: ['./toast.component.css']
 })
-export class ToastComponentComponent implements OnInit {
+export class ToastComponent implements OnInit {
   public show;
   public content;
   public duration;

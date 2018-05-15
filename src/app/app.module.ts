@@ -12,11 +12,12 @@ import { DepartmentButtonComponent } from './based/department-button/department-
 import { QrcodeComponent } from './based/qrcode/qrcode.component';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
 import { OrderpageComponent } from './based/orderpage/orderpage.component';
-import { ToastComponentComponent } from './based/toast-component/toast-component.component';
 import {UtilsService} from './remind/utils.service';
 import {CanrouteService} from './remind/canroute.service';
 import {InfoStatusService} from './remind/info-status.service';
 import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
     AppRouterModule,
     HttpModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     NgxQRCodeModule,
     ModalModule.forRoot()
@@ -35,8 +37,8 @@ import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
     DepartmentButtonComponent,
     QrcodeComponent,
     OrderpageComponent,
-    ToastComponentComponent,
     MobieOrderComponent,
+
   ],
   providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService],
   bootstrap: [AppComponent]

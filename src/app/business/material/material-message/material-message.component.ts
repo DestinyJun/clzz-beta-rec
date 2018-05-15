@@ -25,12 +25,7 @@ export class MaterialMessageComponent implements OnInit {
   private row = 10;
   constructor(private http: MaterialHttpService, private MaterialStatus: InfoStatusService, private fb: FormBuilder) {
     console.log(this.MaterialStatus);
-    if (!this.MaterialStatus.get('mode')) {
-      this.MaterialStatus.setNumber('Al-page', 1);
-      this.MaterialStatus.setNumber('Paint-page', 1);
-      this.MaterialStatus.set('mode', '0');
-    }
-    this.SeeMaterial();
+
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
       alex_weight: ['', [Validators.required]],
@@ -76,8 +71,25 @@ export class MaterialMessageComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      if (!this.MaterialStatus.get('mode')) {
+        this.MaterialStatus.setNumber('Al-page', 1);
+        this.MaterialStatus.setNumber('Paint-page', 1);
+        this.MaterialStatus.set('mode', '0');
+      }
+      this.SeeMaterial();
+    }, 100);
   }
 
+  PageNumber(i: string): Number {
+    if (this.MaterialStatus.getNumber(i) < this.row) {
+      return 1;
+    } else if (this.MaterialStatus.getNumber(i) % this.row === 0) {
+      return this.MaterialStatus.getNumber(i) / this.row;
+    } else {
+      return (this.MaterialStatus.getNumber(i) - this.MaterialStatus.getNumber(i) % this.row) / this.row + 1;
+    }
+  }
   ToggleAl() {
     this.MaterialStatus.set('mode', '0');
     this.SeeMaterial();
@@ -121,7 +133,7 @@ export class MaterialMessageComponent implements OnInit {
           console.log(data);
           this.aluminums = data['values']['datas'];
           console.log(this.aluminums);
-          this.MaterialStatus.set('Al-number', data['values']['number']);
+          this.MaterialStatus.set('Al-number', data['values']['num']);
         });
     } else {
       body = {
@@ -143,14 +155,15 @@ export class MaterialMessageComponent implements OnInit {
       page = this.MaterialStatus.getNumber('Al-page');
       number = this.MaterialStatus.getNumber('Al-number');
       if (number >= page * this.row) {
-        this.MaterialStatus.setNumber('page', page + 1);
+        this.MaterialStatus.set('page', page + 1);
+        console.log(this.MaterialStatus);
         this.SeeMaterial();
       }
     } else {
       page = this.MaterialStatus.getNumber('Paint-page');
       number = this.MaterialStatus.getNumber('Paint-number');
       if (number >= page * this.row) {
-        this.MaterialStatus.setNumber('page', page + 1);
+        this.MaterialStatus.set('page', page + 1);
         this.SeeMaterial();
       }
     }

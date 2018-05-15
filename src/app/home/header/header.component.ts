@@ -10,7 +10,8 @@ import {LoginIdService} from '../../remind/login-id.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
+  @Output() sidebar = new EventEmitter<Boolean>();
   @Input() infoToggle: boolean;
   @Input() infoTg: boolean;
   @ViewChild('userRemindScrollContent')
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit{
     this.navListToggle = true;
   }
   ngOnInit() {}
+  public Sidebar() {
+    console.log('header');
+    this.sidebar.emit(true);
+  }
   public onScrollToggle(event): void {
     if (event.target.innerText === '关闭') {
       this.scrollToggle = true;

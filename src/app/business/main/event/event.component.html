@@ -19,8 +19,7 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>订单编号</th>
-        <th>事件信息</th>
+        <th>事件类型</th>
         <th>时间</th>
         <th>描述</th>
       </tr>
@@ -28,7 +27,6 @@
       <tbody>
       <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
         <td>{{i + 1}}</td>
-        <td>{{list['target_id']}}</td>
         <td>{{list['event_type']}}</td>
         <td>{{list['event_date']}}</td>
         <td>{{list['event_name']}}</td>

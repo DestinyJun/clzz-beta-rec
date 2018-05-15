@@ -12,8 +12,9 @@ export class ProductEntryComponent implements OnInit {
 
   products: Array<Products>;
   orders: Array<object>;
-  targetlist: string;
+  aluminumcode: string;
   oid: string;
+  targetlist: string;
   constructor(private http: ProductHttpService) {
     this.http.findfinishedwarehouse()
       .subscribe(data => {
@@ -25,7 +26,7 @@ export class ProductEntryComponent implements OnInit {
 
   confirm(i) {
     if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
-      this.http.amendorder({targetcode: i, oid: this.oid})
+      this.http.amendorder({targetcode: i, oid: this.oid, aluminumcode: this.aluminumcode})
         .subscribe(data => {
           if (data['status'] === '10') {
             window.confirm('转单成功');
@@ -35,10 +36,11 @@ export class ProductEntryComponent implements OnInit {
         });
     }
   }
-  SeeOrders(j, i): void {
-    this.targetlist = j;
+  SeeOrders(j, i, k): void {
+    this.targetlist = k;
+    this.aluminumcode = j;
     this.oid = i;
-    this.http.findamendorder({targetlist: j})
+    this.http.findamendorder({targetlist: k})
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];

@@ -4,7 +4,7 @@
       <div class="title">
         <span class="logo">彩铝</span>
         <a href="" class="admin" [routerLink]="['./main']">超级管理员</a>
-        <i class="fa fa-navicon"></i>
+        <i (click)="Sidebar()" class="fa fa-navicon"></i>
       </div>
       <div class="user pull-right">
         <div class="user-photo" (click)="onToggleInfo()">

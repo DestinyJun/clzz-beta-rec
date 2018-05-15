@@ -34,7 +34,7 @@
           <td>{{i.alexweight * i.alprice}}</td>
           <td>{{i.alexweight}}</td>
           <td>{{Status(i.status)}}</td>
-          <td><button class="btn btn-xs btn-success">打印</button>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', i.purchase, 0, 0, 0, 0]">打印</button>
             <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(i.purchase)">详情</button></td>
         </tr>
         <tfoot>
@@ -42,7 +42,7 @@
           <td colspan="8">
             <button type="button" class="btn btn-primary" (click)="FrontPage()">上一页</button>
             <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共1页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
+            共{{PageNumber('Al-number')}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
           </td>
         </tr>
         </tfoot>
@@ -72,7 +72,7 @@
           <td>{{i.paint_weight * i.price}}</td>
           <td>{{i.paint_weight}}</td>
           <td>{{Used(i.used)}}</td>
-          <td><button class="btn btn-xs btn-success">打印</button>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', i.purchase, 0, 0, 0, 0]">打印</button>
           <button class="btn btn-xs btn-info" (click)="MessagePaint(i.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button></td>
         </tr>
         <tfoot>
@@ -80,7 +80,7 @@
           <td colspan="8">
             <button type="button" class="btn btn-primary" (click)="FrontPage()">上一页</button>
             <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共1页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
+            共{{PageNumber('Paint-number')}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
           </td>
         </tr>
         </tfoot>

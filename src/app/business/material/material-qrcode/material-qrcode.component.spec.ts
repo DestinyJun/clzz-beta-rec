@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToastComponentComponent } from './toast-component.component';
+import { MaterialQrcodeComponent } from './material-qrcode.component';
 
-describe('ToastComponentComponent', () => {
-  let component: ToastComponentComponent;
-  let fixture: ComponentFixture<ToastComponentComponent>;
+describe('MaterialQrcodeComponent', () => {
+  let component: MaterialQrcodeComponent;
+  let fixture: ComponentFixture<MaterialQrcodeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToastComponentComponent ]
+      declarations: [ MaterialQrcodeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToastComponentComponent);
+    fixture = TestBed.createComponent(MaterialQrcodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

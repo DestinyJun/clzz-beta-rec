@@ -275,22 +275,14 @@ export class MaterialCheckComponent implements OnInit {
     if (i === 0) {
       this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
         .subscribe(data => {
-          if (data['status'] === '10') {
-            window.confirm('已审核通过');
-          } else {
-            window.confirm('已审核未通过');
-          }
-          this.SeeOrders(0);
+          console.log(data);
+          this.NoCheck();
         });
     } else {
       this.http.allauditpa({purcase: this.Paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
         .subscribe(data => {
-          if (data['status'] === '10') {
-            window.confirm('已审核通过');
-          } else {
-            window.confirm('已审核未通过');
-          }
-          this.SeeOrders(1);
+          console.log(data);
+          this.NoCheck();
         });
     }
 
@@ -300,22 +292,14 @@ export class MaterialCheckComponent implements OnInit {
     if (i === 0) {
       this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
         .subscribe(data => {
-          if (data['status'] === '10') {
-            window.confirm('已审核通过');
-          } else {
-            window.confirm('已审核未通过');
-          }
-          this.SeeOrders(0);
+          console.log(data);
+          this.NoCheck();
         });
     } else {
       this.http.allauditpa({purcase: this.Paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
         .subscribe(data => {
-          if (data['status'] === '10') {
-            window.confirm('已审核通过');
-          } else {
-            window.confirm('已审核未通过');
-          }
-          this.SeeOrders(1);
+          console.log(data);
+          this.NoCheck();
         });
     }
 
