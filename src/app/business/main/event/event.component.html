@@ -27,7 +27,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
-        <td>{{i}}</td>
+        <td>{{i + 1}}</td>
         <td>{{list['target_id']}}</td>
         <td>{{list['event_type']}}</td>
         <td>{{list['event_date']}}</td>
@@ -36,10 +36,6 @@
       </tbody>
     </table>
   </div>
-</div>
-<div class="panel-footer">
-  <a>查看更多</a>
-  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 </div>
 <!-- 模态框-->
 <ng-template #template>
@@ -74,14 +70,11 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <span>target_id:{{Modal2.target_id}}</span>
-      </div>
-      <div class="col-md-4">
         <span>附件:{{Modal2.event_attachment}}</span>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
+    <button type="button" class="btn btn-info" data-dismiss="modal" (click)="modalRef.hide()">关闭</button>
   </div>
 </ng-template>

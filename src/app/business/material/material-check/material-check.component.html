@@ -23,14 +23,14 @@
         </thead>
         <tbody>
         <tr *ngFor="let aluminum of aluminums;let i = index">
-          <td>{{i}}</td>
+          <td>{{i + 1}}</td>
           <td>铝板</td>
           <td>{{aluminum['purchase']}}</td>
           <td>{{aluminum['supname']}}</td>
           <td>{{aluminum['idt']}}</td>
           <td>{{aluminum['alprice']}}</td>
           <td>{{aluminum['alexweight']}}吨</td>
-          <td>{{aluminum['status']}}</td>
+          <td>{{Status(aluminum['status'])}}</td>
         </tr>
         </tbody>
         <tfoot>
@@ -63,14 +63,14 @@
         </thead>
         <tbody>
         <tr *ngFor="let print of prints;let i =index">
-          <td>{{i}}</td>
+          <td>{{i + 1}}</td>
           <td>油漆</td>
           <td>{{print['purchase']}}</td>
           <td>{{print['supname']}}</td>
           <td>{{print['idt']}}</td>
           <td>{{print['price']}}</td>
           <td>{{print['paex_weight']}}吨</td>
-          <td>{{print['used']}}</td>
+          <td>{{Used(print['used'])}}</td>
         </tr>
         </tbody>
         <tfoot>

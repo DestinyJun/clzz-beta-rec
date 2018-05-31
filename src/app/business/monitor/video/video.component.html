@@ -9,7 +9,9 @@
       <ul class="dropdown-menu" aria-labelledby="dLabel">
         <li>生产系统1</li></ul>
     </div>
-    <!--<div class="col-md-9 col-sm-9"><app-ypath-navgation></app-ypath-navgation></div>-->
+    <div>
+
+    </div>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -17,49 +19,33 @@
         <div class="row">
           <div class="col-md-6">
             <div>1号监视</div>
-            <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-                    width="100%"
-                    height="450"
-                    id="vlc1"
-                    events="true">
-              <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/102?transportmode-unicast" />
-              <param name="ShowDisplay" value="True" />
-              <param name="AutoLoop" value="False" />
-              <param name="AutoPlay" value="False" />
-              <param name="Volume" value="50" />
-              <param name="toolbar" value="true" />
-              <param name="StartTime" value="0" />
-              <embed pluginspage="http://www.videolan.org"
-                     type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
-                     width="100%"
-                     height="450"
-                     toolbar="true"
-                     namev="vlc">
-            </OBJECT>
+            <object type='application/x-vlc-plugin' id='vlc${obj[number].place}' width="100%" height="450" events='True'
+                    pluginspage="http://www.videolan.org"
+                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz">
+              <param name='mrl' value='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast' />
+              <param name='volume' value='50' />
+              <param name='autoplay' value='true' />
+              <param name='loop' value='false' />
+              <param value="transparent" name="wmode">
+              <embed id='vlc12' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="100%"
+                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"
+                     src="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast">
+            </object>
           </div>
           <div class="col-md-6">
             <div>2号监视</div>
-            <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-                    width="100%"
-                    height="450"
-                    id="vlc2"
-                    events="true">
-              <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/202?transportmode-unicast" />
-              <param name="ShowDisplay" value="True" />
-              <param name="AutoLoop" value="False" />
-              <param name="AutoPlay" value="False" />
-              <param name="Volume" value="50" />
-              <param name="toolbar" value="true" />
-              <param name="StartTime" value="0" />
-              <embed pluginspage="http://www.videolan.org"
-                     type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
-                     width="100%"
-                     height="450"
-                     toolbar="true"
-                     namev="vlc">
-            </OBJECT>
+            <object type='application/x-vlc-plugin' id='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast' width="100%" height="450" events='True'
+                    pluginspage="http://www.videolan.org"
+                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz">
+              <param name='mrl' value='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast' />
+              <param name='volume' value='50' />
+              <param name='autoplay' value='true' />
+              <param name='loop' value='false' />
+              <param value="transparent" name="wmode">
+              <embed id='vlc1' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="100%"
+                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"
+                     src="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast">
+            </object>
           </div>
         </div>
         <div class="row">
@@ -70,7 +56,7 @@
                     height="450"
                     id="vlc3"
                     events="true">
-              <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/302?transportmode-unicast" />
+              <param name="mrl" value="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast" />
               <param name="ShowDisplay" value="True" />
               <param name="AutoLoop" value="False" />
               <param name="AutoPlay" value="False" />
@@ -93,7 +79,7 @@
                     height="450"
                     id="vlc4"
                     events="true">
-              <param name="mrl" value="rtsp://admin:12345678a@222.85.147.216:554/Streaming/Channels/402?transportmode-unicast" />
+              <param name="mrl" value="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast" />
               <param name="ShowDisplay" value="True" />
               <param name="AutoLoop" value="False" />
               <param name="AutoPlay" value="False" />
@@ -112,10 +98,26 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div>左</div>
-        <div>下</div>
-        <div>拉</div>
-        <div>框</div>
+        <ul class="list-group" #sider>
+          <li class="list-group-item" *ngFor="let p of siders">
+            {{p.pingtai}}
+            <ul class="list-group" *ngFor="let z of p.key">
+              <li class="list-group-item">{{z.zong1}}
+                <ul class="list-group" *ngFor="let f of z.key">
+                  <li class="list-group-item">{{f.feng1}}
+                    <ul class="list-group" *ngFor="let s of f.key" >
+                      <li class="list-group-item">{{s.shengchanxian}}
+                        <ul class="list-group">
+                          <li class="list-group-item" *ngFor="let u of s.key">{{u.name}}</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --env=prod --prod --aot  --base-href /panda/",
+    "start": "ng serve --port 3030",
+    "build": "ng build --prod --aot  --base-href /ColorAlum/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

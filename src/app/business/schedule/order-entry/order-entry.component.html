@@ -75,7 +75,7 @@
                   <div class="col-xs-6 col-sm-3">
                     <div class="form-group">
                       <label class="control-label" for="ftype">面漆颜色</label>
-                      <select class="form-control" style="width: 100%" [(ngModel)]="ftype" [ngModelOptions]="{standalone: true}" id="ftype">
+                      <select class="form-control" [(ngModel)]="ftype" [ngModelOptions]="{standalone: true}" id="ftype">
                         <option>AOOOOO-白色</option>
                       </select>
                     </div>
@@ -155,8 +155,8 @@
                     <div class="form-group">
                       <label class="control-label" for="doublecloat">是否双面涂</label>
                       <select class="form-control" style="width: 100%" [(ngModel)]="doublecloat" [ngModelOptions]="{standalone: true}" id="doublecloat">
-                        <option>1</option>
-                        <option>0</option>
+                        <option>是</option>
+                        <option>否</option>
                       </select>
                     </div>
                   </div>
@@ -177,6 +177,12 @@
                         <option>2号生产线</option>
                         <option>3号生产线</option>
                       </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-3">
+                    <div class="form-group">
+                      <label class="control-label" for="deviation">误差值</label>
+                      <input class="form-control" formControlName="deviation" id="deviation">
                     </div>
                   </div>
                 </div>
@@ -229,7 +235,7 @@
               </form>
               <div class="pull-left">
                 <button class="btn btn-info" data-toggle="modal" data-target="#add">保存</button>
-                <button class="btn btn-success" (click)="Submit()" data-toggle="modal" data-target="#add">提交</button>
+                <button class="btn btn-success" (click)="Submit()" data-toggle="modal" data-target="#add" [disabled]="order.invalid">提交</button>
               </div>
             </div>
           </div>

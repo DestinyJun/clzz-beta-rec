@@ -1,7 +1,6 @@
 <div class="panel-heading">
   <span>订单列表</span>
   <div class="pull-right">
-    <a style="">查看更多</a>
     <i class="fa fa-angle-double-right" aria-hidden="true"></i>
   </div>
 </div>
@@ -19,7 +18,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let list of orders;let i =index" (click)="modal(list)" data-toggle="modal" data-target=".bs-example-modal-lg">
-        <td>{{i}}</td>
+        <td>{{i + 1}}</td>
         <td>{{list['oid']}}</td>
         <td>{{list['cname']}}</td>
         <td>{{list['submitter']}}</td>
@@ -30,13 +29,13 @@
   </div>
 </div>
 <!--模态框-->
-
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content" style="margin: 0 -40px">
       <div class="panel-heading">
         <span> 详细信息</span>
+        <div class="pull-right"><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal2">流程图</button></div>
       </div>
       <div class="panel-body">
         <div class="form">
@@ -256,37 +255,55 @@
               </div>
             </div>
           </form>
-          <div class="row" id="sct">
-            <div class="col-md-6">
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">订单录入</button></div>
-              </div>
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">一审</button></div>
-              </div>
-              <div class="col-md-12"><div class="button-wrapper ng-scope"><button type="button" class="btn btn-default btn-raised">二审</button></div></div>
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">等待生产</button></div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="col-md-12"><div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">正在生产</button></div>
+        </div>
+      </div>
+      <div class="panel-footer" style="text-align: right"><button class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg">关闭</button></div>
+    </div>
+  </div>
 
-              </div>
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">生产结束</button></div>
-              </div>
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">已入库</button></div>
-              </div>
-              <div class="col-md-12">
-                <div class="button-wrapper ng-scope"><button type="button" class="btn btn-success btn-raised">已出库</button></div>
-              </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="modal-title" id="myModalLabel">流程图</span>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="sct">
+          <div class="col-md-6">
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[0]" type="button" class="btn btn-success btn-raised">订单录入</button></div>
+            </div>
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[1]" type="button" style="border-color: rgba(183,30,88,0.82);background-color: rgba(183,30,88,0.82)" class="btn btn-success btn-raised">一审</button></div>
+            </div>
+            <div class="col-md-12"><div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[2]" type="button" style="border-color: rgba(183,69,23,0.81);background-color: rgba(183,69,23,0.81)" class="btn btn-success btn-raised">二审</button></div></div>
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[3]" type="button" style="border-color: rgba(170,183,36,0.82);background-color: rgba(170,183,36,0.82)" class="btn btn-success btn-raised">等待生产</button></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12"><div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[4]" type="button" style="border-color: rgba(120,183,56,0.82);background-color: rgba(120,183,56,0.82)" class="btn btn-success btn-raised">正在生产</button></div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[5]" type="button" style="border-color: rgba(183,55,168,0.82);background-color: rgba(183,55,168,0.82)" class="btn btn-success btn-raised">生产结束</button></div>
+            </div>
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[6]" type="button" style="border-color: rgba(118,75,183,0.82);background-color: rgba(118,75,183,0.82)" class="btn btn-success btn-raised">已入库</button></div>
+            </div>
+            <div class="col-md-12">
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[7]" type="button" style="border-color: rgba(77,112,183,0.82);background-color: rgba(77,112,183,0.82)" class="btn btn-success btn-raised">已出库</button></div>
             </div>
           </div>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
-
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
 
 @Component({
   selector: 'app-order-craft',
@@ -18,7 +18,7 @@ export class OrderCraftComponent implements OnInit {
   read = true;
   film: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService
   ) {
     this.SeeOrders();
     this.film = this.fb.group({
@@ -37,16 +37,16 @@ export class OrderCraftComponent implements OnInit {
   }
 
   SeeOrders() {
-    const body = '{\n' +
-      '\t"page":"' + this.page + '",\n' +
-      '\t"row":"' + this.row + '",\n' +
-      '\t"status":"2"\n' +
-      '}';
-    this.http.post('http://120.78.137.182/element/See-Orders', body)
+    const body = {
+      page: this.page,
+      row: this.row,
+      status: 2,
+      };
+    this.http.SeeOrders(body)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values'];
-        this.AllOrders = data['number'];
+        this.orders = data['values']['datas'];
+        this.AllOrders = data['values']['number'];
       });
   }
   PageNumber() {
@@ -102,41 +102,33 @@ export class OrderCraftComponent implements OnInit {
       return '成品已出库';
     }
   }
-  pass(oid) {
-    const body = '  {\n' +
-      '"oid":"' + oid + '",\n' +
-      '"pro_auditor":"' + this.user.get('userName') + '",\n' +
-      '"fdry_film":"' + this.film.get('fdry_film').value + '",\n' +
-      '"fwet_film":"' + this.film.get('fwet_film').value + '",\n' +
-      '"pdry_film":"' + this.film.get('pdry_film').value + '",\n' +
-      '"pwet_film":"' + this.film.get('pwet_film').value + '",\n' +
-      '"bdry_film":"' + this.film.get('bdry_film').value + '",\n' +
-      '"bwet_film":"' + this.film.get('bwet_film').value + '",\n' +
-      '"status":"3",\n' +
-      '"pro_system":"' + this.film.get('pro_system').value + '"\n' +
-      '}';
-    console.log(body);
-    this.http.post('http://120.78.137.182/element/Update-Orders', body)
+  pass(order) {
+      order.pro_auditor = this.user.get('userName');
+      order.fdry_film = this.film.get('fdry_film').value;
+      order.fwet_film = this.film.get('fwet_film').value;
+      order.pdry_film = this.film.get('pdry_film').value;
+      order.pwet_film = this.film.get('pwet_film').value;
+      order.bdry_film = this.film.get('bdry_film').value;
+      order.bwet_film = this.film.get('bwet_film').value;
+      order.status = 3;
+      order.pro_system = this.film.get('pro_system').value;
+    this.http.UpdateOrders(order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
       });
   }
-  Nopass(oid) {
-    const body = '  {\n' +
-      '"oid":"' + oid + '",\n' +
-      '"pro_auditor":"' + this.user.get('userName') + '",\n' +
-      '"fdry_film":"' + this.film.get('fdry_film').value + '",\n' +
-      '"fwet_film":"' + this.film.get('fwet_film').value + '",\n' +
-      '"pdry_film":"' + this.film.get('pdry_film').value + '",\n' +
-      '"pwet_film":"' + this.film.get('pwet_film').value + '",\n' +
-      '"bdry_film":"' + this.film.get('bdry_film').value + '",\n' +
-      '"bwet_film":"' + this.film.get('bwet_film').value + '",\n' +
-      '"status":"11",\n' +
-      '"pro_system":"' + this.film.get('pro_system').value + '"\n' +
-      '}';
-    console.log(body);
-    this.http.post('http://120.78.137.182/element/Update-Orders', body)
+  Nopass(order) {
+    order.pro_auditor = this.user.get('userName');
+    order.fdry_film = this.film.get('fdry_film').value;
+    order.fwet_film = this.film.get('fwet_film').value;
+    order.pdry_film = this.film.get('pdry_film').value;
+    order.pwet_film = this.film.get('pwet_film').value;
+    order.bdry_film = this.film.get('bdry_film').value;
+    order.bwet_film = this.film.get('bwet_film').value;
+    order.status = 11;
+    order.pro_system = this.film.get('pro_system').value;
+    this.http.UpdateOrders(order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();

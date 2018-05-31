@@ -25,6 +25,7 @@ export class SensorComponent implements OnInit {
     this.DeviceSensorInit(this.ModularId);
   }
   ngOnInit() {
+     setInterval(() => this.DeviceSensorInit(this.ModularId), 2000);
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
@@ -35,15 +36,14 @@ export class SensorComponent implements OnInit {
   ModularInit() {
     this.http.SeeSystemModular({sysid: 'sys0001'})
       .subscribe( data => {
-        console.log(data);
         this.Modular = data['values'][0]['modular'];
-        console.log(this.Modular);
       });
   }
 // 获取模块下设备-传感器-最新值-id
   DeviceSensorInit(MId) {
     this.http.FindDevicenameSensornameSensordata({mid: MId})
       .subscribe(data => {
+        console.log(data);
         data = data['values'];
         this.DeviceSensorJson = data;
         this.NoDataSensorInit(MId);
@@ -66,6 +66,7 @@ export class SensorComponent implements OnInit {
             for (let j = 0; j < length; j++) {
               if (this.NoDataSensorJson[i]['sid'] === this.DeviceSensorJson[j]['sid']) {
                 putData.push({'Name': this.NoDataSensorJson[i], 'data': this.DeviceSensorJson[j]['sdata']});
+                break;
               } else if (j === length - 1) {
                 putData.push({'Name': this.NoDataSensorJson[i], 'data': '---'});
               }
@@ -93,7 +94,6 @@ export class SensorComponent implements OnInit {
     this.Datas = this.http.seesensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
-        console.log(d);
         const length = d['values'].length;
         const dates = [];
         const data = [];

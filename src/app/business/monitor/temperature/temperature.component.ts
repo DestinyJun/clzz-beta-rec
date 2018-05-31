@@ -17,16 +17,15 @@ export class TemperatureComponent implements OnInit {
   options: Array<any> = [];
   constructor(private http: MonitorHttpService) {
     this.Temperature = this.http.FindTemperatureSensor();
+    setTimeout(() => {this.TemperatureMap(); }, 500);
+    this.getSensorId();
   }
 
   ngOnInit() {
-    this.getSensorId();
-    setTimeout(() => {this.TemperatureMap(); }, 500);
-
+    setInterval(() => {this.getSensorId(); this.TemperatureMap(); }, 3000);
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
-      console.log(data);
       data = data['values'];
       const length = data.length;
       for (let i = 0; i < length; i++) {

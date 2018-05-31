@@ -10,7 +10,7 @@ export class EventMonComponent implements OnInit {
 
   public event = [];
   constructor(private http: HttpService) {
-    this.http.getEvent().subscribe(data => {this.event = data['values']});
+    this.http.getEvent().subscribe(data => {console.log(data); this.event = data['values']; });
   }
   ngOnInit() {}
 

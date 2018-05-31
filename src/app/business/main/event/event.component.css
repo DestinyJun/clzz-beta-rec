@@ -49,6 +49,7 @@ span{
   background-color: rgba(55,96,108,0.8);
   color: #FFFFFF;
   border: none;
+  padding: 8px;
 }
 .modal-body{
   background-color: rgba(55,96,108,0.5);

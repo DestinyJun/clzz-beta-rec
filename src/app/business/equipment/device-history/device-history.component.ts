@@ -12,9 +12,6 @@ import {EquipmentHttpService} from '../../../remind/business/equipment-http.serv
 export class DeviceHistoryComponent implements OnInit {
 
   sid: string;
-  starttime: Date;
-  deadline: Date;
-  bsRangeValue: any;
   option: any;
   Datas: Observable<any>;
   Device: Array<NameId> = [];
@@ -66,7 +63,7 @@ export class DeviceHistoryComponent implements OnInit {
               const id = String(d[j]['did']);
               device.push({name, id});
             }
-            this.SensorInit(device[0].id);
+            this.SensorInit(device[1].id);
             this.Device = device;
 
       });
@@ -75,12 +72,8 @@ export class DeviceHistoryComponent implements OnInit {
   /*传感器初始化数据*/
   SensorInit(DId) {
     const sensor = [];
-    const body = '{\n' +
-      '\t\t"did":"' + DId + '"\n' +
-      '}';
     this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
-        console.log(data);
         const i: Array<any> = data['values'][0]['sensor'];
         const length = i.length;
         for (let j = 0; j < length; j++) {
@@ -97,7 +90,6 @@ export class DeviceHistoryComponent implements OnInit {
     this.Datas = this.httpSensor.seesensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
-        console.log(d);
         const length = d['values'].length;
         const dates = [];
         const data = [];
@@ -164,7 +156,7 @@ export class DeviceHistoryComponent implements OnInit {
             handleStyle: {
               color: '#fff',
               shadowBlur: 3,
-              shadowColor: 'rgba(0, 0, 0, 0.6)',
+              shadowColor: 'rgba(255,255,255,0.6)',
               shadowOffsetX: 2,
               shadowOffsetY: 2
             }

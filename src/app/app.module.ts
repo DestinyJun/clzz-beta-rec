@@ -15,7 +15,6 @@ import { OrderpageComponent } from './based/orderpage/orderpage.component';
 import { ToastComponentComponent } from './based/toast-component/toast-component.component';
 import {UtilsService} from './remind/utils.service';
 import {CanrouteService} from './remind/canroute.service';
-import {HttpService} from './shared/http.service';
 
 
 @NgModule({
@@ -36,7 +35,7 @@ import {HttpService} from './shared/http.service';
     OrderpageComponent,
     ToastComponentComponent,
   ],
-  providers: [LoginIdService, UtilsService, CanrouteService, HttpService],
+  providers: [LoginIdService, UtilsService, CanrouteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

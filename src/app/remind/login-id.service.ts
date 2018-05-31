@@ -2,32 +2,47 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoginIdService {
 
-  public sessionStorage: any;
+  public localStorage: any;
 // userName userId
   constructor() {
-    if (!sessionStorage) {
-      throw new Error('Current browser does not support Session Storage');
+    if (!localStorage) {
+      throw new Error('Current browser does not support Local Storage');
     }
-    this.sessionStorage = sessionStorage;
+    this.localStorage = localStorage;
   }
 
   public set(key: string, value: string): void {
-    this.sessionStorage[key] = value;
+    this.localStorage[key] = value;
   }
 
   public get(key: string): string {
-    return this.sessionStorage[key] || false;
+    return this.localStorage[key] || false;
   }
 
   public setObject(key: string, value: any): void {
-    this.sessionStorage[key] = JSON.stringify(value);
+    this.localStorage[key] = JSON.stringify(value);
   }
 
   public getObject(key: string): any {
-    return JSON.parse(this.sessionStorage[key] || '{}');
+    return JSON.parse(this.localStorage[key] || '{}');
   }
 
   public remove(key: string): any {
-    this.sessionStorage.removeItem(key);
+    this.localStorage.removeItem(key);
+  }
+
+  public SingleSignOn(): boolean {
+    if (this.get('date')) {
+      return false;
+    } else {
+      const date1 = Number(this.get('date'));
+      const date2 = new Date().valueOf();
+      if (date2 - date1 < 10) {
+        this.set('date', String(new Date().valueOf()));
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }

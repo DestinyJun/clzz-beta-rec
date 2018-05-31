@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {InfoStatusService} from '../../../remind/info-status.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MaterialHttpService} from '../../../remind/business/material-http.service';
 
 @Component({
   selector: 'app-material-message',
@@ -23,7 +23,7 @@ export class MaterialMessageComponent implements OnInit {
   public aluminums = [];
   public paints = [];
   private row = 10;
-  constructor(private http: HttpClient, private MaterialStatus: InfoStatusService, private fb: FormBuilder) {
+  constructor(private http: MaterialHttpService, private MaterialStatus: InfoStatusService, private fb: FormBuilder) {
     console.log(this.MaterialStatus);
     if (!this.MaterialStatus.get('mode')) {
       this.MaterialStatus.setNumber('Al-page', 1);
@@ -76,7 +76,6 @@ export class MaterialMessageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.SeeMaterial();
   }
 
   ToggleAl() {
@@ -117,13 +116,12 @@ export class MaterialMessageComponent implements OnInit {
         'row': this.row,
         'mode': this.MaterialStatus.getNumber('mode')
       };
-      console.log(body);
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
+      this.http.findrawpage(body)
         .subscribe(data => {
           console.log(data);
-          this.aluminums = data['values1'];
+          this.aluminums = data['values']['datas'];
           console.log(this.aluminums);
-          this.MaterialStatus.set('Al-number', data['number']);
+          this.MaterialStatus.set('Al-number', data['values']['number']);
         });
     } else {
       body = {
@@ -131,12 +129,10 @@ export class MaterialMessageComponent implements OnInit {
         'row': this.row,
         'mode': this.MaterialStatus.getNumber('mode')
       };
-      console.log(body);
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
+      this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
-          this.paints = data['values2'];
-          this.MaterialStatus.set('Paint-number', data['number']);
+          this.paints = data['values']['datas'];
+          this.MaterialStatus.set('Paint-number', data['values']['number']);
         });
     }
 
@@ -184,8 +180,7 @@ export class MaterialMessageComponent implements OnInit {
     const body = {
       'purchase': purchase
     };
-    console.log(body);
-    this.http.post('http://120.78.137.182/element/SeeAluminum', body)
+    this.http.SeeAluminum(body)
       .subscribe(data => {
         console.log(data['data'][0]);
         this.AL.patchValue(data['data'][0]);
@@ -205,11 +200,26 @@ export class MaterialMessageComponent implements OnInit {
     const body = {
       'purchase': purchase
     };
-    this.http.post('http://120.78.137.182/element/See-Paint', body)
+    this.http.SeePaint(body)
       .subscribe(data => {
-        console.log(data['data1'][0]['arr1']);
-        this.paint.patchValue(data['data1']);
-        this.paint.patchValue(data['data2']);
+        const ps: Array<string> = [];
+        const pw: Array<number> = [];
+        for (let i = 0; i < data['data1'][0]['arr1'].length; i++) {
+          ps.push(data['data1'][0]['arr1'][i]['supid']);
+          pw.push(data['data1'][0]['arr1'][i]['paint_weight']);
+        }
+        const su: Array<string> = [];
+        const di: Array<number> = [];
+        for (let i = 0; i < data['data2'][0]['arr2'].length; i++) {
+          su.push(data['data2'][0]['arr2'][i]['supnumber']);
+          di.push(data['data2'][0]['arr2'][i]['diluentweight']);
+        }
+        this.psupid = ps;
+        this.paint_weight = pw;
+        this.supnum = su;
+        this.diluent_weight = di;
+        this.paint.patchValue(data['data1'][0]);
+        this.paint.patchValue(data['data2'][0]);
       });
   }
 }

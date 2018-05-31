@@ -36,5 +36,45 @@ export class ScheduleHttpService {
     });
   }
 
+  public SeeOrders(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/See-Orders', body, {
+      headers: this.headers
+    });
+  }
+
+  public DelOrders(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/Del-Orders', body, {
+      headers: this.headers
+    });
+  }
+
+  public UpdateOrders(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/Update-Orders', body, {
+      headers: this.headers
+    });
+  }
+
+  public AddOrders(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/Add-Orders', body, {
+      headers: this.headers
+    });
+  }
+
+  public FindOrdersId(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/FindOrdersId', body, {
+      headers: this.headers
+    });
+  }
+
 
 }

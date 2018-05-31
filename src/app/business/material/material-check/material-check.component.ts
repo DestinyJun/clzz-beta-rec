@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {MaterialHttpService} from '../../../remind/business/material-http.service';
 
 @Component({
   selector: 'app-material-check',
@@ -19,7 +20,7 @@ export class MaterialCheckComponent implements OnInit {
   Aluminum: any;
   Paint: any;
   hid = false;
-  constructor( private http: HttpClient) {
+  constructor( private http: MaterialHttpService) {
   }
 
   RawDetail(AP, status) {
@@ -32,29 +33,26 @@ export class MaterialCheckComponent implements OnInit {
   SeeOrders(mode) {
     if (mode === 0) {
       const body = {
-        'page': this.aluminumspage ,
-        'row': 5,
-        'mode':  mode
+        page: this.aluminumspage ,
+        row: 10,
+        mode:  mode
         };
       console.log(body);
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
+      this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
-          this.aluminums = data['values1'];
-          this.AOrders = data['number'];
+          this.aluminums = data['values']['datas'];
+          this.AOrders = data['values']['number'];
         });
     } else {
       const body = {
-        'page': this.printpage ,
-        'row': 5,
-        'mode':  mode
+        page: this.printpage ,
+        row: 10,
+        mode:  mode
       };
-      console.log(body);
-      this.http.post('http://120.78.137.182/element/findrawpage', body)
+      this.http.findrawpage(body)
         .subscribe(data => {
-          console.log(data);
-          this.prints = data['values2'];
-          this.POrders = data['number'];
+          this.prints = data['values']['datas'];
+          this.POrders = data['values']['number'];
         });
     }
   }
@@ -99,4 +97,25 @@ export class MaterialCheckComponent implements OnInit {
     this.SeeOrders(1);
   }
 
+  public Used(i): string {
+    if (i === 0) {
+      return '未使用';
+    } else if (i === 1) {
+      return '已使用';
+    }
+  }
+  public Status(i): string {
+    if (i === 0) {
+      return '未提交';
+    } else if (i === 1) {
+      return '已提交未审核';
+    } else if (i === 2) {
+      return '审核通过';
+    } else if (i === 3) {
+      return '已出库';
+    } else if (i === 4) {
+      return '审核未通过';
+    }
+    return '无法识别';
+  }
 }

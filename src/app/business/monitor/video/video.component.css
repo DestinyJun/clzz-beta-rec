@@ -27,3 +27,15 @@
 .panel-heading > .dropdown > ul >li:hover{
   background-color: #1F9B8F;
 }
+.list-group{
+  color: white;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+}
+.list-group-item{
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 0;
+  background-color: #253847;
+}

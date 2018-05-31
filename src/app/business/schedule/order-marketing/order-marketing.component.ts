@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
 
 @Component({
   selector: 'app-order-marketing',
@@ -15,24 +15,24 @@ export class OrderMarketingComponent implements OnInit {
   order = new Order();
   AllOrders: number;
 
-  constructor(private http: HttpClient, private user: LoginIdService) {
+  constructor(private http: ScheduleHttpService, private user: LoginIdService) {
   }
 
   ngOnInit() {
     this.SeeOrders();
   }
   SeeOrders() {
-    const body = '{\n' +
-      '\t"page":"' + this.page + '",\n' +
-      '\t"row":"' + this.row + '",\n' +
-      '\t"status":"1"\n' +
-      '}';
+    const body = {
+      page: this.page,
+      row: this.row,
+      status: 1
+      };
     console.log(body);
-    this.http.post('http://120.78.137.182/element/See-Orders', body)
+    this.http.SeeOrders(body)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values'];
-        this.AllOrders = data['number'];
+        this.orders = data['values']['datas'];
+        this.AllOrders = data['values']['number'];
       });
   }
   PageNumber() {
@@ -72,23 +72,18 @@ export class OrderMarketingComponent implements OnInit {
   }
 
   pass(oid) {
-    const body = '{\n' +
-      '"oid":"' + oid + '",\n' +
-      '"auditor":"' + this.user.get('userName') + '",\n' +
-      '"status":"2"}';
-    console.log(body);
-    this.http.post('http://120.78.137.182/element/Update-Orders', body)
+    oid.auditor = this.user.get('userName');
+    oid.status = 2;
+    this.http.UpdateOrders(oid)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
       });
   }
   Nopass(oid) {
-    const body = '{\n' +
-      '"oid":"' + oid + '",\n' +
-      '"auditor":"' + this.user.get('userName') + '",\n' +
-      '"status":"11"}';
-    this.http.post('http://120.78.137.182/element/Update-Orders', body)
+    oid.auditor = this.user.get('userName');
+    oid.status = 11;
+    this.http.UpdateOrders(oid)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();

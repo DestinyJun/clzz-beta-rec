@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
 
 @Component({
   selector: 'app-order-query',
@@ -16,7 +17,7 @@ export class OrderQueryComponent implements OnInit {
   public AllOrders: number;
   public read = true;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder) {
     this.orderForm = this.fb.group({
       oid: ['', Validators.required],
       cname: ['', Validators.required],
@@ -55,16 +56,16 @@ export class OrderQueryComponent implements OnInit {
     this.SeeOrders();
   }
   SeeOrders() {
-    const body = '{\n' +
-      '\t"page":"' + this.page + '",\n' +
-      '\t"row":"' + this.row + '",\n' +
-      '\t"status":"0"\n' +
-      '}';
-    this.http.post('http://120.78.137.182/element/See-Orders', body)
+    const body = {
+     page: this.page,
+      row: this.row,
+     status: 0
+      };
+    this.http.SeeOrders(body)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values'];
-        this.AllOrders = data['number'];
+        this.orders = data['values']['datas'];
+        this.AllOrders = data['values']['number'];
       });
   }
   NextPage() {
@@ -91,8 +92,8 @@ export class OrderQueryComponent implements OnInit {
   }
   DeleteOrder(oid) {
     if (window.confirm('确认删除吗？') ) {
-      const body = '{"delete_id":"' + oid + '"}';
-      this.http.post('http://120.78.137.182/element/Del-Orders', body)
+      const body = {delete_id: oid};
+      this.http.DelOrders(body)
         .subscribe(data => {
           this.SeeOrders();
         });
@@ -110,6 +111,8 @@ export class OrderQueryComponent implements OnInit {
   }
   modal(value) {
     console.log(value);
+    value['doublecloat'] = value['doublecloat'] === '1' ? '是' : '否';
+    value['figure'] = value['figure'] === '1' ? '是' : '否';
     this.orderForm.patchValue(value);
     console.log(this.orderForm);
   }
@@ -135,42 +138,47 @@ export class OrderQueryComponent implements OnInit {
     }
   }
   Modify() {
-    const body = ' {\n' +
-      '\t"oid":"' + this.orderForm.get('oid').value + '",\n' +
-      '\t"cname":"' + this.orderForm.get('cname').value + '",\n' +
-      '\t"contractname":"' + this.orderForm.get('contractname').value + '",\n' +
-      '\t"tel":"' + this.orderForm.get('tel').value + '",\n' +
-      '\t"Altype":"' + this.orderForm.get('altype').value + '",\n' +
-      '\t"Allength":"' + this.orderForm.get('allength').value + '",\n' +
-      '\t"Alwidth":"' + this.orderForm.get('alwidth').value + '",\n' +
-      '\t"Althickness":"' + this.orderForm.get('althickness').value + '",\n' +
-      '\t"fthickness":"' + this.orderForm.get('fthickness').value + '",\n' +
-      '\t"ftype":"' + this.orderForm.get('ftype').value + '",\n' +
-      '\t"fprogram":"' + this.orderForm.get('fprogram').value + '",\n' +
-      '\t"fccd":"' + this.orderForm.get('fccd').value + '",\n' +
-      '\t"pthickness":"' + this.orderForm.get('pthickness').value + '",\n' +
-      '\t"ptype":"' + this.orderForm.get('ptype').value + '",\n' +
-      '\t"pprogram":"' + this.orderForm.get('pprogram').value + '",\n' +
-      '\t"pccd":"' + this.orderForm.get('pccd').value + '",\n' +
-      '\t"doublecloat":"' + this.orderForm.get('doublecloat').value + '",\n' +
-      '\t"figura":"' + this.orderForm.get('figure').value + '",\n' +
-      '\t"bchickness":"' + this.orderForm.get('bchickness').value + '",\n' +
-      '\t"btype":"' + this.orderForm.get('btype').value + '",\n' +
-      '\t"bprogram":"' + this.orderForm.get('bprogram').value + '",\n' +
-      '\t"bccd":"' + this.orderForm.get('bccd').value + '",\n' +
-      '\t"address":"' + this.orderForm.get('address').value + '",\n' +
-      '\t"submitter":"' + this.orderForm.get('submitter').value + '",\n' +
-      '\t"exdelitime":"' + this.orderForm.get('exdelitime').value + '",\n' +
-      '\t"exshiptime":"' + this.orderForm.get('exshiptime').value + '",\n' +
-      '\t"status":"' + this.orderForm.get('ostatus').value + '",\n' +
-      '\t"country":"' + this.orderForm.get('country').value + '",\n' +
-      '\t"province":"' + this.orderForm.get('province').value + '",\n' +
-      '\t"city":"' + this.orderForm.get('city').value + '"\n' +
-      '}';
+    const body = {
+      oid: this.orderForm.get('oid').value ,
+      cname: this.orderForm.get('cname').value,
+      contractname: this.orderForm.get('contractname').value,
+      tel: this.orderForm.get('tel').value,
+      Altype: this.orderForm.get('altype').value,
+      Allength: this.orderForm.get('allength').value,
+      Alwidth: this.orderForm.get('alwidth').value,
+      Althickness: this.orderForm.get('althickness').value,
+      fthickness: this.orderForm.get('fthickness').value,
+      ftype: this.orderForm.get('ftype').value,
+      fprogram: this.orderForm.get('fprogram').value,
+      fccd: this.orderForm.get('fccd').value,
+      pthickness: this.orderForm.get('pthickness').value,
+      ptype: this.orderForm.get('ptype').value,
+      pprogram: this.orderForm.get('pprogram').value,
+      pccd: this.orderForm.get('pccd').value,
+      doublecloat: this.orderForm.get('doublecloat').value  === '是' ? '1' : '0',
+      figura: this.orderForm.get('figure').value === '是' ? '1' : '0',
+      bchickness: this.orderForm.get('bchickness').value,
+      btype: this.orderForm.get('btype').value,
+      bprogram: this.orderForm.get('bprogram').value,
+      bccd: this.orderForm.get('bccd').value,
+      address: this.orderForm.get('address').value,
+      submitter: this.orderForm.get('submitter').value,
+      exdelitime: this.orderForm.get('exdelitime').value,
+      exshiptime: this.orderForm.get('exshiptime').value,
+      status: this.orderForm.get('ostatus').value,
+      country: this.orderForm.get('country').value,
+      province: this.orderForm.get('province').value,
+      city: this.orderForm.get('city').value
+      };
     console.log(body);
-    this.http.post('http://120.78.137.182/element/Update-Orders', body)
+    this.http.UpdateOrders(body)
       .subscribe(data => {
         console.log(data);
+        if (data['status'] === '10') {
+          window.confirm('修改成功');
+        } else {
+          window.confirm(data['message']);
+        }
         this.SeeOrders();
       });
   }

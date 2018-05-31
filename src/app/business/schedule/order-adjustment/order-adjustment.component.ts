@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class OrderAdjustmentComponent implements OnInit {
       prioritytwo: this.orders[j - 1]['priority']
     })
       .subscribe(data => {
-        console.log(data);
         this.SeeOrders();
       });
   }
@@ -36,22 +34,13 @@ export class OrderAdjustmentComponent implements OnInit {
       prioritytwo: this.orders[j + 1]['priority']
     })
       .subscribe(data => {
-        console.log(data);
         this.SeeOrders();
-
       });
   }
   SeeOrders() {
-    const body = {
-      'page': this.page ,
-      'row': this.row ,
-      'status': 1
-      };
     this.http.OrderAudited()
       .subscribe(data => {
-        console.log(data);
         this.orders = data['values'];
-
         for (let i = 0; i < this.orders.length; i++) {
           for ( let j = i + 1; j < this.orders.length; j++) {
             if (this.orders[j].priority < this.orders[i].priority) {
@@ -61,7 +50,6 @@ export class OrderAdjustmentComponent implements OnInit {
             }
           }
         }
-        console.log(this.orders);
         this.AllOrders = data['values'].length;
       });
   }

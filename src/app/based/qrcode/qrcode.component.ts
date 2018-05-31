@@ -9,11 +9,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class QrcodeComponent implements OnInit {
 
   elementType: 'url' | 'canvas' | 'imag' = 'url';
-  value = 'http://22/';
+  value = '';
   L = 'H';
   oid: string;
+  aluminumcode: string;
+  aluminumlength: string;
+  targetlist: string;
   constructor(private route: ActivatedRoute) {
-    this.value += this.route.snapshot.params['id'];
+    this.oid = this.route.snapshot.params['oid'];
+    this.targetlist = this.route.snapshot.params['targetlist'];
+    this.aluminumlength = this.route.snapshot.params['aluminumlength'];
+    this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie' + this.targetlist + '/' + this.aluminumcode;
   }
 
   ngOnInit() {
