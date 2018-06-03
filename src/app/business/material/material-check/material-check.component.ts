@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MaterialHttpService} from '../../../remind/business/material-http.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-material-check',
   templateUrl: './material-check.component.html',
-  styleUrls: ['./material-check.component.css']
+  styleUrls: ['./material-check.component.css'],
+  animations: [slideToRight]
 })
 export class MaterialCheckComponent implements OnInit {
-
-  aluminumspage = 1;
-  printpage = 1;
-  aluminums = [];
-  paints = [];
+  @HostBinding('@routerAnimate') state;
+  public aluminumspage = 1;
+  public paintpage = 1;
+  public aluminums = [];
+  public paints = [];
+  public mode;
   public hid = false;
   public AL: FormGroup;
   public paint: FormGroup;
@@ -24,13 +28,16 @@ export class MaterialCheckComponent implements OnInit {
   public paint_weight: Array<number> = [];
   public supnum: Array<string> = [];
   public diluent_weight: Array<number> = [];
-  AOrders: number;
-  POrders: number;
-  Aluminum: any;
-  Paint: any;
-  BHid = true;
+  public AOrders: number;
+  public POrders: number;
+  public Aluminum: any;
+  public Paint: any;
+  public status: string;
 
-  constructor( private http: MaterialHttpService, private fb: FormBuilder, private user: LoginIdService) {
+  constructor(private router: Router, private route: ActivatedRoute,
+              private http: MaterialHttpService, private fb: FormBuilder,
+              ) {
+    this.route.params.subscribe(params => {console.log('1'); this.Check(); });
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
       alex_weight: ['', [Validators.required]],
@@ -75,75 +82,50 @@ export class MaterialCheckComponent implements OnInit {
     });
   }
 
-  NoCheck() {
-    if (!this.hid) {
-      const body = {
-        page: this.aluminumspage ,
-        row: 10,
-        mode: 0,
-        status: 1
-      };
+  Check() {
+    this.paintpage = this.route.snapshot.params['paintpage'];
+    this.mode = this.route.snapshot.params['mode'];
+    this.aluminumspage = this.route.snapshot.params['ALpage'];
+    this.status = this.route.snapshot.params['status'];
+    this.hid = this.mode === '1';
+
+    if (this.mode === '0') {
+      let body;
+      if (this.status === '0') {
+        body = {
+          page: this.aluminumspage,
+          row: 10,
+          mode: 0
+        };
+      } else {
+        body = {
+          page: this.aluminumspage,
+          row: 10,
+          mode: 0,
+          status: this.status
+        };
+      }
+      console.log(body);
       this.http.findrawpage(body).subscribe(data => {
         this.aluminums = data['values']['datas'];
         this.AOrders = data['values']['number'];
       });
     } else {
-      const body = {
-        page: this.printpage ,
-        row: 10,
-        mode: 1,
-        status: 1
-      };
-      this.http.findrawpage(body).subscribe(data => {
-        this.paints = data['values']['datas'];
-        this.POrders = data['values']['number'];
-      });
-    }
-  }
-  HaveCheck() {
-    if (!this.hid) {
-      const body = {
-        page: this.aluminumspage ,
-        row: 10,
-        mode: 0,
-        status: 2
-      };
-      this.http.findrawpage(body).subscribe(data => {
-        this.aluminums = data['values']['datas'];
-        this.AOrders = data['values']['number'];
-      });
-    } else {
-      const body = {
-        page: this.printpage ,
-        row: 10,
-        mode: 1,
-        status: 2
-      };
-      this.http.findrawpage(body).subscribe(data => {
-        this.paints = data['values']['datas'];
-        this.POrders = data['values']['number'];
-      });
-    }
-  }
-  DisCheck() {
-    if (!this.hid) {
-      const body = {
-        page: this.aluminumspage ,
-        row: 10,
-        mode: 0,
-        status: 4
-      };
-      this.http.findrawpage(body).subscribe(data => {
-        this.aluminums = data['values']['datas'];
-        this.AOrders = data['values']['number'];
-      });
-    } else {
-      const body = {
-        page: this.printpage ,
-        row: 10,
-        mode: 1,
-        status: 4
-      };
+      let body;
+      if (this.status === '0') {
+        body = {
+          page: this.paintpage ,
+          row: 10,
+          mode: 1
+        };
+      } else {
+        body = {
+          page: this.paintpage ,
+          row: 10,
+          mode: 1,
+          status: this.status
+        };
+      }
       this.http.findrawpage(body).subscribe(data => {
         this.paints = data['values']['datas'];
         this.POrders = data['values']['number'];
@@ -197,113 +179,53 @@ export class MaterialCheckComponent implements OnInit {
       });
   }
   RawDetail(AP, status) {
-    if (status === 0) {
+    if (status === '0') {
       this.Aluminum = AP;
     } else {
       this.Paint = AP;
     }
   }
-  SeeOrders(mode) {
-    if (mode === 0) {
-      const body = {
-        page: this.aluminumspage ,
-        row: 10,
-        mode:  mode
-        };
-      this.BHid = false;
-      this.http.findrawpage(body)
-        .subscribe(data => {
-          console.log(data);
-          this.aluminums = data['values']['datas'];
-          this.AOrders = data['values']['number'];
-        });
-    } else {
-      this.BHid = true;
-      const body = {
-        page: this.printpage ,
-        row: 10,
-        mode:  mode
-      };
-      this.http.findrawpage(body)
-        .subscribe(data => {
-          this.paints = data['values']['datas'];
-          this.POrders = data['values']['number'];
-        });
-    }
-  }
   NextAluminumPage() {
-    if (this.AOrders > this.aluminumspage * 5) {
+    if (this.AOrders > this.aluminumspage * 10) {
       this.aluminumspage++;
-      this.SeeOrders(0);
+      this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
     }
   }
 
   ProAluminumPage() {
     if (this.aluminumspage > 1) {
       this.aluminumspage--;
-      this.SeeOrders(0);
+      this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
     }
   }
 
   SkipAluminumPage(i: number) {
     if (i * 10 < this.AOrders && i > 0) {}
-    this.SeeOrders(0);
+    this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
   }
   NextPrintPage() {
-    if (this.POrders > this.printpage * 5) {
-      this.printpage++;
-      this.SeeOrders(1);
+    if (this.POrders > this.paintpage * 10) {
+      this.paintpage++;
+      this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
     }
   }
 
   ProPrintPage() {
-    if (this.printpage > 1) {
-      this.printpage--;
-      this.SeeOrders(1);
+    if (this.paintpage > 1) {
+      this.paintpage--;
+      this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
     }
   }
 
   SkipPrintPage(i: number) {
-    if (i * 10 < this.POrders && i > 0) {}
-    this.SeeOrders(1);
+    if (i * 10 < this.POrders && i > 0) {
+      this.router.navigate(['/home/material/matche', this.status, this.mode, this.aluminumspage, this.paintpage]);
+    }
   }
   ngOnInit() {
-    this.SeeOrders(0);
-    this.SeeOrders(1);
-  }
-  pass(i) {
-    if (i === 0) {
-      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
-        .subscribe(data => {
-          console.log(data);
-          this.NoCheck();
-        });
-    } else {
-      this.http.allauditpa({purcase: this.Paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
-        .subscribe(data => {
-          console.log(data);
-          this.NoCheck();
-        });
-    }
-
+    this.Check();
   }
 
-  Nopass(i) {
-    if (i === 0) {
-      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
-        .subscribe(data => {
-          console.log(data);
-          this.NoCheck();
-        });
-    } else {
-      this.http.allauditpa({purcase: this.Paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
-        .subscribe(data => {
-          console.log(data);
-          this.NoCheck();
-        });
-    }
-
-  }
 
   public Used(i): string {
     if (i === 0) {
@@ -316,7 +238,7 @@ export class MaterialCheckComponent implements OnInit {
     if (i === 0) {
       return '未提交';
     } else if (i === 1) {
-      return '已提交未审核';
+      return '未审核';
     } else if (i === 2) {
       return '审核通过';
     } else if (i === 3) {

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-order-query',
   templateUrl: './order-query.component.html',
-  styleUrls: ['./order-query.component.css']
+  styleUrls: ['./order-query.component.css'],
+  animations: [slideToRight]
 })
 export class OrderQueryComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
+  @Output() toast;
   public page = 1;
   public orders = [];
   public row = 10;

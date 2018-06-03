@@ -3,11 +3,13 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainHttpService} from '../../../remind/business/main-http.service';
+import {BigToSmall} from '../../../remind/ts/componentAnimation';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  animations: [BigToSmall]
 })
 export class ListComponent implements OnInit {
 

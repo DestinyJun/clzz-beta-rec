@@ -6,9 +6,12 @@ import {DepartmentButtonComponent} from './based/department-button/department-bu
 import {OrderpageComponent} from './based/orderpage/orderpage.component';
 import {CanrouteService} from './remind/canroute.service';
 import {MobieOrderComponent} from './based/mobie-order/mobie-order.component';
+import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './home/home.component';
+import {HomeModule} from './home/home.module';
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'login', loadChildren: 'app/login/login.module#LoginModule'},
+  {path: 'login', component: LoginComponent},
   {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
   {path: 'qrcode/:purchase/:oid/:aluminumlength/:targetlist/:aluminumcode', component: QrcodeComponent, canActivate: [CanrouteService]},
   {path: 'department', component: DepartmentButtonComponent},

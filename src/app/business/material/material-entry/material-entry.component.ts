@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-material-entry',
@@ -9,7 +10,6 @@ import {LoginIdService} from '../../../remind/login-id.service';
   styleUrls: ['./material-entry.component.css']
 })
 export class MaterialEntryComponent implements OnInit {
-
   @Output() subAL = new EventEmitter();
   public hid = false;
   public AL: FormGroup;

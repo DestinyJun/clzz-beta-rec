@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-tactics-order',
   templateUrl: './tactics-order.component.html',
-  styleUrls: ['./tactics-order.component.css']
+  styleUrls: ['./tactics-order.component.css'],
+  animations: [slideToRight]
 })
 export class TacticsOrderComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
 
   dataMap = {'dataMonth': {}};
   temp: any;

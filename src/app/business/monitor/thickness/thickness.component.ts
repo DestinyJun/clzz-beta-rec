@@ -1,14 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-thickness',
   templateUrl: './thickness.component.html',
-  styleUrls: ['./thickness.component.css']
+  styleUrls: ['./thickness.component.css'],
+  animations: [slideToRight]
 })
 export class ThicknessComponent implements OnInit, OnDestroy {
   options: any;
   updateOptions: any;
-
+  @HostBinding('@routerAnimate') state;
   private oneDay = 24 * 3600 * 1000;
   private now: Date;
   private value: number ;

@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ProductHttpService} from '../../../remind/business/product-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-product-entring',
   templateUrl: './product-entring.component.html',
-  styleUrls: ['./product-entring.component.css']
+  styleUrls: ['./product-entring.component.css'],
+  animations: [slideToRight]
 })
 export class ProductEntringComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   public orders: Order[] = [];
   constructor(private http: ProductHttpService) {
     this.http.findproduceinformation()

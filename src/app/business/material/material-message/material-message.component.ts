@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {InfoStatusService} from '../../../remind/info-status.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MaterialHttpService} from '../../../remind/business/material-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginIdService} from '../../../remind/login-id.service';
 
 @Component({
   selector: 'app-material-message',
   templateUrl: './material-message.component.html',
-  styleUrls: ['./material-message.component.css']
+  styleUrls: ['./material-message.component.css'],
+  animations: [slideToRight]
 })
 export class MaterialMessageComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
 
   public hid = false;
   public AL: FormGroup;
   public paint: FormGroup;
+  public aluminumspage: number;
+  public paintpage: number;
+  public mode: string;
+  public selectId: number;
   public supid: Array<string> = [];
   public Alweight: Array<number> = [];
   public psupid: Array<string> = [];
@@ -22,10 +30,12 @@ export class MaterialMessageComponent implements OnInit {
   public diluent_weight: Array<number> = [];
   public aluminums = [];
   public paints = [];
+  public aluminumsNumber: number;
+  public paintsNumber: number;
   private row = 10;
-  constructor(private http: MaterialHttpService, private MaterialStatus: InfoStatusService, private fb: FormBuilder) {
-    console.log(this.MaterialStatus);
-
+  constructor(private router: Router, private http: MaterialHttpService,
+              private fb: FormBuilder, private route: ActivatedRoute, private user: LoginIdService) {
+    this.route.params.subscribe(params => this.SeeMaterial());
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
       alex_weight: ['', [Validators.required]],
@@ -71,46 +81,11 @@ export class MaterialMessageComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      if (!this.MaterialStatus.get('mode')) {
-        this.MaterialStatus.setNumber('Al-page', 1);
-        this.MaterialStatus.setNumber('Paint-page', 1);
-        this.MaterialStatus.set('mode', '0');
-      }
-      this.SeeMaterial();
-    }, 100);
-  }
-
-  PageNumber(i: string): Number {
-    if (this.MaterialStatus.getNumber(i) < this.row) {
-      return 1;
-    } else if (this.MaterialStatus.getNumber(i) % this.row === 0) {
-      return this.MaterialStatus.getNumber(i) / this.row;
-    } else {
-      return (this.MaterialStatus.getNumber(i) - this.MaterialStatus.getNumber(i) % this.row) / this.row + 1;
-    }
-  }
-  ToggleAl() {
-    this.MaterialStatus.set('mode', '0');
-    this.SeeMaterial();
-  }
-  TogglePaint() {
-    this.MaterialStatus.set('mode', '1');
-    this.SeeMaterial();
   }
   public Status(i): string {
-    if (i === 0) {
-      return '未提交';
-    } else if (i === 1) {
-      return '已提交未审核';
-    } else if (i === 2) {
-      return '审核通过';
-    } else if (i === 3) {
-      return '已出库';
-    } else if (i === 4) {
-      return '审核未通过';
+    if (i === 1) {
+      return '未审核';
     }
-    return '无法识别';
   }
   public Used(i): string {
     if (i === 0) {
@@ -120,78 +95,76 @@ export class MaterialMessageComponent implements OnInit {
     }
   }
   SeeMaterial() {
-    console.log(this.MaterialStatus.get('mode'));
-    let body;
-    if (this.MaterialStatus.get('mode') === '0') {
-      body = {
-        'page': this.MaterialStatus.get('Al-page'),
-        'row': this.row,
-        'mode': this.MaterialStatus.getNumber('mode')
+    this.paintpage = this.route.snapshot.params['paintpage'];
+    this.mode = this.route.snapshot.params['mode'];
+    this.aluminumspage = this.route.snapshot.params['ALpage'];
+    this.selectId = this.route.snapshot.params['selectId'];
+    this.hid = this.mode === '1';
+    if (this.mode === '0') {
+      const body = {
+        page: this.aluminumspage,
+        row: 10,
+        mode: 0,
+        status: 1
       };
-      this.http.findrawpage(body)
-        .subscribe(data => {
-          console.log(data);
-          this.aluminums = data['values']['datas'];
-          console.log(this.aluminums);
-          this.MaterialStatus.set('Al-number', data['values']['num']);
-        });
+      console.log(body);
+      this.http.findrawpage(body).subscribe(data => {
+        this.aluminums = data['values']['datas'];
+        this.aluminumsNumber = data['values']['number'];
+      });
     } else {
-      body = {
-        'page': this.MaterialStatus.get('Paint-page'),
-        'row': this.row,
-        'mode': this.MaterialStatus.getNumber('mode')
+      const body = {
+        page: this.paintpage ,
+        row: 10,
+        mode: 1,
+        status: 1
       };
-      this.http.findrawpage(body)
-        .subscribe(data => {
-          this.paints = data['values']['datas'];
-          this.MaterialStatus.set('Paint-number', data['values']['number']);
-        });
+      this.http.findrawpage(body).subscribe(data => {
+        this.paints = data['values']['datas'];
+        this.paintsNumber = data['values']['number'];
+      });
     }
-
-  }
-  NextPage() {
-    let number, page;
-    if (this.MaterialStatus.get('mode') === '0') {
-      page = this.MaterialStatus.getNumber('Al-page');
-      number = this.MaterialStatus.getNumber('Al-number');
-      if (number >= page * this.row) {
-        this.MaterialStatus.set('page', page + 1);
-        console.log(this.MaterialStatus);
-        this.SeeMaterial();
-      }
-    } else {
-      page = this.MaterialStatus.getNumber('Paint-page');
-      number = this.MaterialStatus.getNumber('Paint-number');
-      if (number >= page * this.row) {
-        this.MaterialStatus.set('page', page + 1);
-        this.SeeMaterial();
-      }
-    }
-
   }
 
-  FrontPage() {
-    let number, page;
-    if (this.MaterialStatus.get('mode') === '0') {
-      page = this.MaterialStatus.getNumber('Al-page');
-      number = this.MaterialStatus.getNumber('Al-number');
-      if (this.MaterialStatus.getNumber('Al-page') > 1) {
-        this.MaterialStatus.setNumber('page', page - 1);
-        this.SeeMaterial();
-      }
-    } else {
-      page = this.MaterialStatus.getNumber('Paint-page');
-      number = this.MaterialStatus.getNumber('Paint-number');
-      if (this.MaterialStatus.getNumber('Paint-page') > 1) {
-        this.MaterialStatus.setNumber('page', page - 1);
-        this.SeeMaterial();
-      }
+  NextAluminumPage() {
+    if (this.aluminumsNumber > this.aluminumspage * 10) {
+      this.aluminumspage++;
+      this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
     }
+  }
+  ProAluminumPage() {
+    if (this.aluminumspage > 1) {
+      this.aluminumspage--;
+      this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
+    }
+  }
 
+  SkipAluminumPage(i: number) {
+    if (i * 10 < this.aluminumsNumber && i > 0) {}
+    this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
+  }
+  NextPrintPage() {
+    if (this.aluminumsNumber > this.paintpage * 10) {
+      this.paintpage++;
+      this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
+    }
+  }
+
+  ProPrintPage() {
+    if (this.paintpage > 1) {
+      this.paintpage--;
+      this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
+    }
+  }
+
+  SkipPrintPage(i: number) {
+    if (i * 10 < this.paintsNumber && i > 0) {
+      this.router.navigate(['/home/material/matmes', this.mode, this.aluminumspage, this.paintpage, this.selectId]);
+    }
   }
   MessageAl(purchase: string): void {
     const body = {
-      'purchase': purchase
+      purchase: purchase
     };
     this.http.SeeAluminum(body)
       .subscribe(data => {
@@ -211,7 +184,7 @@ export class MaterialMessageComponent implements OnInit {
   }
   MessagePaint(purchase: string): void {
     const body = {
-      'purchase': purchase
+      purchase: purchase
     };
     this.http.SeePaint(body)
       .subscribe(data => {
@@ -234,5 +207,38 @@ export class MaterialMessageComponent implements OnInit {
         this.paint.patchValue(data['data1'][0]);
         this.paint.patchValue(data['data2'][0]);
       });
+  }
+  pass(i) {
+    if (i === 0) {
+      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
+        .subscribe(data => {
+          console.log(data);
+          this.SeeMaterial();
+        });
+    } else {
+      this.http.allauditpa({purcase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
+        .subscribe(data => {
+          console.log(data);
+          this.SeeMaterial();
+        });
+    }
+
+  }
+
+  Nopass(i) {
+    if (i === 0) {
+      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
+        .subscribe(data => {
+          console.log(data);
+          this.SeeMaterial();
+        });
+    } else {
+      this.http.allauditpa({purcase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
+        .subscribe(data => {
+          console.log(data);
+          this.SeeMaterial();
+        });
+    }
+
   }
 }

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css']
+  styleUrls: ['./video.component.css'],
+  animations: [slideToRight]
 })
 export class VideoComponent implements OnInit {
 
+  @HostBinding('@routerAnimate') state;
   public siders: any;
   constructor() {
     this.siders = [{

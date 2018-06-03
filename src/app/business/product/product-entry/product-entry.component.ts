@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ProductHttpService} from '../../../remind/business/product-http.service';
 import {asWindowsPath} from '@angular-devkit/core';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-product-entry',
   templateUrl: './product-entry.component.html',
-  styleUrls: ['./product-entry.component.css']
+  styleUrls: ['./product-entry.component.css'],
+  animations: [slideToRight]
 })
 export class ProductEntryComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   products: Array<Products>;
   orders: Array<object>;
   aluminumcode: string;

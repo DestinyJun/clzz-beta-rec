@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ModalDirective} from 'ngx-bootstrap';
+import {BigToSmall} from '../../../remind/ts/componentAnimation';
 
 @Component({
   selector: 'app-production',
   templateUrl: './production.component.html',
-  styleUrls: ['./production.component.css']
+  styleUrls: ['./production.component.css'],
+  animations: [BigToSmall]
 })
 export class ProductionComponent implements OnInit {
+  @HostBinding('@componentAnimate') state;
   public order = new Order();
   public options = {
 

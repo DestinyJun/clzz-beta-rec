@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-device-new',
   templateUrl: './device-new.component.html',
-  styleUrls: ['./device-new.component.css']
+  styleUrls: ['./device-new.component.css'],
+  animations: [slideToRight]
 })
 export class DeviceNewComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   constructor(private httpDevice: EquipmentHttpService) { }
 
   page = 1;

@@ -6,7 +6,7 @@ import {VideoComponent} from './video/video.component';
 import {EventMonComponent} from './event-mon/event-mon.component';
 import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
-const mainRoutes: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: MonitorComponent,
@@ -21,7 +21,7 @@ const mainRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(mainRoutes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: []
 })

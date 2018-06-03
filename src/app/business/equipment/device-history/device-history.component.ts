@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
 import * as echarts from 'echarts';
 import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-device-history',
   templateUrl: './device-history.component.html',
-  styleUrls: ['./device-history.component.css']
+  styleUrls: ['./device-history.component.css'],
+  animations: [slideToRight]
 })
 export class DeviceHistoryComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   sid: string;
   option: any;
   Datas: Observable<any>;

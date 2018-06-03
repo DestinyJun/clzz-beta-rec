@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-order-adjustment',
   templateUrl: './order-adjustment.component.html',
-  styleUrls: ['./order-adjustment.component.css']
+  styleUrls: ['./order-adjustment.component.css'],
+  animations: [slideToRight]
 })
 export class OrderAdjustmentComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
   page = 1;
   orders = [];
   row = 10;

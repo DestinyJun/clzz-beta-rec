@@ -17,6 +17,7 @@ import {CanrouteService} from './remind/canroute.service';
 import {InfoStatusService} from './remind/info-status.service';
 import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LoginModule} from './login/login.module';
 
 
 
@@ -26,10 +27,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRouterModule,
     HttpModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
     NgxQRCodeModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    LoginModule
   ],
   declarations: [
     AppComponent,

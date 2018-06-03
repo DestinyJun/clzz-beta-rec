@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ProductHttpService} from '../../../remind/business/product-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-product-out',
   templateUrl: './product-out.component.html',
-  styleUrls: ['./product-out.component.css']
+  styleUrls: ['./product-out.component.css'],
+  animations: [slideToRight]
 })
 export class ProductOutComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   orders: Order[] = [];
   constructor(private http: ProductHttpService) {
     this.http.findwarehouseout()

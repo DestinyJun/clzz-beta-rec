@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
-  styleUrls: ['./temperature.component.css']
+  styleUrls: ['./temperature.component.css'],
+  animations: [slideToRight]
 })
 export class TemperatureComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
   SensorDataTime: Array<any>[] = [];

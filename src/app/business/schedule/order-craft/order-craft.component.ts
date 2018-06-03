@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
 import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ToastService} from '../../../remind/toast.service';
 
 @Component({
   selector: 'app-order-craft',
   templateUrl: './order-craft.component.html',
-  styleUrls: ['./order-craft.component.css']
+  styleUrls: ['./order-craft.component.css'],
+  animations: [slideToRight]
 })
 export class OrderCraftComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   page = 1;
   row = 10;
   orders = [];
@@ -18,8 +21,8 @@ export class OrderCraftComponent implements OnInit {
   read = true;
   film: FormGroup;
 
-  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService
-  ) {
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
+  private toastIfo: ToastService) {
     this.SeeOrders();
     this.film = this.fb.group({
       fdry_film: ['', Validators.required],
@@ -32,10 +35,15 @@ export class OrderCraftComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
     this.SeeOrders();
   }
 
+  t() {
+    this.toastIfo.Information = '8888';
+    console.log('t');
+  }
   SeeOrders() {
     const body = {
       page: this.page,
@@ -45,6 +53,7 @@ export class OrderCraftComponent implements OnInit {
     this.http.SeeOrders(body)
       .subscribe(data => {
         console.log(data);
+        this.toastIfo.Information = data['message'];
         this.orders = data['values']['datas'];
         this.AllOrders = data['values']['number'];
       });

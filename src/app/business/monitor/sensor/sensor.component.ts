@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
 import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-sensor',
   templateUrl: './sensor.component.html',
-  styleUrls: ['./sensor.component.css']
+  styleUrls: ['./sensor.component.css'],
+  animations: [slideToRight]
 })
 export class SensorComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
   Modular: Array<object> = [];
   ModularId = 'mod0001';
   ModalChart: any;
@@ -25,7 +28,6 @@ export class SensorComponent implements OnInit {
     this.DeviceSensorInit(this.ModularId);
   }
   ngOnInit() {
-     setInterval(() => this.DeviceSensorInit(this.ModularId), 2000);
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
