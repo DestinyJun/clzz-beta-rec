@@ -3,7 +3,7 @@
     <span>原材料查询</span>
     <div class="pull-right">
       <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 1, mode, 1 ,1]">未审核</button>
-      <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 2, mode, 1 ,1]">已审核</button>
+      <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 2, mode, 1 ,1]">打印二维码</button>
       <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 4, mode, 1 ,1]">审核拒绝</button>
       <button class="btn btn-xs btn-success" [routerLink]="['/home/material/matche', 0, mode, 1 ,1]">显示全部</button>
       <button [routerLink]="['/home/material/matche', status, 0, aluminumspage, paintpage]"  class="btn btn-xs btn-info">铝卷</button>
@@ -36,7 +36,7 @@
           <td>{{aluminum['alprice']}}</td>
           <td>{{aluminum['alexweight']}}吨</td>
           <td>{{Status(aluminum['status'])}}</td>
-          <td><button class="btn btn-xs btn-success" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)" *ngIf="status === '2'">打印</button>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', aluminum.purchase, mode, '0', '0' ,'0', '0']" *ngIf="status === '2'">打印</button>
             <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)">详情</button></td>
         </tr>
         </tbody>
@@ -70,17 +70,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let print of paints;let i =index">
+        <tr *ngFor="let paint of paints;let i =index">
           <td>{{i + 1}}</td>
           <td>油漆</td>
-          <td>{{print['purchase']}}</td>
-          <td>{{print['supname']}}</td>
-          <td>{{print['idt']}}</td>
-          <td>{{print['price']}}</td>
-          <td>{{print['paex_weight']}}吨</td>
-          <td>{{Used(print['used'])}}</td>
-          <td><button class="btn btn-xs btn-success" (click)="MessagePaint(print.purchase)" data-toggle="modal" data-target="#messagePaint" *ngIf="status === '2'">打印</button>
-            <button class="btn btn-xs btn-info" (click)="MessagePaint(print.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button>
+          <td>{{paint['purchase']}}</td>
+          <td>{{paint['supname']}}</td>
+          <td>{{paint['idt']}}</td>
+          <td>{{paint['price']}}</td>
+          <td>{{paint['paex_weight']}}吨</td>
+          <td>{{Used(paint['used'])}}</td>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', paint.purchase, mode, '0', '0' ,'0', '0']" *ngIf="status === '2'">打印</button>
+            <button class="btn btn-xs btn-info" (click)="MessagePaint(paint.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button>
           </td>
         </tr>
         </tbody>

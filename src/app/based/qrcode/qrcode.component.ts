@@ -12,6 +12,9 @@ export class QrcodeComponent implements OnInit {
   elementType: 'url' | 'canvas' | 'imag' = 'url';
   value = '';
   values: Array<object>;
+  di: Array<QRcodedi>;
+  pa: Array<QRcodepa>;
+  mode: string;
   L = 'H';
   oid: string;
   aluminumcode: string;
@@ -29,17 +32,50 @@ export class QrcodeComponent implements OnInit {
       this.aluminumlength = this.route.snapshot.params['aluminumlength'];
       this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode;
     } else {
-      this.http.post('http://120.78.137.182/element/paQRcode', 'purchase=' + this.purchase, {
-        headers: this.headers
-      }).subscribe(data => {
-        console.log(data);
-        this.values = data['dataArr'];
-      });
+      this.mode = this.route.snapshot.params['mode'];
+      if (this.mode === '0') {
+        this.http.post('http://120.78.137.182/element/paQRcode', 'purchase=' + this.purchase, {
+          headers: this.headers
+        }).subscribe(data => {
+          console.log(data);
+          this.pa = data['QRcode_pa'];
+          this.di = data['QRcode_di'];
+        });
+      } else {
+        this.http.post('http://120.78.137.182/element/alQRcode', 'purchase=' + this.purchase, {
+          headers: this.headers
+        }).subscribe(data => {
+          console.log(data);
+          this.pa = data['QRcode_pa'];
+          this.di = data['QRcode_di'];
+        });
+      }
+
     }
 
   }
 
+  diToString( obj: QRcodedi) {
+    return 'diluent_weight' + obj.diluent_weight + 'url' + obj.url +
+      'diluent_type' + obj.diluent_type + 'diluent_id' + obj.diluent_id;
+  }
+  paToString( obj: QRcodepa) {
+    return 'paint_weight' + obj.paint_weight + 'url' + obj.url +
+      'paint_type' + obj.paint_type + 'paint_id' + obj.paint_id;
+  }
   ngOnInit() {
   }
 
+}
+class QRcodedi {
+  diluent_weight: string;
+  url: string;
+  diluent_type: string;
+  diluent_id: string;
+}
+class QRcodepa {
+  paint_weight: string;
+  paint_type: string;
+  paint_id: string;
+  url: string;
 }

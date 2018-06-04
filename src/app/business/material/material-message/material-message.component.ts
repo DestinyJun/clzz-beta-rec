@@ -210,13 +210,13 @@ export class MaterialMessageComponent implements OnInit {
   }
   pass(i) {
     if (i === 0) {
-      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
+      this.http.updateal({purchase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
         .subscribe(data => {
           console.log(data);
           this.SeeMaterial();
         });
     } else {
-      this.http.allauditpa({purcase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
+      this.http.allauditpa({purchase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 2})
         .subscribe(data => {
           console.log(data);
           this.SeeMaterial();
@@ -227,13 +227,13 @@ export class MaterialMessageComponent implements OnInit {
 
   Nopass(i) {
     if (i === 0) {
-      this.http.updateal({purcase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
+      this.http.updateal({purchase: this.AL.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
         .subscribe(data => {
           console.log(data);
           this.SeeMaterial();
         });
     } else {
-      this.http.allauditpa({purcase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
+      this.http.allauditpa({purchase: this.paint.get('purchase').value, pro_auditor: this.user.get('userName'), status: 4})
         .subscribe(data => {
           console.log(data);
           this.SeeMaterial();

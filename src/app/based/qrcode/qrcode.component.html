@@ -5,6 +5,17 @@
     <div><span>贵铝彩铝有限公司</span></div>
   </div>
   <div *ngIf="purchase!=='false'">
-
+    <div class="row">
+      <div *ngFor="let d of di" class="col-md-3">
+        <ngx-qrcode [qrc-value]="diToString(d)" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
+        <div><h5>ID: {{d.diluent_id}}</h5></div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let p of pa" class="col-md-3">
+        <ngx-qrcode [qrc-value]="paToString(p)" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
+        <div><h5>ID: {{p.paint_id}}</h5></div>
+      </div>
+    </div>
   </div>
 </div>
