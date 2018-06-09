@@ -15,6 +15,8 @@ export class ProductEntringComponent implements OnInit {
   constructor(private http: ProductHttpService) {
     this.http.findproduceinformation()
       .subscribe(data => {
+        console.log('--------------------------');
+        console.log(data);
         this.orders = data['values'];
       });
   }

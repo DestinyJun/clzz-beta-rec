@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
+declare let BMap;
 
 @Component({
   selector: 'app-mobie-order',
@@ -18,6 +19,7 @@ export class MobieOrderComponent implements OnInit {
         console.log(data);
         this.order = data['values'][0];
       });
+    this.ionViewWillEnter();
   }
 
   private parameterSerialization(obj: object): string {
@@ -32,6 +34,20 @@ export class MobieOrderComponent implements OnInit {
       }
     }
     return result;
+  }
+  public ionViewWillEnter() {
+    const geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function (r) {
+      const geoc = new BMap.Geocoder();
+      geoc.getLocation(r.point, function (rs) {
+        console.log(rs.point.lng);
+        console.log(rs.point.lat);
+        console.log(rs.address);
+      });
+      geoc.getPoint('贵阳市', function (point) {
+        console.log(point);
+      });
+    }, {enableHighAccuracy: true});
   }
   ngOnInit() {
   }

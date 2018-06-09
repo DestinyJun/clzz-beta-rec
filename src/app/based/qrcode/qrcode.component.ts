@@ -14,6 +14,7 @@ export class QrcodeComponent implements OnInit {
   values: Array<object>;
   di: Array<QRcodedi>;
   pa: Array<QRcodepa>;
+  al: Array<QRcodeal>;
   mode: string;
   L = 'H';
   oid: string;
@@ -33,7 +34,8 @@ export class QrcodeComponent implements OnInit {
       this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode;
     } else {
       this.mode = this.route.snapshot.params['mode'];
-      if (this.mode === '0') {
+      console.log(this.mode !== '0');
+      if (this.mode !== '0') {
         this.http.post('http://120.78.137.182/element/paQRcode', 'purchase=' + this.purchase, {
           headers: this.headers
         }).subscribe(data => {
@@ -46,8 +48,8 @@ export class QrcodeComponent implements OnInit {
           headers: this.headers
         }).subscribe(data => {
           console.log(data);
-          this.pa = data['QRcode_pa'];
-          this.di = data['QRcode_di'];
+          this.al = data['QRcode'];
+          console.log(this.al);
         });
       }
 
@@ -62,6 +64,10 @@ export class QrcodeComponent implements OnInit {
   paToString( obj: QRcodepa) {
     return 'paint_weight' + obj.paint_weight + 'url' + obj.url +
       'paint_type' + obj.paint_type + 'paint_id' + obj.paint_id;
+  }
+  alToString( obj: QRcodeal) {
+    return 'al_weight' + obj.al_weight + 'url' + obj.url +
+      'al_type' + obj.al_type + 'al_id' + obj.al_id;
   }
   ngOnInit() {
   }
@@ -78,4 +84,10 @@ class QRcodepa {
   paint_type: string;
   paint_id: string;
   url: string;
+}
+class QRcodeal {
+  url: string;
+  al_id: string;
+  al_type: string;
+  al_weight: string;
 }

@@ -29,12 +29,12 @@ export class MaterialEntryComponent implements OnInit {
 
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
-      Alexweight: ['', [Validators.required]],
-      Altype: ['', [Validators.required]],
-      Alwidth: ['', [Validators.required]],
-      Althickness: ['', [Validators.required]],
-      Aldensity: ['', [Validators.required]],
-      Alprice: ['', [Validators.required]],
+      alexweight: ['', [Validators.required]],
+      altype: ['', [Validators.required]],
+      alwidth: ['', [Validators.required]],
+      althickness: ['', [Validators.required]],
+      aldensity: ['', [Validators.required]],
+      alprice: ['', [Validators.required]],
       supname: ['', [Validators.required]],
       wid: ['', [Validators.required]],
       pro_system: ['', [Validators.required]],
@@ -70,12 +70,12 @@ export class MaterialEntryComponent implements OnInit {
   }
   public submitAL(): void {
     this.alJson.purchase = this.AL.get('purchase').value;
-    this.alJson.Alexweight = this.AL.get('Alexweight').value;
-    this.alJson.Altype = this.AL.get('Altype').value;
-    this.alJson.Alwidth = this.AL.get('Alwidth').value;
-    this.alJson.Althickness = this.AL.get('Althickness').value;
-    this.alJson.Aldensity = this.AL.get('Aldensity').value;
-    this.alJson.Alprice = this.AL.get('Alprice').value;
+    this.alJson.alexweight = this.AL.get('alexweight').value;
+    this.alJson.altype = this.AL.get('altype').value;
+    this.alJson.alwidth = this.AL.get('alwidth').value;
+    this.alJson.althickness = this.AL.get('althickness').value;
+    this.alJson.aldensity = this.AL.get('aldensity').value;
+    this.alJson.alprice = this.AL.get('alprice').value;
     this.alJson.supname = this.AL.get('supname').value;
     this.alJson.wid = this.AL.get('wid').value;
     this.alJson.auditor = this.user.get('userName');
@@ -83,11 +83,14 @@ export class MaterialEntryComponent implements OnInit {
     for (let i = 0; i < this.As.length; i++) {
       this.alJson.arr.push({supid: this.supid[i], Alweight: this.Alweight[i]});
     }
-    console.log(this.alJson);
     this.http.post('http://120.78.137.182/element/Add-Aluminum', this.alJson)
       .subscribe(data => {
-        this.subAL.emit();
+        this.subAL.emit('aluminum');
+        console.log(data);
       });
+    console.log(this.alJson);
+    console.log(2);
+
   }
   public submitPaint() {
     this.paintJson.purchase = this.paint.get('purchase').value;
@@ -117,6 +120,8 @@ export class MaterialEntryComponent implements OnInit {
     console.log(this.paintJson);
     this.http.post('http://120.78.137.182/element/Add-Paint', this.paintJson)
       .subscribe(data => {
+        this.subAL.emit('paint');
+        console.log(data);
       });
   }
   addF() {
@@ -141,12 +146,12 @@ export class Arr {
 }
 export class ALJson  {
   purchase: string;
-  Alexweight: number;
-  Altype: string;
-  Alwidth: number;
-  Althickness: number;
-  Aldensity: string;
-  Alprice: number;
+  alexweight: number;
+  altype: string;
+  alwidth: number;
+  althickness: number;
+  aldensity: string;
+  alprice: number;
   supname: string;
   wid: string;
   auditor: string;
