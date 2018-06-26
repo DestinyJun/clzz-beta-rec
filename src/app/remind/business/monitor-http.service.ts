@@ -24,7 +24,6 @@ export class MonitorHttpService {
 
   public SeeSystemModular(sysid: object): Observable<any> {
     const body = this.parameterSerialization(sysid);
-    console.log(body);
     return this.http.post('http://120.78.137.182/element/SeeSystemModular', body, {
       headers: this.headers
     });
@@ -32,7 +31,6 @@ export class MonitorHttpService {
 
   public FindDevicenameSensornameSensordata(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    console.log(body);
     return this.http.post('http://120.78.137.182/element/find/devicename/sensorname/sensordata', body, {
       headers: this.headers
     });
@@ -40,7 +38,6 @@ export class MonitorHttpService {
 
   public modularDeviceSensorName(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    console.log(body);
     return this.http.post('http://120.78.137.182/element/find/modular/device/sensor/name', body, {
       headers: this.headers
     });

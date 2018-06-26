@@ -27,5 +27,6 @@ import {MonitorHttpService} from '../../remind/business/monitor-http.service';
     ThicknessComponent,
   ],
   providers: [HttpService, MonitorHttpService],
+  exports: [SensorComponent]
 })
 export class MonitorModule { }

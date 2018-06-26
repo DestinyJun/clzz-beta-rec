@@ -7,16 +7,18 @@ import {OrderpageComponent} from './based/orderpage/orderpage.component';
 import {CanrouteService} from './remind/canroute.service';
 import {MobieOrderComponent} from './based/mobie-order/mobie-order.component';
 import {LoginComponent} from './login/login.component';
+import {MobieLoginComponent} from './mobie-login/mobie-login.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'mobielogin/:username/:password/:web', component: MobieLoginComponent},
   {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
-  {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode',
+  {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode/:address',
     component: QrcodeComponent, canActivate: [CanrouteService]},
   {path: 'department', component: DepartmentButtonComponent},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
-  {path: 'mobie/:targetlist/:aluminumcode', component: MobieOrderComponent}
+  {path: 'mobie/:targetlist/:aluminumcode/:address', component: MobieOrderComponent}
 ];
 
 @NgModule({

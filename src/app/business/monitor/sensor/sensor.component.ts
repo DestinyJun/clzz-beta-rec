@@ -22,15 +22,17 @@ export class SensorComponent implements OnInit {
   option: any;
   Datas: any;
   Modularname = '驱动机';
+  interval: any;
   constructor(private activatedRoute: ActivatedRoute,
               private http: MonitorHttpService) {
     this.ModularInit();
-    this.DeviceSensorInit(this.ModularId);
   }
   ngOnInit() {
+    this.interval = setInterval(() => this.DeviceSensorInit(this.ModularId), 3000);
   }
   ModularIdInit(i) {
-    this.DeviceSensorInit(i['mid']);
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
     this.ModularId = i['mid'];
     this.Modularname = i['mname'];
   }
@@ -45,7 +47,6 @@ export class SensorComponent implements OnInit {
   DeviceSensorInit(MId) {
     this.http.FindDevicenameSensornameSensordata({mid: MId})
       .subscribe(data => {
-        console.log(data);
         data = data['values'];
         this.DeviceSensorJson = data;
         this.NoDataSensorInit(MId);

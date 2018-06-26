@@ -13,6 +13,9 @@ export class TemperatureComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
+  SensorNewValue;
+  SensorNewTime: A;
+  SensorNewName: Array<any> = [];
   SensorDataTime: Array<any>[] = [];
   SensorDataValue: Array<any>[] = [];
   SensorDataName: Array<any>[] = [];
@@ -20,19 +23,21 @@ export class TemperatureComponent implements OnInit {
   options: Array<any> = [];
   constructor(private http: MonitorHttpService) {
     this.Temperature = this.http.FindTemperatureSensor();
-    setTimeout(() => {this.TemperatureMap(); }, 500);
     this.getSensorId();
   }
 
   ngOnInit() {
-    this.getSensorId(); this.TemperatureMap();
+    setInterval(() => {this.getSensorId(); this.TemperatureMap(); console.log(2); }, 3000);
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
+      console.log(data);
       data = data['values'];
       const length = data.length;
       for (let i = 0; i < length; i++) {
         this.SensorId.push(data[i]['sid']);
+        this.SensorNewValue = data[i]['sdata'];
+        this.SensorNewTime = data[i]['stime'];
       }
       this.getTemperatureData();
     });
@@ -45,6 +50,7 @@ export class TemperatureComponent implements OnInit {
     for (let i = 0; i < length; i++) {
       this.http.seesensordata({sid : this.SensorId[i]})
         .subscribe(data => {
+          console.log(data);
           const SDtime = [];
           const SDvalue = [];
           const DLength = data['values'].length;
@@ -62,64 +68,24 @@ export class TemperatureComponent implements OnInit {
     this.SensorDataName = SDName;
   }
   TemperatureMap() {
-
+    const option: Array<any> = [];
     let length = this.SensorDataValue.length;
     for (let i = 0; i < length; i++) {
-      this.option[i] = {
-        // Make gradient line here
-        visualMap: [{
-          show: false,
-          type: 'continuous',
-          seriesIndex: 0,
-          min: 0,
-          max: this.SensorDataValue[i].length - 1
-        }],
-        title: [{
-          left: 'center',
-          text: this.SensorDataName[i],
-          textStyle: {
-            color: '#fff'
+      for (let j = 0; j < length; j++) {
+        if ()
+      }
+    }
+    if (this.option.length === length) {
+      for (let i = 0; i < length; i++) {
+        for (let j = 0; j < length; j++) {
+          if (this.option[i].title.text === option[j].title.text) {
+            this.option[i] = option[j];
+            break;
           }
-        }],
-        tooltip: {
-          trigger: 'axis'
-        },
-        xAxis: [
-          { axisLabel: {
-              textStyle: {
-                color: '#fff'
-              }
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#fff'
-              }
-            },
-            data: this.SensorDataTime[i]
-          }],
-        yAxis: [{
-          axisLabel: {
-            textStyle: {
-              color: '#fff'
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#fff'
-            }
-          },
-          splitLine: {show: false}
-        }],
-        grid: [{
-          bottom: '10%',
-          height: '80%'
-        }],
-        series: [{
-          type: 'line',
-          areaStyle: {normal: {}},
-          data: this.SensorDataValue[i]
-        }]
-      };
+        }
+      }
+    } else {
+      this.option = option;
     }
     if (length % 2 === 0) {
       for (let i = 0; i < length; i += 2) {

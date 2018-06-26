@@ -36,7 +36,7 @@
           <td>{{aluminum['alprice']}}</td>
           <td>{{aluminum['alexweight']}}吨</td>
           <td>{{Status(aluminum['status'])}}</td>
-          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', aluminum.purchase, mode, '0', '0' ,'0', '0']" *ngIf="status === '2'">打印</button>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', aluminum.purchase, mode, '0', '0' ,'0', '0', 'false']" *ngIf="status === '2'">打印</button>
             <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)">详情</button></td>
         </tr>
         </tbody>
@@ -79,7 +79,7 @@
           <td>{{paint['price']}}</td>
           <td>{{paint['paex_weight']}}吨</td>
           <td>{{Used(paint['used'])}}</td>
-          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', paint.purchase, mode, '0', '0' ,'0', '0']" *ngIf="status === '2'">打印</button>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', paint.purchase, mode, '0', '0' ,'0', '0', 'false']" *ngIf="status === '2'">打印</button>
             <button class="btn btn-xs btn-info" (click)="MessagePaint(paint.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button>
           </td>
         </tr>

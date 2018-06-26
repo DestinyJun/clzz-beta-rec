@@ -11,6 +11,7 @@ import {LoginIdService} from '../remind/login-id.service';
 export class LoginComponent implements OnInit {
   public user: FormGroup;
   public sid: string;
+  public tips: string;
   constructor(private route: Router, private fb: FormBuilder, private http: HttpClient, private Id: LoginIdService) {
     this.user = this.fb.group( {
       username: ['', Validators.required],
@@ -29,14 +30,11 @@ export class LoginComponent implements OnInit {
         if (data['status'] === '10') {
           this.Id.set('userId', data['sid']);
           this.Id.set('userName', this.user.get('username').value);
-          this.Id.set('date', String(new Date().valueOf()));
-          console.log(this.Id);
-          console.log(Number(new Date()));
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
-          window.confirm('用户已在线');
+          this.tips = '用户已在线';
         } else {
-          window.confirm('用户名或密码错误');
+          this.tips = '用户名或密码错误';
         }
       });
   }

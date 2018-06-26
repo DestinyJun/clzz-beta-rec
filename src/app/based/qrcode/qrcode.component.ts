@@ -22,6 +22,7 @@ export class QrcodeComponent implements OnInit {
   aluminumlength: string;
   targetlist: string;
   purchase: string;
+  address: string;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.purchase = this.route.snapshot.params['purchase'];
@@ -31,7 +32,8 @@ export class QrcodeComponent implements OnInit {
       this.aluminumcode = this.route.snapshot.params['aluminumcode'];
       this.targetlist = this.route.snapshot.params['targetlist'];
       this.aluminumlength = this.route.snapshot.params['aluminumlength'];
-      this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode;
+      this.address = this.route.snapshot.params['address'];
+      this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode + '/' + this.address;
     } else {
       this.mode = this.route.snapshot.params['mode'];
       console.log(this.mode !== '0');
