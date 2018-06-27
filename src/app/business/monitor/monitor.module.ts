@@ -10,6 +10,7 @@ import {EventMonComponent} from './event-mon/event-mon.component';
 import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
 import {MonitorHttpService} from '../../remind/business/monitor-http.service';
+import {CanDeactivateGuardService} from './can-deactivate-guard.service';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {MonitorHttpService} from '../../remind/business/monitor-http.service';
     TemperatureComponent,
     ThicknessComponent,
   ],
-  providers: [HttpService, MonitorHttpService],
+  providers: [HttpService, MonitorHttpService, CanDeactivateGuardService],
   exports: [SensorComponent]
 })
 export class MonitorModule { }

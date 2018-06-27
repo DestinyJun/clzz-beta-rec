@@ -28,9 +28,11 @@ export class SensorComponent implements OnInit {
     this.ModularInit();
   }
   ngOnInit() {
-    this.interval = setInterval(() => this.DeviceSensorInit(this.ModularId), 3000);
+    this.DeviceSensorInit(this.ModularId);
+    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1)}, 3000);
   }
   ModularIdInit(i) {
+    this.DeviceSensorInit(i['mid']);
     clearInterval(this.interval);
     this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
     this.ModularId = i['mid'];

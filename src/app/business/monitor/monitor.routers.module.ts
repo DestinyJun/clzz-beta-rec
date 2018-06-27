@@ -6,12 +6,13 @@ import {VideoComponent} from './video/video.component';
 import {EventMonComponent} from './event-mon/event-mon.component';
 import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
+import {CanDeactivateGuardService} from './can-deactivate-guard.service';
 const routes: Routes = [
   {
     path: '',
     component: MonitorComponent,
     children: [
-      {path: 'sensor', component: SensorComponent},
+      {path: 'sensor', component: SensorComponent, canDeactivate: [CanDeactivateGuardService]},
       {path: 'video', component: VideoComponent},
       {path: 'event', component: EventMonComponent},
       {path: 'temperature', component: TemperatureComponent},

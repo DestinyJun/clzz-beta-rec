@@ -13,31 +13,29 @@ export class TemperatureComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
-  SensorNewValue;
-  SensorNewTime: A;
-  SensorNewName: Array<any> = [];
   SensorDataTime: Array<any>[] = [];
   SensorDataValue: Array<any>[] = [];
   SensorDataName: Array<any>[] = [];
   option: Array<any> = [];
   options: Array<any> = [];
+  Count: number;
   constructor(private http: MonitorHttpService) {
     this.Temperature = this.http.FindTemperatureSensor();
     this.getSensorId();
   }
 
   ngOnInit() {
-    setInterval(() => {this.getSensorId(); this.TemperatureMap(); console.log(2); }, 3000);
+    this.TemperatureMap();
+
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
       console.log(data);
       data = data['values'];
       const length = data.length;
+      this.Count = length;
       for (let i = 0; i < length; i++) {
         this.SensorId.push(data[i]['sid']);
-        this.SensorNewValue = data[i]['sdata'];
-        this.SensorNewTime = data[i]['stime'];
       }
       this.getTemperatureData();
     });
@@ -47,6 +45,7 @@ export class TemperatureComponent implements OnInit {
     const SDTime = [];
     const SDValue = [];
     const SDName = [];
+    let k = 0;
     for (let i = 0; i < length; i++) {
       this.http.seesensordata({sid : this.SensorId[i]})
         .subscribe(data => {
@@ -61,21 +60,79 @@ export class TemperatureComponent implements OnInit {
           SDName.push(data['values'][0]['sname']);
           SDTime.push(SDtime);
           SDValue.push(SDvalue);
+          k++;
+          if (k === this.Count) {
+            this.SensorDataValue = SDValue;
+            this.SensorDataTime = SDTime;
+            this.SensorDataName = SDName;
+            this.TemperatureMap();
+          }
         });
     }
-    this.SensorDataValue = SDValue;
-    this.SensorDataTime = SDTime;
-    this.SensorDataName = SDName;
   }
   TemperatureMap() {
     const option: Array<any> = [];
     let length = this.SensorDataValue.length;
+    console.log(length);
     for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length; j++) {
-        if ()
-      }
+      option[i] = {
+        // Make gradient line here
+        visualMap: [{
+          show: false,
+          type: 'continuous',
+          seriesIndex: 0,
+          min: 0,
+          max: this.SensorDataValue[i].length - 1
+        }],
+        title: [{
+          left: 'center',
+          text: this.SensorDataName[i],
+          textStyle: {
+            color: '#fff'
+          }
+        }],
+        tooltip: {
+          trigger: 'axis'
+        },
+        xAxis: [
+          { axisLabel: {
+              textStyle: {
+                color: '#fff'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            },
+            data: this.SensorDataTime[i]
+          }],
+        yAxis: [{
+          axisLabel: {
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#fff'
+            }
+          },
+          splitLine: {show: false}
+        }],
+        grid: [{
+          bottom: '10%',
+          height: '80%'
+        }],
+        series: [{
+          type: 'line',
+          areaStyle: {normal: {}},
+          data: this.SensorDataValue[i]
+        }]
+      };
     }
     if (this.option.length === length) {
+      console.log(length);
       for (let i = 0; i < length; i++) {
         for (let j = 0; j < length; j++) {
           if (this.option[i].title.text === option[j].title.text) {
@@ -86,17 +143,18 @@ export class TemperatureComponent implements OnInit {
       }
     } else {
       this.option = option;
+      console.log(this.option.length);
     }
     if (length % 2 === 0) {
       for (let i = 0; i < length; i += 2) {
-        this.options.push({'one': this.option[i], 'two': this.option[i + 1]});
+        this.options[i / 2] = ({'one': this.option[i], 'two': this.option[i + 1]});
       }
     } else {
       length -= 1;
       for (let i = 0; i < length; i += 2) {
-        this.options.push({'one': this.option[i], 'two': this.option[i + 1]});
+        this.options[i / 2] = ({'one': this.option[i], 'two': this.option[i + 1]});
       }
-      this.options.push({'one': this.option[length], 'two': ''});
+      this.options[length / 2 - 1] = ({'one': this.option[length], 'two': ''});
     }
   }
 }
