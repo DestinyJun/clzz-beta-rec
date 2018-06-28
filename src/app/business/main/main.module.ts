@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainComponent} from './main.component';
-import {MainRoutersModule} from './main.routers.module';
 import {HttpService} from '../../shared/http.service';
 import {EventComponent} from './event/event.component';
 import {ProductionComponent} from './production/production.component';
@@ -11,10 +10,10 @@ import {BsDropdownModule, ModalModule} from 'ngx-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MainHttpService} from '../../remind/business/main-http.service';
 
+
 @NgModule({
   imports: [
     CommonModule,
-    MainRoutersModule,
     NgxEchartsModule,
     BsDropdownModule.forRoot(),
     ReactiveFormsModule,
@@ -27,5 +26,6 @@ import {MainHttpService} from '../../remind/business/main-http.service';
     ListComponent
   ],
   providers: [HttpService, MainHttpService],
+  exports: [MainComponent]
 })
 export class MainModule { }

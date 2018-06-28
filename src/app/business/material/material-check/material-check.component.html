@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="panel-heading">
-    <span>原材料审核清单</span>
+    <span>原材料查询</span>
     <div class="pull-right">
-      <button class="btn btn-xs btn-success" (click)="NoCheck();BHid=false;">未审核</button>
-      <button class="btn btn-xs btn-success" (click)="HaveCheck();BHid=true">已审核</button>
-      <button class="btn btn-xs btn-success" (click)="DisCheck();BHid=true">审核拒绝</button>
-      <button class="btn btn-xs btn-success" (click)="SeeOrders(0);SeeOrders(1);BHid=true">显示全部</button>
-      <button (click)="hid=false"  class="btn btn-xs btn-info">铝卷</button>
-      <button (click)="hid=true"  class="btn btn-xs btn-info">油漆</button>
+      <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 1, mode, 1 ,1]">未审核</button>
+      <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 2, mode, 1 ,1]">打印二维码</button>
+      <button class="btn btn-xs btn-success"  [routerLink]="['/home/material/matche', 4, mode, 1 ,1]">审核拒绝</button>
+      <button class="btn btn-xs btn-success" [routerLink]="['/home/material/matche', 0, mode, 1 ,1]">显示全部</button>
+      <button [routerLink]="['/home/material/matche', status, 0, aluminumspage, paintpage]"  class="btn btn-xs btn-info">铝卷</button>
+      <button [routerLink]="['/home/material/matche', status, 1, aluminumspage, paintpage]"  class="btn btn-xs btn-info">油漆</button>
     </div>
   </div>
   <div id="table" class="panel-body" *ngIf="!hid">
@@ -29,15 +29,15 @@
         <tbody>
         <tr *ngFor="let aluminum of aluminums;let i = index">
           <td>{{i + 1}}</td>
-          <td>铝板</td>
+          <td>铝卷</td>
           <td>{{aluminum['purchase']}}</td>
           <td>{{aluminum['supname']}}</td>
           <td>{{aluminum['idt']}}</td>
           <td>{{aluminum['alprice']}}</td>
           <td>{{aluminum['alexweight']}}吨</td>
           <td>{{Status(aluminum['status'])}}</td>
-          <td><button class="btn btn-xs btn-success" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)" *ngIf="!BHid">审核</button>
-            <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)" *ngIf="BHid">详情</button></td>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', aluminum.purchase, mode, '0', '0' ,'0', '0', 'false']" *ngIf="status === '2'">打印</button>
+            <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(aluminum.purchase)">详情</button></td>
         </tr>
         </tbody>
         <tfoot>
@@ -70,17 +70,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let print of paints;let i =index">
+        <tr *ngFor="let paint of paints;let i =index">
           <td>{{i + 1}}</td>
           <td>油漆</td>
-          <td>{{print['purchase']}}</td>
-          <td>{{print['supname']}}</td>
-          <td>{{print['idt']}}</td>
-          <td>{{print['price']}}</td>
-          <td>{{print['paex_weight']}}吨</td>
-          <td>{{Used(print['used'])}}</td>
-          <td><button class="btn btn-xs btn-success" (click)="MessagePaint(print.purchase)" data-toggle="modal" data-target="#messagePaint" *ngIf="!BHid">审核</button>
-            <button class="btn btn-xs btn-info" (click)="MessagePaint(print.purchase)" data-toggle="modal" data-target="#messagePaint" *ngIf="BHid">详情</button>
+          <td>{{paint['purchase']}}</td>
+          <td>{{paint['supname']}}</td>
+          <td>{{paint['idt']}}</td>
+          <td>{{paint['price']}}</td>
+          <td>{{paint['paex_weight']}}吨</td>
+          <td>{{Used(paint['used'])}}</td>
+          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', paint.purchase, mode, '0', '0' ,'0', '0', 'false']" *ngIf="status === '2'">打印</button>
+            <button class="btn btn-xs btn-info" (click)="MessagePaint(paint.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button>
           </td>
         </tr>
         </tbody>
@@ -89,7 +89,7 @@
           <td colspan="8">
             <button type="button" class="btn btn-primary " (click)="ProPrintPage()">上一页</button>
             <button type="button" class="btn btn-primary" (click)="NextPrintPage()">下一页</button>
-            共1页
+            共{{paintpage}}页
             ,跳到 <input type="number" title=""> 页
           </td>
         </tr>
@@ -210,8 +210,6 @@
           </div>
         </form>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button *ngIf="!BHid" class="btn btn-success" (click)="pass(0)" data-toggle="modal" data-target="#messageAL">通过</button>
-          <button *ngIf="!BHid" class="btn btn-danger" (click)="Nopass(0)" data-toggle="modal" data-target="#messageAL">不通过</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messageAL">关闭</button>
         </div>
       </div>
@@ -398,8 +396,6 @@
           </div>
         </form>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button *ngIf="!BHid" class="btn btn-success" (click)="pass(1)" data-toggle="modal" data-target="#messagePaint">通过</button>
-          <button *ngIf="!BHid" class="btn btn-danger" (click)="Nopass(1)" data-toggle="modal" data-target="#messagePaint">不通过</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messagePaint">关闭</button>
         </div>
       </div>

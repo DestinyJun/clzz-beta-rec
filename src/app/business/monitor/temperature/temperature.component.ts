@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
-  styleUrls: ['./temperature.component.css']
+  styleUrls: ['./temperature.component.css'],
+  animations: [slideToRight]
 })
 export class TemperatureComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
   SensorDataTime: Array<any>[] = [];
@@ -15,19 +18,22 @@ export class TemperatureComponent implements OnInit {
   SensorDataName: Array<any>[] = [];
   option: Array<any> = [];
   options: Array<any> = [];
+  Count: number;
   constructor(private http: MonitorHttpService) {
     this.Temperature = this.http.FindTemperatureSensor();
-    setTimeout(() => {this.TemperatureMap(); }, 500);
     this.getSensorId();
   }
 
   ngOnInit() {
-    this.getSensorId(); this.TemperatureMap();
+    this.TemperatureMap();
+
   }
   getSensorId() {
     this.Temperature.subscribe(data => {
+      console.log(data);
       data = data['values'];
       const length = data.length;
+      this.Count = length;
       for (let i = 0; i < length; i++) {
         this.SensorId.push(data[i]['sid']);
       }
@@ -39,9 +45,11 @@ export class TemperatureComponent implements OnInit {
     const SDTime = [];
     const SDValue = [];
     const SDName = [];
+    let k = 0;
     for (let i = 0; i < length; i++) {
       this.http.seesensordata({sid : this.SensorId[i]})
         .subscribe(data => {
+          console.log(data);
           const SDtime = [];
           const SDvalue = [];
           const DLength = data['values'].length;
@@ -52,17 +60,22 @@ export class TemperatureComponent implements OnInit {
           SDName.push(data['values'][0]['sname']);
           SDTime.push(SDtime);
           SDValue.push(SDvalue);
+          k++;
+          if (k === this.Count) {
+            this.SensorDataValue = SDValue;
+            this.SensorDataTime = SDTime;
+            this.SensorDataName = SDName;
+            this.TemperatureMap();
+          }
         });
     }
-    this.SensorDataValue = SDValue;
-    this.SensorDataTime = SDTime;
-    this.SensorDataName = SDName;
   }
   TemperatureMap() {
-
+    const option: Array<any> = [];
     let length = this.SensorDataValue.length;
+    console.log(length);
     for (let i = 0; i < length; i++) {
-      this.option[i] = {
+      option[i] = {
         // Make gradient line here
         visualMap: [{
           show: false,
@@ -118,16 +131,30 @@ export class TemperatureComponent implements OnInit {
         }]
       };
     }
+    if (this.option.length === length) {
+      console.log(length);
+      for (let i = 0; i < length; i++) {
+        for (let j = 0; j < length; j++) {
+          if (this.option[i].title.text === option[j].title.text) {
+            this.option[i] = option[j];
+            break;
+          }
+        }
+      }
+    } else {
+      this.option = option;
+      console.log(this.option.length);
+    }
     if (length % 2 === 0) {
       for (let i = 0; i < length; i += 2) {
-        this.options.push({'one': this.option[i], 'two': this.option[i + 1]});
+        this.options[i / 2] = ({'one': this.option[i], 'two': this.option[i + 1]});
       }
     } else {
       length -= 1;
       for (let i = 0; i < length; i += 2) {
-        this.options.push({'one': this.option[i], 'two': this.option[i + 1]});
+        this.options[i / 2] = ({'one': this.option[i], 'two': this.option[i + 1]});
       }
-      this.options.push({'one': this.option[length], 'two': ''});
+      this.options[length / 2 - 1] = ({'one': this.option[length], 'two': ''});
     }
   }
 }

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
 import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-sensor',
   templateUrl: './sensor.component.html',
-  styleUrls: ['./sensor.component.css']
+  styleUrls: ['./sensor.component.css'],
+  animations: [slideToRight]
 })
 export class SensorComponent implements OnInit {
+  @HostBinding('@routerAnimate') state;
   Modular: Array<object> = [];
   ModularId = 'mod0001';
   ModalChart: any;
@@ -19,16 +22,19 @@ export class SensorComponent implements OnInit {
   option: any;
   Datas: any;
   Modularname = '驱动机';
+  interval: any;
   constructor(private activatedRoute: ActivatedRoute,
               private http: MonitorHttpService) {
     this.ModularInit();
-    this.DeviceSensorInit(this.ModularId);
   }
   ngOnInit() {
-     setInterval(() => this.DeviceSensorInit(this.ModularId), 2000);
+    this.DeviceSensorInit(this.ModularId);
+    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1)}, 3000);
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
     this.ModularId = i['mid'];
     this.Modularname = i['mname'];
   }
@@ -43,7 +49,6 @@ export class SensorComponent implements OnInit {
   DeviceSensorInit(MId) {
     this.http.FindDevicenameSensornameSensordata({mid: MId})
       .subscribe(data => {
-        console.log(data);
         data = data['values'];
         this.DeviceSensorJson = data;
         this.NoDataSensorInit(MId);

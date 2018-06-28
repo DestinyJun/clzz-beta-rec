@@ -10,13 +10,15 @@ import {PositionBarComponent} from './position-bar/position-bar.component';
 import { MessageRemindComponent } from '../message-remind/message-remind.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import {PositionNameService} from '../remind/position-name.service';
-import {ToastComponent} from './toast/toast.component';
+import {MainModule} from '../business/main/main.module';
+import {ToastService} from '../remind/toast.service';
 
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutersModule,
+    MainModule
   ],
   declarations: [
     HomeComponent,
@@ -26,9 +28,8 @@ import {ToastComponent} from './toast/toast.component';
     PositionBarComponent,
     MessageRemindComponent,
     PersonalInfoComponent,
-    ToastComponent,
   ],
-  providers: [HomeService, PositionNameService],
-  bootstrap: []
+  providers: [HomeService, PositionNameService, ToastService],
+  exports: [HomeComponent]
 })
 export class HomeModule {}

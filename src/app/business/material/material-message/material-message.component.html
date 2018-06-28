@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="panel-heading">
 
-    <div class="pull-left" style="padding-right: 15px"><span>原材料查询</span></div>
+    <div class="pull-left" style="padding-right: 15px"><span>原材料未审核清单</span></div>
     <span>&nbsp;&nbsp;&nbsp;</span>
     <div class="pull-left">
-      <button class="btn btn-xs btn-info" (click)="hid = false;ToggleAl()">铝卷</button>
-      <button class="btn btn-xs btn-info" (click)="hid = true;TogglePaint()">油漆</button>
+      <button class="btn btn-xs btn-info" [routerLink]="['/home/material/matmes', 0, aluminumspage, paintpage, selectId]">铝卷</button>
+      <button class="btn btn-xs btn-info" [routerLink]="['/home/material/matmes', 1, aluminumspage, paintpage, selectId]">油漆</button>
     </div>
     <div class="pull-right">
       <button class="btn btn-xs btn-info"  data-toggle="modal" data-target="#add">新增</button>
     </div>
   </div>
-  <div class="panel-body" [hidden]="hid">
+  <div class="panel-body" *ngIf="mode === '0'">
     <div class="table-responsive">
       <table class="table table-bordered">
         <tr>
@@ -34,22 +34,22 @@
           <td>{{i.alexweight * i.alprice}}</td>
           <td>{{i.alexweight}}</td>
           <td>{{Status(i.status)}}</td>
-          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', i.purchase, 0, 0, 0, 0]">打印</button>
-            <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(i.purchase)">详情</button></td>
+          <td>
+            <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#messageAL" (click)="MessageAl(i.purchase)">审核</button></td>
         </tr>
         <tfoot>
         <tr>
           <td colspan="8">
-            <button type="button" class="btn btn-primary" (click)="FrontPage()">上一页</button>
-            <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共{{PageNumber('Al-number')}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
+            <button type="button" class="btn btn-primary" (click)="ProAluminumPage()">上一页</button>
+            <button type="button" class="btn btn-primary" (click)="NextAluminumPage()">下一页</button>
+            共{{aluminumsNumber}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
           </td>
         </tr>
         </tfoot>
       </table>
     </div>
   </div>
-  <div class="panel-body" [hidden]="!hid">
+  <div class="panel-body" *ngIf="mode === '1'">
     <div class="table-responsive">
       <table class="table table-bordered">
         <tr>
@@ -72,15 +72,15 @@
           <td>{{i.paint_weight * i.price}}</td>
           <td>{{i.paint_weight}}</td>
           <td>{{Used(i.used)}}</td>
-          <td><button class="btn btn-xs btn-success" [routerLink]="['/qrcode', i.purchase, 0, 0, 0, 0]">打印</button>
-          <button class="btn btn-xs btn-info" (click)="MessagePaint(i.purchase)" data-toggle="modal" data-target="#messagePaint">详情</button></td>
+          <td>
+          <button class="btn btn-xs btn-info" (click)="MessagePaint(i.purchase)" data-toggle="modal" data-target="#messagePaint">审核</button></td>
         </tr>
         <tfoot>
         <tr>
           <td colspan="8">
-            <button type="button" class="btn btn-primary" (click)="FrontPage()">上一页</button>
-            <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共{{PageNumber('Paint-number')}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
+            <button type="button" class="btn btn-primary" (click)="ProPrintPage()">上一页</button>
+            <button type="button" class="btn btn-primary" (click)="NextPrintPage()">下一页</button>
+            共{{paintsNumber}}页 ,跳到 <input type="number" style="height: 20px" title="" #pages> 页
           </td>
         </tr>
         </tfoot>
@@ -207,7 +207,11 @@
             </div>
           </div>
         </form>
-        <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messageAL">关闭</button>
+        <div class="row" style="text-align: left;margin: 0 10px">
+          <button class="btn btn-success" (click)="pass(0)" data-toggle="modal" data-target="#messageAL">通过</button>
+          <button class="btn btn-danger" (click)="Nopass(0)" data-toggle="modal" data-target="#messageAL">不通过</button>
+          <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messageAL">关闭</button>
+        </div>
       </div>
     </div>
   </div>
@@ -391,7 +395,11 @@
             </form>
           </div>
         </form>
-        <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messagePaint">关闭</button>
+        <div class="row" style="text-align: left;margin: 0 10px">
+          <button class="btn btn-success" (click)="pass(1)" data-toggle="modal" data-target="#messagePaint">通过</button>
+          <button class="btn btn-danger" (click)="Nopass(1)" data-toggle="modal" data-target="#messagePaint">不通过</button>
+          <button class="btn btn-info pull-right" data-toggle="modal" data-target="#messagePaint">关闭</button>
+        </div>
       </div>
     </div>
   </div>

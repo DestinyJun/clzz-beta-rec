@@ -8,6 +8,7 @@ import {OrderMarketingComponent} from './order-marketing/order-marketing.compone
 import {OrderCraftComponent} from './order-craft/order-craft.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
+import {ToastService} from '../../remind/toast.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,6 @@ import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.co
     OrderCraftComponent,
     OrderAdjustmentComponent
   ],
-  providers: [],
+  providers: [ToastService],
 })
 export class ScheduleModule { }

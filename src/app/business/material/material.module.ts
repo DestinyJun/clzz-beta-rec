@@ -8,7 +8,6 @@ import {MaterialMessageComponent} from './material-message/material-message.comp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfoStatusService} from '../../remind/info-status.service';
 import {MaterialHttpService} from '../../remind/business/material-http.service';
-import {MaterialQrcodeComponent} from './material-qrcode/material-qrcode.component';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
 @NgModule({
   imports: [
@@ -23,7 +22,6 @@ import {NgxQRCodeModule} from 'ngx-qrcode2';
     MaterialEntryComponent,
     MaterialCheckComponent,
     MaterialMessageComponent,
-    MaterialQrcodeComponent,
   ],
   providers: [InfoStatusService, MaterialHttpService],
 })

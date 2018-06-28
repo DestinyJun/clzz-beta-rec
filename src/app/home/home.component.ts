@@ -1,28 +1,42 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {slideToRight} from '../remind/ts/routeAnimation';
+import {leftToRight} from '../remind/ts/sidebarAnimation';
+import {ToastService} from '../remind/toast.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  animations: [slideToRight, leftToRight]
 })
 export class HomeComponent implements OnInit {
 
-  state = true;
+  @HostBinding('@routerAnimate') state;
+  State = 'in';
   @Output() InfoTg = new EventEmitter();
   @Output() sidebar = new EventEmitter();
-  constructor() { }
+  ToastInformation: string;
+  constructor(public toastIfo: ToastService) {
+  }
 
+  ToastInfo(event) {
+    this.ToastInformation = event;
+  }
   infoTg() {
     this.InfoTg.emit(true);
   }
   ngOnInit() {
+    setInterval(() => this.wi(), 1000);
   }
   ToggleState() {
-    this.state = !this.state;
+    this.State = this.State === 'in' ?  'void' : 'in';
+    console.log(this.State);
   }
   wi() {
-    return window.innerWidth < 768;
+    if (window.innerWidth > 768) {
+      this.State = 'in';
+    }
   }
   SideBar() {
     console.log('home');

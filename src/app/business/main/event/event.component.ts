@@ -3,11 +3,13 @@ import {Observable} from 'rxjs/Observable';
 import {HttpService} from '../../../shared/http.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.directive';
+import {BigToSmall} from '../../../remind/ts/componentAnimation';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css']
+  styleUrls: ['./event.component.css'],
+  animations: [BigToSmall]
 })
 export class EventComponent implements OnInit {
   public eventType: string;

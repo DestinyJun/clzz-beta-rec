@@ -1,17 +1,19 @@
-import {Component, EventEmitter, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, EventEmitter, HostBinding, OnInit, Output, TemplateRef} from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import {LoginIdService} from '../../../remind/login-id.service';
 import {FormBuilder, FormGroup,  Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-order-entry',
   templateUrl: './order-entry.component.html',
-  styleUrls: ['./order-entry.component.css']
+  styleUrls: ['./order-entry.component.css'],
+  animations: [slideToRight]
 })
 export class OrderEntryComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   modalRef: BsModalRef;
   order: FormGroup;
 

@@ -30,7 +30,7 @@
           <button type="submit" class="btn btn-primary" (click)="ToMain()" (onkey.enter)="ToMain()" [disabled]="user.invalid">
             登<span>录</span>
           </button>
-          <a href="#" class="pull-right" [hidden]="true">忘记密码?</a>
+          <h6 style="color: #ae3725" class="pull-right">{{tips}} </h6>
         </div>
       </div>
     </form>

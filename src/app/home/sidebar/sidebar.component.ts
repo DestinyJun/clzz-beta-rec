@@ -31,9 +31,8 @@ export class SidebarComponent implements OnInit {
       new NavListChild('任务调排', false, 'schedule/ordadj'),
     ] , true),
     new NavList('原材料管理', 'fa fa-sitemap', false, [
-      new NavListChild('原材料查询', false, 'material/matmes'),
-      new NavListChild('原材料审核', false, 'material/matche'),
-      new NavListChild('原材料录入', false, 'material/matent'),
+      new NavListChild('原材料查询', false, 'material/matche/1/0/1/1'),
+      new NavListChild('原材料审核', false, 'material/matmes/0/1/1/-1')
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
       new NavListChild('待入库成品', false, 'product/proenting'),

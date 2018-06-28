@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-production',

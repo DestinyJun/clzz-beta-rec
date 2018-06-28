@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {slideToRight} from '../../../remind/ts/routeAnimation';
 
 @Component({
   selector: 'app-tactics-marketing',
   templateUrl: './tactics-marketing.component.html',
-  styleUrls: ['./tactics-marketing.component.css']
+  styleUrls: ['./tactics-marketing.component.css'],
+  animations: [slideToRight]
 })
 export class TacticsMarketingComponent implements OnInit {
-
+  @HostBinding('@routerAnimate') state;
   constructor() { }
 
   ngOnInit() {
