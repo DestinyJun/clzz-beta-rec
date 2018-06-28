@@ -15,6 +15,19 @@ export class OrderAdjustmentComponent implements OnInit {
   constructor(private http: ScheduleHttpService) {
     this.SeeOrders();
   }
+  Status(i) {
+    if (i === 1) {
+      return '准备生产';
+    } else if (i === 2) {
+      return '准备生产';
+    } else if (i === 3) {
+      return '正常暂停生产';
+    } else if (i === 4) {
+      return '异常暂停生产';
+    } else if (i === 5) {
+      return '单次生产完成';
+    }
+  }
   up(j) {
     this.http.OrderMobileFunction({
       oidone: this.orders[j]['oid'] ,

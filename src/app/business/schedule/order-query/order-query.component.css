@@ -69,3 +69,6 @@ input{
 label{
   display: block;
 }
+.activeBg{
+  background: rgba(75, 117, 143, 0.55);
+}

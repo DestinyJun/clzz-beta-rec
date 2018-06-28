@@ -22,7 +22,7 @@ export class TemperatureComponent implements OnInit {
   }
 
   ngOnInit() {
-    setInterval(() => {this.getSensorId(); this.TemperatureMap(); }, 3000);
+    this.getSensorId(); this.TemperatureMap();
   }
   getSensorId() {
     this.Temperature.subscribe(data => {

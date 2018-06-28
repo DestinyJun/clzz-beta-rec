@@ -10,7 +10,7 @@
     <div id="table" class="table-responsive">
       <table class="table table-bordered">
         <tr>
-          <th></th>
+          <th>生产顺序</th>
           <th>订单编号</th>
           <th>客户名称</th>
           <th>合同名称</th>
@@ -26,7 +26,7 @@
           <td>{{order.contractname}}</td>
           <td>{{order.exshiptime}}</td>
           <td>{{order.submitter}}</td>
-          <td>{{order.status}}</td>
+          <td>{{Status(order.status)}}</td>
           <td>
             <button class="btn btn-xs btn-info" (click)="up(i)" [disabled]="i < 1">上移</button>
             <button class="btn btn-xs btn-success" (click)="down(i)" [disabled]="i===AllOrders-1">下移</button>

@@ -46,4 +46,16 @@ export class MaterialHttpService {
     });
   }
 
+  public updateal(obj: object): Observable<any> {
+    const body = obj;
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/update-al', body);
+  }
+
+  public allauditpa(obj: object): Observable<any> {
+    const body = obj;
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/allauditpa', body);
+  }
+
 }

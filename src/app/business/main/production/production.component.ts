@@ -144,6 +144,6 @@ export class Order {
   althickness: string;
   ftype: string;
   fthickness: string;
-  fccd: string;
-  fprogram: string;
+  cname: string;
+  exshiptime: string;
 }

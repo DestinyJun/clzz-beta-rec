@@ -29,3 +29,6 @@
 input{
   color: #000000;
 }
+label{
+  display: block;
+}

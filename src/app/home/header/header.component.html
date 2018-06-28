@@ -4,105 +4,24 @@
       <div class="title">
         <span class="logo">彩铝</span>
         <a href="" class="admin" [routerLink]="['./main']">超级管理员</a>
-        <i class="fa fa-navicon" (click)="onNavListToggle()"></i>
+        <i (click)="Sidebar()" class="fa fa-navicon"></i>
       </div>
       <div class="user pull-right">
-        <div class="user-remind" (click)="onScrollToggle($event)">
-          <i class="fa fa-bell-o" aria-hidden="true"></i>
-          <div class="user-remind-top">
-            <span>5</span>
-          </div>
-          <!--<div class="user-remind-circle"></div>-->
-        </div>
-        <div  class="user-remind-scroll" [hidden]="scrollToggle">
-          <div class="user-remind-scroll-h4">
-            <span class="pull-left">信息通知</span>
-            <span class="pull-right" (click)="onScrollToggle($event)">关闭</span>
-            <div class="cl"></div>
-          </div>
-          <div class="user-remind-scroll-content" #userRemindScrollContent>
-            <div class="scroll-box" #scrollBox>
-              <div class="scroll-box-bar" #scrollBoxBar [ngStyle]="{height: '30px'}"></div>
-            </div>
-            <ul class="list-group" #scrollListGroup>
-              <li class="list-group-item list-group-item-danger">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>故障！一号仓库电机组出现故障！</span>
-                <span class="text-timer">1分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-success">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>操作：生产订单添加成功</span>
-                <span class="text-timer">3分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-warning">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>警告！油漆数量不足！</span>
-                <span class="text-timer">5分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-danger">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>故障！一号仓库电机组出现故障！</span>
-                <span class="text-timer">1分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-success">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>操作：生产订单添加成功</span>
-                <span class="text-timer">3分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-warning">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>警告！油漆数量不足！</span>
-                <span class="text-timer">5分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-danger">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>故障！一号仓库电机组出现故障！</span>
-                <span class="text-timer">1分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-success">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>操作：生产订单添加成功</span>
-                <span class="text-timer">3分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-warning">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>警告！油漆数量不足！</span>
-                <span class="text-timer">5分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-danger">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>故障！一号仓库电机组出现故障！</span>
-                <span class="text-timer">1分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-success">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>操作：生产订单添加成功</span>
-                <span class="text-timer">3分钟前</span>
-              </li>
-              <li class="list-group-item list-group-item-warning">
-                <img class="rounded-circle-img" src="../../../assets/images/Nasta.png" alt="">
-                <span>警告！油漆数量不足！</span>
-                <span class="text-timer">5分钟前</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="user-photo" (click)="onToggleInfo($event)">
-          <img class="rounded-circle" src="../../../assets/images/Nasta.png" alt="">
+        <div class="user-photo" (click)="onToggleInfo()">
+          <img class="rounded-circle" src="./assets/images/Nasta.png" alt="">
           <div class="user-photo-toggle" [hidden]="infoToggle">
             <ul class="list-group">
-              <li class="list-group-item">
-                <i class="fa fa-user-o" aria-hidden="true"></i>
+              <li class="list-group-item" aria-hidden="true">
+                <i class="fa fa-user-o"></i>
                 <span [routerLink]="['/home/perInfo']">个人信息</span>
               </li>
-              <li class="list-group-item">
-                <i class="fa fa-cog" aria-hidden="true"></i>
+              <li class="list-group-item" aria-hidden="true">
+                <i class="fa fa-cog"></i>
                 <span>系统设置</span>
               </li>
-              <li class="list-group-item">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                <span (click)="loginOut()"  >退出</span>
+              <li class="list-group-item" (click)="loginOut()"  aria-hidden="true" >
+                <i class="fa fa-sign-out"></i>
+                <span >退出</span>
               </li>
             </ul>
           </div>
