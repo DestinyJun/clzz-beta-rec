@@ -52,7 +52,8 @@ export class MonitorHttpService {
   }
 
   public FindTemperatureSensor(): Observable<any> {
-    return this.http.post('http://120.78.137.182/element/find/temperature/sensor', '', {
+    const body = this.parameterSerialization({timeStamp: Date()});
+    return this.http.post('http://120.78.137.182/element/find/temperature/sensor', body, {
       headers: this.headers
     });
   }
