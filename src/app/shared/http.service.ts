@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class HttpService {
-
+  public addEvent: EventEmitter<string> = new EventEmitter();
   constructor(private http: HttpClient) { }
   // 获取事件
   getEvent(): Observable<any> {
