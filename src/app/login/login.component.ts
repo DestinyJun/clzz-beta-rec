@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           this.tips = '用户已在线';
+          this.Id.set('userName', this.user.get('username').value);
+          this.route.navigate(['/home']);
         } else {
           this.tips = '用户名或密码错误';
         }

@@ -32,6 +32,8 @@ export class MaterialMessageComponent implements OnInit {
   public paints = [];
   public aluminumsNumber: number;
   public paintsNumber: number;
+  aluminumsPages = 0;
+  paintsPages = 0;
   private row = 10;
   constructor(private router: Router, private http: MaterialHttpService,
               private fb: FormBuilder, private route: ActivatedRoute, private user: LoginIdService) {
@@ -94,6 +96,14 @@ export class MaterialMessageComponent implements OnInit {
       return '已使用';
     }
   }
+  pages(i): number {
+    if (i % this.row === 0) {
+      return i / this.row;
+    } else {
+      i -= i % this.row;
+      return i / this.row + 1;
+    }
+  }
   SeeMaterial() {
     this.paintpage = this.route.snapshot.params['paintpage'];
     this.mode = this.route.snapshot.params['mode'];
@@ -111,6 +121,7 @@ export class MaterialMessageComponent implements OnInit {
       this.http.findrawpage(body).subscribe(data => {
         this.aluminums = data['values']['datas'];
         this.aluminumsNumber = data['values']['number'];
+        this.aluminumsPages = this.pages(this.aluminumsNumber);
       });
     } else {
       const body = {
@@ -122,6 +133,7 @@ export class MaterialMessageComponent implements OnInit {
       this.http.findrawpage(body).subscribe(data => {
         this.paints = data['values']['datas'];
         this.paintsNumber = data['values']['number'];
+        this.paintsPages = this.pages(this.paintsNumber);
       });
     }
   }

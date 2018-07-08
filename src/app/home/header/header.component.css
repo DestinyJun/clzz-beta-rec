@@ -137,9 +137,9 @@
 .user-photo-toggle{
   position: absolute;
   width: 150px;
-  color: #2B404E;
-  top: 57px;
-  left: -75px;
+  color: white;
+  top: 50px;
+  right: 0;
 
 }
 
@@ -169,9 +169,10 @@
 }
 .list-group-item{
   /*background-color:#FFFFFF;*/
-  border: none;
   cursor: pointer;
   position: relative;
+  border: 0;
+  background-color: rgba(0,0,0,0.9);
 }
 .list-group-item>span{
   margin-left: 10px;
@@ -179,8 +180,7 @@
 .cl{
   clear: both;
 }
-.list-group-item:first-child {
-   border-top-left-radius: 0;
-   border-top-right-radius: 0;
+li.list-group-item:hover{
+  background-color: #1F9B8F;
 }
 

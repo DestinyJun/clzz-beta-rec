@@ -30,6 +30,9 @@
 .table > tbody > tr > td, .table > tbody > tr > th{
   border-top: none;
 }
+.table > thead > tr >th{
+  border-bottom: 0;
+}
 a{
   cursor: pointer;
 }

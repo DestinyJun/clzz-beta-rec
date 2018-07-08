@@ -7,7 +7,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { RemindComponent } from './based/remind/remind.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LoginIdService} from './remind/login-id.service';
-import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap';
 import { DepartmentButtonComponent } from './based/department-button/department-button.component';
 import { QrcodeComponent } from './based/qrcode/qrcode.component';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
@@ -19,6 +18,7 @@ import { MobieOrderComponent } from './based/mobie-order/mobie-order.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoginModule} from './login/login.module';
 import { MobieLoginComponent } from './mobie-login/mobie-login.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 
 

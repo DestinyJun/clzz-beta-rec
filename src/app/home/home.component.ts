@@ -1,5 +1,4 @@
 import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {slideToRight} from '../remind/ts/routeAnimation';
 import {leftToRight} from '../remind/ts/sidebarAnimation';
 import {ToastService} from '../remind/toast.service';
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
     setInterval(() => this.wi(), 1000);
   }
   ToggleState() {
-    this.State = this.State === 'in' ?  'void' : 'in';
+    this.State = this.State === 'in' ?  'out' : 'in';
     console.log(this.State);
   }
   wi() {

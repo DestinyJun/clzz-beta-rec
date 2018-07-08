@@ -48,10 +48,10 @@ export class HeaderComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         if (data['status'] === '10') {
-          this.route.navigate(['/login']);
           this.Id.remove('userId');
         }
       });
+    this.route.navigate(['/login']);
   }
   public onToggleInfo(): void {
       this.infoToggle = !this.infoToggle;

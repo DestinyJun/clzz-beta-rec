@@ -1,38 +1,28 @@
-<div class="panel-heading">
-  <span>事件数据列表</span>
-  <div class="dropdown pull-right">
-    <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{eventType || '请选择事件类型...'}}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dLabel">
-      <li (click)="EventT('订单类事件')">订单类事件</li>
-      <li (click)="EventT('生产类事件')">生产类事件</li>
-      <li (click)="EventT('监控类事件')">监控类事件</li>
-      <li (click)="EventT('操作类事件')">操作类事件</li>
-    </ul>
+<div>
+  <div class="panel-heading">
+    <span>事件数据列表</span>
   </div>
-</div>
-<div class="panel-body">
-  <div id="table" class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>事件类型</th>
-        <th>时间</th>
-        <th>描述</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
-        <td>{{i + 1}}</td>
-        <td>{{list['event_type']}}</td>
-        <td>{{list['event_date']}}</td>
-        <td>{{list['event_name']}}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="panel-body">
+    <div id="table" class="table-responsive sameHeight sameHeight-1">
+      <table class="table table-striped ">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 100px">事件类型</th>
+          <th>时间</th>
+          <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let list of Modal1;let i = index" (click)="openModal(template, list)">
+          <td>{{i + 1}}</td>
+          <td>{{list['event_type']}}</td>
+          <td>{{list['event_date']}}</td>
+          <td>{{list['event_name']}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <!-- 模态框-->

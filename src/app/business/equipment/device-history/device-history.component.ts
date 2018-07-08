@@ -65,7 +65,7 @@ export class DeviceHistoryComponent implements OnInit {
               const id = String(d[j]['did']);
               device.push({name, id});
             }
-            this.SensorInit(device[1].id);
+            this.SensorInit(device[0].id);
             this.Device = device;
 
       });

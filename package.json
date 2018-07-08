@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 2323",
+    "start": "ng serve --port 2222",
     "build": "ng build --prod --aot  --base-href /ColorAlum/",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,7 +31,7 @@
     "font-awesome": "^4.7.0",
     "intl": "^1.2.5",
     "jquery": "^3.2.1",
-    "ngx-bootstrap": "^2.0.2",
+    "ngx-bootstrap": "^2.0.5",
     "ngx-echarts": "^2.0.1",
     "ngx-qrcode2": "0.0.5",
     "rxjs": "^5.4.2",
