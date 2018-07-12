@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="panel-heading">
+    <span>安卓apk下载页面</span>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>#</th><th>版本号</th><th>描述</th><th>最新时间</th><th>下载</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let app of appInfor;let i=index">
+          <td>{{i+1}}</td><td>{{app.version}}</td><td>{{app.versionName}}</td><td>{{app.utime}}</td><td><a target="_self" download={{app.versionName}} href={{app.url}} class="btn btn-success">{{app.description}}.apk</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
