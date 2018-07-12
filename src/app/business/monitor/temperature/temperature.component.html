@@ -3,16 +3,18 @@
     <span>温度数据图</span>
   </div>
   <div class="panel-body">
-    <div *ngFor="let i of options">
+    <div>
       <div class="row ">
-        <div class="col-md-6">
-          <div echarts [options]="i.one"></div>
-        </div>
-        <div class="col-md-6">
-          <div *ngIf="i.two" echarts [options]="i.two"></div>
+        <div *ngFor="let op of option;let i=index" class="col-md-5" [ngClass]="{false:'col-md-offset-1'}[i%2!==0]">
+          <div echarts [options]="op"></div>
         </div>
       </div>
     </div>
   </div>
 
+</div>
+<div *ngIf="tips">
+  <h2 style="text-align: center;color: white">
+    {{tips}}
+  </h2>
 </div>

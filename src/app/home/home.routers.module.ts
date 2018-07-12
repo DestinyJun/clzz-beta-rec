@@ -12,7 +12,8 @@ const homeRoutes: Routes = [
       {path: 'material', loadChildren: 'app/business/material/material.module#MaterialModule'},
       {path: 'product', loadChildren: 'app/business/product/product.module#ProductModule'},
       {path: 'tactics', loadChildren: 'app/business/tactics/tactics.module#TacticsModule'},
-      {path: 'perInfo', component: PersonalInfoComponent}
+      {path: 'perInfo', component: PersonalInfoComponent},
+      {path: 'android', loadChildren: 'app/business/android/android.module#AndroidModule'},
     ]}
 ];
 

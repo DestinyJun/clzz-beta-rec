@@ -72,6 +72,7 @@ export class ListComponent implements OnInit {
     this.orderlist = this.http
       .SeeOrders(body);
       this.orderlist.subscribe(data => {
+        console.log(data);
         this.orders = data['values']['datas'];
       });
   }

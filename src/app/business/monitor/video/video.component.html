@@ -97,29 +97,6 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <ul class="list-group" #sider>
-          <li class="list-group-item" *ngFor="let p of siders">
-            {{p.pingtai}}
-            <ul class="list-group" *ngFor="let z of p.key">
-              <li class="list-group-item">{{z.zong1}}
-                <ul class="list-group" *ngFor="let f of z.key">
-                  <li class="list-group-item">{{f.feng1}}
-                    <ul class="list-group" *ngFor="let s of f.key" >
-                      <li class="list-group-item">{{s.shengchanxian}}
-                        <ul class="list-group">
-                          <li class="list-group-item" *ngFor="let u of s.key">{{u.name}}</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
-
+  </div>
 </div>

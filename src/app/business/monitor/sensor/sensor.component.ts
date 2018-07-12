@@ -96,7 +96,7 @@ export class SensorComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string) {
-    this.Datas = this.http.seesensordata({sid: body});
+    this.Datas = this.http.findhstorysensordata({sid: body});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
         const length = d['values'].length;

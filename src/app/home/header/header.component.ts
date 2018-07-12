@@ -4,6 +4,7 @@ import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {LoginIdService} from '../../remind/login-id.service';
+import {progressbar} from './progressbar-animation';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
   scrollListGroup: ElementRef; // 内容盒子
   public scrollToggle: boolean;
   public navListToggle: boolean;
+  long = '_0%';
   constructor(private homeService: HomeService, private route: Router, private http: HttpClient, private Id: LoginIdService) {
     this.infoToggle = true;
     this.scrollToggle = true;
@@ -72,5 +74,7 @@ export class HeaderComponent implements OnInit {
       return '小于一分钟前';
     }
   }
-
+  longState() {
+    this.long = '_80%';
+  }
 }

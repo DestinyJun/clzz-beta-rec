@@ -43,10 +43,10 @@ export class MonitorHttpService {
     });
   }
 
-  public seesensordata(sid: object): Observable<any> {
+  public findhstorysensordata(sid: object): Observable<any> {
     const body = this.parameterSerialization(sid);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/seesensordata', body, {
+    return this.http.post('http://120.78.137.182/element/find-hstory-sensordata', body, {
       headers: this.headers
     });
   }

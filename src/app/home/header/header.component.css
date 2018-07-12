@@ -183,4 +183,12 @@
 li.list-group-item:hover{
   background-color: #1F9B8F;
 }
-
+/* 进度条*/
+.progressbar{
+  height: 3px;
+  width: 100%;
+  background-color: #1F9B8F;
+  position: absolute;
+  top: 65px;
+  z-index: 1000;
+}

@@ -16,13 +16,16 @@ export class MobieLoginComponent implements OnInit {
       upwd: this.route.snapshot.params['password'],
       module: 'WEBN'
     };
+    console.log(this.route.snapshot.params['web'] === 'main');
     if (this.route.snapshot.params['web'] === 'main') {
       this.http.post('http://120.78.137.182/element-admin/user/login', body)
         .subscribe(data => {
+          console.log(data);
           if (data['status'] === '10') {
             this.router.navigate(['/home']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
+            this.router.navigate(['/home']);
           } else {
             this.tips = '用户名或密码错误';
           }
@@ -34,6 +37,7 @@ export class MobieLoginComponent implements OnInit {
             this.router.navigate(['/home/monitor/sensor']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
+            this.router.navigate(['/home/monitor/sensor']);
           } else {
             this.tips = '用户名或密码错误';
           }

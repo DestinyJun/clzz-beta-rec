@@ -43,7 +43,8 @@ export class SidebarComponent implements OnInit {
       new NavListChild('地图策略分析', false, 'tactics/tacmap'),
       new NavListChild('订单策略分析', false, 'tactics/tacord'),
       new NavListChild('营销策略分析', false, 'tactics/tacmark'),
-    ] , true)
+    ] , true),
+    new NavList('安卓', 'glyphicon glyphicon-download-alt', false, [] , true),
   ];
   public slidinghight: number;
   public slidingTop: number;
@@ -58,11 +59,6 @@ export class SidebarComponent implements OnInit {
     event.stopPropagation();
     this.Name.set('positionName', name);
   }
-  PullMain(name) {
-    if (name === '首页') {
-      this.Name.set('positionName', name);
-    }
-  }
   onMouseleave() {
     this.slidingTop = -120;
   }
@@ -73,7 +69,14 @@ export class SidebarComponent implements OnInit {
   mainLiClick(mainul, element, list) {
     this.difulHeight = 0;
     if (!(list.children.length > 0)) {
-      this.router.navigate(['/home']);
+        console.log(list);
+        if (list.title === '首页') {
+          this.router.navigate(['/home']);
+          this.Name.set('positionName', '首页');
+        } else {
+          this.router.navigate(['/home/android']);
+          this.Name.set('positionName', '安卓');
+        }
       for (let i = 0; i < mainul.children.length; i++) {
         mainul.children[i].children[1].style.height = '0px';
       }
@@ -110,6 +113,7 @@ export class SidebarComponent implements OnInit {
 
   }
   menuliMouseEnter(element) {
+    console.log(element.offsetTop);
     this.slidingTop =  element.offsetTop;
     this.slidinghight = element.offsetHeight;
     element.setState = true;
