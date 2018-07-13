@@ -39,3 +39,27 @@
   border-radius: 0;
   background-color: #253847;
 }
+.ng-star-inserted{
+  padding-left: 0;
+}
+.ul3 {
+  color: white;
+  background-color: #21333f;
+  list-style: none;
+  height: 20px;
+  overflow: hidden;
+}
+.ul2{
+  color: white;
+  height: 20px;
+  background-color: #21333f;
+  list-style: none;
+  overflow: hidden;
+}
+.ul1{
+  color: white;
+  width: 200px;
+  height: 40px;
+  background-color: #21333f;
+  list-style: none;
+}

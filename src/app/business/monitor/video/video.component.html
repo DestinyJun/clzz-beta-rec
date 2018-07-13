@@ -97,6 +97,21 @@
           </div>
         </div>
       </div>
+      <div class="col-md-3">
+        <ul>
+          <li class="ul3" [ngStyle]="{'height': videoTree.open + 'px'}"><a (click)="toggleOpenUl3()">{{videoTree.name}}</a>
+            <ul *ngFor="let video of videoTree.child; let videoIndex = index">
+              <li class="ul2" [ngStyle]="{'height': video.open + 'px'}"><a (click)="toggleOpenUl2(videoIndex)">{{video.name}}</a>
+                <ul *ngFor="let v of video.child" >
+                  <li class="ul1">
+                    <a  >{{v?.name}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
   </div>
   </div>
 </div>

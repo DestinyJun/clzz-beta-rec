@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     component: QrcodeComponent, canActivate: [CanrouteService]},
   {path: 'department', component: DepartmentButtonComponent},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
-  {path: 'mobie/:targetlist/:aluminumcode/:address', component: MobieOrderComponent}
+  {path: 'mobie/:targetlist/:aluminumcode/:address/:oid', component: MobieOrderComponent}
 ];
 
 @NgModule({

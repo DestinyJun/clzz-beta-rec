@@ -33,7 +33,8 @@ export class QrcodeComponent implements OnInit {
       this.targetlist = this.route.snapshot.params['targetlist'];
       this.aluminumlength = this.route.snapshot.params['aluminumlength'];
       this.address = this.route.snapshot.params['address'];
-      this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode + '/' + this.address;
+      this.value = 'http://120.78.138.104:8080/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode + '/' + this.address
+        + '/' + this.oid;
     } else {
       this.mode = this.route.snapshot.params['mode'];
       console.log(this.mode !== '0');

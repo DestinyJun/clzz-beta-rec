@@ -27,12 +27,14 @@ export class LoginComponent implements OnInit {
       };
     this.http.post('http://120.78.137.182/element-admin/user/login', body)
       .subscribe(data => {
+        console.log(data['status'] === '14');
         if (data['status'] === '10') {
           this.Id.set('userId', data['sid']);
           this.Id.set('userName', this.user.get('username').value);
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           this.tips = '用户已在线';
+          this.Id.set('userId', data['sid']);
           this.Id.set('userName', this.user.get('username').value);
           this.route.navigate(['/home']);
         } else {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {LoginIdService} from '../remind/login-id.service';
 
 @Component({
   selector: 'app-mobie-login',
@@ -10,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class MobieLoginComponent implements OnInit {
 
   public tips: string;
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private Id: LoginIdService) {
     const body = {
       uname: this.route.snapshot.params['username'],
       upwd: this.route.snapshot.params['password'],
@@ -22,9 +23,11 @@ export class MobieLoginComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
           if (data['status'] === '10') {
+            this.Id.set('userId', data['sid']);
             this.router.navigate(['/home']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
+            this.Id.set('userId', data['sid']);
             this.router.navigate(['/home']);
           } else {
             this.tips = '用户名或密码错误';
@@ -34,9 +37,11 @@ export class MobieLoginComponent implements OnInit {
       this.http.post('http://120.78.137.182/element-admin/user/login', body)
         .subscribe(data => {
           if (data['status'] === '10') {
+            this.Id.set('userId', data['sid']);
             this.router.navigate(['/home/monitor/sensor']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
+            this.Id.set('userId', data['sid']);
             this.router.navigate(['/home/monitor/sensor']);
           } else {
             this.tips = '用户名或密码错误';
