@@ -1,5 +1,5 @@
 <div style="padding-left: 0;">
-  <app-header (sidebar)="SideBar()" ></app-header>
+  <app-header style="z-index: 1000" (sidebar)="SideBar()" ></app-header>
   <div style="margin-top: 66px;margin-bottom: 40px">
     <div  [@sidebarAnimate]="State"  style="position: relative;z-index: 900"><app-sidebar></app-sidebar></div>
     <div class="home" style="position: relative">
@@ -8,7 +8,7 @@
       </div>
       <app-position-bar></app-position-bar>
       <router-outlet></router-outlet>
-      <app-footer></app-footer>
+      <app-footer  style="z-index: 1000"></app-footer>
     </div>
   </div>
 </div>

@@ -14,21 +14,18 @@ export class VideoComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   camera: Array<Camera> = [];
-  baseHeight = 20;
+  Cam: Array<Camera> = [];
+  baseHeight = 30;
   baseColor = '#209E91';
-  vlc1: any;
-  vlc2: any;
-  video0: string;
-  video1: string;
-  video2: string;
-  video3: string;
+  vlcV: Array<any> = [];
+  vlcVName: Array<string> = [];
   san: any;
   videoTree = {
-    'name': '总平台', 'open': 20, 'color': false, 'child': [
-      {'name': '一号视频窗口', 'open': 20, 'color': false, 'child': []},
-      {'name': '二号视频窗口', 'open': 20, 'color': false, 'child': []},
-      {'name': '三号视频窗口', 'open': 20, 'color': false, 'child': []},
-      {'name': '四号视频窗口', 'open': 20, 'color': false, 'child': []}
+    'name': '总平台', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': [
+      {'name': '一号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
+      {'name': '二号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
+      {'name': '三号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
+      {'name': '四号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam}
     ]
   };
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
@@ -42,23 +39,29 @@ export class VideoComponent implements OnInit {
   ngOnInit() {
   }
 
-  vlcVideo() {
-    const html = '<div class="col-md-6">\n' +
-      '            <div>1号监视</div>\n' +
-      '            <object type=\'application/x-vlc-plugin\' id=\'vlc${obj[number].place}\' width="100%" height="450" events=\'True\'\n' +
+  vlcVideo(number, index) {
+    const html =
+      '            <object type=\'application/x-vlc-plugin\' id=\'vlc${obj[number].place}\' width="100%" height="300" events=\'True\'\n' +
       '                    pluginspage="http://www.videolan.org"\n' +
-      '                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/3.0.3/npapi-vlc-2.0.3.tar.xz">\n' +
-      '              <param name=\'mrl\' value=' + this.video0 + ' />\n' +
-      '              <param name=\'volume\' value=\'50\' />\n' +
+      '                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.2.1/npapi-vlc-2.2.1.tar.xz">\n' +
+      '              <param name=\'mrl\' value=' + this.videoTree.child[number].child[index].outer_url + ' />\n' +
+      '              <param name=\'volume\' value=\'30\' />\n' +
       '              <param name=\'autoplay\' value=\'true\' />\n' +
       '              <param name=\'loop\' value=\'false\' />\n' +
       '              <param value="transparent" name="wmode">\n' +
       '              <embed id=\'vlc1\' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="450"\n' +
       '                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"\n' +
-      '                     src=' + this.video0 + '>\n' +
-      '            </object>\n' +
-      '          </div>';
-    this.vlc1 = this.sanitizer.bypassSecurityTrustHtml(html);
+      '                     src=' + this.videoTree.child[number].child[index].outer_url + '>\n' +
+      '            </object>\n';
+     this.vlcV[number] = this.sanitizer.bypassSecurityTrustHtml(html);
+     this.vlcVName[number] = this.videoTree.child[number].child[index].value;
+     this.videoTree.child[number].child.map((value, i) => {
+       if (i === index) {
+         value.color = true;
+       } else {
+         value.color = false;
+       }
+     });
   }
   toggleOpenUl3() {
     console.log('ul3');
@@ -68,6 +71,7 @@ export class VideoComponent implements OnInit {
         this.videoTree.child[i].color = false;
       }
       this.videoTree.open = this.baseHeight;
+      this.videoTree.color = false;
     } else {
       this.videoTree.open += this.videoTree.child.length * this.baseHeight;
     }
@@ -80,13 +84,16 @@ export class VideoComponent implements OnInit {
         if (this.videoTree.child[i].open > this.baseHeight) {
           this.videoTree.open -= (this.videoTree.child[i].open - this.baseHeight);
           this.videoTree.child[i].open = this.baseHeight;
+          this.videoTree.child[i].color = false;
         }
       }
       this.videoTree.child[index].open += this.videoTree.child[index].child.length * this.baseHeight;
       this.videoTree.open += this.videoTree.child[index].child.length * this.baseHeight;
+      this.videoTree.child[index].color = true;
     } else {
       this.videoTree.open -= (this.videoTree.child[index].open - this.baseHeight);
       this.videoTree.child[index].open = this.baseHeight;
+      this.videoTree.child[index].color = false;
     }
   }
   parameterSerialization(obj: object): string {
@@ -138,10 +145,10 @@ export class VideoComponent implements OnInit {
       this.videoTree.child[2].child = camera2;
       this.videoTree.child[3].child = camera3;
       console.log(this.videoTree.child[0].child);
-      this.video0 = this.videoTree.child[0].child[0].outer_url;
-      this.video1 = this.videoTree.child[1].child[0].outer_url;
-      this.vlcVideo();
-      console.log(this.video1);
+      this.vlcVideo(0, 0);
+      this.vlcVideo(1, 0);
+      this.vlcVideo(2, 0);
+      this.vlcVideo(3, 0);
     });
   }
 }
@@ -158,4 +165,5 @@ class Camera {
   row: 0;
   g_id: string;
   place: string;
+  color = false;
 }

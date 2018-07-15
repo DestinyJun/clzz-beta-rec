@@ -17,17 +17,32 @@
     <div class="row">
       <div class="col-md-9">
         <div class="row">
-          <div [innerHTML]="vlc1"></div>
+          <div class="col-md-6">
+            <div><span>一号监视窗口</span><span style="color: #209E91">{{vlcVName[0]}}</span></div>
+            <div [innerHTML]="vlcV[0]"></div>
+          </div>
+          <div class="col-md-6">
+            <div><span>二号监视窗口</span><span style="color: #209E91">{{vlcVName[1]}}</span></div>
+            <div [innerHTML]="vlcV[1]"></div>
+          </div>
+          <div class="col-md-6">
+            <div><span>三号监视窗口</span><span style="color: #209E91">{{vlcVName[2]}}</span></div>
+            <div [innerHTML]="vlcV[2]"></div>
+          </div>
+          <div class="col-md-6">
+            <div><span>四号监视窗口</span><span style="color: #209E91">{{vlcVName[3]}}</span></div>
+            <div [innerHTML]="vlcV[3]"></div>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <ul>
-          <li class="ul3" [ngStyle]="{'height': videoTree.open + 'px'}"><a [ngStyle]="{'backgroundColor': videoTree.color?baseColor:''}" (click)="toggleOpenUl3()">{{videoTree.name}}</a>
+      <div class="col-md-3" style="padding: 20px 0 0 50px">
+        <ul style="background-color: rgba(0,0,0,0.4);width: 200px;height: 620px">
+          <li class="li3" [ngStyle]="{'height': videoTree.open + 'px'}"><a id="li3" (click)="toggleOpenUl3()">{{videoTree.name}}</a>
             <ul *ngFor="let video of videoTree.child; let videoIndex = index">
-              <li class="ul2" [ngStyle]="{'height': video.open + 'px'}"><a [ngStyle]="{'backgroundColor': video.color?baseColor:''}" (click)="toggleOpenUl2(videoIndex)">{{video.name}}</a>
-                <ul *ngFor="let v of video.child" >
-                  <li class="ul1">
-                    <a>{{v?.value}}</a>
+              <li class="li2" [ngStyle]="{'height': video.open + 'px'}"><a id="li2" [ngStyle]="{'backgroundColor': video.color?baseColor:''}" (click)="toggleOpenUl2(videoIndex)">{{video.name}}</a>
+                <ul *ngFor="let v of video.child; let videoI = index" >
+                  <li class="li1">
+                    <a id="li1" [ngStyle]="{'color': v.color?'#209E91':''}" (click)="vlcVideo(videoIndex, videoI)">{{v?.value}}</a>
                   </li>
                 </ul>
               </li>
