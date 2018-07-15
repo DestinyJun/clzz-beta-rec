@@ -17,94 +17,17 @@
     <div class="row">
       <div class="col-md-9">
         <div class="row">
-          <div class="col-md-6">
-            <div>1号监视</div>
-            <object type='application/x-vlc-plugin' id='vlc${obj[number].place}' width="100%" height="450" events='True'
-                    pluginspage="http://www.videolan.org"
-                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz">
-              <param name='mrl' value='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/302?transportmode-unicast' />
-              <param name='volume' value='50' />
-              <param name='autoplay' value='true' />
-              <param name='loop' value='false' />
-              <param value="transparent" name="wmode">
-              <embed id='vlc12' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="100%"
-                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"
-                     src="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/302?transportmode-unicast">
-            </object>
-          </div>
-          <div class="col-md-6">
-            <div>2号监视</div>
-            <object type='application/x-vlc-plugin' id='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast' width="100%" height="450" events='True'
-                    pluginspage="http://www.videolan.org"
-                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz">
-              <param name='mrl' value='rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast' />
-              <param name='volume' value='50' />
-              <param name='autoplay' value='true' />
-              <param name='loop' value='false' />
-              <param value="transparent" name="wmode">
-              <embed id='vlc1' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="100%"
-                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"
-                     src="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/1602?transportmode-unicast">
-            </object>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div>3号监视</div>
-            <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-                    width="100%"
-                    height="450"
-                    id="vlc3"
-                    events="true">
-              <param name="mrl" value="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast" />
-              <param name="ShowDisplay" value="True" />
-              <param name="AutoLoop" value="False" />
-              <param name="AutoPlay" value="False" />
-              <param name="Volume" value="50" />
-              <param name="toolbar" value="true" />
-              <param name="StartTime" value="0" />
-              <embed pluginspage="http://www.videolan.org"
-                     type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
-                     width="100%"
-                     height="450"
-                     toolbar="true"
-                     namev="vlc">
-            </OBJECT>
-          </div>
-          <div class="col-md-6">
-            <div>4号监视</div>
-            <OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-                    width="100%"
-                    height="450"
-                    id="vlc4"
-                    events="true">
-              <param name="mrl" value="rtsp://admin:12345@58.42.229.135:33335/Streaming/Channels/102?transportmode-unicast" />
-              <param name="ShowDisplay" value="True" />
-              <param name="AutoLoop" value="False" />
-              <param name="AutoPlay" value="False" />
-              <param name="Volume" value="50" />
-              <param name="toolbar" value="true" />
-              <param name="StartTime" value="0" />
-              <embed pluginspage="http://www.videolan.org"
-                     type="application/x-vlc-plugin"
-                     version="VideoLAN.VLCPlugin.2"
-                     width="100%"
-                     height="450"
-                     toolbar="true"
-                     namev="vlc">
-            </OBJECT>
-          </div>
+          <div [innerHTML]="vlc1"></div>
         </div>
       </div>
       <div class="col-md-3">
         <ul>
-          <li class="ul3" [ngStyle]="{'height': videoTree.open + 'px'}"><a (click)="toggleOpenUl3()">{{videoTree.name}}</a>
+          <li class="ul3" [ngStyle]="{'height': videoTree.open + 'px'}"><a [ngStyle]="{'backgroundColor': videoTree.color?baseColor:''}" (click)="toggleOpenUl3()">{{videoTree.name}}</a>
             <ul *ngFor="let video of videoTree.child; let videoIndex = index">
-              <li class="ul2" [ngStyle]="{'height': video.open + 'px'}"><a (click)="toggleOpenUl2(videoIndex)">{{video.name}}</a>
+              <li class="ul2" [ngStyle]="{'height': video.open + 'px'}"><a [ngStyle]="{'backgroundColor': video.color?baseColor:''}" (click)="toggleOpenUl2(videoIndex)">{{video.name}}</a>
                 <ul *ngFor="let v of video.child" >
                   <li class="ul1">
-                    <a  >{{v?.name}}</a>
+                    <a>{{v?.value}}</a>
                   </li>
                 </ul>
               </li>

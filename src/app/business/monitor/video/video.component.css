@@ -43,23 +43,29 @@
   padding-left: 0;
 }
 .ul3 {
-  color: white;
-  background-color: #21333f;
+  background-color: rgba(55,96,108,0);
   list-style: none;
   height: 20px;
   overflow: hidden;
+  font-size: 16px;
 }
 .ul2{
-  color: white;
   height: 20px;
-  background-color: #21333f;
+  background-color: rgba(55,96,108,0);
   list-style: none;
   overflow: hidden;
+  font-size: 15px;
+  padding-left: 10px;
 }
 .ul1{
-  color: white;
-  width: 200px;
-  height: 40px;
-  background-color: #21333f;
+  width: 150px;
+  height: 20px;
+  background-color: rgba(55,96,108,0);
   list-style: none;
+  font-size: 14px;
+  padding-left: 10px;
+}
+a{
+  color: white;
+  display: block;
 }

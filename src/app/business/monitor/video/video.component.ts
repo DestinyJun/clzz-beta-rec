@@ -1,6 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {slideToRight} from '../../../remind/ts/routeAnimation';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video',
@@ -13,19 +14,24 @@ export class VideoComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   camera: Array<Camera> = [];
-  camera1: Array<Camera> = [];
-  camera2: Array<Camera> = [];
-  camera3: Array<Camera> = [];
-  camera4: Array<Camera> = [];
+  baseHeight = 20;
+  baseColor = '#209E91';
+  vlc1: any;
+  vlc2: any;
+  video0: string;
+  video1: string;
+  video2: string;
+  video3: string;
+  san: any;
   videoTree = {
-    'name': '总平台', 'open': 20, 'child': [
-      {'name': '一号视频窗口', 'open': 20, 'child': []},
-      {'name': '二号视频窗口', 'open': 20, 'child': []},
-      {'name': '三号视频窗口', 'open': 20, 'child': []},
-      {'name': '四号视频窗口', 'open': 20, 'child': []}
+    'name': '总平台', 'open': 20, 'color': false, 'child': [
+      {'name': '一号视频窗口', 'open': 20, 'color': false, 'child': []},
+      {'name': '二号视频窗口', 'open': 20, 'color': false, 'child': []},
+      {'name': '三号视频窗口', 'open': 20, 'color': false, 'child': []},
+      {'name': '四号视频窗口', 'open': 20, 'color': false, 'child': []}
     ]
   };
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
     this.QueryCameraNumber({
       gid: 1,
       page: 1,
@@ -36,31 +42,51 @@ export class VideoComponent implements OnInit {
   ngOnInit() {
   }
 
+  vlcVideo() {
+    const html = '<div class="col-md-6">\n' +
+      '            <div>1号监视</div>\n' +
+      '            <object type=\'application/x-vlc-plugin\' id=\'vlc${obj[number].place}\' width="100%" height="450" events=\'True\'\n' +
+      '                    pluginspage="http://www.videolan.org"\n' +
+      '                    codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/3.0.3/npapi-vlc-2.0.3.tar.xz">\n' +
+      '              <param name=\'mrl\' value=' + this.video0 + ' />\n' +
+      '              <param name=\'volume\' value=\'50\' />\n' +
+      '              <param name=\'autoplay\' value=\'true\' />\n' +
+      '              <param name=\'loop\' value=\'false\' />\n' +
+      '              <param value="transparent" name="wmode">\n' +
+      '              <embed id=\'vlc1\' wmode="transparent" type="application/x-vlc-plugin" width="100%" height="450"\n' +
+      '                     pluginspage="http://www.videolan.org" allownetworking="internal" allowscriptaccess="always" quality="high"\n' +
+      '                     src=' + this.video0 + '>\n' +
+      '            </object>\n' +
+      '          </div>';
+    this.vlc1 = this.sanitizer.bypassSecurityTrustHtml(html);
+  }
   toggleOpenUl3() {
     console.log('ul3');
-    if (this.videoTree.open) {
+    if (this.videoTree.open > this.baseHeight) {
       for (let i = 0; i < this.videoTree.child.length; i++) {
-        this.videoTree.child[i].open = 20;
+        this.videoTree.child[i].open = this.baseHeight;
+        this.videoTree.child[i].color = false;
       }
-      this.videoTree.open = 20;
+      this.videoTree.open = this.baseHeight;
     } else {
-      this.videoTree.open += this.videoTree.child.length * 20;
+      this.videoTree.open += this.videoTree.child.length * this.baseHeight;
     }
+    this.videoTree.color = true;
   }
   toggleOpenUl2(index) {
     console.log('ul2');
-    if (this.videoTree.child[index].open === 20) {
+    if (this.videoTree.child[index].open === this.baseHeight) {
       for (let i = 0; i < this.videoTree.child.length; i++) {
-        if (this.videoTree.child[i].open > 20) {
-          this.videoTree.open -= (this.videoTree.child[i].open - 20);
-          this.videoTree.child[i].open = 20;
+        if (this.videoTree.child[i].open > this.baseHeight) {
+          this.videoTree.open -= (this.videoTree.child[i].open - this.baseHeight);
+          this.videoTree.child[i].open = this.baseHeight;
         }
       }
-      this.videoTree.child[index].open += this.videoTree.child[index].child.length * 20;
-      this.videoTree.open += this.videoTree.child[index].child.length * 20;
+      this.videoTree.child[index].open += this.videoTree.child[index].child.length * this.baseHeight;
+      this.videoTree.open += this.videoTree.child[index].child.length * this.baseHeight;
     } else {
-      this.videoTree.open -= (this.videoTree.child[index].open - 20);
-      this.videoTree.child[index].open = 20;
+      this.videoTree.open -= (this.videoTree.child[index].open - this.baseHeight);
+      this.videoTree.child[index].open = this.baseHeight;
     }
   }
   parameterSerialization(obj: object): string {
@@ -90,6 +116,10 @@ export class VideoComponent implements OnInit {
     });
   }
   QueryCamera(obj) {
+    const camera0: Array<Camera> = [];
+    const camera1: Array<Camera> = [];
+    const camera2: Array<Camera> = [];
+    const camera3: Array<Camera> = [];
     const body = this.parameterSerialization(obj);
     this.http.post('http://120.78.137.182/element/QueryCamera', body, {
       headers: this.headers
@@ -97,30 +127,27 @@ export class VideoComponent implements OnInit {
       this.camera = data['values']['datas'];
       this.camera.map((value, index) => {
         switch (index % 4) {
-          case 0: this.camera1.push(value); break;
-          case 1: this.camera2.push(value); break;
-          case 2: this.camera3.push(value); break;
-          case 3: this.camera4.push(value); break;
+          case 0: camera0.push(value); break;
+          case 1: camera1.push(value); break;
+          case 2: camera2.push(value); break;
+          case 3: camera3.push(value); break;
         }
       });
-      console.log(this.camera1);
+      this.videoTree.child[0].child = camera0;
+      this.videoTree.child[1].child = camera1;
+      this.videoTree.child[2].child = camera2;
+      this.videoTree.child[3].child = camera3;
+      console.log(this.videoTree.child[0].child);
+      this.video0 = this.videoTree.child[0].child[0].outer_url;
+      this.video1 = this.videoTree.child[1].child[0].outer_url;
+      this.vlcVideo();
+      console.log(this.video1);
     });
-    console.log(this.parameterSerialization({
-      starttime: new Date().getTime(),
-      timecell: 10
-    }));
-    this.http.post('http://192.168.28.69:9080/EquipmentInspection/item-info/add', this.parameterSerialization({
-      starttime: new Date().getTime(),
-      timecell: 10
-    }), {headers: this.headers})
-      .subscribe(data => {
-        console.log(data);
-      });
   }
 }
 class Camera {
   id: string;
-  name: string;
+  value: string;
   date: string;
   creator: string;
   inner_url: string;

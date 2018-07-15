@@ -15,7 +15,7 @@
 }
 .panel-footer{
   background-color: rgba(55,96,108,0.3);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
+  box-shadow:2px 4px 2px 0 rgba(0,0,0,0.2);
   border-radius: 0 0 5px 5px;
   border-top: none;
   color: white;
