@@ -2,8 +2,8 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
 import * as echarts from 'echarts';
-import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {EquipmentHttpService} from '../equipment-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-device-history',

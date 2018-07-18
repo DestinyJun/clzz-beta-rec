@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {LoginIdService} from '../../../remind/login-id.service';
-import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ScheduleHttpService} from '../schedule-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-order-marketing',

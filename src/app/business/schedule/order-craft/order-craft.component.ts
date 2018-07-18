@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
-import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ScheduleHttpService} from '../schedule-http.service';
+import {slideToRight} from '../../../routeAnimation';
 import {ToastService} from '../../../remind/toast.service';
 
 @Component({

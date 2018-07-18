@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {EquipmentHttpService} from '../../../remind/business/equipment-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {EquipmentHttpService} from '../equipment-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-device-new',
@@ -10,15 +10,25 @@ import {slideToRight} from '../../../remind/ts/routeAnimation';
 })
 export class DeviceNewComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
+  deviceInfo: Array<DeviceInfo> = [];
+  prop: Array<string> = ['dname', 'dmodel', 'dvender', 'dinstalldate', 'life', 'dtype', 'usestatus'];
+  tHead: Array<string> = ['#', '设备名称', '铭牌', '生产厂家', '安装时间', '有效使用时长', '设备类型', '使用情况'];
   constructor(private httpDevice: EquipmentHttpService) { }
-
-  page = 1;
-  DeviceInformation = [];
   ngOnInit() {
-    this.httpDevice.FindDeviceInformation({ page: this.page, row: 10})
+    this.httpDevice.FindDeviceInformation({ page: 1, row: 10})
       .subscribe(data => {
-        this.DeviceInformation = data['values'];
+        console.log(data);
+        this.deviceInfo = data['values'];
       });
   }
 
+}
+class DeviceInfo {
+  dname: string;
+  dmodel: string;
+  dvender: string;
+  dinstalldate: string;
+  life: string;
+  dtype: string;
+  usestatus: string;
 }

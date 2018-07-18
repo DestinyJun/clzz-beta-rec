@@ -6,7 +6,7 @@ import {OrderQueryComponent} from './order-query/order-query.component';
 import {OrderMarketingComponent} from './order-marketing/order-marketing.component';
 import {OrderCraftComponent} from './order-craft/order-craft.component';
 import {OrderAdjustmentComponent} from './order-adjustment/order-adjustment.component';
-import {ScheduleHttpService} from '../../remind/business/schedule-http.service';
+import {ScheduleHttpService} from './schedule-http.service';
 const mainRoutes: Routes = [
   {
     path: '',

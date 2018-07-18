@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpService} from '../../../shared/http.service';
+import {HttpService} from '../../../based/http.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.directive';
 import {BigToSmall} from '../../../remind/ts/componentAnimation';

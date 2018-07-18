@@ -2,8 +2,8 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
-import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {MonitorHttpService} from '../monitor-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-sensor',

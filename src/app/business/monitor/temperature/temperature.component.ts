@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {MonitorHttpService} from '../../../remind/business/monitor-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {MonitorHttpService} from '../monitor-http.service';
+import {slideToRight} from '../../../routeAnimation';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',

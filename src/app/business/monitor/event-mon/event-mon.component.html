@@ -1,33 +1,4 @@
 <div class="container-fluid">
-  <div class="panel-heading">
-    <span>事件数据监视</span>
-  </div>
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Id</th>
-          <th>事件类型</th>
-          <th>所在生产线</th>
-          <th>事件简述</th>
-          <th>发生时间</th>
-          <th>附件</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let i of event;let j = index">
-          <td>{{j}}</td>
-          <td>{{i['event_id']}}</td>
-          <td>{{i['event_type']}}</td>
-          <td>{{i['pro_system']}}</td>
-          <td>{{i['event_name']}}</td>
-          <td>{{i['event_date']}}</td>
-          <td>{{i['event_attachment']}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <app-table [tBody]="eventInfo" [prop]="prop" [title]="'事件数据监视'" [tHead]="tHead"></app-table>
+  <app-burster></app-burster>
 </div>

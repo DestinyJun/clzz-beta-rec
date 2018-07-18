@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ScheduleHttpService} from '../../../remind/business/schedule-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ScheduleHttpService} from '../schedule-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-order-query',

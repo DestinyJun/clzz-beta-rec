@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {InfoStatusService} from '../../../remind/info-status.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MaterialHttpService} from '../../../remind/business/material-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {MaterialHttpService} from '../material-http.service';
+import {slideToRight} from '../../../routeAnimation';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginIdService} from '../../../remind/login-id.service';
 

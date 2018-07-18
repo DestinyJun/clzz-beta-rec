@@ -72,13 +72,19 @@ a{
 ul{
   padding-left: 0;
 }
+li{
+   height: auto;
+ }
 a:hover{
   background-color: #209E91;
   color: white;
 }
-
+#li a:hover{
+  background-color: rgba(32, 158, 145, 0.5);
+}
 #li3{
   padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 15px;
   font-size: 16px;
   text-decoration: none;

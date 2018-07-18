@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {slideToRight} from '../../../routeAnimation';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -21,11 +21,11 @@ export class VideoComponent implements OnInit {
   vlcVName: Array<string> = [];
   san: any;
   videoTree = {
-    'name': '总平台', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': [
-      {'name': '一号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
-      {'name': '二号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
-      {'name': '三号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam},
-      {'name': '四号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': 20, 'color': false, 'child': this.Cam}
+    'name': '总平台', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': [
+      {'name': '一号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
+      {'name': '二号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
+      {'name': '三号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
+      {'name': '四号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam}
     ]
   };
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {

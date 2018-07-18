@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NgxEchartsModule} from 'ngx-echarts';
-import {HttpService} from '../../shared/http.service';
+import {HttpService} from '../../based/http.service';
 import {MonitorRoutersModule} from './monitor.routers.module';
 import {MonitorComponent} from './monitor.component';
 import {SensorComponent} from './sensor/sensor.component';
@@ -9,15 +9,19 @@ import {VideoComponent} from './video/video.component';
 import {EventMonComponent} from './event-mon/event-mon.component';
 import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
-import {MonitorHttpService} from '../../remind/business/monitor-http.service';
+import {MonitorHttpService} from './monitor-http.service';
 import {CanDeactivateGuardService} from './can-deactivate-guard.service';
+import {BursterComponent} from '../../commonModule/burster/burster.component';
+import {TableComponent} from '../../commonModule/table/table.component';
+import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     MonitorRoutersModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    CommonMmoduleModule
   ],
   declarations: [
     MonitorComponent,
@@ -26,6 +30,7 @@ import {CanDeactivateGuardService} from './can-deactivate-guard.service';
     EventMonComponent,
     TemperatureComponent,
     ThicknessComponent,
+    BursterComponent
   ],
   providers: [HttpService, MonitorHttpService, CanDeactivateGuardService],
   exports: [SensorComponent]

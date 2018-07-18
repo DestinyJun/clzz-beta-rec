@@ -18,6 +18,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoginModule} from './login/login.module';
 import { MobieLoginComponent } from './mobie-login/mobie-login.component';
 import {ModalModule} from 'ngx-bootstrap';
+import {PageService} from './based/page.service';
+import {CommonMmoduleModule} from './commonModule/common-mmodule.module';
 
 
 
@@ -30,7 +32,8 @@ import {ModalModule} from 'ngx-bootstrap';
     NgxQRCodeModule,
     ModalModule.forRoot(),
     BrowserAnimationsModule,
-    LoginModule
+    LoginModule,
+    CommonMmoduleModule
   ],
   declarations: [
     AppComponent,
@@ -39,10 +42,10 @@ import {ModalModule} from 'ngx-bootstrap';
     QrcodeComponent,
     OrderpageComponent,
     MobieOrderComponent,
-    MobieLoginComponent,
+    MobieLoginComponent
 
   ],
-  providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService],
+  providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService, PageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

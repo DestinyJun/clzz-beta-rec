@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-tactics-order',

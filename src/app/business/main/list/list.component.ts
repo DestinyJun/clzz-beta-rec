@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MainHttpService} from '../../../remind/business/main-http.service';
+import {MainHttpService} from '../main-http.service';
 import {BigToSmall} from '../../../remind/ts/componentAnimation';
 
 @Component({

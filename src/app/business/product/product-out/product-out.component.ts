@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ProductHttpService} from '../../../remind/business/product-http.service';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {ProductHttpService} from '../product-http.service';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-product-out',

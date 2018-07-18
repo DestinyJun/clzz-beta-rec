@@ -1,6 +1,6 @@
 import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
-import {slideToRight} from '../remind/ts/routeAnimation';
-import {leftToRight} from '../remind/ts/sidebarAnimation';
+import {slideToRight} from '../routeAnimation';
+import {leftToRight} from './sidebar/sidebarAnimation';
 import {ToastService} from '../remind/toast.service';
 
 @Component({

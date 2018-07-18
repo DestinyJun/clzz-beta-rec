@@ -1,0 +1,22 @@
+<div>
+  <div class="panel-heading">
+    <span>{{title}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th *ngFor="let th of tHead">{{th}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let i of tBody;let j = index">
+          <td >{{j}}</td>
+          <td *ngFor="let p of prop">{{i[p]}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MaterialHttpService} from '../../../remind/business/material-http.service';
+import {MaterialHttpService} from '../material-http.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../remind/login-id.service';
 import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
-import {slideToRight} from '../../../remind/ts/routeAnimation';
+import {slideToRight} from '../../../routeAnimation';
 
 @Component({
   selector: 'app-material-check',
