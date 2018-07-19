@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import {CanActivate} from '@angular/router';
-import {LoginIdService} from './login-id.service';
+import {LoginIdService} from '../login/login-id.service';
 @Injectable()
 export class CanrouteService implements CanActivate {
 
-  constructor(private session: LoginIdService) {}
+  constructor() {}
   canActivate() {
-    console.log(this.session.get('userId'));
-    console.log(this.session);
-    if (this.session.get('userId')) {
-      return true;
-    }
-      return false;
+    return LoginIdService.loginStatus;
   }
 }

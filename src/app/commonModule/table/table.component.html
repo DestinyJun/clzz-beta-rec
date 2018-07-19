@@ -14,6 +14,9 @@
         <tr *ngFor="let i of tBody;let j = index">
           <td >{{j}}</td>
           <td *ngFor="let p of prop">{{i[p]}}</td>
+          <td *ngIf="btnGroup.length > 0">
+            <button *ngFor="let btn of btnGroup" class="btn-success btn">{{btn}}</button>
+          </td> <!-- 有按钮则生成 -->
         </tr>
         </tbody>
       </table>

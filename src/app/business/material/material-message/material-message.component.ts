@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MaterialHttpService} from '../material-http.service';
 import {slideToRight} from '../../../routeAnimation';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LoginIdService} from '../../../remind/login-id.service';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-material-message',

@@ -1,9 +1,7 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {HomeService} from '../home.service';
-import {getTime} from 'ngx-bootstrap/chronos/utils/date-getters';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {LoginIdService} from '../../remind/login-id.service';
+import {LoginIdService} from '../../login/login-id.service';
 import {progressbar} from './progressbar-animation';
 
 @Component({
@@ -26,12 +24,15 @@ export class HeaderComponent implements OnInit {
   public scrollToggle: boolean;
   public navListToggle: boolean;
   long = '_0%';
-  constructor(private homeService: HomeService, private route: Router, private http: HttpClient, private Id: LoginIdService) {
+  constructor(private route: Router, public loginIdService: LoginIdService) {
     this.infoToggle = true;
     this.scrollToggle = true;
     this.navListToggle = true;
   }
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(() => this.loginIdService.updateTime(), 60000);
+    // 刷新后台用户登录时间
+  }
   public Sidebar() {
     console.log('header');
     this.sidebar.emit(true);
@@ -43,20 +44,13 @@ export class HeaderComponent implements OnInit {
     }
       this.scrollToggle = !this.scrollToggle;
   }
-  loginOut() {
-    const sid = { sid: this.Id.get('userId') };
-    console.log(sid);
-    this.http.post('http://120.78.137.182/element-admin/user/logout', sid)
-      .subscribe(data => {
-        console.log(data);
-        if (data['status'] === '10') {
-          this.Id.remove('userId');
-        }
-      });
-    this.route.navigate(['/login']);
-  }
   public onToggleInfo(): void {
       this.infoToggle = !this.infoToggle;
+  }
+  public loginOut() { // 登出
+    if (this.loginIdService.loginOut()) {
+      this.route.navigate(['/login']);
+    }
   }
   public getDateDiff (nowTime: Date, endTime: Date): any {
     const t1 = new Date(nowTime).getTime();

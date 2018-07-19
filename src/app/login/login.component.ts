@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {LoginIdService} from '../remind/login-id.service';
+import {LoginIdService} from './login-id.service';
+import {Subject} from 'rxjs/Subject';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,36 +12,17 @@ import {LoginIdService} from '../remind/login-id.service';
 export class LoginComponent implements OnInit {
   public user: FormGroup;
   public sid: string;
-  public tips: string;
-  constructor(private route: Router, private fb: FormBuilder, private http: HttpClient, private Id: LoginIdService) {
+  public tips: string | void;
+  constructor(private route: Router, private fb: FormBuilder, private loginService: LoginIdService) {
     this.user = this.fb.group( {
       username: ['', Validators.required],
-      passwords: ''
+      passwords: '',
     });
   }
   ngOnInit() {}
-  ToMain() {
-    const body = {
-      uname: this.user.get('username').value,
-      upwd: this.user.get('passwords').value ,
-      module: 'WEBN'
-      };
-    this.http.post('http://120.78.137.182/element-admin/user/login', body)
-      .subscribe(data => {
-        console.log(data['status'] === '14');
-        if (data['status'] === '10') {
-          this.Id.set('userId', data['sid']);
-          this.Id.set('userName', this.user.get('username').value);
-          this.route.navigate(['/home']);
-        } else if (data['status'] === '14') {
-          this.tips = '用户已在线';
-          this.Id.set('userId', data['sid']);
-          this.Id.set('userName', this.user.get('username').value);
-          this.route.navigate(['/home']);
-        } else {
-          this.tips = '用户名或密码错误';
-        }
-      });
+  login() {
+    const username = String(this.user.get('username').value),
+      passwords = String(this.user.get('passwords').value);
+    this.tips = this.loginService.login(username, passwords); // 提示登录状态
   }
-
 }

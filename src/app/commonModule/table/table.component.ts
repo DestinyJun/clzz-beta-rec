@@ -12,6 +12,7 @@ export class TableComponent implements OnInit {
   @Input() prop: Array<string>; // 类的成员信息排列
   @Input() tBody: Array<object>[]; // 表格主体数据
   @Input() title: string; // 表格标题
+  @Input() btnGroup: Array<string> = []; // 按钮组
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +20,6 @@ export class TableComponent implements OnInit {
   }
 
   d() {
-    console.log(this.prop);console.log(this.tBody);
+    console.log(this.prop); console.log(this.tBody);
   }
 }

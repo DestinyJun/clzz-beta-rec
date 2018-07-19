@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {LoginIdService} from '../../../remind/login-id.service';
+import {LoginIdService} from '../../../login/login-id.service';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
 

@@ -5,7 +5,7 @@ import {AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RemindComponent } from './based/remind/remind.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {LoginIdService} from './remind/login-id.service';
+import {LoginIdService} from './login/login-id.service';
 import { DepartmentButtonComponent } from './based/department-button/department-button.component';
 import { QrcodeComponent } from './based/qrcode/qrcode.component';
 import {NgxQRCodeModule} from 'ngx-qrcode2';

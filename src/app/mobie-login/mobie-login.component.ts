@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {LoginIdService} from '../remind/login-id.service';
+import {LoginIdService} from '../login/login-id.service';
 
 @Component({
   selector: 'app-mobie-login',

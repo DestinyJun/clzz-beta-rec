@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostBinding, OnInit, Output, TemplateRef} from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import {LoginIdService} from '../../../remind/login-id.service';
+import {LoginIdService} from '../../../login/login-id.service';
 import {FormBuilder, FormGroup,  Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
