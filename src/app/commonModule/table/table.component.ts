@@ -15,6 +15,10 @@ export class TableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  d() {
+    console.log(this.prop);console.log(this.tBody);
+  }
 }
