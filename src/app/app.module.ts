@@ -32,8 +32,7 @@ import {CommonMmoduleModule} from './commonModule/common-mmodule.module';
     NgxQRCodeModule,
     ModalModule.forRoot(),
     BrowserAnimationsModule,
-    LoginModule,
-    CommonMmoduleModule
+    LoginModule
   ],
   declarations: [
     AppComponent,
@@ -42,8 +41,7 @@ import {CommonMmoduleModule} from './commonModule/common-mmodule.module';
     QrcodeComponent,
     OrderpageComponent,
     MobieOrderComponent,
-    MobieLoginComponent
-
+    MobieLoginComponent,
   ],
   providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService, PageService],
   bootstrap: [AppComponent]

@@ -29,8 +29,7 @@ import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
     VideoComponent,
     EventMonComponent,
     TemperatureComponent,
-    ThicknessComponent,
-    BursterComponent
+    ThicknessComponent
   ],
   providers: [HttpService, MonitorHttpService, CanDeactivateGuardService],
   exports: [SensorComponent]

@@ -13,7 +13,7 @@ import {BursterComponent} from './burster/burster.component';
   ],
   exports: [
     TableComponent,
-    BursterComponent
+    BursterComponent,
   ]
 })
 export class CommonMmoduleModule { }
