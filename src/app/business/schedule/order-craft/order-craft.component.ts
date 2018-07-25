@@ -49,6 +49,7 @@ export class OrderCraftComponent implements OnInit {
       page: this.page,
       row: this.row,
       status: 2,
+      sysids: this.user.getObject('user').sysids
       };
     this.http.SeeOrders(body)
       .subscribe(data => {
@@ -112,7 +113,7 @@ export class OrderCraftComponent implements OnInit {
     }
   }
   pass(order) {
-      order.pro_auditor = this.user.get('userName');
+      order.pro_auditor = this.user.getObject('user').realName;
       order.fdry_film = this.film.get('fdry_film').value;
       order.fwet_film = this.film.get('fwet_film').value;
       order.pdry_film = this.film.get('pdry_film').value;
@@ -128,7 +129,7 @@ export class OrderCraftComponent implements OnInit {
       });
   }
   Nopass(order) {
-    order.pro_auditor = this.user.get('userName');
+    order.pro_auditor = this.user.getObject('user').realName;
     order.fdry_film = this.film.get('fdry_film').value;
     order.fwet_film = this.film.get('fwet_film').value;
     order.pdry_film = this.film.get('pdry_film').value;

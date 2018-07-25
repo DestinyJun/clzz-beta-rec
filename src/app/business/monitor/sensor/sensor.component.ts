@@ -1,9 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import * as echarts from 'echarts';
 import {MonitorHttpService} from '../monitor-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {SensorService} from './sensor.service';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-sensor',
@@ -21,34 +22,39 @@ export class SensorComponent implements OnInit {
   NoDataSensorJson: any;
   option: any;
   Datas: any;
-  Modularname = '驱动机';
+  Modularname: string;
   interval: any;
+  modal3: any;
   constructor(private activatedRoute: ActivatedRoute,
-              private http: MonitorHttpService) {
+              private http: MonitorHttpService,
+              private user: LoginIdService) {
     this.ModularInit();
   }
   ngOnInit() {
     this.DeviceSensorInit(this.ModularId);
-    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1)}, 3000);
+    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
     clearInterval(this.interval);
-    this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
+    // this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
     this.ModularId = i['mid'];
     this.Modularname = i['mname'];
   }
   // 获取系统下模块
   ModularInit() {
-    this.http.SeeSystemModular({sysid: 'sys0001'})
+    this.http.SeeSystemModular({sysids: this.user.getObject('user').sysids})
       .subscribe( data => {
         this.Modular = data['values'][0]['modular'];
+        this.Modularname = this.Modular[0]['mname'];
       });
   }
 // 获取模块下设备-传感器-最新值-id
   DeviceSensorInit(MId) {
+    console.log(MId);
     this.http.FindDevicenameSensornameSensordata({mid: MId})
       .subscribe(data => {
+        console.log(data);
         data = data['values'];
         this.DeviceSensorJson = data;
         this.NoDataSensorInit(MId);
@@ -56,8 +62,10 @@ export class SensorComponent implements OnInit {
   }
 // 增加无数据设备传感器
   NoDataSensorInit(MId) {
+    console.log(MId);
     this.http.modularDeviceSensorName({mid: MId})
       .subscribe(data => {
+        console.log(data);
         this.NoDataSensorJson = data['values'];
         const putData = [];
         const lengthNo = this.NoDataSensorJson.length;
@@ -95,10 +103,11 @@ export class SensorComponent implements OnInit {
       });
   }
 
-  MapChart(body: string, SensorName: string) {
-    this.Datas = this.http.findhstorysensordata({sid: body});
+  MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
+    this.Datas = this.http.findhstorysensordata({sid: body, starttime: starttime, deadline: deadline});
     this.Datas.subscribe(d => {
       if (d['status'] === '10') {
+        console.log(d);
         const length = d['values'].length;
         const dates = [];
         const data = [];
@@ -204,7 +213,9 @@ export class SensorComponent implements OnInit {
     });
   }
   modal2(value) {
-    this.MapChart(value.Name.sid, value.Name.sname);
+    clearInterval(this.modal3);
+    this.modal3 = setInterval(() => this.MapChart(value.Name.sid, value.Name.sname,
+      this.toDatestart(new Date()), this.toDateend(new Date())), 1000);
     console.log(value);
   }
   ReSize(event) {
@@ -212,5 +223,20 @@ export class SensorComponent implements OnInit {
   }
   ReSizeInit() {
     setTimeout(() => this.ModalChart.resize(), 500);
+  }
+  toDatestart(time) {
+    let Hours = time.getHours(), Minutes = time.getMinutes();
+    if ( Minutes < 20) {
+      Minutes += 40;
+      Hours -= 1;
+    } else {
+      Minutes -= 20;
+    }
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
+  }
+  toDateend(time) {
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
   }
 }

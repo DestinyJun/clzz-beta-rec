@@ -27,7 +27,8 @@ export class OrderMarketingComponent implements OnInit {
     const body = {
       page: this.page,
       row: this.row,
-      status: 1
+      status: 1,
+      sysids: this.user.getObject('user').sysids
       };
     console.log(body);
     this.http.SeeOrders(body)
@@ -74,7 +75,7 @@ export class OrderMarketingComponent implements OnInit {
   }
 
   pass(oid) {
-    oid.auditor = this.user.get('userName');
+    oid.auditor = this.user.getObject('user').realName,
     oid.status = 2;
     this.http.UpdateOrders(oid)
       .subscribe(data => {
@@ -83,7 +84,7 @@ export class OrderMarketingComponent implements OnInit {
       });
   }
   Nopass(oid) {
-    oid.auditor = this.user.get('userName');
+    oid.auditor = this.user.getObject('user').realName,
     oid.status = 11;
     this.http.UpdateOrders(oid)
       .subscribe(data => {

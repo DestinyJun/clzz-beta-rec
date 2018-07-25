@@ -23,7 +23,8 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     this.event = this.http.getEvent();
     this.event.subscribe(data => {
-      this.Modal1 = data['values'];
+      console.log(data);
+      this.Modal1 = data['values']['datas'];
     });
   }
   EventT(value) {

@@ -11,7 +11,7 @@ import {LoginIdService} from '../login/login-id.service';
 export class MobieLoginComponent implements OnInit {
 
   public tips: string;
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private Id: LoginIdService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private user: LoginIdService) {
     const body = {
       uname: this.route.snapshot.params['username'],
       upwd: this.route.snapshot.params['password'],
@@ -19,29 +19,29 @@ export class MobieLoginComponent implements OnInit {
     };
     console.log(this.route.snapshot.params['web'] === 'main');
     if (this.route.snapshot.params['web'] === 'main') {
-      this.http.post('http://120.78.137.182/element-admin/user/login', body)
+      this.http.post<User>('http://120.78.137.182/element-admin/user/login', body)
         .subscribe(data => {
           console.log(data);
           if (data['status'] === '10') {
-            this.Id.set('userId', data['sid']);
+            this.user.setObject('user', data);
             this.router.navigate(['/home']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
-            this.Id.set('userId', data['sid']);
+            this.user.setObject('user', data);
             this.router.navigate(['/home']);
           } else {
             this.tips = '用户名或密码错误';
           }
         });
     } else if (this.route.snapshot.params['web'] === 'sensor') {
-      this.http.post('http://120.78.137.182/element-admin/user/login', body)
+      this.http.post<User>('http://120.78.137.182/element-admin/user/login', body)
         .subscribe(data => {
           if (data['status'] === '10') {
-            this.Id.set('userId', data['sid']);
+            this.user.setObject('user', data);
             this.router.navigate(['/home/monitor/sensor']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
-            this.Id.set('userId', data['sid']);
+            this.user.setObject('user', data);
             this.router.navigate(['/home/monitor/sensor']);
           } else {
             this.tips = '用户名或密码错误';
@@ -53,4 +53,10 @@ export class MobieLoginComponent implements OnInit {
   ngOnInit() {
   }
 
+}
+class User {
+  realName: string;
+  sid: string;
+  status: string;
+  sysids: string;
 }

@@ -8,6 +8,7 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
         <li>生产系统1</li></ul>
+      <button class="btn" [ngClass]="{'btn-success':toggleTitle==='当前外网','btn-danger':toggleTitle==='当前内网'}" (click)="toggleUrl()">{{toggleTitle}}</button>
     </div>
     <div>
 

@@ -1,10 +1,17 @@
 <div class="container-fluid">
   <div class="panel-heading">
-    <span>温度临时示意图</span>
+    <span>厚度数据图</span>
   </div>
   <div class="panel-body">
-    <div echarts [options]="options" [merge]="updateOptions" class="demo-chart"></div>
+    <div>
+      <div class="row ">
+        <div *ngFor="let op of options;let i=index" class="col-md-5" [ngClass]="{false:'col-md-offset-1'}[i%2!==0]">
+          <div echarts [options]="op"></div>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>
 
 

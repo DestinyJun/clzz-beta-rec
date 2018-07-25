@@ -10,6 +10,7 @@ export class CanDeactivateGuardService implements CanDeactivate<SensorComponent>
   ) {
 
     clearInterval(component.interval);
+    clearInterval(component.modal3);
     return true;
   }
 }

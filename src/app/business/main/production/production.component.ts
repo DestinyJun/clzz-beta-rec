@@ -1,5 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-production',
@@ -113,8 +114,11 @@ export class ProductionComponent implements OnInit {
       ]
   };
   public ModalChart: any;
-  constructor(private http: HttpClient ) {
-    this.http.post('http://120.78.137.182/element-plc/order/audited', '')
+  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+  constructor(private http: HttpClient, private user: LoginIdService) {
+    this.http.post('http://120.78.137.182/element-plc/order/audited', 'sysids=' + this.user.getObject('user').sysids,{
+      headers: this.headers
+    })
       .subscribe(data => {
         const length = data['values'].length;
         for (let i = 0; i < length; i++) {

@@ -4,8 +4,11 @@ import {LoginIdService} from '../login/login-id.service';
 @Injectable()
 export class CanrouteService implements CanActivate {
 
-  constructor() {}
+  constructor(private loginIdService: LoginIdService) {}
   canActivate() {
-    return LoginIdService.loginStatus;
+    console.log(this.loginIdService.getBool('loginStatus'));
+    // return this.loginIdService.getBool('loginStatus');
+
+      return true;
   }
 }

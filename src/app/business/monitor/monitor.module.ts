@@ -14,6 +14,7 @@ import {CanDeactivateGuardService} from './can-deactivate-guard.service';
 import {BursterComponent} from '../../commonModule/burster/burster.component';
 import {TableComponent} from '../../commonModule/table/table.component';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
+import {SensorService} from './sensor/sensor.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
     TemperatureComponent,
     ThicknessComponent
   ],
-  providers: [HttpService, MonitorHttpService, CanDeactivateGuardService],
+  providers: [HttpService, MonitorHttpService, SensorService, CanDeactivateGuardService],
   exports: [SensorComponent]
 })
 export class MonitorModule { }

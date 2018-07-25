@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {LoginIdService} from '../../login/login-id.service';
 
 @Injectable()
 export class ScheduleHttpService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private user: LoginIdService) { }
 
   private parameterSerialization(obj: object): string {
     let result: string;
@@ -31,7 +32,10 @@ export class ScheduleHttpService {
   }
 
   public OrderAudited(): Observable<any> {
-    return this.http.post('http://120.78.137.182/element-plc/order/audited', '', {
+    const body = this.parameterSerialization({
+      sysids: this.user.getObject('user').sysids
+    });
+    return this.http.post('http://120.78.137.182/element-plc/order/audited', body, {
       headers: this.headers
     });
   }

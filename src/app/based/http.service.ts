@@ -1,18 +1,25 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {LoginIdService} from '../login/login-id.service';
 
 @Injectable()
 export class HttpService {
   public addEvent: EventEmitter<string> = new EventEmitter();
-  constructor(private http: HttpClient) { }
+  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+  constructor(private http: HttpClient, private user: LoginIdService) { }
+
   // 获取事件
   getEvent(): Observable<any> {
-    const body = {
+    const body = this.parameterSerialization({
       'page': '1',
-      'row': '10'
-    };
-    return this.http.post('http://120.78.137.182/element/query-event', body);
+      'row': '10',
+      'sysids': this.user.getObject('user').sysids
+    });
+    console.log(body);
+    return this.http.post('http://120.78.137.182/element/query-event', body, {
+      headers: this.headers
+    });
   }
 
   // 设备ID查看传感器
@@ -45,6 +52,19 @@ export class HttpService {
     return this.http.post('http://120.78.137.182/colorbond-consumer/seesensordata', bodyM);
   }
 
+  private parameterSerialization(obj: object): string {
+    let result: string;
+    for (const prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        if (!result) {
+          result = prop + '=' + obj[prop];
+        } else {
+          result += '&' + prop + '=' + obj[prop];
+        }
+      }
+    }
+    return result;
+  }
 }
 
 export class OrderList {

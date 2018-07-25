@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainHttpService} from '../main-http.service';
 import {BigToSmall} from '../../../remind/ts/componentAnimation';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,7 @@ export class ListComponent implements OnInit {
   public orders: Array<object>;
   public order: FormGroup;
   public buttonDisabled = [true, true, true, true, true, true, true, true];
-  constructor(private http: MainHttpService, private fb: FormBuilder) {
+  constructor(private http: MainHttpService, private fb: FormBuilder, private user: LoginIdService) {
     this.order = this.fb.group({
       address: [{value: '', disabled: true}],
       allength: [{value: '', disabled: true}],
@@ -67,7 +68,8 @@ export class ListComponent implements OnInit {
     const body = {
       page: 1,
       row: 5,
-      status: 0
+      status: 1,
+      sysids: this.user.getObject('user').sysids
     };
     this.orderlist = this.http
       .SeeOrders(body);

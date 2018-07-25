@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-order-query',
@@ -22,7 +23,7 @@ export class OrderQueryComponent implements OnInit {
   public Color = [];
   public SelectI: number;
 
-  constructor(private http: ScheduleHttpService, private fb: FormBuilder) {
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService) {
     this.orderForm = this.fb.group({
       oid: ['', Validators.required],
       cname: ['', Validators.required],
@@ -73,7 +74,8 @@ export class OrderQueryComponent implements OnInit {
     const body = {
      page: this.page,
       row: this.row,
-     status: 0
+     status: 0,
+      sysids: this.user.getObject('user').sysids
       };
     this.http.SeeOrders(body)
       .subscribe(data => {

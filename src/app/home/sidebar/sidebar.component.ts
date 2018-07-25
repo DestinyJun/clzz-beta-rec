@@ -113,7 +113,6 @@ export class SidebarComponent implements OnInit {
 
   }
   menuliMouseEnter(element) {
-    console.log(element.offsetTop);
     this.slidingTop =  element.offsetTop;
     this.slidinghight = element.offsetHeight;
     element.setState = true;

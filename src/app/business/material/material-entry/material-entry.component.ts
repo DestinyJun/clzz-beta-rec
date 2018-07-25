@@ -78,7 +78,7 @@ export class MaterialEntryComponent implements OnInit {
     this.alJson.Alprice = this.AL.get('Alprice').value;
     this.alJson.supname = this.AL.get('supname').value;
     this.alJson.wid = this.AL.get('wid').value;
-    this.alJson.auditor = this.user.get('userName');
+    this.alJson.auditor = this.user.getObject('user').realName;
     this.alJson.pro_system = this.AL.get('pro_system').value;
     for (let i = 0; i < this.As.length; i++) {
       this.alJson.arr.push({supid: this.supid[i], Alweight: this.Alweight[i]});
@@ -100,7 +100,7 @@ export class MaterialEntryComponent implements OnInit {
     this.paintJson.paex_weight = this.paint.get('paex_weight').value;
     this.paintJson.supname = this.paint.get('supname').value;
     this.paintJson.wid = this.paint.get('wid').value;
-    this.paintJson.auditor = this.user.get('userName');
+    this.paintJson.auditor = this.user.getObject('user').realName;
     this.paintJson.dname = this.paint.get('dname').value;
     this.paintJson.dtype = this.paint.get('dtype').value;
     this.paintJson.condensate = this.paint.get('condensate').value;

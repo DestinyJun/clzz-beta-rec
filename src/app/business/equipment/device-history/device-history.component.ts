@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as echarts from 'echarts';
 import {EquipmentHttpService} from '../equipment-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-device-history',
@@ -16,10 +17,11 @@ export class DeviceHistoryComponent implements OnInit {
   sid: string;
   option: any;
   Datas: Observable<any>;
-  Device: Array<NameId> = [];
-  Modular: Array<NameId> = [];
-  Sensor: Array<NameId> = [];
+  device: Array<Device> = [];
+  modular: Array<Modular> = [];
+  sensor: Array<Sensor> = [];
   constructor(
+    private user: LoginIdService,
     private activatedRoute: ActivatedRoute,
     private httpSensor: EquipmentHttpService,
     private httpAdmin: EquipmentHttpService,
@@ -31,25 +33,11 @@ export class DeviceHistoryComponent implements OnInit {
   /*模块初始化数据*/
   ModularInit(MId = 0, DId = 0) {
     const modular = [];
-    this.httpAdmin.SeeAdministration()
+    this.httpAdmin.SeeSystemModular({sysids: this.user.getObject('user').sysids})
       .subscribe( data => {
-        console.log(data);
-        const system: Array<object> = data['system'];
-        for (let i = 0; i < system.length; i++) {
-          for ( const pro in system[i]) {
-            if (pro === 'modular') {
-              const m: Array<object> = system[i]['modular'];
-              for (let j = 0; j < m.length; j++) {
-                const name = String(m[j]['mname']);
-                const id = String(m[j]['mid']);
-                modular.push({name, id});
-              }
-              console.log(modular);
-              this.DeviceInit(modular[MId].id);
-              this.Modular = modular;
-            }
-          }
-        }
+        this.modular = data['values'][0]['modular'];
+        console.log(this.modular);
+        this.DeviceInit(this.modular[0].mid);
       });
   }
   /*设备初始化数据*/
@@ -58,16 +46,8 @@ export class DeviceHistoryComponent implements OnInit {
     this.httpDevice.SeeModularDeviceSensor({mid: Mid})
       .subscribe(data => {
         console.log(data);
-        const d: Array<object> = data['values'][0]['device'];
-            const length = d.length;
-            for (let j = 0; j < length; j++) {
-              const name = String(d[j]['dname']);
-              const id = String(d[j]['did']);
-              device.push({name, id});
-            }
-            this.SensorInit(device[0].id);
-            this.Device = device;
-
+        this.device = data['values'][0]['device'];
+        this.SensorInit(this.device[0].did);
       });
 
   }
@@ -76,15 +56,9 @@ export class DeviceHistoryComponent implements OnInit {
     const sensor = [];
     this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
-        const i: Array<any> = data['values'][0]['sensor'];
-        const length = i.length;
-        for (let j = 0; j < length; j++) {
-          const name = String(i[j]['sname']);
-          const id = String(i[j]['sid']);
-          sensor.push({name, id});
-        }
-        this.MapChart(sensor[0].id, sensor[0].name);
-        this.Sensor = sensor;
+        console.log(data);
+        this.sensor = data['values'][0]['sensor'];
+        this.MapChart(this.sensor[0].sid, this.sensor[0].sname);
       });
   }
 
@@ -201,7 +175,41 @@ export class DeviceHistoryComponent implements OnInit {
   }
 
 }
-export class NameId {
-  name: string|any;
-  id: string|any;
+class Modular {
+  mname: string;
+  mid: string;
+  fid: string;
+  device: string;
+  open: string;
+}
+class Device {
+  current: 0;
+  did: string;
+  dinstalldate: string;
+  dmodel: string;
+  dname: string;
+  dproDate: string;
+  dstatus: string;
+  dtype: string;
+  dvender: string;
+  factoryNumber: string;
+  fid: string;
+  open: string;
+  power: string;
+  sensor: string;
+  usestatus: string;
+  voltage: string;
+}
+class Sensor {
+  initialvalue: string;
+  open: string;
+  pid: string;
+  saddress: string;
+  sdatatype: string;
+  sensordata: string;
+  sid: string;
+  smax: string;
+  sname: string;
+  sstatus: string;
+  stype: string;
 }

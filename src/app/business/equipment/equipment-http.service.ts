@@ -50,8 +50,9 @@ export class EquipmentHttpService {
     });
   }
 
-  public SeeAdministration(): Observable<any> {
-    return this.http.post('http://120.78.137.182/element/SeeAdministration', '', {
+  public SeeSystemModular(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    return this.http.post('http://120.78.137.182/element/SeeSystemModular', body, {
       headers: this.headers
     });
   }

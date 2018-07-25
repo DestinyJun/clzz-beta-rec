@@ -85,7 +85,7 @@ export class OrderEntryComponent implements OnInit {
       bprogram: this.order.get('bprogram').value,
       bccd: this.order.get('bccd').value,
       address: this.order.get('address').value,
-      submitter: this.user.get('submitter'),
+      submitter: this.user.getObject('user').realName,
       exdelitime: this.order.get('exdelitime').value,
       exshiptime: this.order.get('exshiptime').value,
       pro_system: this.pro_system,
