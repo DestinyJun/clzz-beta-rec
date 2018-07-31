@@ -21,7 +21,7 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.event = this.http.getEvent();
+    this.event = this.http.getEvent(1, 10);
     this.event.subscribe(data => {
       console.log(data);
       this.Modal1 = data['values']['datas'];

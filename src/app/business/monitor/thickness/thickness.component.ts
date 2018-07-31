@@ -8,14 +8,12 @@ import * as echarts from 'echarts';
 @Component({
   selector: 'app-thickness',
   templateUrl: './thickness.component.html',
-  styleUrls: ['./thickness.component.css'],
-  animations: [slideToRight]
+  styleUrls: ['./thickness.component.css']
 })
 export class ThicknessComponent implements OnInit {
   option: Array<any>;
   options: Array<any> = [];
   updateOptions: any;
-  @HostBinding('@routerAnimate') state;
   private now: Date;
   private value: number ;
   private data: any[];

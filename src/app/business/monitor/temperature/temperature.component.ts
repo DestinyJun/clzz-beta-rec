@@ -7,11 +7,9 @@ import * as echarts from 'echarts';
 @Component({
   selector: 'app-temperature',
   templateUrl: './temperature.component.html',
-  styleUrls: ['./temperature.component.css'],
-  animations: [slideToRight]
+  styleUrls: ['./temperature.component.css']
 })
 export class TemperatureComponent implements OnInit {
-  @HostBinding('@routerAnimate') state;
   Temperature: Observable<any>;
   SensorId: Array<any> = [];
   SensorDataTime: Array<any>[] = [];

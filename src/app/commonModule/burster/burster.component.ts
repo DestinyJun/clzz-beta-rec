@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PageService} from '../../based/page.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-burster',
@@ -8,13 +7,24 @@ import {PageService} from '../../based/page.service';
 })
 export class BursterComponent implements OnInit {
 
-  @Input() countNumber: number;
+  @Output() nextPage = new EventEmitter();
+  @Output() lastPage = new EventEmitter();
+  @Output() skipPage = new EventEmitter();
+  @Input() max: number;
   @Input() row: number;
-  constructor(public page: PageService) {
-    this.page.setPage(this.countNumber, this.row);
+  @Input() nowPage: number;
+  constructor() {
   }
 
-  ngOnInit() {
+  ngOnInit() {  }
+  next() {
+    this.nextPage.emit('next');
   }
-
+  skip(value) {
+    console.log(value);
+    this.skipPage.emit(value);
+  }
+  last() {
+    this.lastPage.emit('last');
+  }
 }

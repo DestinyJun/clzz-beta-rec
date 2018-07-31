@@ -24,7 +24,7 @@ export class MonitorHttpService {
 
   public SeeSystemModular(sysid: object): Observable<any> {
     const body = this.parameterSerialization(sysid);
-    return this.http.post('http://120.78.137.182/element/SeeSystemModular', body, {
+    return this.http.post('http://120.78.137.182/element-plc/find-system-modular', body, {
       headers: this.headers
     });
   }

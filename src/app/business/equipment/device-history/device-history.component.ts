@@ -17,22 +17,22 @@ export class DeviceHistoryComponent implements OnInit {
   sid: string;
   option: any;
   Datas: Observable<any>;
-  device: Array<Device> = [];
-  modular: Array<Modular> = [];
-  sensor: Array<Sensor> = [];
+  device: Array<Device>;
+  modular: Array<Modular>;
+  sensor: Array<Sensor>;
   constructor(
-    private user: LoginIdService,
-    private activatedRoute: ActivatedRoute,
-    private httpSensor: EquipmentHttpService,
-    private httpAdmin: EquipmentHttpService,
-    private httpDevice: EquipmentHttpService) {}
+    private user: LoginIdService, private activatedRoute: ActivatedRoute, private httpSensor: EquipmentHttpService,
+    private httpAdmin: EquipmentHttpService, private httpDevice: EquipmentHttpService) {
+    this.device = [];
+    this.modular = [];
+    this.sensor = [];
+  }
 
   ngOnInit() {
     this.ModularInit();
   }
   /*模块初始化数据*/
   ModularInit(MId = 0, DId = 0) {
-    const modular = [];
     this.httpAdmin.SeeSystemModular({sysids: this.user.getObject('user').sysids})
       .subscribe( data => {
         this.modular = data['values'][0]['modular'];
@@ -42,7 +42,6 @@ export class DeviceHistoryComponent implements OnInit {
   }
   /*设备初始化数据*/
   DeviceInit(Mid) {
-    const device = [];
     this.httpDevice.SeeModularDeviceSensor({mid: Mid})
       .subscribe(data => {
         console.log(data);
@@ -53,7 +52,6 @@ export class DeviceHistoryComponent implements OnInit {
   }
   /*传感器初始化数据*/
   SensorInit(DId) {
-    const sensor = [];
     this.httpSensor.SeeDeviceSensor({did: DId})
       .subscribe(data => {
         console.log(data);
@@ -169,9 +167,6 @@ export class DeviceHistoryComponent implements OnInit {
         console.log('id不存在');
       }
     });
-  }
-  query3Number(i) {
-    this.ngOnInit();
   }
 
 }

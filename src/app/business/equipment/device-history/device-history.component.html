@@ -1,5 +1,5 @@
 <!--<div><app-ypath-navgation></app-ypath-navgation></div>-->
-<div style="padding: 0 40px">
+<div class="container-fluid">
   <div class="panel-heading" id="dropdown">
     <span>传感器历史数据</span>
     <!--     分割线      -->
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="panel-body">
+  <div class="panel-body" [ngStyle]="{'height': height}">
     <div echarts [options]="option"></div>
   </div>
 </div>

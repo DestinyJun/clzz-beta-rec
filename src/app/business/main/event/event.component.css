@@ -16,22 +16,6 @@
   border-radius: 1px;
   background: rgba(55,96,108,0.3);
 }
-.panel-heading{
-  background-color: rgba(55,96,108,0.5);
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.3);
-  border-radius: 5px 5px 0 0;
-  color: white;
-}
-.panel-heading > span{
-  font-size: 16px;
-}
-.panel-body{
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:4px 4px 2px 0 rgba(0,0,0,0.2);
-  border-radius: 0;
-  cursor: pointer;
-  color: white;
-}
 
 .panel-heading > .dropdown{
   margin-right: 10px;
@@ -56,12 +40,7 @@
 .table > thead > tr >th{
   border-bottom: 0;
 }
-.panel-footer{
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-  border-radius: 0 0 5px 5px;
-  color: white;
-}
+
 span{
   color: #FFFFFF;
 }

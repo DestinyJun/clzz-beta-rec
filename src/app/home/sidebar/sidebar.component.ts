@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
     new NavList('生产监视', 'fa fa-laptop', false, [
       new NavListChild('感知数据即时监视', false, 'monitor/sensor'),
       new NavListChild('视频数据即时监视', false, 'monitor/video'),
-      new NavListChild('事件数据监视', false, 'monitor/event'),
+      new NavListChild('事件数据监视', false, 'monitor/event/1'),
       new NavListChild('温度数据即时监视', false, 'monitor/temperature'),
       new NavListChild('厚度数据即时监视', false, 'monitor/thickness')
     ] , true),

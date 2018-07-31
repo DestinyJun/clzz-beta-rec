@@ -1,4 +1,5 @@
 <div class="container-fluid">
   <app-table [tBody]="eventInfo" [prop]="prop" [title]="'事件数据监视'" [tHead]="tHead"></app-table>
-  <app-burster></app-burster>
+  <app-burster [max]="pageService.getMax()" [row]="row" [nowPage]="pageService.getNowPage()" (lastPage)="pageService.lastPage()"
+               (nextPage)="pageService.nextPage()" (skipPage)="pageService.skipPage($event)"></app-burster>
 </div>

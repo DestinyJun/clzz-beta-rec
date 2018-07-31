@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class PageService {
 
-  private now: number; // 当前页码
+  private nowPage: number; // 当前页码
   private max: number; // 最大页码
   private min: number; // 最小页码
   private countNumber: number; // 计数总数
   private Row: number; // 每页行数
-  constructor() { // 默认当前第一页，最小页码为一页
-    this.now = 1;
+  private url: string;
+  constructor(private router: Router) { // 默认当前第一页，最小页码为一页
+    this.nowPage = 1;
     this.min = 1;
   }
 
@@ -23,9 +25,14 @@ export class PageService {
       this.max = countNumber / Row + 1;
     }
   }
-
-  getNow(): number {
-    return this.now;
+  setNowPage(nowPage: number) {
+    this.nowPage = nowPage;
+  }
+  setUrl(url: string) {
+    this.url = url;
+  }
+  getNowPage(): number {
+    return this.nowPage;
   }
   getMax(): number {
     return this.max;
@@ -33,37 +40,49 @@ export class PageService {
   getMin(): number {
     return this.min;
   }
-  getCountNumber(): number {
+  getNumber(): number {
     return this.countNumber;
   }
   getRow(): number {
     return this.Row;
   }
-
-  skipNextPage(): boolean {
-    if (this.now < this.max) {
-      this.now++;
+  urlString(name: any): string {
+    if (name) {
+      return '/' + name;
+    } else {
+      return '';
+    }
+  }
+  nextPage(): boolean {
+    console.log('nextPage');
+    if (this.nowPage < this.max) {
+      this.nowPage++;
+      this.router.navigate([this.url + this.urlString(this.nowPage)]);
       return true;
     }
     return false;
   }
 
-  skipLastPage(): boolean {
-    if (this.now > this.min) {
-      this.now--;
+  lastPage(): boolean {
+    console.log('lastPage');
+    if (this.nowPage > this.min) {
+      this.nowPage--;
+      this.router.navigate([this.url + this.urlString(this.nowPage)]);
       return true;
     }
     return false;
   }
 
-  skipAnyPage(skipNumber: number): boolean {
+  skipPage(skipNumber: number): boolean {
+    console.log('skipPage');
     if (skipNumber < this.min || skipNumber > this.max) {
       return false;
     } else {
       if (skipNumber * 10 % 10 !== 0) {
         return false;
       } else {
-        this.now = skipNumber;
+        this.nowPage = skipNumber;
+        this.router.navigate([this.url + this.urlString(this.nowPage)]);
       }
     }
   }

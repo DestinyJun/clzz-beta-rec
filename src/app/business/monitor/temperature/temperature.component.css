@@ -1,12 +1,4 @@
-.container-fluid{
-  padding: 0 40px;
-}
-.panel-heading{
-  background-color: rgba(55,96,108,0.5);
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.5);
-  border-radius: 5px 5px 0 0;
-  color: white;
-}
+
 .panel-heading > span{
   font-size: 16px;
 }

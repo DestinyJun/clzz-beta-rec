@@ -15,10 +15,12 @@ export class LoginIdService {
   public get(key: string): string | boolean {
     return this.sessionStorage[key] || false;
   }
+  public setBool(key: string, value: boolean): void {
+    this.sessionStorage[key] = value;
+  }
   public getBool(key: string): boolean {
     return this.sessionStorage[key] || false;
   }
-
   public setObject(key: string, value: User): void {
     this.sessionStorage[key] = JSON.stringify(value);
   }
@@ -43,15 +45,15 @@ export class LoginIdService {
         if (data['status'] === '10') {
           this.setObject('user', data);
           console.log(this.sessionStorage);
-          this.set('loginStatus', true);
+          this.setBool('loginStatus', true);
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           console.log(data.sid);
           this.setObject('user', data);
           this.route.navigate(['/home']);
-          this.set('loginStatus', true);
+          this.setBool('loginStatus', true);
         } else {
-          this.set('loginStatus', false);
+          this.setBool('loginStatus', false);
           return '用户名密码错误';
         }
       });

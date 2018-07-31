@@ -1,27 +1,8 @@
-.container-fluid{
-  padding: 0 40px;
-}
-.panel-heading{
-  color: #ffffff;
-  border-radius: 5px 5px 0 0;
-  border-top: 1px solid rgba(0,0,0,0.2);
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.8);
-}
-.panel-heading > span{
-  font-size: 16px;
-}
 .panel-heading > #search >input{
   height: 25px;
   font-size: 12px;
   border-radius: 0;
   padding: 1px 2px;
-}
-.panel-body{
-  color: white;
-  border-radius: 0 0 5px 5px;
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
 }
 #table .table-bordered > tbody >tr >td{
   border: 1px solid rgba(255,255,255,0.3);

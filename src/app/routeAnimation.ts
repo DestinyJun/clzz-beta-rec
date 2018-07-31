@@ -8,9 +8,5 @@ export const slideToRight = trigger('routerAnimate', [
   transition(':enter', [
     style({ transform: 'translate(-100%,0)' }),
     animate('.5s ease-in-out', style({ transform: 'translate(0,0)' }))
-  ]),
-  transition(':leave', [
-    style({ transform: 'translate(0,0)' }),
-    animate('.5s ease-in-out', style({ transform: 'translate(100%,0)' }))
   ])
 ]);

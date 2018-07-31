@@ -10,10 +10,10 @@ export class HttpService {
   constructor(private http: HttpClient, private user: LoginIdService) { }
 
   // 获取事件
-  getEvent(): Observable<any> {
+  getEvent(page, row): Observable<any> {
     const body = this.parameterSerialization({
-      'page': '1',
-      'row': '10',
+      'page': page,
+      'row': row,
       'sysids': this.user.getObject('user').sysids
     });
     console.log(body);

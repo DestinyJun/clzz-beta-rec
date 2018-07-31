@@ -9,6 +9,6 @@ export class CanrouteService implements CanActivate {
     console.log(this.loginIdService.getBool('loginStatus'));
     // return this.loginIdService.getBool('loginStatus');
 
-      return true;
+    return true;
   }
 }

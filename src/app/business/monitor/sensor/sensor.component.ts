@@ -9,11 +9,9 @@ import {LoginIdService} from '../../../login/login-id.service';
 @Component({
   selector: 'app-sensor',
   templateUrl: './sensor.component.html',
-  styleUrls: ['./sensor.component.css'],
-  animations: [slideToRight]
+  styleUrls: ['./sensor.component.css']
 })
 export class SensorComponent implements OnInit {
-  @HostBinding('@routerAnimate') state;
   Modular: Array<object> = [];
   ModularId = 'mod0001';
   ModalChart: any;
@@ -32,7 +30,7 @@ export class SensorComponent implements OnInit {
   }
   ngOnInit() {
     this.DeviceSensorInit(this.ModularId);
-    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
+    // this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
   }
   ModularIdInit(i) {
     this.DeviceSensorInit(i['mid']);
@@ -45,7 +43,8 @@ export class SensorComponent implements OnInit {
   ModularInit() {
     this.http.SeeSystemModular({sysids: this.user.getObject('user').sysids})
       .subscribe( data => {
-        this.Modular = data['values'][0]['modular'];
+        console.log(data);
+        this.Modular = data['values'];
         this.Modularname = this.Modular[0]['mname'];
       });
   }
@@ -211,6 +210,9 @@ export class SensorComponent implements OnInit {
         console.log('id不存在');
       }
     });
+  }
+  deleteInterval() {
+    clearInterval(this.modal3);
   }
   modal2(value) {
     clearInterval(this.modal3);
