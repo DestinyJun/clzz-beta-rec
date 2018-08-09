@@ -4,6 +4,9 @@ import {LoginIdService} from '../../../login/login-id.service';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
 import {ToastService} from '../../../remind/toast.service';
+import {Order} from '../order';
+import {PageService} from '../../../based/page.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-craft',
@@ -13,17 +16,51 @@ import {ToastService} from '../../../remind/toast.service';
 })
 export class OrderCraftComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
-  page = 1;
-  row = 10;
-  orders = [];
   order = new Order();
-  AllOrders: number;
-  read = true;
   film: FormGroup;
+  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tBody = [];
+  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  btnGroup = ['审核'];
+  dataName = [
+    ['合同名', '客户名', '单价', '总价:'],
+    ['铝板类型', '铝板长度', '铝板宽度', '铝板厚度'],
+    ['背漆类型', '背漆方案选择', '背漆厚度', '背漆湿膜厚度'],
+    ['背漆成像', '底漆生产线', '底漆湿膜厚度', '面漆方案'],
+    ['面漆类型 ', '面漆厚度', '面漆生产线', '花纹'],
+    ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
+    ['Id', '状态', '控制误差', '是否双面涂'],
+    ['提交人', '录入员', '录入时间', '审核人'],
+    ['地址', '联系电话', '预计交货时间', '预计发货时间']
+  ];
+  modalProp = [
+    ['contractname', 'cname', 'price', 'amount'],
+    ['altype', 'allength', 'alwidth', 'althickness'],
+    ['btype', 'bprogram', 'bchickness', 'bchicknessw'],
+    ['bccd', 'pprogram', 'pthicknessw', 'pccd'],
+    ['ftype', 'fthickness', 'fprogram', 'figure'],
+    ['ptype', 'pthickness', 'pthicknessw', 'pccd'],
+    ['oid', 'ostatus', 'deviation', 'doublecloat'],
+    ['submitter', 'audit', 'audittime', 'auditor'],
+    ['address', 'tel', 'exdelitime', 'exshiptime']
+  ];
+  craftName = [
+    ['面漆干膜修正', '面漆湿膜修正', '底漆干膜修正', '底漆湿膜修正'],
+    ['背漆干膜修正', '背漆湿膜修正', '系统生产线']
+  ];
+  craftProp = [
+    ['fdry_film', 'fwet_film', 'bdry_film', 'bwet_film'],
+    ['pdry_film', 'pwet_film', 'pro_system']
+  ];
 
-  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
-  private toastIfo: ToastService) {
-    this.SeeOrders();
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private activatedRoute: ActivatedRoute,
+  private user: LoginIdService, public page: PageService) {
+    this.page.setRow(20);
+    this.page.setUrl('/home/schedule/ordcra');
+    this.activatedRoute.params.subscribe(() => {
+      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.SeeOrders();
+    });
     this.film = this.fb.group({
       fdry_film: ['', Validators.required],
       fwet_film: ['', Validators.required],
@@ -37,62 +74,17 @@ export class OrderCraftComponent implements OnInit {
 
 
   ngOnInit() {
-    this.SeeOrders();
-  }
-
-  t() {
-    this.toastIfo.Information = '8888';
-    console.log('t');
   }
   SeeOrders() {
-    const body = {
-      page: this.page,
-      row: this.row,
-      status: 2,
-      sysids: this.user.getObject('user').sysids
-      };
-    this.http.SeeOrders(body)
+    this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 2)
       .subscribe(data => {
         console.log(data);
-        this.toastIfo.Information = data['message'];
-        this.orders = data['values']['datas'];
-        this.AllOrders = data['values']['number'];
+        this.tBody = data['values']['datas'];
+        this.page.setPage(Number(data['values']['number']));
       });
   }
-  PageNumber() {
-    const i = this.AllOrders % this.row;
-    if (i === 0 && this.AllOrders > this.row) {
-      return this.AllOrders / this.row;
-    } else if ( i === 0) {
-      return this.AllOrders / this. row;
-    } else {
-      return (this.AllOrders - i ) / this.row + 1;
-    }
-  }
-  SkipPage(value) {
-    if (this.AllOrders > value  * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    }
-  }
-  NextPage() {
-    if (this.AllOrders > this.page * 10) {
-      this.page++;
-      this.SeeOrders();
-    }
-  }
-
-  ProPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.SeeOrders();
-    }
-  }
-  ModalValue(value) {
-    this.order = value;
+  modalValue(value) {
+    this.order = this.tBody[value];
     console.log(value);
   }
   status(value): string {
@@ -112,82 +104,21 @@ export class OrderCraftComponent implements OnInit {
       return '成品已出库';
     }
   }
-  pass(order) {
-      order.pro_auditor = this.user.getObject('user').realName;
-      order.fdry_film = this.film.get('fdry_film').value;
-      order.fwet_film = this.film.get('fwet_film').value;
-      order.pdry_film = this.film.get('pdry_film').value;
-      order.pwet_film = this.film.get('pwet_film').value;
-      order.bdry_film = this.film.get('bdry_film').value;
-      order.bwet_film = this.film.get('bwet_film').value;
-      order.status = 3;
-      order.pro_system = this.film.get('pro_system').value;
-    this.http.UpdateOrders(order)
-      .subscribe(data => {
-        console.log(data);
-        this.SeeOrders();
-      });
-  }
-  Nopass(order) {
-    order.pro_auditor = this.user.getObject('user').realName;
-    order.fdry_film = this.film.get('fdry_film').value;
-    order.fwet_film = this.film.get('fwet_film').value;
-    order.pdry_film = this.film.get('pdry_film').value;
-    order.pwet_film = this.film.get('pwet_film').value;
-    order.bdry_film = this.film.get('bdry_film').value;
-    order.bwet_film = this.film.get('bwet_film').value;
-    order.status = 11;
-    order.pro_system = this.film.get('pro_system').value;
-    this.http.UpdateOrders(order)
+  havePass(status) {
+    this.order['auditor'] = this.user.getObject('user').realName;
+    this.order.fdry_film = this.film.get('fdry_film').value;
+    this.order.fwet_film = this.film.get('fwet_film').value;
+    this.order.pdry_film = this.film.get('pdry_film').value;
+    this.order.pwet_film = this.film.get('pwet_film').value;
+    this.order.bdry_film = this.film.get('bdry_film').value;
+    this.order.bwet_film = this.film.get('bwet_film').value;
+    this.order.pro_system = this.film.get('pro_system').value;
+    this.order.ostatus = status;
+    this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
       });
   }
 
-}
-export class Order {
-  address: string;
-  allength: string;
-  althickness: string;
-  altype: string;
-  amount: string;
-  alwidth: string;
-  audit: string;
-  auditor: string;
-  audittime: string;
-  bccd: string;
-  bchickness: string;
-  bchicknessw: string;
-  bdry_film: string;
-  bprogram: string;
-  btype: string;
-  bwet_film: string;
-  cname: string;
-  contractname: string;
-  deviation: string;
-  doublecloat: string;
-  exdelitime: string;
-  exshiptime: string;
-  fccd: string;
-  fdry_film: string;
-  figure: string;
-  fprogram: string;
-  fthickness: string;
-  fthicknessw: string;
-  ftype: string;
-  fwet_film: string;
-  oid: string;
-  ostatus: string;
-  pccd: string;
-  pdry_film: string;
-  pprogram: string;
-  price: string;
-  pthickness: string;
-  pthicknessw: string;
-  ptype: string;
-  pwet_film: string;
-  submitter: string;
-  subtime: string;
-  tel: string;
 }

@@ -2,6 +2,9 @@ import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angu
 import {slideToRight} from '../routeAnimation';
 import {leftToRight} from './sidebar/sidebarAnimation';
 import {ToastService} from '../remind/toast.service';
+import {LoginIdService} from '../login/login-id.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Url} from '../getUrl';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +16,20 @@ export class HomeComponent implements OnInit {
 
   @HostBinding('@routerAnimate') state;
   State = 'in';
+  url = new Url().getUrl();
   @Output() InfoTg = new EventEmitter();
   @Output() sidebar = new EventEmitter();
+  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   ToastInformation: string;
-  constructor(public toastIfo: ToastService) {
-  }
+  constructor(public LoginId: LoginIdService, private http: HttpClient) {
+    this.http.post('http://' + this.url + '/element/find-system-sysid', '', {
+      headers: this.headers
+    })
+      .subscribe(data => {
+        this.LoginId.setSysids(data['values']);
+        console.log(this.LoginId.getSysids());
+      });
+}
 
   ToastInfo(event) {
     this.ToastInformation = event;

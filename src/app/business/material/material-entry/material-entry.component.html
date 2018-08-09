@@ -1,306 +1,111 @@
-<div class="container-fluid">
-  <div class="panel-heading">
-    <span>原材料录入</span>
-    <div class="pull-right">
-      <div>
-        <button class="btn btn-xs btn-info" (click)="hid = true">铝卷</button>
-        <button class="btn btn-xs btn-info" (click)="hid = false">油漆</button>
-      </div>
-    </div>
-  </div>
-  <div class="panel-body" *ngIf="hid">
-      <div class="form">
-        <form [formGroup]="AL">
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="purchase">采购单号:</label>
-                <input type="text" id="purchase" formControlName="purchase">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Alexweight">总重量:</label>
-                <input type="number" id="Alexweight" formControlName="alexweight">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Alprice">单价:</label>
-                <input type="number" id="Alprice" formControlName="alprice">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="amount">总价:</label>
-                <input type="number" id="amount" formControlName="amount">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Altype">铝卷型号:</label>
-                <input type="text" id="Altype" formControlName="altype">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Alwidth">铝卷宽度:</label>
-                <input type="number" id="Alwidth" formControlName="alwidth">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Althickness">铝卷厚度:</label>
-                <input type="number" id="Althickness" formControlName="althickness">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Aldensity">铝卷密度:</label>
-                <input type="number" id="Aldensity" formControlName="aldensity">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="wid">仓库号:</label>
-                <input type="text" id="wid" formControlName="wid">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="supname">厂家名称:</label>
-                <input type="text" id="supname" formControlName="supname">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="auditor">录入人员:</label>
-                <input type="text" id="auditor" formControlName="auditor">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pro_system">生产系统:</label>
-                <input type="text" id="pro_system" formControlName="pro_system">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <button class="btn btn-md btn-success" (click)="addF()">添加分卷</button>
-            </div>
-          </div>
-          <div class="row" *ngFor="let s of As;let i = index">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="supid">分卷号:</label>
-                <input type="text" id="supid" [(ngModel)]="supid[i]" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="Alweight">分卷重量:</label>
-                <input type="text" id="Alweight" [(ngModel)]="Alweight[i]" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="row">
-          <div class="col-md-12">
-            <div>
-              <button class="btn btn-success btn-md" (click)="submitAL()" data-toggle="modal" data-target="#add">提交</button>
-            </div>
+
+<div class="modal fade bs-example-modal-lg" id="entry" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-heading">
+        <span>{{type}}录入</span>
+        <div class="pull-right">
+          <div>
+            <button class="btn btn-xs btn-danger" (click)="toggleBtn(0)">{{type}}</button>
           </div>
         </div>
       </div>
-  </div>
-  <div class="panel-body" *ngIf="!hid">
-    <form>
-      <div class="form">
-        <form [formGroup]="paint">
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="ppurchase">采购单号:</label>
-                <input type="text" id="ppurchase" formControlName="purchase">
+      <div class="panel-body">
+        <div class="form">
+          <form [formGroup]="formName">
+            <div class="row" *ngFor="let mp of modalProp;let i=index;">
+              <div class="col-md-3 col-xs-6" *ngFor="let m of mp;let j=index;">
+                <div class="form-group">
+                  <label>{{dataName[i][j]}}:</label>
+                  <input type="text" title="" formControlName="{{m}}">
+                </div>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="paex_weight">总重量:</label>
-                <input type="number" id="paex_weight" formControlName="paex_weight">
+            <div class="row" *ngIf="type === 0">
+              <div class="col-md-12">
+                <button class="btn btn-md btn-success" (click)="addALArr()">添加分卷</button>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="price">单价:</label>
-                <input type="number" id="price" formControlName="price">
+            <div class="row" *ngFor="let al of AlArr">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{AlName[0]}}:</label>
+                  <input type="text" title="" [(ngModel)]="al[AlProp[0]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{AlName[1]}}:</label>
+                  <input type="text" title="" [(ngModel)]="al[AlProp[1]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <button class="btn btn-success btn-xs">删除</button>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pamount">总价:</label>
-                <input type="number" id="pamount" formControlName="pamount">
+            <div class="row" *ngIf="type === 1">
+              <div class="col-md-12">
+                <button class="btn btn-md btn-success" (click)="addPtArr()">添加油漆桶</button>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pname">油漆名称:</label>
-                <input type="text" id="pname" formControlName="pname">
+            <div class="row" *ngFor="let pt of PtArr">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{PtName[0]}}:</label>
+                  <input type="text" title="" [(ngModel)]="pt[PtProp[0]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{PtName[1]}}:</label>
+                  <input type="text" title="" [(ngModel)]="pt[PtProp[1]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <button class="btn btn-success btn-xs">删除</button>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pcondensate">油漆固化物含量:</label>
-                <input type="number" id="pcondensate" formControlName="pcondensate">
+            <div class="row" *ngIf="type === 1">
+              <div class="col-md-12">
+                <button class="btn btn-md btn-success" (click)="addPtdArr()">添加稀释剂桶</button>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pvolatile">油漆挥发份含量:</label>
-                <input type="number" id="pvolatile" formControlName="pvolatile">
+            <div class="row" *ngFor="let ptd of PtdArr">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{PtdName[0]}}:</label>
+                  <input type="text" title="" [(ngModel)]="ptd[PtdProp[0]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{PtdName[1]}}:</label>
+                  <input type="text" title="" [(ngModel)]="ptd[PtdProp[1]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <button class="btn btn-success btn-xs">删除</button>
               </div>
             </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pdensity">油漆密度:</label>
-                <input type="number" id="pdensity" formControlName="pdensity">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="ptype">油漆类型:</label>
-                <input type="text" id="ptype" formControlName="ptype">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="psupname">厂家名称:</label>
-                <input type="text" id="psupname" formControlName="supname">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pauditor">录入人员:</label>
-                <input type="text" id="pauditor" formControlName="auditor">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="pwid">仓库号:</label>
-                <input type="text" id="pwid" formControlName="wid">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="dname">稀释剂名称:</label>
-                <input type="text" id="dname" formControlName="dname">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="diex_weight">稀释剂总重量:</label>
-                <input type="number" id="diex_weight" formControlName="diex_weight">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="dprice">稀释剂单价:</label>
-                <input type="number" id="dprice" formControlName="dprice">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="damount">稀释剂总价:</label>
-                <input type="number" id="damount" formControlName="damount">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="dtype">稀释剂类型:</label>
-                <input type="text" id="dtype" formControlName="dtype">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="condensate">稀释剂固化物含量:</label>
-                <input type="number" id="condensate" formControlName="condensate">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="dvolatile">稀释剂挥发份含量:</label>
-                <input type="number" id="dvolatile" formControlName="dvolatile">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="ppro_system">生产系统:</label>
-                <input type="number" id="ppro_system" formControlName="pro_system">
-              </div>
-            </div>
-          </div>
-          <div class="row">
+          </form>
+          <div class="row" *ngIf="btn === '提交'">
             <div class="col-md-12">
-              <button class="btn btn-md btn-success" (click)="addFp()">添加油漆桶</button>
-            </div>
-          </div>
-          <div class="row" *ngFor="let s of Asp;let i = index">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="psupid">分卷号:</label>
-                <input type="text" id="psupid" [(ngModel)]="psupid[i]" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="paint_weight">分卷重量:</label>
-                <input type="text" id="paint_weight" [(ngModel)]="paint_weight[i]" [ngModelOptions]="{standalone: true}">
+              <div>
+                <button class="btn btn-success btn-md" (click)="submitAL()" data-toggle="modal" data-target="#entry">提交</button>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="btn === '审核'">
             <div class="col-md-12">
-              <button class="btn btn-md btn-success" (click)="addFd()">添加稀释剂桶</button>
-            </div>
-          </div>
-          <div class="row" *ngFor="let s of Asd;let i = index">
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="supnum">分卷号:</label>
-                <input type="text" id="supnum" [(ngModel)]="supnum[i]" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-            <div class="col-md-3 col-xs-6">
-              <div class="form-group">
-                <label for="diluent_weight">分卷重量:</label>
-                <input type="text" id="diluent_weight" [(ngModel)]="diluent_weight[i]" [ngModelOptions]="{standalone: true}">
+              <div>
+                <button class="btn btn-success btn-md" data-toggle="modal" data-target="#entry">通过</button>
+                <button class="btn btn-danger btn-md" data-toggle="modal" data-target="#entry">不通过</button>
               </div>
             </div>
           </div>
-        </form>
-      </div>
-    </form>
-    <div class="row">
-      <div class="col-md-12">
-        <div>
-          <button class="btn btn-success btn-md" data-toggle="modal" data-target="#add" (click)="submitPaint()">提交</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-

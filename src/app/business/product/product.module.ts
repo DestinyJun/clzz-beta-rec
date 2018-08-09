@@ -6,16 +6,19 @@ import {ProductOutComponent} from './product-out/product-out.component';
 import {ProductEntryComponent} from './product-entry/product-entry.component';
 import {ProductEntringComponent} from './product-entring/product-entring.component';
 import {ProductHttpService} from './product-http.service';
+import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
+import {ProductTableComponent} from './product-table/product-table.component';
 @NgModule({
   imports: [
     CommonModule,
-    ProductRoutersModule
+    ProductRoutersModule,
   ],
   declarations: [
     ProductComponent,
     ProductEntryComponent,
     ProductOutComponent,
-    ProductEntringComponent
+    ProductEntringComponent,
+    ProductTableComponent
   ],
   providers: [ProductHttpService],
 })

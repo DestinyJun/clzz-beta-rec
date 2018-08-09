@@ -11,15 +11,24 @@
 #table .table-bordered > tfoot > tr>td{
   border: 1px solid rgba(0,0,0,0);
 }
+input{
+  color: #000;
+  padding: 2px 5px;
+  border-radius: 1px;
+  height: 25px;
+}
+.row > div{
+  margin-bottom: 15px;
+}
 .modal-header{
   background-color: rgba(55,96,108,0.8);
   color: #FFFFFF;
   border: none;
 }
 .modal-body{
-   background-color: rgba(55,96,108,0.5);
-   color: #FFFFFF;
- }
+  background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
 .modal-footer{
   padding-top: 8px;
   background-color: rgba(55,96,108,0.8);
@@ -30,12 +39,6 @@
   color: #FFFFFF;
   padding: 0;
   text-align: left;
-}
-input{
-  color: #000
-}
-.row > div{
-  margin-bottom: 15px;
 }
 label{
   display: block;

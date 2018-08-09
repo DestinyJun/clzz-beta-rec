@@ -12,10 +12,14 @@ import {slideToRight} from '../../../routeAnimation';
 export class ProductOutComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   orders: Order[] = [];
+  tHead = ['#', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '出库时间', '操作'];
+  tBody = [];
+  prop = ['targetlist', 'oid', 'aluminumcode', 'aluminumlength', 'idt', 'warehousingindate', 'warehousingoutdate'];
+  btnGroup = ['打印'];
   constructor(private http: ProductHttpService) {
     this.http.findwarehouseout()
       .subscribe(data => {
-        this.orders = data['values'];
+        this.tBody = data['values'];
         console.log(data);
       });
   }

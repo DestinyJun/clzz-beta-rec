@@ -20,12 +20,14 @@ export class DeviceHistoryComponent implements OnInit {
   device: Array<Device>;
   modular: Array<Modular>;
   sensor: Array<Sensor>;
+  height = '0';
   constructor(
     private user: LoginIdService, private activatedRoute: ActivatedRoute, private httpSensor: EquipmentHttpService,
     private httpAdmin: EquipmentHttpService, private httpDevice: EquipmentHttpService) {
     this.device = [];
     this.modular = [];
     this.sensor = [];
+    this.height = window.innerHeight - 400 + 'px';
   }
 
   ngOnInit() {

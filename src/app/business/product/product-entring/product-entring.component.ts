@@ -1,5 +1,4 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {ProductHttpService} from '../product-http.service';
 import {slideToRight} from '../../../routeAnimation';
 
@@ -11,13 +10,16 @@ import {slideToRight} from '../../../routeAnimation';
 })
 export class ProductEntringComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
-  public orders: Order[] = [];
+  tHead = ['#', '订单编号', '铝卷单卷编号', '铝卷单卷长度', '单卷出产时间', '操作'];
+  prop = ['oid', 'aluminumcode', 'aluminumlength', 'idt'];
+  btnGroup = ['打印'];
+  tBody = [];
   constructor(private http: ProductHttpService) {
     this.http.findproduceinformation()
       .subscribe(data => {
         console.log('--------------------------');
         console.log(data);
-        this.orders = data['values'];
+        this.tBody = data['values'];
       });
   }
   ngOnInit() {

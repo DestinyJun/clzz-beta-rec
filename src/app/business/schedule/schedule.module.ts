@@ -9,6 +9,8 @@ import {OrderCraftComponent} from './order-craft/order-craft.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
 import {ToastService} from '../../remind/toast.service';
+import {ScheduleTableComponent} from './schedule-table/schedule-table.component';
+import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import {ToastService} from '../../remind/toast.service';
     OrderQueryComponent,
     OrderMarketingComponent,
     OrderCraftComponent,
-    OrderAdjustmentComponent
+    OrderAdjustmentComponent,
+    ScheduleTableComponent
   ],
   providers: [ToastService],
 })

@@ -1,40 +1,5 @@
 <div class="container-fluid">
-  <div class="panel-heading">
-    <span>已入库成品</span>
-  </div>
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>订单编号</th>
-          <th>生产编号</th>
-          <th>铝卷单卷编号</th>
-          <th>铝卷单卷长度</th>
-          <th>出产时间</th>
-          <th>入库时间</th>
-          <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let product of products;let i = index">
-          <td>{{i + 1}}</td>
-          <td>{{product.targetlist}}</td>
-          <td>{{product.oid}}</td>
-          <td>{{product.aluminumcode}}</td>
-          <td>{{product.aluminumlength}}米</td>
-          <td>{{product.warehousingindate}}</td>
-          <td>{{product.idt}}</td>
-          <td><button class="btn btn-success btn-xs" [routerLink]="['/qrcode' , false, '', product.oid, product.aluminumlength, product.targetlist,product.aluminumcode, 'false']">打印</button>
-            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" (click)="SeeOrders(product.aluminumcode, product.oid, product.targetlist)">转单</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+  <app-product-table title="已入库成品列表" [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

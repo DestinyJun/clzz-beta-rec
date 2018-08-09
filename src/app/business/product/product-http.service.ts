@@ -45,6 +45,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       sysids: this.user.getObject('user').sysids
     });
+    console.log(body);
     return this.http.post('http://120.78.137.182/element-plc/find-warehouse-out', body, {
       headers: this.headers
     });

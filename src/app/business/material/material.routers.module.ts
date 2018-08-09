@@ -4,14 +4,20 @@ import {MaterialComponent} from './material.component';
 import {MaterialEntryComponent} from './material-entry/material-entry.component';
 import {MaterialCheckComponent} from './material-check/material-check.component';
 import {MaterialMessageComponent} from './material-message/material-message.component';
+import {CheckedMaterialComponent} from './checked-material/checked-material.component';
+import {UnauditedMaterialComponent} from './unaudited-material/unaudited-material.component';
+import {FailedMaterialComponent} from './failed-material/failed-material.component';
 const mainRoutes: Routes = [
   {
     path: '',
     component: MaterialComponent,
     children: [
       {path: 'matent', component: MaterialEntryComponent},
-      {path: 'matche/:status/:mode/:ALpage/:paintpage', component: MaterialCheckComponent},
-      {path: 'matmes/:mode/:ALpage/:paintpage/:selectId', component: MaterialMessageComponent}
+      {path: 'matche/:page', component: MaterialCheckComponent},
+      {path: 'matmes/:page', component: MaterialMessageComponent},
+      {path: 'checked/:page', component: CheckedMaterialComponent},
+      {path: 'unaudited/:page', component: UnauditedMaterialComponent},
+      {path: 'failed/:page', component: FailedMaterialComponent},
     ]
   },
 ];

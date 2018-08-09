@@ -2,6 +2,9 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {LoginIdService} from '../../../login/login-id.service';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {PageService} from '../../../based/page.service';
+import {Order} from '../order';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-marketing',
@@ -11,82 +14,66 @@ import {slideToRight} from '../../../routeAnimation';
 })
 export class OrderMarketingComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
-  page = 1;
-  orders = [];
-  row = 10;
   order = new Order();
-  AllOrders: number;
-
-  constructor(private http: ScheduleHttpService, private user: LoginIdService) {
+  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tBody = [];
+  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  btnGroup = ['审核'];
+  dataName = [
+    ['合同名', '客户名', '单价', '总价:'],
+    ['铝板类型', '铝板长度', '铝板宽度', '铝板厚度'],
+    ['背漆类型', '背漆方案选择', '背漆左厚度', '背漆湿膜厚度'],
+    ['背漆成像', '背漆干膜修正', '背漆湿膜修正 '],
+    ['面漆类型 ', '面漆厚度', '面漆湿膜厚度', '面漆方案'],
+    ['面漆生产线:', '面漆干膜修正', '面漆湿膜修正', '花纹'],
+    ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
+    ['底漆干膜修正', '底漆湿膜修正', '底漆生产线', '是否双面涂'],
+    ['Id', '状态', '控制误差', '审核人'],
+    ['提交人', '录入员', '录入时间'],
+    ['地址', '联系电话', '预计交货时间', '预计发货时间']
+    ];
+  modalProp = [
+    ['contractname', 'cname', 'price', 'amount'],
+    ['altype', 'allength', 'alwidth', 'althickness'],
+    ['btype', 'bprogram', 'bchickness', 'bchicknessw'],
+    ['bccd', 'bdry_film', 'bwet_film'],
+    ['ftype', 'fthickness', 'fthicknessw', 'fccd'],
+    ['fprogram', 'fdry_film', 'fwet_film', 'figure'],
+    ['ptype', 'pthicknessw', 'pthickness', 'pccd'],
+    ['pdry_film', 'pwet_film', 'pprogram', 'doublecloat'],
+    ['oid', 'ostatus', 'deviation', 'auditor'],
+    ['submitter', 'audit', 'audittime'],
+    ['address', 'tel', 'exdelitime', 'exshiptime']
+  ];
+  constructor(private http: ScheduleHttpService, private user: LoginIdService,
+              public page: PageService, private activatedRoute: ActivatedRoute) {
+    this.page.setRow(20);
+    this.page.setUrl('/home/schedule/ordmar');
+    this.activatedRoute.params.subscribe(() => {
+      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.SeeOrders();
+    });
   }
 
   ngOnInit() {
-    this.SeeOrders();
   }
   SeeOrders() {
-    const body = {
-      page: this.page,
-      row: this.row,
-      status: 1,
-      sysids: this.user.getObject('user').sysids
-      };
-    console.log(body);
-    this.http.SeeOrders(body)
+    this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 1)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values']['datas'];
-        this.AllOrders = data['values']['number'];
+        this.tBody = data['values']['datas'];
+        this.page.setPage(Number(data['values']['number']));
       });
   }
-  PageNumber() {
-    const i = this.AllOrders % this.row;
-    if (i === 0 && this.AllOrders > this.row) {
-      return this.AllOrders / this.row;
-    } else if ( i === 0) {
-      return this.AllOrders / this. row;
-    } else {
-      return (this.AllOrders - i ) / this.row + 1;
-    }
-  }
-  SkipPage(value) {
-    if (this.AllOrders > value  * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    }
-  }
-  NextPage() {
-    if (this.AllOrders > this.page * 10) {
-      this.page++;
-      this.SeeOrders();
-    }
-  }
-  ProPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.SeeOrders();
-    }
-  }
-  ModalValue(value) {
-    this.order = value;
+  modalValue(value) {
+    this.order = this.tBody[value];
     console.log(value);
   }
 
-  pass(oid) {
-    oid.auditor = this.user.getObject('user').realName,
-    oid.status = 2;
-    this.http.UpdateOrders(oid)
-      .subscribe(data => {
-        console.log(data);
-        this.SeeOrders();
-      });
-  }
-  Nopass(oid) {
-    oid.auditor = this.user.getObject('user').realName,
-    oid.status = 11;
-    this.http.UpdateOrders(oid)
+  havePass(status) {
+    this.order['auditor'] = this.user.getObject('user').realName;
+    this.order.ostatus = status;
+    this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
@@ -110,48 +97,4 @@ export class OrderMarketingComponent implements OnInit {
     }
   }
 }
-export class Order {
-  address: string;
-  allength: string;
-  althickness: string;
-  altype: string;
-  amount: string;
-  alwidth: string;
-  audit: string;
-  auditor: string;
-  audittime: string;
-  bccd: string;
-  bchickness: string;
-  bchicknessw: string;
-  bdry_film: string;
-  bprogram: string;
-  btype: string;
-  bwet_film: string;
-  cname: string;
-  contractname: string;
-  deviation: string;
-  doublecloat: string;
-  exdelitime: string;
-  exshiptime: string;
-  fccd: string;
-  fdry_film: string;
-  figure: string;
-  fprogram: string;
-  fthickness: string;
-  fthicknessw: string;
-  ftype: string;
-  fwet_film: string;
-  oid: string;
-  ostatus: string;
-  pccd: string;
-  pdry_film: string;
-  pprogram: string;
-  price: string;
-  pthickness: string;
-  pthicknessw: string;
-  ptype: string;
-  pwet_film: string;
-  submitter: string;
-  subtime: string;
-  tel: string;
-}
+

@@ -16,7 +16,6 @@ const appRoutes: Routes = [
   {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
   {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode/:address',
     component: QrcodeComponent, canActivate: [CanrouteService]},
-  {path: 'department', component: DepartmentButtonComponent},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
   {path: 'mobie/:targetlist/:aluminumcode/:address/:oid', component: MobieOrderComponent}
 ];

@@ -1,0 +1,125 @@
+<div>
+  <div class="panel-heading">
+    <div class="pull-left" style="padding-right: 15px">{{title}}</div>
+    <span>&nbsp;&nbsp;&nbsp;</span>
+    <div class="pull-left">
+      <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#entry">录入{{type}}</button>
+    </div>
+    <div id="search" class="form-inline pull-right">
+      <input type="text" class="form-control" placeholder="搜索订单">
+      <i class="fa fa-search"></i>
+      <button class="btn btn-xs" (click)="toggleBtn(0)" [ngClass]="{'btn-danger': type === 0, 'btn-default': type !== 0}">铝卷</button>
+      <button class="btn btn-xs" (click)="toggleBtn(1)" [ngClass]="{'btn-danger': type !== 0, 'btn-default': type === 0}">油漆</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>类型</th>
+          <th *ngFor="let th of tHead">{{th}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tB of tBody;let j = index">
+          <td >{{j + 1}}</td>
+          <td>{{type}}</td>
+          <td *ngFor="let p of prop">{{tB[p]}}</td>
+          <td *ngIf="btnGroup.length === 2">
+            <button class="btn-success btn btn-xs">{{btnGroup[0]}}</button>
+            <button class="btn-danger btn btn-xs">{{btnGroup[1]}}</button>
+          </td>
+          <td *ngIf="btnGroup.length === 1">
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+          </td> <!-- 有按钮则生成 -->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="burster">
+      <button type="button" class="btn btn-primary" (click)="page.lastPage()">上一页</button>
+      <button type="button" class="btn btn-primary" (click)="page.nextPage()">下一页</button>
+      当前第{{page.getNowPage()}}页，共{{page.getMax()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value)" type="number" title=""> 页
+    </div>
+  </div>
+
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-heading">
+        <span>订单详细信息</span>
+      </div>
+      <div class="panel-body">
+        <div class="row" *ngFor="let mp of modalProp;let i=index;">
+          <div class="col-md-3 col-sm-6" *ngFor="let m of mp;let j=index;">
+            <form class="form-inline">
+              <label>{{dataName[i][j]}}:</label>
+              <input type="text" title="" value="{{material[m]}}" [disabled]="true">
+            </form>
+          </div>
+        </div>
+        <div class="row" *ngIf="type === 0">
+          <div class="col-md-12">
+            <button class="btn btn-md btn-success">铝板分卷</button>
+          </div>
+        </div>
+        <div class="row" *ngFor="let al of AlArr">
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label >{{AlName[0]}}:</label>
+              <input title="" type="text" value="{{al[AlProp[0]]}}" [disabled]="true">
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label>{{AlName[1]}}:</label>
+              <input title="" type="text" value="{{al[AlProp[1]]}}" [disabled]="true">
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="type === 1">
+          <div class="col-md-12">
+            <h3>油漆分桶</h3>
+          </div>
+        </div>
+        <div class="row" *ngFor="let pt of PtArr">
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label >{{PtName[0]}}:</label>
+              <input title="" type="text" value="{{pt[PtProp[0]]}}" [disabled]="true">
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label>{{PtName[1]}}:</label>
+              <input title="" type="text" value="{{pt[PtProp[1]]}}" [disabled]="true">
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="type === 1">
+          <div class="col-md-12">
+            <h3>稀释剂分桶</h3>
+          </div>
+        </div>
+        <div class="row" *ngFor="let ptd of PtdArr">
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label >{{PtdName[0]}}:</label>
+              <input title="" type="text" value="{{ptd[PtdProp[0]]}}" [disabled]="true">
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-6">
+            <div class="form-group">
+              <label>{{PtdName[1]}}:</label>
+              <input title="" type="text" value="{{ptd[PtdProp[1]]}}" [disabled]="true">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

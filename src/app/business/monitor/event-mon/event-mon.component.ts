@@ -31,7 +31,7 @@ export class EventMonComponent implements OnInit {
       console.log(data);
       this.eventInfo = data['values']['datas'];
       const number = data['values']['number'];
-      this.pageService.setPage(number, this.row);
+      this.pageService.setPage(number);
     });
   }
 }

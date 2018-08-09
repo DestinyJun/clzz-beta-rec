@@ -4,6 +4,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
 import {LoginIdService} from '../../../login/login-id.service';
+import {PageService} from '../../../based/page.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-query',
@@ -13,17 +15,21 @@ import {LoginIdService} from '../../../login/login-id.service';
 })
 export class OrderQueryComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
-  @Output() toast;
-  public page = 1;
-  public orders = [];
-  public row = 10;
   public orderForm: FormGroup;
-  public AllOrders: number;
   public read = true;
   public Color = [];
-  public SelectI: number;
-
-  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService) {
+  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tBody = [];
+  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  btnGroup = ['修改'];
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder,
+              public page: PageService, private activatedRoute: ActivatedRoute) {
+    this.page.setRow(20);
+    this.page.setUrl('/home/schedule/ordque');
+    this.activatedRoute.params.subscribe(() => {
+      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.SeeOrders();
+    });
     this.orderForm = this.fb.group({
       oid: ['', Validators.required],
       cname: ['', Validators.required],
@@ -59,7 +65,6 @@ export class OrderQueryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.SeeOrders();
   }
   Select(i) {
     for (let j = 0; j < this.Color.length; j++) {
@@ -71,48 +76,12 @@ export class OrderQueryComponent implements OnInit {
   }
 
   SeeOrders() {
-    const body = {
-     page: this.page,
-      row: this.row,
-     status: 0,
-      sysids: this.user.getObject('user').sysids
-      };
-    this.http.SeeOrders(body)
+    this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 0)
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values']['datas'];
-        this.AllOrders = data['values']['number'];
-        const Co = [];
-        for (let i = 0; i < this.orders.length; i++) {
-          Co.push(false);
-        }
-        this.Color = Co;
-        if (!this.SelectI) {
-          this.Color[this.SelectI] = true;
-        }
+        this.tBody = data['values']['datas'];
+        this.page.setPage(data['values']['number']);
       });
-  }
-  NextPage() {
-    if (this.AllOrders > this.page * 10) {
-      this.page++;
-      this.SeeOrders();
-    }
-  }
-
-  ProPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.SeeOrders();
-    }
-  }
-  SkipPage(value) {
-    if (this.AllOrders > value  * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    }
   }
   DeleteOrder(oid) {
     if (window.confirm('确认删除吗？') ) {
@@ -123,22 +92,12 @@ export class OrderQueryComponent implements OnInit {
         });
     }
   }
-  PageNumber() {
-    const i = this.AllOrders % this.row;
-    if (i === 0 && this.AllOrders > this.row) {
-      return this.AllOrders / this.row;
-    } else if ( i === 0) {
-      return this.AllOrders / this. row;
-    } else {
-      return (this.AllOrders - i ) / this.row + 1;
-    }
-  }
-  modal(value) {
+  modalValue(value) {
+    console.log(this.tBody[value]);
+    this.tBody[value]['doublecloat'] = value['doublecloat'] === 1 ? '是' : '否';
+    this.tBody[value]['figura'] = value['figura'] === 1 ? '是' : '否';
     console.log(value);
-    value['doublecloat'] = value['doublecloat'] === 1 ? '是' : '否';
-    value['figura'] = value['figura'] === 1 ? '是' : '否';
-    console.log(value);
-    this.orderForm.patchValue(value);
+    this.orderForm.patchValue(this.tBody[value]);
     console.log(this.orderForm);
   }
   remodal(): void {
@@ -193,7 +152,7 @@ export class OrderQueryComponent implements OnInit {
       status: this.orderForm.get('ostatus').value,
       country: this.orderForm.get('country').value,
       province: this.orderForm.get('province').value,
-      city: this.orderForm.get('city').value
+      city: this.orderForm.get('city').value,
       };
     console.log(body);
     this.http.UpdateOrders(body)

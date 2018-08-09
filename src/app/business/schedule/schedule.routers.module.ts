@@ -12,10 +12,10 @@ const mainRoutes: Routes = [
     path: '',
     component: ScheduleComponent,
     children: [
-      {path: 'ordque', component: OrderQueryComponent},
-      {path: 'ordmar', component: OrderMarketingComponent},
-      {path: 'ordcra', component: OrderCraftComponent},
-      {path: 'ordadj', component: OrderAdjustmentComponent}
+      {path: 'ordque/:page', component: OrderQueryComponent},
+      {path: 'ordmar/:page', component: OrderMarketingComponent},
+      {path: 'ordcra/:page', component: OrderCraftComponent},
+      {path: 'ordadj/:page', component: OrderAdjustmentComponent}
     ]
   },
 ];

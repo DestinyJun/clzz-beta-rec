@@ -1,0 +1,40 @@
+<div>
+  <div class="panel-heading">
+    <span>{{title}}</span>
+    <div id="search" class="form-inline pull-right">
+      <input type="text" class="form-control" placeholder="搜索订单">
+      <i class="fa fa-search"></i>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let th of tHead">{{th}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let i of tBody;let j = index">
+          <td >{{j + 1}}</td>
+          <td *ngFor="let p of prop">{{i[p]}}</td>
+          <td *ngIf="btnGroup.length === 2">
+            <button class="btn-success btn btn-xs">{{btnGroup[0]}}</button>
+            <button class="btn-danger btn btn-xs">{{btnGroup[1]}}</button>
+          </td>
+          <td *ngIf="btnGroup.length === 1">
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
+          </td> <!-- 有按钮则生成 -->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="burster form-inline">
+      <button type="button" class="btn btn-primary" (click)="page.lastPage()">上一页</button>
+      <button type="button" class="btn btn-primary" (click)="page.nextPage()">下一页</button>
+      当前第{{page.getNowPage()}}页，共{{page.getMax()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value)" type="number" title=""> 页
+    </div>
+  </div>
+
+</div>

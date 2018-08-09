@@ -7,6 +7,7 @@ import {DeviceHistoryComponent} from './device-history/device-history.component'
 import {DeviceNewComponent} from './device-new/device-new.component';
 import {EquipmentHttpService} from './equipment-http.service';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
+import {InspectionComponent} from './inspection/inspection.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
   declarations: [
     EquipmentComponent,
     DeviceHistoryComponent,
-    DeviceNewComponent
+    DeviceNewComponent,
+    InspectionComponent
   ],
   providers: [EquipmentHttpService],
 })

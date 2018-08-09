@@ -1,6 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {PageService} from '../../../based/page.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-adjustment',
@@ -10,13 +12,18 @@ import {slideToRight} from '../../../routeAnimation';
 })
 export class OrderAdjustmentComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
-  page = 1;
-  orders = [];
-  row = 10;
-  AllOrders: number;
+  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tBody = [];
+  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  btnGroup = ['上移', '下移'];
   oid = new Oid();
-  constructor(private http: ScheduleHttpService) {
-    this.SeeOrders();
+  constructor(private http: ScheduleHttpService, private activatedRoute: ActivatedRoute,  public page: PageService) {
+    this.page.setRow(20);
+    this.page.setUrl('/home/schedule/ordadj');
+    this.activatedRoute.params.subscribe(() => {
+      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.SeeOrders();
+    });
   }
   Status(i) {
     if (i === 1) {
@@ -33,10 +40,10 @@ export class OrderAdjustmentComponent implements OnInit {
   }
   up(j) {
     this.http.OrderMobileFunction({
-      oidone: this.orders[j]['oid'] ,
-      oidtwo: this.orders[j - 1]['oid'],
-      priorityone: this.orders[j]['priority'],
-      prioritytwo: this.orders[j - 1]['priority']
+      oidone: this.tBody[j]['oid'] ,
+      oidtwo: this.tBody[j - 1]['oid'],
+      priorityone: this.tBody[j]['priority'],
+      prioritytwo: this.tBody[j - 1]['priority']
     })
       .subscribe(data => {
         this.SeeOrders();
@@ -44,10 +51,10 @@ export class OrderAdjustmentComponent implements OnInit {
   }
   down(j) {
     this.http.OrderMobileFunction({
-      oidone: this.orders[j]['oid'] ,
-      oidtwo: this.orders[j + 1]['oid'],
-      priorityone: this.orders[j]['priority'],
-      prioritytwo: this.orders[j + 1]['priority']
+      oidone: this.tBody[j]['oid'] ,
+      oidtwo: this.tBody[j + 1]['oid'],
+      priorityone: this.tBody[j]['priority'],
+      prioritytwo: this.tBody[j + 1]['priority']
     })
       .subscribe(data => {
         this.SeeOrders();
@@ -56,51 +63,19 @@ export class OrderAdjustmentComponent implements OnInit {
   SeeOrders() {
     this.http.OrderAudited()
       .subscribe(data => {
-        this.orders = data['values'];
-        for (let i = 0; i < this.orders.length; i++) {
-          for ( let j = i + 1; j < this.orders.length; j++) {
-            if (this.orders[j].priority < this.orders[i].priority) {
-              const od = this.orders[j];
-              this.orders[j] = this.orders[i];
-              this.orders[i] = od;
+        this.tBody = data['values'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          for ( let j = i + 1; j < this.tBody.length; j++) {
+            if (this.tBody[j].priority < this.tBody[i].priority) {
+              const od = this.tBody[j];
+              this.tBody[j] = this.tBody[i];
+              this.tBody[i] = od;
             }
           }
         }
-        this.AllOrders = data['values'].length;
+        this.page.setPage(data['values'].length);
       });
   }
-  NextPage() {
-    if (this.AllOrders > this.page * 10) {
-      this.page++;
-      this.SeeOrders();
-    }
-  }
-  ProPage() {
-    if (this.page > 1) {
-      this.page--;
-      this.SeeOrders();
-    }
-  }
-  SkipPage(value) {
-    if (this.AllOrders > value  * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    } else if (this.AllOrders > (value - 1) * this.row && value > 0) {
-      this.page = value;
-      this.SeeOrders();
-    }
-  }
-  PageNumber() {
-    const i = this.AllOrders % this.row;
-    if (i === 0 && this.AllOrders > this.row) {
-      return this.AllOrders / this.row;
-    } else if ( i === 0) {
-      return this.AllOrders / this. row;
-    } else {
-      return (this.AllOrders - i ) / this.row + 1;
-    }
-  }
-
   ngOnInit() {}
 }
 export class Oid {

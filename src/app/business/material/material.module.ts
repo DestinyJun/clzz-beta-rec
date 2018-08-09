@@ -9,6 +9,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InfoStatusService} from '../../remind/info-status.service';
 import {MaterialHttpService} from './material-http.service';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
+import {CheckedMaterialComponent} from './checked-material/checked-material.component';
+import {FailedMaterialComponent} from './failed-material/failed-material.component';
+import {UnauditedMaterialComponent} from './unaudited-material/unaudited-material.component';
+import {MaterialTableComponent} from './material-table/material-table.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +26,10 @@ import {NgxQRCodeModule} from 'ngx-qrcode2';
     MaterialEntryComponent,
     MaterialCheckComponent,
     MaterialMessageComponent,
+    CheckedMaterialComponent,
+    FailedMaterialComponent,
+    UnauditedMaterialComponent,
+    MaterialTableComponent
   ],
   providers: [InfoStatusService, MaterialHttpService],
 })

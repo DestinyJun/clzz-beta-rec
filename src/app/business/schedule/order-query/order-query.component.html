@@ -1,55 +1,6 @@
 <div class="container-fluid">
-  <div class="panel-heading">
-    <span>订单查询</span>
-    <div id="search" class="form-inline pull-right">
-      <app-order-entry (submit)="SeeOrders()"></app-order-entry>
-      <input type="text" class="form-control ListSearch" placeholder="搜索你的订单">
-      <i class="fa fa-search"></i>
-    </div>
-  </div>
-  <div class="panel-body">
-    <div id="table" class="table-responsive">
-      <table  class="table table-bordered">
-        <thead>
-        <tr>
-          <th></th>
-          <th>订单编号</th>
-          <th>客户名称</th>
-          <th>合同名称</th>
-          <th>预计发货时间</th>
-          <th>录入人员</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr [ngClass]="{'activeBg':Color[i]}" (click)="Select(i)" *ngFor="let order  of orders;let i = index"  title="点击查看订单详情">
-          <td>{{(this.page - 1) * this.row + i + 1}}</td>
-          <td>{{order['oid']}}</td>
-          <td>{{order['cname']}}</td>
-          <td>{{order['contractname']}}</td>
-          <td>{{order['exdelitime']}}</td>
-          <td>{{order['submitter']}}</td>
-          <td>{{status(order['ostatus'])}}</td>
-          <td><button class="btn btn-xs btn-danger" (click)="DeleteOrder(order['oid'])">删除</button>
-            <button class="btn btn-xs btn-info" (click)="modal(order);remodal()" data-toggle="modal" data-target="#modify">修改</button></td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-          <td colspan="8">
-            <span>当前第{{page}}页</span>
-            <button type="button" class="btn btn-primary" (click)="ProPage()">上一页</button>
-            <button type="button" class="btn btn-primary" (click)="NextPage()">下一页</button>
-            共{{PageNumber()}}页,跳到
-            <input type="number" #skip title="" (keyup.enter)="SkipPage(skip.value)" > 页
-          </td>
-        </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-
+  <app-schedule-table title="订单查询列表" (index)="modalValue($event)" [page]="page"
+                      [tBody]="tBody" [tHead]="tHead" [btnGroup]="btnGroup" [prop]="prop"></app-schedule-table>
 </div>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modify">
   <div class="modal-dialog modal-lg" role="document">

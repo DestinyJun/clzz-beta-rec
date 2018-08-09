@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {HomeService, NavList, NavListChild} from '../home.service';
 import {PositionNameService} from '../../remind/position-name.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,16 +22,20 @@ export class SidebarComponent implements OnInit {
     new NavList('设备运行', 'fa fa-th-large', false, [
       new NavListChild('感知历史数据', false, 'equipment/devhis'),
       new NavListChild('设备信息', false, 'equipment/devnew'),
+      new NavListChild('设备巡检', false, 'equipment/inspection/1'),
     ] , true),
     new NavList('生产排程', 'fa fa-outdent', false, [
-      new NavListChild('订单查询', false, 'schedule/ordque'),
-      new NavListChild('营销订单审核', false, 'schedule/ordmar'),
-      new NavListChild('生产工艺审核', false, 'schedule/ordcra'),
-      new NavListChild('任务调排', false, 'schedule/ordadj'),
+      new NavListChild('订单信息', false, 'schedule/ordque/1'),
+      new NavListChild('营销订单审核', false, 'schedule/ordmar/1'),
+      new NavListChild('生产工艺审核', false, 'schedule/ordcra/1'),
+      new NavListChild('任务调排', false, 'schedule/ordadj/1'),
     ] , true),
     new NavList('原材料管理', 'fa fa-sitemap', false, [
-      new NavListChild('原材料查询', false, 'material/matche/1/0/1/1'),
-      new NavListChild('原材料审核', false, 'material/matmes/0/1/1/-1')
+      new NavListChild('原材料信息', false, 'material/matche/1'),
+      new NavListChild('原材料未审核', false, 'material/unaudited/1'),
+      new NavListChild('原材料已审核', false, 'material/checked/1'),
+      new NavListChild('原材料审核失败', false, 'material/failed/1'),
+      new NavListChild('原材料审核', false, 'material/matmes/1')
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
       new NavListChild('待入库成品', false, 'product/proenting'),

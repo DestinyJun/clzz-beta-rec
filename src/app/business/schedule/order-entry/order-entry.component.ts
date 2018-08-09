@@ -5,6 +5,7 @@ import {LoginIdService} from '../../../login/login-id.service';
 import {FormBuilder, FormGroup,  Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {slideToRight} from '../../../routeAnimation';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-entry',
@@ -27,7 +28,8 @@ export class OrderEntryComponent implements OnInit {
   submitter = '未知';
 
   @Output() submit = new EventEmitter();
-  constructor(private http: ScheduleHttpService, private modalService: BsModalService, private user: LoginIdService, private fb: FormBuilder) {
+  constructor(private http: ScheduleHttpService, private modalService: BsModalService,
+              private user: LoginIdService, private fb: FormBuilder) {
     this.order = this.fb.group({
       Area: [0, Validators.required],
       price: [0, Validators.required],

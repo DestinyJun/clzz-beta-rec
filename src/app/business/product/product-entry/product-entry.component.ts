@@ -17,10 +17,15 @@ export class ProductEntryComponent implements OnInit {
   aluminumcode: string;
   oid: string;
   targetlist: string;
+  tHead = ['#', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
+  prop = ['targetlist', 'oid', 'aluminumcode', 'aluminumlength', 'warehousingindate', 'idt'];
+  btnGroup = ['打印', '转单'];
+  tBody = [];
   constructor(private http: ProductHttpService) {
     this.http.findfinishedwarehouse()
       .subscribe(data => {
-        this.products = data['values'];
+        console.log(data);
+        this.tBody = data['values'];
       });
   }
   ngOnInit() {
