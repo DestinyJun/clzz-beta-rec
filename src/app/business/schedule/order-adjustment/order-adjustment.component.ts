@@ -14,8 +14,8 @@ export class OrderAdjustmentComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
-  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
-  btnGroup = ['上移', '下移'];
+  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'status'];
+  btnGroup = ['下移'];
   oid = new Oid();
   constructor(private http: ScheduleHttpService, private activatedRoute: ActivatedRoute,  public page: PageService) {
     this.page.setRow(20);
@@ -25,31 +25,8 @@ export class OrderAdjustmentComponent implements OnInit {
       this.SeeOrders();
     });
   }
-  Status(i) {
-    if (i === 1) {
-      return '准备生产';
-    } else if (i === 2) {
-      return '准备生产';
-    } else if (i === 3) {
-      return '正常暂停生产';
-    } else if (i === 4) {
-      return '异常暂停生产';
-    } else if (i === 5) {
-      return '单次生产完成';
-    }
-  }
-  up(j) {
-    this.http.OrderMobileFunction({
-      oidone: this.tBody[j]['oid'] ,
-      oidtwo: this.tBody[j - 1]['oid'],
-      priorityone: this.tBody[j]['priority'],
-      prioritytwo: this.tBody[j - 1]['priority']
-    })
-      .subscribe(data => {
-        this.SeeOrders();
-      });
-  }
   down(j) {
+    console.log(j);
     this.http.OrderMobileFunction({
       oidone: this.tBody[j]['oid'] ,
       oidtwo: this.tBody[j + 1]['oid'],
@@ -63,7 +40,11 @@ export class OrderAdjustmentComponent implements OnInit {
   SeeOrders() {
     this.http.OrderAudited()
       .subscribe(data => {
+        console.log(data['values']);
         this.tBody = data['values'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          this.tBody[i]['status'] = this.chineseStatus(Number(this.tBody[i]['status']));
+        }
         for (let i = 0; i < this.tBody.length; i++) {
           for ( let j = i + 1; j < this.tBody.length; j++) {
             if (this.tBody[j].priority < this.tBody[i].priority) {
@@ -73,8 +54,15 @@ export class OrderAdjustmentComponent implements OnInit {
             }
           }
         }
-        this.page.setPage(data['values'].length);
+        this.page.setPage(20);
       });
+  }
+  chineseStatus(status: number) {
+    switch (status) {
+      case 1: return '准备生产';
+      case 2: return '正在生产....';
+      case 3: return '生产停机';
+    }
   }
   ngOnInit() {}
 }

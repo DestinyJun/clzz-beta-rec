@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Url} from '../../getUrl';
 
 @Component({
   selector: 'app-qrcode',
@@ -9,6 +10,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class QrcodeComponent implements OnInit {
 
+  url = new Url().getUrl();
   elementType: 'url' | 'canvas' | 'imag' = 'url';
   value = '';
   values: Array<object>;
@@ -39,7 +41,7 @@ export class QrcodeComponent implements OnInit {
       this.mode = this.route.snapshot.params['mode'];
       console.log(this.mode !== '0');
       if (this.mode !== '0') {
-        this.http.post('http://120.78.137.182/element/paQRcode', 'purchase=' + this.purchase, {
+        this.http.post('http://' + this.url + '/element/paQRcode', 'purchase=' + this.purchase, {
           headers: this.headers
         }).subscribe(data => {
           console.log(data);
@@ -47,7 +49,7 @@ export class QrcodeComponent implements OnInit {
           this.di = data['QRcode_di'];
         });
       } else {
-        this.http.post('http://120.78.137.182/element/alQRcode', 'purchase=' + this.purchase, {
+        this.http.post('http://' + this.url + '/element/alQRcode', 'purchase=' + this.purchase, {
           headers: this.headers
         }).subscribe(data => {
           console.log(data);
@@ -60,17 +62,8 @@ export class QrcodeComponent implements OnInit {
 
   }
 
-  diToString( obj: QRcodedi) {
-    return 'diluent_weight' + obj.diluent_weight + 'url' + obj.url +
-      'diluent_type' + obj.diluent_type + 'diluent_id' + obj.diluent_id;
-  }
-  paToString( obj: QRcodepa) {
-    return 'paint_weight' + obj.paint_weight + 'url' + obj.url +
-      'paint_type' + obj.paint_type + 'paint_id' + obj.paint_id;
-  }
-  alToString( obj: QRcodeal) {
-    return 'al_weight' + obj.al_weight + 'url' + obj.url +
-      'al_type' + obj.al_type + 'al_id' + obj.al_id;
+  stringify(obj) {
+    return JSON.stringify(obj);
   }
   ngOnInit() {
   }

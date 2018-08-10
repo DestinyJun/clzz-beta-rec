@@ -2,9 +2,11 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {LoginIdService} from '../login/login-id.service';
+import {Url} from '../getUrl';
 
 @Injectable()
 export class HttpService {
+  url = new Url().getUrl();
   public addEvent: EventEmitter<string> = new EventEmitter();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) { }
@@ -17,7 +19,7 @@ export class HttpService {
       'sysids': this.user.getObject('user').sysids
     });
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/query-event', body, {
+    return this.http.post('http://' + this.url + '/element/query-event', body, {
       headers: this.headers
     });
   }
@@ -27,7 +29,7 @@ export class HttpService {
     const body = '{\n' +
       '\t\t"did":"' + DId + '"\n' +
       '}';
-    return this.http.post('http://120.78.137.182/colorbond-consumer/SeeDeviceSensor', body);
+    return this.http.post('http://' + this.url + '/colorbond-consumer/SeeDeviceSensor', body);
   }
 
   // 模块ID查看设备传感器
@@ -35,12 +37,12 @@ export class HttpService {
     const body = '{\n' +
       '\t\t"mid":"' + MId + '"\n' +
       '}';
-    return this.http.post('http://120.78.137.182/colorbond-consumer/SeeModular-Device-Sensor', body);
+    return this.http.post('http://' + this.url + '/colorbond-consumer/SeeModular-Device-Sensor', body);
   }
 
 // 获取模块数据
   SeeAdministration(): Observable<any> {
-    return this.http.post('http://120.78.137.182/colorbond-consumer/SeeAdministration', '');
+    return this.http.post('http://' + this.url + '/colorbond-consumer/SeeAdministration', '');
   }
 
   // 传感器ID获取传感器数据
@@ -49,7 +51,7 @@ export class HttpService {
       '\t"sid":"' + body + '"\n' +
       '}';
     console.log(bodyM);
-    return this.http.post('http://120.78.137.182/colorbond-consumer/seesensordata', bodyM);
+    return this.http.post('http://' + this.url + '/colorbond-consumer/seesensordata', bodyM);
   }
 
   private parameterSerialization(obj: object): string {

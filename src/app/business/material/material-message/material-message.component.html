@@ -17,7 +17,7 @@
         </tr>
         <tr *ngFor="let tb of tBody;let j =index">
           <td>{{j}}</td>
-          <td>铝卷</td>
+          <td>{{readType()}}</td>
           <td *ngFor="let p of prop">{{tb[p]}}</td>
           <td>
             <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#entry" (click)="modalValue(j);entry.getModalData(j)" >审核</button></td>
@@ -36,4 +36,4 @@
   </div>
 </div>
 <app-material-entry [tBody]="tBody" [AlArr]="AlArr" [PtArr]="PtArr" [PtdArr]="PtdArr" [btn]="btn"
-                    (getData)="getData($event)" #entry></app-material-entry>
+                    (getData)="getData($event)" (pass)="havePass($event)" #entry></app-material-entry>

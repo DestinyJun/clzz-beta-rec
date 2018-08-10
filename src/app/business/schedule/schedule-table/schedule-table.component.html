@@ -1,6 +1,10 @@
 <div>
   <div class="panel-heading">
-    <span>{{title}}</span>
+    <div class="pull-left" style="padding-right: 15px">{{title}}</div>
+    <span>&nbsp;&nbsp;&nbsp;</span>
+    <div class="pull-left" *ngIf="btn">
+      <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#add" (click)="addOrder()">录入订单</button>
+    </div>
     <div id="search" class="form-inline pull-right">
       <input type="text" class="form-control" placeholder="搜索订单">
       <i class="fa fa-search"></i>
@@ -16,15 +20,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let i of tBody;let j = index">
+        <tr *ngFor="let tb of tBody;let j = index">
           <td >{{j + 1}}</td>
-          <td *ngFor="let p of prop">{{i[p]}}</td>
-          <td *ngIf="btnGroup.length === 2">
-            <button class="btn-success btn btn-xs">{{btnGroup[0]}}</button>
-            <button class="btn-danger btn btn-xs">{{btnGroup[1]}}</button>
+          <td *ngFor="let p of prop">{{tb[p]}}</td>
+          <td *ngIf="btnGroup.length === 2 ">
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#add" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
+            <button class="btn-danger btn btn-xs" (click)="deleteOrder(j)">{{btnGroup[1]}}</button>
           </td>
-          <td *ngIf="btnGroup.length === 1">
-            <button class="btn-success btn btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
+          <td *ngIf="btnGroup.length === 1 && btnGroup[0] === '下移'">
+            <button class="btn-danger btn btn-xs" (click)="downOrder(j)" [disabled]="tb['status']==='正在生产....'||j===tBody.length - 1">{{btnGroup[0]}}</button>
+          </td>
+          <td *ngIf="btnGroup.length === 1 && btnGroup[0] !== '下移'">
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#add" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
           </td> <!-- 有按钮则生成 -->
         </tr>
         </tbody>

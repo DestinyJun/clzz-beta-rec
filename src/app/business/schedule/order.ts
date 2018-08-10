@@ -30,7 +30,7 @@ export class Order {
   ftype: string;
   fwet_film: string;
   oid: string;
-  ostatus: string;
+  status: string;
   pccd: string;
   pdry_film: string;
   pprogram: string;
@@ -43,5 +43,6 @@ export class Order {
   subtime: string;
   tel: string;
   pro_system: string;
+  pro_auditor: string;
 }
 

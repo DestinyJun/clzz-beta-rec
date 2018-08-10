@@ -17,12 +17,35 @@ export class ScheduleTableComponent implements OnInit {
   @Input() btnGroup: Array<string> = []; // 按钮组
   @Output() index = new EventEmitter();
   @Input() page: PageService;
+  @Input() btn: true;
+  @Input() status: string;
+  @Output() formName = new EventEmitter();
+  @Output() delete = new EventEmitter();
+  @Output() down = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
 
   }
 
+  chineseStatus(status: number) {
+    if (this.status === '调排') {
+      switch (status) {
+        case 1: return '准备生产';
+        case 2: return '正在生产....';
+        case 3: return '生产停机';
+      }
+    }
+  }
+  downOrder(index) {
+    this.down.emit(index);
+  }
+  addOrder() {
+    this.formName.emit('order');
+  }
+  deleteOrder(index) {
+    this.delete.emit(index);
+  }
   sendIndex(index) {
     this.index.emit(index);
   }

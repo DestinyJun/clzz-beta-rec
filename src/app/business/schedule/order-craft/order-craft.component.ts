@@ -26,12 +26,12 @@ export class OrderCraftComponent implements OnInit {
     ['合同名', '客户名', '单价', '总价:'],
     ['铝板类型', '铝板长度', '铝板宽度', '铝板厚度'],
     ['背漆类型', '背漆方案选择', '背漆厚度', '背漆湿膜厚度'],
-    ['背漆成像', '底漆生产线', '底漆湿膜厚度', '面漆方案'],
-    ['面漆类型 ', '面漆厚度', '面漆生产线', '花纹'],
+    ['背漆成像', '底漆方案', '底漆湿膜厚度', '面漆方案'],
+    ['面漆类型 ', '面漆厚度', '面漆方案', '花纹'],
     ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
     ['Id', '状态', '控制误差', '是否双面涂'],
-    ['提交人', '录入员', '录入时间', '审核人'],
-    ['地址', '联系电话', '预计交货时间', '预计发货时间']
+    ['提交人', '修改人', '录入时间', '地址'],
+    [ '联系电话', '预计交货时间', '预计发货时间', '生产线']
   ];
   modalProp = [
     ['contractname', 'cname', 'price', 'amount'],
@@ -41,18 +41,21 @@ export class OrderCraftComponent implements OnInit {
     ['ftype', 'fthickness', 'fprogram', 'figure'],
     ['ptype', 'pthickness', 'pthicknessw', 'pccd'],
     ['oid', 'ostatus', 'deviation', 'doublecloat'],
-    ['submitter', 'audit', 'audittime', 'auditor'],
-    ['address', 'tel', 'exdelitime', 'exshiptime']
+    ['submitter', 'audit', 'audittime', 'address'],
+    ['tel', 'exdelitime', 'exshiptime', 'pro_system']
   ];
   craftName = [
-    ['面漆干膜修正', '面漆湿膜修正', '底漆干膜修正', '底漆湿膜修正'],
-    ['背漆干膜修正', '背漆湿膜修正', '系统生产线']
+    ['面漆干膜修正(微米)', '面漆湿膜修正(微米)', '底漆干膜修正(微米)', '底漆湿膜修正(微米)'],
+    ['背漆干膜修正(微米)', '背漆湿膜修正(微米)', '系统生产线']
   ];
   craftProp = [
     ['fdry_film', 'fwet_film', 'bdry_film', 'bwet_film'],
     ['pdry_film', 'pwet_film', 'pro_system']
   ];
-
+  craftType = [
+    ['number', 'number', 'number', 'number'],
+    ['number', 'number', 'type']
+  ];
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private activatedRoute: ActivatedRoute,
   private user: LoginIdService, public page: PageService) {
     this.page.setRow(20);
@@ -80,6 +83,9 @@ export class OrderCraftComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.tBody = data['values']['datas'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
+        }
         this.page.setPage(Number(data['values']['number']));
       });
   }
@@ -87,25 +93,20 @@ export class OrderCraftComponent implements OnInit {
     this.order = this.tBody[value];
     console.log(value);
   }
-  status(value): string {
-    if (value === 0) {
-      return '未提交';
-    } else if (value === 1) {
-      return '已提交';
-    } else if (value === 2) {
-      return '销售经理已审核';
-    } else if (value === 3) {
-      return '生产经理已审核';
-    } else if (value === 4) {
-      return '正在生产';
-    } else if (value === 5) {
-      return '成品已入库';
-    } else if (value === 6) {
-      return '成品已出库';
+  chineseStatus(status: number): string {
+    switch (status) {
+      case 1: return '待销售经理审核';
+      case 2: return '待生产经理审核';
+      case 3: return '已完成审核';
+      case 4: return '准备生产';
+      case 5: return '正在生产';
+      case 6: return '待入库';
+      case 7: return '已入库';
+      case 8: return '已出库';
     }
   }
   havePass(status) {
-    this.order['auditor'] = this.user.getObject('user').realName;
+    this.order.pro_auditor = this.user.getObject('user').realName;
     this.order.fdry_film = this.film.get('fdry_film').value;
     this.order.fwet_film = this.film.get('fwet_film').value;
     this.order.pdry_film = this.film.get('pdry_film').value;
@@ -113,7 +114,7 @@ export class OrderCraftComponent implements OnInit {
     this.order.bdry_film = this.film.get('bdry_film').value;
     this.order.bwet_film = this.film.get('bwet_film').value;
     this.order.pro_system = this.film.get('pro_system').value;
-    this.order.ostatus = status;
+    this.order.status = status;
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);

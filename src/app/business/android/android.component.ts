@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Url} from '../../getUrl';
 
 @Component({
   selector: 'app-android',
@@ -8,9 +9,10 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AndroidComponent implements OnInit {
 
+  url = new Url().getUrl();
   appInfor: Array<AppInfo>;
   constructor(private http: HttpClient) {
-    this.http.post('http://120.78.137.182/element-admin/version/an-query', '')
+    this.http.post('http://' + this.url + '/element-admin/version/an-query', '')
       .subscribe(data => {
         console.log(data);
         if (data['status'] === '10') {

@@ -16,8 +16,9 @@ export class UnauditedMaterialComponent implements OnInit {
   btnGroup = ['详情'];
   tBody = [];
   type = 0;
-  url = '/home/material/failed';
+  url = '/home/material/unaudited';
   status = 1;
+  btn = '审核';
   constructor(private materialHttp: MaterialHttpService, public page: PageService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.page.setRow(20);
@@ -42,7 +43,7 @@ export class UnauditedMaterialComponent implements OnInit {
     this.materialHttp.findrawpage(body).subscribe(data => {
       console.log(data);
       this.tBody = data['values']['datas'];
-      this.page.setPage(data['values']['number']);
+      this.page.setPage(data['values']['num']);
     });
   }
 }

@@ -1,6 +1,10 @@
 export class Url {
   url = '120.78.137.182';
+  url1 = '192.168.28.7:8080';
+  url2 = '192.168.28.19:8080';
+  url3 = '192.168.28.19:9080';
+  url4 = '192.168.28.19:8090';
   getUrl() {
-    return this.url;
+    return this.url2;
   }
 }

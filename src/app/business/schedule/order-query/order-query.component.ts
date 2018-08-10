@@ -14,15 +14,46 @@ import {ActivatedRoute} from '@angular/router';
   animations: [slideToRight]
 })
 export class OrderQueryComponent implements OnInit {
-  @HostBinding('@routerAnimate') state;
-  public orderForm: FormGroup;
-  public read = true;
-  public Color = [];
+  order: FormGroup;
+  order2: FormGroup;
+  formName: FormGroup;
+  orderOid: string;
+  btnName = '提交';
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
-  btnGroup = ['修改'];
-  constructor(private http: ScheduleHttpService, private fb: FormBuilder,
+  btnGroup = ['修改', '删除'];
+  dataName = [
+    ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
+    ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
+    ['背漆类型', '背漆成像', '背漆方案'],
+    ['底漆类型', '底漆成像', '底漆方案'],
+    ['面漆类型', '面漆成像', '面漆方案'],
+    ['联系电话', '国家', '省份', '城市'],
+    ['控制误差', '预计交货时间', '预计发货时间', '地址'],
+    [ '是否双面涂', '花纹有无', '生产线']
+  ];
+  propType = [
+    ['type', 'type', 'number', 'number'],
+    ['type', 'number', 'number', 'number'],
+    ['type', 'type', 'number'],
+    ['type', 'type', 'number'],
+    ['type', 'type', 'number'],
+    ['type', 'type', 'type', 'type'],
+    ['number', 'date', 'date', 'type'],
+    [ '是否双面涂', '花纹有无',  '生产线']
+  ];
+  modalProp = [
+    ['contractname', 'cname', 'price', 'amount'],
+    ['altype', 'area', 'alwidth', 'althickness'],
+    ['btype', 'bccd', 'bprogram'],
+    ['ptype', 'pccd', 'pprogram'],
+    ['ftype', 'fccd', 'fprogram'],
+    [ 'tel', 'country', 'province', 'city'],
+    ['deviation', 'exdelitime', 'exshiptime', 'address'],
+    ['doublecloat', 'figura', 'pro_system']
+  ];
+  constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
               public page: PageService, private activatedRoute: ActivatedRoute) {
     this.page.setRow(20);
     this.page.setUrl('/home/schedule/ordque');
@@ -30,177 +61,169 @@ export class OrderQueryComponent implements OnInit {
       this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
     });
-    this.orderForm = this.fb.group({
-      oid: ['', Validators.required],
-      cname: ['', Validators.required],
+    this.formName = this.order2 = this.order = this.fb.group({
       contractname: ['', Validators.required],
-      tel: ['', Validators.required],
+      cname: ['', Validators.required],
+      price: ['', Validators.required],
+      amount: ['', Validators.required],
       altype: ['', Validators.required],
-      allength: ['', Validators.required],
+      area: ['', Validators.required],
       alwidth: ['', Validators.required],
       althickness: ['', Validators.required],
-      fthickness: ['', Validators.required],
-      ftype: ['', Validators.required],
-      fprogram: ['', Validators.required],
-      fccd: ['', Validators.required],
-      pthickness: ['', Validators.required],
-      ptype: ['', Validators.required],
-      pprogram: ['', Validators.required],
-      pccd: ['', Validators.required],
-      doublecloat: ['', Validators.required],
-      figura: ['', Validators.required],
-      bchickness: ['', Validators.required],
       btype: ['', Validators.required],
-      bprogram: ['', Validators.required],
       bccd: ['', Validators.required],
-      address: ['', Validators.required],
-      submitter: ['', Validators.required],
-      exdelitime: ['', Validators.required],
-      exshiptime: ['', Validators.required],
-      ostatus: ['', Validators.required],
+      bprogram: ['', Validators.required],
+      ptype: ['', Validators.required],
+      pccd: ['', Validators.required],
+      pprogram: ['', Validators.required],
+      ftype: ['', Validators.required],
+      fccd: ['', Validators.required],
+      fprogram: ['', Validators.required],
+      doublecloat: ['', Validators.required],
       country: ['', Validators.required],
       province: ['', Validators.required],
-      city: ['', Validators.required]
+      city: ['', Validators.required],
+      deviation: ['', Validators.required],
+      figura: ['', Validators.required],
+      address: ['', Validators.required],
+      tel: ['', Validators.required],
+      exdelitime: ['', Validators.required],
+      exshiptime: ['', Validators.required],
+      pro_system: ['', Validators.required],
     });
   }
 
   ngOnInit() {
   }
-  Select(i) {
-    for (let j = 0; j < this.Color.length; j++) {
-      if (i !== j) {
-        this.Color[j] = false;
-      }
-    }
-    this.Color[i] = true;
-  }
 
+  chineseStatus(status: number): string {
+    switch (status) {
+      case 1: return '待销售经理审核';
+      case 2: return '待生产经理审核';
+      case 3: return '已完成审核';
+      case 4: return '准备生产';
+      case 5: return '正在生产';
+      case 6: return '待入库';
+      case 7: return '已入库';
+      case 8: return '已出库';
+    }
+  }
   SeeOrders() {
     this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 0)
       .subscribe(data => {
         console.log(data);
         this.tBody = data['values']['datas'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
+        }
         this.page.setPage(data['values']['number']);
       });
   }
-  DeleteOrder(oid) {
+  deleteOrder(index) {
     if (window.confirm('确认删除吗？') ) {
-      const body = {delete_id: oid};
+      const body = {delete_id: this.tBody[index]['oid']};
       this.http.DelOrders(body)
         .subscribe(data => {
           this.SeeOrders();
         });
     }
   }
+  addOrder() {
+    this.formName = this.order;
+    this.btnName = '提交';
+  }
   modalValue(value) {
     console.log(this.tBody[value]);
     this.tBody[value]['doublecloat'] = value['doublecloat'] === 1 ? '是' : '否';
     this.tBody[value]['figura'] = value['figura'] === 1 ? '是' : '否';
     console.log(value);
-    this.orderForm.patchValue(this.tBody[value]);
-    console.log(this.orderForm);
+    this.order2.patchValue(this.tBody[value]);
+    this.order2.patchValue({'area': this.tBody[value]['allength'] * this.order2.get('alwidth').value});
+    this.formName = this.order2;
+    this.orderOid = this.tBody[value]['oid'];
+    this.btnName = '修改完成';
+    console.log(this.tBody[value]);
   }
-  remodal(): void {
-    this.read = false;
-  }
-
-  status(value): string {
-    if (value === 0) {
-      return '未提交';
-    } else if (value === 1) {
-      return '已提交';
-    } else if (value === 2) {
-      return '销售经理已审核';
-    } else if (value === 3) {
-      return '生产经理已审核';
-     } else if (value === 4) {
-      return '正在生产';
-    } else if (value === 5) {
-      return '成品已入库';
-    } else if (value === 6) {
-      return '成品已出库';
-    }
-  }
-  Modify() {
+  submitOrder() {
+    this.order = this.formName;
+    this.order.patchValue({'allength': this.order.get('area').value / this.order.get('alwidth').value});
     const body = {
-      oid: this.orderForm.get('oid').value ,
-      cname: this.orderForm.get('cname').value,
-      contractname: this.orderForm.get('contractname').value,
-      tel: this.orderForm.get('tel').value,
-      Altype: this.orderForm.get('altype').value,
-      Allength: this.orderForm.get('allength').value,
-      Alwidth: this.orderForm.get('alwidth').value,
-      Althickness: this.orderForm.get('althickness').value,
-      fthickness: this.orderForm.get('fthickness').value,
-      ftype: this.orderForm.get('ftype').value,
-      fprogram: this.orderForm.get('fprogram').value,
-      fccd: this.orderForm.get('fccd').value,
-      pthickness: this.orderForm.get('pthickness').value,
-      ptype: this.orderForm.get('ptype').value,
-      pprogram: this.orderForm.get('pprogram').value,
-      pccd: this.orderForm.get('pccd').value,
-      doublecloat: this.orderForm.get('doublecloat').value  === '是' ? '1' : '0',
-      figura: this.orderForm.get('figura').value === '是' ? '1' : '0',
-      bchickness: this.orderForm.get('bchickness').value,
-      btype: this.orderForm.get('btype').value,
-      bprogram: this.orderForm.get('bprogram').value,
-      bccd: this.orderForm.get('bccd').value,
-      address: this.orderForm.get('address').value,
-      submitter: this.orderForm.get('submitter').value,
-      exdelitime: this.orderForm.get('exdelitime').value,
-      exshiptime: this.orderForm.get('exshiptime').value,
-      status: this.orderForm.get('ostatus').value,
-      country: this.orderForm.get('country').value,
-      province: this.orderForm.get('province').value,
-      city: this.orderForm.get('city').value,
-      };
+      cname: this.order.get('cname').value,
+      contractname: this.order.get('contractname').value,
+      tel: this.order.get('tel').value,
+      altype: this.order.get('altype').value,
+      allength: this.order.get('area').value / this.order.get('alwidth').value,
+      alwidth: this.order.get('alwidth').value,
+      althickness: this.order.get('althickness').value ,
+      ftype: this.order.get('ftype').value,
+      fprogram: this.order.get('fprogram').value,
+      fccd: this.order.get('fccd').value,
+      ptype: this.order.get('ptype').value,
+      pprogram: this.order.get('pprogram').value,
+      pccd: this.order.get('pccd').value,
+      doublecloat: this.order.get('doublecloat').value === '是' ? 1 : 0,
+      figura: this.order.get('figura').value === '有花纹' ? 1 : 0,
+      btype: this.order.get('btype').value,
+      bprogram: this.order.get('bprogram').value,
+      bccd: this.order.get('bccd').value,
+      address: this.order.get('address').value,
+      submitter: this.user.getObject('user').realName,
+      exdelitime: this.order.get('exdelitime').value,
+      exshiptime: this.order.get('exshiptime').value,
+      pro_system: this.order.get('pro_system').value,
+      country: this.order.get('country').value,
+      province: this.order.get('province').value,
+      city: this.order.get('city').value,
+      price: this.order.get('price').value,
+      deviation: this.order.get('deviation').value,
+      amount: this.order.get('amount').value,
+    };
     console.log(body);
-    this.http.UpdateOrders(body)
-      .subscribe(data => {
-        console.log(data);
-        if (data['status'] === '10') {
-          window.confirm('修改成功');
-        } else {
-          window.confirm(data['message']);
-        }
+    this.http.AddOrders(body)
+      .subscribe(data => {console.log(data);
         this.SeeOrders();
       });
   }
-}
-
-export class Order {
-  address: string;
-  allength: string;
-  althickness: string;
-  altype: string;
-  amount: string;
-  alwidth: string;
-  bccd: string;
-  bchickness: string;
-  bchicknessw: string;
-  bprogram: string;
-  btype: string;
-  cname: string;
-  contractname: string;
-  doublecloat: string;
-  exdelitime: string;
-  exshiptime: string;
-  fccd: string;
-  figure: string;
-  fprogram: string;
-  fthickness: string;
-  fthicknessw: string;
-  ftype: string;
-  oid: string;
-  ostatus: string;
-  pccd: string;
-  price: string;
-  pthickness: string;
-  ptype: string;
-  submitter: string;
-  subtime: string;
-  tel: string;
-  country: string;
-  province: string;
-  city: string;
+  modifyOrder() {
+    this.order2 = this.formName;
+    this.order2.patchValue({'allength': this.order.get('area').value / this.order.get('alwidth').value});
+    const body = {
+      cname: this.order2.get('cname').value,
+      contractname: this.order2.get('contractname').value,
+      tel: this.order2.get('tel').value,
+      altype: this.order2.get('altype').value,
+      allength: this.order2.get('area').value / this.order.get('alwidth').value,
+      alwidth: this.order2.get('alwidth').value,
+      althickness: this.order2.get('althickness').value ,
+      ftype: this.order2.get('ftype').value,
+      fprogram: this.order2.get('fprogram').value,
+      fccd: this.order2.get('fccd').value,
+      ptype: this.order2.get('ptype').value,
+      pprogram: this.order2.get('pprogram').value,
+      pccd: this.order2.get('pccd').value,
+      doublecloat: this.order2.get('doublecloat').value === '是' ? 1 : 0,
+      figura: this.order2.get('figura').value === '有花纹' ? 1 : 0,
+      btype: this.order2.get('btype').value,
+      bprogram: this.order2.get('bprogram').value,
+      bccd: this.order2.get('bccd').value,
+      address: this.order2.get('address').value,
+      submitter: this.user.getObject('user').realName,
+      exdelitime: this.order2.get('exdelitime').value,
+      exshiptime: this.order2.get('exshiptime').value,
+      pro_system: this.order2.get('pro_system').value,
+      country: this.order2.get('country').value,
+      province: this.order2.get('province').value,
+      city: this.order2.get('city').value,
+      price: this.order2.get('price').value,
+      deviation: this.order2.get('deviation').value,
+      amount: this.order2.get('amount').value,
+      auditor: null,
+      oid: this.orderOid
+    };
+    console.log(body);
+    this.http.UpdateOrders(body)
+      .subscribe(data => {console.log(data);
+        this.SeeOrders();
+      });
+  }
 }

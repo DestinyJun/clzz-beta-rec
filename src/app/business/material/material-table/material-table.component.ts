@@ -16,28 +16,28 @@ export class MaterialTableComponent implements OnInit {
   dataName: any;
   material: any;
   AlDataName = [
-    ['采购单号', '总重量', '单价', '总价'],
-    ['铝卷型号', '铝卷宽度', '铝卷厚度', '铝卷密度'],
-    [ '厂家名称', '录入人员', '生产系统'],
+    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
+    ['铝板型号', '铝板宽度(毫米)', '铝卷厚度(微米)', '铝卷密度'],
+    [ '厂家名称', '生产系统'],
   ];
   AlModalProp = [
-    ['purchase', 'alexweight', 'alprice', 'amount'],
+    ['purchase', 'alweight', 'alprice', 'amount'],
     ['altype', 'alwidth', 'althickness', 'aldensity'],
-    [ 'supname', 'auditor', 'pro_system'],
+    [ 'supname', 'pro_system'],
   ];
   PtDataName = [
-    ['采购单号', '总重量', '单价', '总价'],
-    ['油漆名称', '油漆固化物含量', '油漆挥发份含量', '油漆密度'],
-    ['稀释剂名称', '稀释剂总重量', '稀释剂单价', '稀释剂总价'],
-    ['稀释剂类型', '稀释剂固化物含量', '稀释剂挥发份含量'],
-    ['油漆类型', '厂家名称', '录入人员', '生产系统'],
+    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
+    ['油漆名称', '油漆固化物含量(%)', '油漆挥发份含量(%)', '油漆密度'],
+    ['稀释剂名称', '稀释剂总重量(千克)', '稀释剂单价(元/千克)', '稀释剂总价(元)'],
+    ['稀释剂类型', '稀释剂预计总重量(千克)', '稀释剂固化物含量(%)', '稀释剂挥发份含量(%)'],
+    ['稀释剂产品编号', '油漆类型', '油漆厂家名称', '生产系统'],
   ];
   PtModalProp = [
     ['purchase', 'paex_weight', 'price', 'pamount'],
     ['pname', 'pcondensate', 'pvolatile', 'pdensity'],
-    ['dname', 'diluentweight', 'diluent_price', 'damount'],
-    ['diluent_type', 'condensate', 'dvolatile'],
-    ['ptype', 'supname', 'auditor', 'pro_system'],
+    ['dname', 'diex_weight', 'dprice', 'damount'],
+    ['diluent_type', 'diluent_weight', 'condensate', 'dvolatile'],
+    ['supnum', 'ptype', 'supname', 'pro_system'],
   ];
   PtName = ['分桶号', '分桶重量'];
   PtdName = ['分桶号', '分桶重量'];
@@ -58,6 +58,8 @@ export class MaterialTableComponent implements OnInit {
   @Input() status: number;
   @Input() page: PageService;
   @Output() getData = new EventEmitter();
+  @Output() pass = new EventEmitter();
+  @Input() btn: string;
   type = 0;
   constructor(private activatedRoute: ActivatedRoute,
               private materialHttp: MaterialHttpService,
@@ -83,7 +85,16 @@ export class MaterialTableComponent implements OnInit {
       this.dataName = this.PtDataName;
     }
   }
-
+  readType() {
+    if (this.type === 0) {
+      return '铝板';
+    } else if (this.type === 1) {
+      return '油漆';
+    }
+  }
+  havePass(status) {
+    this.pass.emit(status);
+  }
   modalValue(index) {
     this.material = this.tBody[index];
     console.log(this.tBody[index]);

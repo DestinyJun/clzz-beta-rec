@@ -36,6 +36,7 @@ export class MaterialCheckComponent implements OnInit {
   }
   getData(type) {
     this.type = type;
+    console.log(type);
     const body = {
       sysids: this.user.getObject('user').sysids,
       page: this.page.getNowPage(),
@@ -46,7 +47,7 @@ export class MaterialCheckComponent implements OnInit {
     this.materialHttp.findrawpage(body).subscribe(data => {
       console.log(data);
       this.tBody = data['values']['datas'];
-      this.page.setPage(data['values']['number']);
+      this.page.setPage(data['values']['num']);
     });
   }
 }

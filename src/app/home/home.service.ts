@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import  'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class HomeService {
-  public navListToggle: Subject<boolean> = new Subject<boolean>();
   constructor() {
 
   }

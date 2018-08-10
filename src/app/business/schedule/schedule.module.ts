@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ScheduleComponent} from './schedule.component';
 import {ScheduleRoutersModule} from './schedule.routers.module';
-import {OrderEntryComponent} from './order-entry/order-entry.component';
 import {OrderQueryComponent} from './order-query/order-query.component';
 import {OrderMarketingComponent} from './order-marketing/order-marketing.component';
 import {OrderCraftComponent} from './order-craft/order-craft.component';
@@ -10,7 +9,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
 import {ToastService} from '../../remind/toast.service';
 import {ScheduleTableComponent} from './schedule-table/schedule-table.component';
-import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +18,6 @@ import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
   ],
   declarations: [
     ScheduleComponent,
-    OrderEntryComponent,
     OrderQueryComponent,
     OrderMarketingComponent,
     OrderCraftComponent,

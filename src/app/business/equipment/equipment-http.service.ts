@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Url} from '../../getUrl';
 
 @Injectable()
 export class EquipmentHttpService {
 
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient) { }
 
@@ -23,7 +25,7 @@ export class EquipmentHttpService {
   }
   public FindDeviceInformation(page: object): Observable<any> {
     const body = this.parameterSerialization(page);
-    return this.http.post('http://120.78.137.182/element/find/device/information', body, {
+    return this.http.post('http://' + this.url + '/element/find/device/information', body, {
       headers: this.headers
     });
   }
@@ -31,28 +33,28 @@ export class EquipmentHttpService {
   public SeeModularDeviceSensor(Mid: object): Observable<any> {
     const body = this.parameterSerialization(Mid);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/SeeModular-Device-Sensor', body, {
+    return this.http.post('http://' + this.url + '/element/SeeModular-Device-Sensor', body, {
       headers: this.headers
     });
   }
 
   public seesensordata(sid: object): Observable<any> {
     const body = this.parameterSerialization(sid);
-    return this.http.post('http://120.78.137.182/element/seesensordata', body, {
+    return this.http.post('http://' + this.url + '/element/seesensordata', body, {
       headers: this.headers
     });
   }
 
   public SeeDeviceSensor(did: object): Observable<any> {
     const body = this.parameterSerialization(did);
-    return this.http.post('http://120.78.137.182/element/SeeDeviceSensor', body, {
+    return this.http.post('http://' + this.url + '/element/SeeDeviceSensor', body, {
       headers: this.headers
     });
   }
 
   public SeeSystemModular(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
-    return this.http.post('http://120.78.137.182/element/SeeSystemModular', body, {
+    return this.http.post('http://' + this.url + '/element/SeeSystemModular', body, {
       headers: this.headers
     });
   }

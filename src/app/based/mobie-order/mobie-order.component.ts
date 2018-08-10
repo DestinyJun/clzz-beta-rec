@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
+import {Url} from '../../getUrl';
 declare let BMap;
 
 @Component({
@@ -11,8 +12,9 @@ declare let BMap;
 })
 export class MobieOrderComponent implements OnInit {
 
-  public order: Order;
-  public address: string;
+  url = new Url().getUrl();
+  order: Order;
+  address: string;
   targetlist: string;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private route: ActivatedRoute) {
@@ -32,6 +34,7 @@ export class MobieOrderComponent implements OnInit {
 
   public ionViewWillEnter(city: string): object {
     const geolocation = new BMap.Geolocation();
+    const that = this;
     const ta = this.targetlist, ad = this.address, ht = this.http, ps = this.parameterSerialization, he = this.headers;
     let sg, st, eg, et, ss, body;
     geolocation.getCurrentPosition(function (r) {
@@ -52,7 +55,7 @@ export class MobieOrderComponent implements OnInit {
             slongitude: sg,
             slatitude: st
           };
-          ht.post('http://120.78.137.182/element-plc/scavenging-event', ps(body), {
+          ht.post('http://' + that.url + '/element-plc/scavenging-event', ps(body), {
             headers: he
           }). subscribe(data => console.log(data) );
         });
@@ -66,7 +69,7 @@ export class MobieOrderComponent implements OnInit {
 
   public FindOrdersId(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
-    return this.http.post('http://120.78.137.182/element/FindOrdersId', body, {
+    return this.http.post('http://' + this.url + '/element/FindOrdersId', body, {
       headers: this.headers
     });
   }

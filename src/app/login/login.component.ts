@@ -24,5 +24,6 @@ export class LoginComponent implements OnInit {
     const username = String(this.user.get('username').value),
       passwords = String(this.user.get('passwords').value);
     this.tips = this.loginService.login(username, passwords); // 提示登录状态
+    // this.loginService.setProSystem();
   }
 }

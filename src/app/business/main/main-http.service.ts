@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Url} from '../../getUrl';
 
 @Injectable()
 export class MainHttpService {
 
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient) { }
 
@@ -25,7 +27,7 @@ export class MainHttpService {
   public SeeOrders(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/See-Orders', body, {
+    return this.http.post('http://' + this.url + '/element/See-Orders', body, {
       headers: this.headers
     });
   }

@@ -2,10 +2,10 @@
   <div class="panel-heading">
     <div class="pull-left" style="padding-right: 15px">{{title}}</div>
     <span>&nbsp;&nbsp;&nbsp;</span>
-    <div class="pull-left">
-      <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#entry">录入{{type}}</button>
+    <div class="pull-left" *ngIf="btn === '提交'">
+      <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#entry">录入{{readType()}}</button>
     </div>
-    <div id="search" class="form-inline pull-right">
+    <div class="form-inline pull-right">
       <input type="text" class="form-control" placeholder="搜索订单">
       <i class="fa fa-search"></i>
       <button class="btn btn-xs" (click)="toggleBtn(0)" [ngClass]="{'btn-danger': type === 0, 'btn-default': type !== 0}">铝卷</button>
@@ -32,7 +32,7 @@
             <button class="btn-danger btn btn-xs">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1">
-            <button class="btn-success btn btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
           </td> <!-- 有按钮则生成 -->
         </tr>
         </tbody>
@@ -46,7 +46,7 @@
   </div>
 
 </div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade bs-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
@@ -116,6 +116,13 @@
             <div class="form-group">
               <label>{{PtdName[1]}}:</label>
               <input title="" type="text" value="{{ptd[PtdProp[1]]}}" [disabled]="true">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <button class="btn btn-info pull-right" data-toggle="modal" data-target="#detial">关闭</button>
             </div>
           </div>
         </div>

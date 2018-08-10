@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {LoginIdService} from '../../login/login-id.service';
+import {Url} from '../../getUrl';
 
 @Injectable()
 export class ProductHttpService {
 
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) { }
 
@@ -27,7 +29,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       sysids: this.user.getObject('user').sysids
     });
-    return this.http.post('http://120.78.137.182/element-plc/find-produce-information', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-produce-information', body, {
       headers: this.headers
     });
   }
@@ -36,7 +38,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       sysids: this.user.getObject('user').sysids
     });
-    return this.http.post('http://120.78.137.182/element-plc/find-finished-warehouse', body, {
+    return this.http.post('http://'  + this.url + '/element-plc/find-finished-warehouse', body, {
       headers: this.headers
     });
   }
@@ -46,7 +48,7 @@ export class ProductHttpService {
       sysids: this.user.getObject('user').sysids
     });
     console.log(body);
-    return this.http.post('http://120.78.137.182/element-plc/find-warehouse-out', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-warehouse-out', body, {
       headers: this.headers
     });
   }
@@ -54,7 +56,7 @@ export class ProductHttpService {
   public findamendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element-plc/find-amend-order', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-amend-order', body, {
       headers: this.headers
     });
   }
@@ -62,7 +64,7 @@ export class ProductHttpService {
   public amendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element-plc/amend-order', body, {
+    return this.http.post('http://' + this.url + '/element-plc/amend-order', body, {
       headers: this.headers
     });
   }

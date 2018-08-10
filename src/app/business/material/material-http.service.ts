@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Url} from '../../getUrl';
 
 @Injectable()
 export class MaterialHttpService {
 
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'});
   constructor(private http: HttpClient) { }
 
@@ -25,7 +27,7 @@ export class MaterialHttpService {
   public findrawpage(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/findrawpage', body, {
+    return this.http.post('http://' + this.url + '/element/findrawpage', body, {
       headers: this.headers
     });
   }
@@ -33,7 +35,7 @@ export class MaterialHttpService {
   public SeeAluminum(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/SeeAluminum', body, {
+    return this.http.post('http://' + this.url + '/element/SeeAluminum', body, {
       headers: this.headers
     });
   }
@@ -41,7 +43,7 @@ export class MaterialHttpService {
   public SeePaint(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/See-Paint', body, {
+    return this.http.post('http://' + this.url + '/element/See-Paint', body, {
       headers: this.headers
     });
   }
@@ -49,13 +51,13 @@ export class MaterialHttpService {
   public updateal(obj: object): Observable<any> {
     const body = obj;
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/update-al', body);
+    return this.http.post('http://' + this.url + '/element/update-al', body);
   }
 
   public allauditpa(obj: object): Observable<any> {
     const body = obj;
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/allauditpa', body);
+    return this.http.post('http://' + this.url + '/element/allauditpa', body);
   }
 
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Url} from '../getUrl';
 @Injectable()
 export class LoginIdService {
+  url = new Url().getUrl();
   public sessionStorage: any;
   constructor(private http: HttpClient, private route: Router) {
     this.sessionStorage = sessionStorage;
@@ -45,7 +47,7 @@ export class LoginIdService {
       upwd: password,
       module: 'WEBN'
     };
-    this.http.post<User>('http://120.78.137.182/element-admin/user/login', body)
+    this.http.post<User>('http://' + this.url + '/element-admin/user/login', body)
       .subscribe(data => {
         console.log(data);
         if (data['status'] === '10') {
@@ -76,16 +78,22 @@ export class LoginIdService {
     }
     return str;
   }
-  public loginOut(): boolean { // 用户退出
+  loginOut(): boolean { // 用户退出
     const sid = { sid: this.getObject('user').sid };
-    this.http.post('http://120.78.137.182/element-admin/user/logout', sid)
+    this.http.post('http://'  + this.url + '/element-admin/user/logout', sid)
       .subscribe(data => {});
     return true;
   }
-  public updateTime() {
+  updateTime() {
     const sid = { sid: this.getObject('user').sid };
-    this.http.post('http://120.78.137.182/element-admin/user/sid-update', sid)
+    this.http.post('http://'  + this.url + '/element-admin/user/sid-update', sid)
       .subscribe(data => {});
+  }
+  setProSystem() {
+    this.http.post('http://' + this.url + '/element/find-prosystem', '')
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 }
 

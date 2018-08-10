@@ -2,7 +2,7 @@
   <app-schedule-table title="工艺订单列表" (index)="modalValue($event)" [tHead]="tHead"
                       [page]="page" [prop]="prop" [btnGroup]="btnGroup" [tBody]="tBody"></app-schedule-table>
 </div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade bs-example-modal-lg" id="add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
@@ -24,14 +24,14 @@
               <div class="col-md-3" *ngFor="let c of cp;let j=index">
                 <div class="form-group">
                   <label>{{craftName[i][j]}}</label>
-                  <input title="" type="text" formControlName="{{c}}">
+                  <input title="" type="{{craftType[i][j]}}" formControlName="{{c}}">
                 </div>
               </div>
             </div>
           </form>
         </div>
           <div class="row" style="text-align: left;margin: 0 10px">
-            <button class="btn btn-success" (click)="havePass(2)" data-toggle="modal" data-target=".bs-example-modal-lg" [disabled]="film.invalid">通过</button>
+            <button class="btn btn-success" (click)="havePass(3)" data-toggle="modal" data-target=".bs-example-modal-lg" [disabled]="film.invalid">通过</button>
             <button class="btn btn-danger" (click)="havePass(11)" data-toggle="modal" data-target=".bs-example-modal-lg">不通过</button>
             <button class="btn btn-info pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">关闭</button>
           </div>

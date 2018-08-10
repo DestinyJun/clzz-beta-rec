@@ -48,12 +48,19 @@ export class MaterialMessageComponent implements OnInit {
     this.materialHttp.findrawpage(body).subscribe(data => {
       console.log(data);
       this.tBody = data['values']['datas'];
-      this.page.setPage(data['values']['number']);
+      this.page.setPage(data['values']['num']);
     });
   }
   toggleBtn(type) {
     this.type = type;
     this.getData(this.type);
+  }
+  readType() {
+    if (this.type === 0) {
+      return '铝板';
+    } else if (this.type === 1) {
+      return '油漆';
+    }
   }
   modalValue(index) {
     this.material = this.tBody[index];
@@ -73,6 +80,28 @@ export class MaterialMessageComponent implements OnInit {
           this.PtdArr = data['data2'][0]['arr2'];
           this.AlArr = [];
         });
+    }
+  }
+  havePass(status) {
+    switch (this.type) {
+      case 0: this.materialHttp.updateal({
+        purchase: this.material['purchase'],
+        pro_auditor: this.user.getObject('user').realName,
+        status: status
+      }).subscribe(data => {
+        console.log(data);
+      });
+      this.getData(this.type);
+      break;
+      case 1: this.materialHttp.allauditpa({
+        purchase: this.material['purchase'],
+        pro_auditor: this.user.getObject('user').realName,
+        status: status
+      }).subscribe(data => {
+        console.log(data);
+      });
+        this.getData(this.type);
+        break;
     }
   }
 }

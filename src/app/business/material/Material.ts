@@ -47,7 +47,7 @@ export class Arr {
 }
 export class ALJson  {
   purchase: string;
-  alexweight: number;
+  alweight: number;
   altype: string;
   alwidth: number;
   althickness: number;
@@ -83,9 +83,11 @@ export class PaintJson {
   dtype: string;
   condensate: number;
   dvolatile: number;
-  dprice: number;
+  diluent_price: number;
+  diluent_weight: number;
   diex_weight: number;
   pro_system: string;
+  dprice: number;
   arr1: Array<PArr> = [];
   arr2: Array<DArr> = [];
 }

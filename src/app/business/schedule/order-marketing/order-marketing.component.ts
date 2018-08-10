@@ -20,30 +20,26 @@ export class OrderMarketingComponent implements OnInit {
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
   btnGroup = ['审核'];
   dataName = [
-    ['合同名', '客户名', '单价', '总价:'],
-    ['铝板类型', '铝板长度', '铝板宽度', '铝板厚度'],
-    ['背漆类型', '背漆方案选择', '背漆左厚度', '背漆湿膜厚度'],
-    ['背漆成像', '背漆干膜修正', '背漆湿膜修正 '],
-    ['面漆类型 ', '面漆厚度', '面漆湿膜厚度', '面漆方案'],
-    ['面漆生产线:', '面漆干膜修正', '面漆湿膜修正', '花纹'],
-    ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
-    ['底漆干膜修正', '底漆湿膜修正', '底漆生产线', '是否双面涂'],
-    ['Id', '状态', '控制误差', '审核人'],
-    ['提交人', '录入员', '录入时间'],
-    ['地址', '联系电话', '预计交货时间', '预计发货时间']
+    ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
+    ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
+    ['背漆类型', '背漆成像', '背漆方案'],
+    ['底漆类型', '底漆成像', '底漆方案'],
+    ['面漆类型', '面漆成像', '面漆方案'],
+    ['是否双面涂', '国家', '省份', '城市'],
+    ['控制误差', '花纹有无', '地址'],
+    ['提交人', '修改人'],
+    [ '联系电话', '预计交货时间', '预计发货时间', '生产线']
     ];
   modalProp = [
     ['contractname', 'cname', 'price', 'amount'],
-    ['altype', 'allength', 'alwidth', 'althickness'],
-    ['btype', 'bprogram', 'bchickness', 'bchicknessw'],
-    ['bccd', 'bdry_film', 'bwet_film'],
-    ['ftype', 'fthickness', 'fthicknessw', 'fccd'],
-    ['fprogram', 'fdry_film', 'fwet_film', 'figure'],
-    ['ptype', 'pthicknessw', 'pthickness', 'pccd'],
-    ['pdry_film', 'pwet_film', 'pprogram', 'doublecloat'],
-    ['oid', 'ostatus', 'deviation', 'auditor'],
-    ['submitter', 'audit', 'audittime'],
-    ['address', 'tel', 'exdelitime', 'exshiptime']
+    ['altype', 'area', 'alwidth', 'althickness'],
+    ['btype', 'bccd', 'bprogram'],
+    ['ptype', 'pccd', 'pprogram'],
+    ['ftype', 'fccd', 'fprogram'],
+    [ 'doublecloat', 'country', 'province', 'city'],
+    ['deviation', 'figura', 'address'],
+    ['submitter', 'audit'],
+    ['tel', 'exdelitime', 'exshiptime', 'pro_system']
   ];
   constructor(private http: ScheduleHttpService, private user: LoginIdService,
               public page: PageService, private activatedRoute: ActivatedRoute) {
@@ -62,38 +58,37 @@ export class OrderMarketingComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.tBody = data['values']['datas'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
+        }
         this.page.setPage(Number(data['values']['number']));
       });
   }
   modalValue(value) {
     this.order = this.tBody[value];
-    console.log(value);
+    console.log(this.tBody[value]);
   }
 
   havePass(status) {
     this.order['auditor'] = this.user.getObject('user').realName;
-    this.order.ostatus = status;
+    this.order.status = status;
+    console.log(this.order);
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
       });
   }
-  status(value): string {
-    if (value === 0) {
-      return '未提交';
-    } else if (value === 1) {
-      return '已提交';
-    } else if (value === 2) {
-      return '销售经理已审核';
-    } else if (value === 3) {
-      return '生产经理已审核';
-    } else if (value === 4) {
-      return '正在生产';
-    } else if (value === 5) {
-      return '成品已入库';
-    } else if (value === 6) {
-      return '成品已出库';
+  chineseStatus(status: number): string {
+    switch (status) {
+      case 1: return '待销售经理审核';
+      case 2: return '待生产经理审核';
+      case 3: return '已完成审核';
+      case 4: return '准备生产';
+      case 5: return '正在生产';
+      case 6: return '待入库';
+      case 7: return '已入库';
+      case 8: return '已出库';
     }
   }
 }

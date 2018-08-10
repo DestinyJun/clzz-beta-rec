@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Url} from '../../getUrl';
 
 @Injectable()
 export class MonitorHttpService {
 
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient) { }
 
@@ -24,21 +26,21 @@ export class MonitorHttpService {
 
   public SeeSystemModular(sysid: object): Observable<any> {
     const body = this.parameterSerialization(sysid);
-    return this.http.post('http://120.78.137.182/element-plc/find-system-modular', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-system-modular', body, {
       headers: this.headers
     });
   }
 
   public FindDevicenameSensornameSensordata(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    return this.http.post('http://120.78.137.182/element/find/devicename/sensorname/sensordata', body, {
+    return this.http.post('http://' + this.url + '/element/find/devicename/sensorname/sensordata', body, {
       headers: this.headers
     });
   }
 
   public modularDeviceSensorName(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    return this.http.post('http://120.78.137.182/element/find/modular/device/sensor/name', body, {
+    return this.http.post('http://' + this.url + '/element/find/modular/device/sensor/name', body, {
       headers: this.headers
     });
   }
@@ -46,14 +48,14 @@ export class MonitorHttpService {
   public findhstorysensordata(sid: object): Observable<any> {
     const body = this.parameterSerialization(sid);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/find-hstory-sensordata', body, {
+    return this.http.post('http://' + this.url + '/element/find-hstory-sensordata', body, {
       headers: this.headers
     });
   }
 
   public FindTemperatureSensor(): Observable<any> {
     const body = this.parameterSerialization({timeStamp: Date()});
-    return this.http.post('http://120.78.137.182/element/find/temperature/sensor', body, {
+    return this.http.post('http://' + this.url + '/element/find/temperature/sensor', body, {
       headers: this.headers
     });
   }
