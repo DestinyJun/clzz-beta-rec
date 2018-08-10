@@ -23,7 +23,7 @@ export class Order {
   exshiptime: string;
   fccd: string;
   fdry_film: string;
-  figure: string;
+  figura: string;
   fprogram: string;
   fthickness: string;
   fthicknessw: string;

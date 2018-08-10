@@ -19,6 +19,10 @@ export class OrderQueryComponent implements OnInit {
   formName: FormGroup;
   orderOid: string;
   btnName = '提交';
+  doublecloat: string;
+  pro_system: string;
+  figura: string;
+  pro_systemName = [];
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
@@ -31,7 +35,6 @@ export class OrderQueryComponent implements OnInit {
     ['面漆类型', '面漆成像', '面漆方案'],
     ['联系电话', '国家', '省份', '城市'],
     ['控制误差', '预计交货时间', '预计发货时间', '地址'],
-    [ '是否双面涂', '花纹有无', '生产线']
   ];
   propType = [
     ['type', 'type', 'number', 'number'],
@@ -41,7 +44,6 @@ export class OrderQueryComponent implements OnInit {
     ['type', 'type', 'number'],
     ['type', 'type', 'type', 'type'],
     ['number', 'date', 'date', 'type'],
-    [ '是否双面涂', '花纹有无',  '生产线']
   ];
   modalProp = [
     ['contractname', 'cname', 'price', 'amount'],
@@ -50,8 +52,7 @@ export class OrderQueryComponent implements OnInit {
     ['ptype', 'pccd', 'pprogram'],
     ['ftype', 'fccd', 'fprogram'],
     [ 'tel', 'country', 'province', 'city'],
-    ['deviation', 'exdelitime', 'exshiptime', 'address'],
-    ['doublecloat', 'figura', 'pro_system']
+    ['deviation', 'exdelitime', 'exshiptime', 'address']
   ];
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
               public page: PageService, private activatedRoute: ActivatedRoute) {
@@ -79,23 +80,41 @@ export class OrderQueryComponent implements OnInit {
       ftype: ['', Validators.required],
       fccd: ['', Validators.required],
       fprogram: ['', Validators.required],
-      doublecloat: ['', Validators.required],
+      doublecloat: [''],
       country: ['', Validators.required],
       province: ['', Validators.required],
       city: ['', Validators.required],
       deviation: ['', Validators.required],
-      figura: ['', Validators.required],
+      figura: [''],
       address: ['', Validators.required],
       tel: ['', Validators.required],
       exdelitime: ['', Validators.required],
       exshiptime: ['', Validators.required],
-      pro_system: ['', Validators.required],
+      pro_system: [''],
     });
   }
 
   ngOnInit() {
+    this.getProSystem();
   }
 
+  getProSystem() {
+    this.pro_systemName = this.user.getSysids();
+  }
+  getProSystemOid() {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (this.pro_system === this.pro_systemName[i]['name']) {
+        return this.pro_systemName[i]['sid'];
+      }
+    }
+  }
+  getProSystemName(pro_systemSid) {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        return this.pro_systemName[i]['name'];
+      }
+    }
+  }
   chineseStatus(status: number): string {
     switch (status) {
       case 1: return '待销售经理审核';
@@ -134,8 +153,9 @@ export class OrderQueryComponent implements OnInit {
   }
   modalValue(value) {
     console.log(this.tBody[value]);
-    this.tBody[value]['doublecloat'] = value['doublecloat'] === 1 ? '是' : '否';
-    this.tBody[value]['figura'] = value['figura'] === 1 ? '是' : '否';
+    this.doublecloat = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
+    this.figura = this.tBody[value]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.getProSystemName(this.tBody[value]['pro_system']);
     console.log(value);
     this.order2.patchValue(this.tBody[value]);
     this.order2.patchValue({'area': this.tBody[value]['allength'] * this.order2.get('alwidth').value});
@@ -161,8 +181,8 @@ export class OrderQueryComponent implements OnInit {
       ptype: this.order.get('ptype').value,
       pprogram: this.order.get('pprogram').value,
       pccd: this.order.get('pccd').value,
-      doublecloat: this.order.get('doublecloat').value === '是' ? 1 : 0,
-      figura: this.order.get('figura').value === '有花纹' ? 1 : 0,
+      doublecloat: this.doublecloat === '是' ? 1 : 0,
+      figura: this.figura === '有' ? 1 : 0,
       btype: this.order.get('btype').value,
       bprogram: this.order.get('bprogram').value,
       bccd: this.order.get('bccd').value,
@@ -170,7 +190,7 @@ export class OrderQueryComponent implements OnInit {
       submitter: this.user.getObject('user').realName,
       exdelitime: this.order.get('exdelitime').value,
       exshiptime: this.order.get('exshiptime').value,
-      pro_system: this.order.get('pro_system').value,
+      pro_system: this.getProSystemOid(),
       country: this.order.get('country').value,
       province: this.order.get('province').value,
       city: this.order.get('city').value,
@@ -201,8 +221,8 @@ export class OrderQueryComponent implements OnInit {
       ptype: this.order2.get('ptype').value,
       pprogram: this.order2.get('pprogram').value,
       pccd: this.order2.get('pccd').value,
-      doublecloat: this.order2.get('doublecloat').value === '是' ? 1 : 0,
-      figura: this.order2.get('figura').value === '有花纹' ? 1 : 0,
+      doublecloat: this.doublecloat === '是' ? 1 : 0,
+      figura: this.figura === '有' ? 1 : 0,
       btype: this.order2.get('btype').value,
       bprogram: this.order2.get('bprogram').value,
       bccd: this.order2.get('bccd').value,
@@ -210,7 +230,7 @@ export class OrderQueryComponent implements OnInit {
       submitter: this.user.getObject('user').realName,
       exdelitime: this.order2.get('exdelitime').value,
       exshiptime: this.order2.get('exshiptime').value,
-      pro_system: this.order2.get('pro_system').value,
+      pro_system: this.getProSystemOid(),
       country: this.order2.get('country').value,
       province: this.order2.get('province').value,
       city: this.order2.get('city').value,
@@ -225,5 +245,9 @@ export class OrderQueryComponent implements OnInit {
       .subscribe(data => {console.log(data);
         this.SeeOrders();
       });
+  }
+  btnBool() {
+    return this.formName.invalid || this.figura === undefined
+      || this.pro_system === undefined || this.doublecloat === undefined;
   }
 }

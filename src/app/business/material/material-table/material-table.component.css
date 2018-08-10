@@ -4,3 +4,10 @@ input{
   border-radius: 1px;
   height: 25px;
 }
+.modal-content input{
+  width: 100%;
+}
+label{
+  display: block;
+  padding-top: 5px;
+}

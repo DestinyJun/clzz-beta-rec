@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PageService} from '../../../based/page.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
 import {Aluminums, Paint} from '../Material';
@@ -63,7 +63,7 @@ export class MaterialTableComponent implements OnInit {
   type = 0;
   constructor(private activatedRoute: ActivatedRoute,
               private materialHttp: MaterialHttpService,
-              private user: LoginIdService) {
+              private router: Router) {
     this.modalProp = this.AlModalProp;
     this.dataName = this.AlDataName;
     this.material = new Aluminums();
@@ -71,6 +71,10 @@ export class MaterialTableComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  qrCode(purchase) {
+    const url = '/qrcode/' + purchase + '/' + this.type + '/1/1/1/1/1';
+    this.router.navigate([url]);
   }
   toggleBtn(btnName) {
     this.type = btnName;

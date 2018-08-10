@@ -21,11 +21,17 @@
         <div id="film">
           <form [formGroup]="film" novalidate style="padding: 0">
             <div class="row" *ngFor="let cp of craftProp;let i=index">
-              <div class="col-md-3" *ngFor="let c of cp;let j=index">
+              <div class="col-sm-3 col-xs-6" *ngFor="let c of cp;let j=index">
                 <div class="form-group">
                   <label>{{craftName[i][j]}}</label>
                   <input title="" type="{{craftType[i][j]}}" formControlName="{{c}}">
                 </div>
+              </div>
+              <div *ngIf="i === 1" class="col-xs-6 col-sm-3">
+                <label>生产线:</label>
+                <select title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let pn of pro_systemName">{{pn['name']}}</option>
+                </select>
               </div>
             </div>
           </form>

@@ -19,6 +19,8 @@ export class OrderMarketingComponent implements OnInit {
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
   btnGroup = ['审核'];
+  pro_systemName = [];
+  pro_system: string;
   dataName = [
     ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
     ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
@@ -66,6 +68,10 @@ export class OrderMarketingComponent implements OnInit {
   }
   modalValue(value) {
     this.order = this.tBody[value];
+    this.tBody[value]['doublecloat'] = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
+    this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.tBody[value]['pro_system'];
+    this.tBody[value]['pro_system'] = this.getProSystemName(this.tBody[value]['pro_system']);
     console.log(this.tBody[value]);
   }
 
@@ -73,6 +79,9 @@ export class OrderMarketingComponent implements OnInit {
     this.order['auditor'] = this.user.getObject('user').realName;
     this.order.status = status;
     console.log(this.order);
+    this.order.pro_system = this.getProSystemOid();
+    this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
+    this.order.figura = this.order.figura === '有' ? '1' : '0';
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);
@@ -89,6 +98,23 @@ export class OrderMarketingComponent implements OnInit {
       case 6: return '待入库';
       case 7: return '已入库';
       case 8: return '已出库';
+    }
+  }
+  getProSystem() {
+    this.pro_systemName = this.user.getSysids();
+  }
+  getProSystemOid() {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (this.pro_system === this.pro_systemName[i]['name']) {
+        return this.pro_systemName[i]['sid'];
+      }
+    }
+  }
+  getProSystemName(pro_systemSid) {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        return this.pro_systemName[i]['name'];
+      }
     }
   }
 }

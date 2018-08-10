@@ -20,11 +20,33 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label>是否双面涂:</label>
+                <select title="" [(ngModel)]="doublecloat" [ngModelOptions]="{standalone: true}">
+                  <option>是</option>
+                  <option>否</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>花纹有无:</label>
+                <select title="" [(ngModel)]="figura" [ngModelOptions]="{standalone: true}">
+                  <option>有</option>
+                  <option>无</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>生产线:</label>
+                <select title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let pn of pro_systemName">{{pn['name']}}</option>
+                </select>
+              </div>
+            </div>
           </form>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button class="btn btn-success" *ngIf="btnName === '提交'" (click)="submitOrder()" data-toggle="modal" data-target="#add" [disabled]="order.invalid">提交</button>
-          <button class="btn btn-success" *ngIf="btnName === '修改完成'" (click)="modifyOrder()" data-toggle="modal" data-target="#add" [disabled]="order2.invalid">修改完成</button>
+          <button class="btn btn-success" *ngIf="btnName === '提交'" (click)="submitOrder()" data-toggle="modal" data-target="#add" [disabled]="btnBool()">提交</button>
+          <button class="btn btn-success" *ngIf="btnName === '修改完成'" (click)="modifyOrder()" data-toggle="modal" data-target="#add">修改完成</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target="#add">关闭</button>
         </div>
       </div>

@@ -1,26 +1,35 @@
 <div class="container-fluid">
   <div *ngIf="purchase==='false'">
-    <ngx-qrcode [qrc-value]="value" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
+    <ngx-qrcode [qrc-value]="value" [qrc-element-type]="elementType" [qrc-version]="15" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
     <div><h3>订单编号:{{targetlist}} 生产编号:{{oid}} 铝卷单卷编号:{{aluminumcode}} 铝卷单卷长度:{{aluminumlength}}米</h3></div>
     <div><span>贵铝彩铝有限公司</span></div>
   </div>
   <div *ngIf="purchase!=='false'">
     <div class="row" *ngIf="mode==='1'">
+      <div class="col-md-12">
+        <h3>稀释剂分桶二维码</h3>
+      </div>
       <div *ngFor="let d of di" class="col-md-3">
-        <ngx-qrcode [qrc-value]="stringify(d)" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-        <div><h5>ID: {{d.diluent_id}}</h5></div>
+        <ngx-qrcode [qrc-value]="stringify(d)" [qrc-element-type]="elementType" [qrc-version]="15" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
+        <div><h4>ID: {{d.diluent_id}}</h4></div>
       </div>
     </div>
     <div class="row" *ngIf="mode==='1'">
+      <div class="col-md-12">
+        <h3>油漆分桶二维码</h3>
+      </div>
       <div *ngFor="let p of pa" class="col-md-3">
-        <ngx-qrcode [qrc-value]="stringify(p)" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-        <div><h5>ID: {{p.paint_id}}</h5></div>
+        <ngx-qrcode [qrc-value]="stringify(p)" [qrc-element-type]="elementType" [qrc-version]="15" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
+        <div><h4>ID: {{p.paint_id}}</h4></div>
       </div>
     </div>
     <div class="row" *ngIf="mode==='0'">
+      <div class="col-md-12">
+        <h3>铝板分卷二维码</h3>
+      </div>
       <div *ngFor="let a of al" class="col-md-3">
         <ngx-qrcode [qrc-value]="stringify(a)" [qrc-element-type]="elementType" [qrc-version]="10" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-        <div><h5>ID: {{a.al_id}}</h5></div>
+        <div><h4>ID: {{a.al_id}}</h4></div>
       </div>
     </div>
   </div>

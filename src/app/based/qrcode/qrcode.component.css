@@ -1,6 +1,13 @@
 .container-fluid{
   text-align: center;
-  background-color: #FFFFFF;
-  height: 960px;
 }
-
+.col-md-12{
+  background-color: #209E91;
+  color: white;
+}
+h4{
+  color: white;
+}
+h3{
+  margin: 7px 5px;
+}

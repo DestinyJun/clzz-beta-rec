@@ -18,6 +18,8 @@ export class OrderCraftComponent implements OnInit {
   @HostBinding('@routerAnimate') state;
   order = new Order();
   film: FormGroup;
+  pro_systemName = [];
+  pro_system: string;
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
@@ -31,7 +33,7 @@ export class OrderCraftComponent implements OnInit {
     ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
     ['Id', '状态', '控制误差', '是否双面涂'],
     ['提交人', '修改人', '录入时间', '地址'],
-    [ '联系电话', '预计交货时间', '预计发货时间', '生产线']
+    [ '联系电话', '预计交货时间', '预计发货时间']
   ];
   modalProp = [
     ['contractname', 'cname', 'price', 'amount'],
@@ -42,15 +44,15 @@ export class OrderCraftComponent implements OnInit {
     ['ptype', 'pthickness', 'pthicknessw', 'pccd'],
     ['oid', 'ostatus', 'deviation', 'doublecloat'],
     ['submitter', 'audit', 'audittime', 'address'],
-    ['tel', 'exdelitime', 'exshiptime', 'pro_system']
+    ['tel', 'exdelitime', 'exshiptime']
   ];
   craftName = [
     ['面漆干膜修正(微米)', '面漆湿膜修正(微米)', '底漆干膜修正(微米)', '底漆湿膜修正(微米)'],
-    ['背漆干膜修正(微米)', '背漆湿膜修正(微米)', '系统生产线']
+    ['背漆干膜修正(微米)', '背漆湿膜修正(微米)']
   ];
   craftProp = [
     ['fdry_film', 'fwet_film', 'bdry_film', 'bwet_film'],
-    ['pdry_film', 'pwet_film', 'pro_system']
+    ['pdry_film', 'pwet_film']
   ];
   craftType = [
     ['number', 'number', 'number', 'number'],
@@ -71,12 +73,13 @@ export class OrderCraftComponent implements OnInit {
       bwet_film: ['', Validators.required],
       pdry_film: ['', Validators.required],
       pwet_film: ['', Validators.required],
-      pro_system: ['', Validators.required],
+      pro_system: [''],
     });
   }
 
 
   ngOnInit() {
+    this.getProSystem();
   }
   SeeOrders() {
     this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 2)
@@ -91,7 +94,27 @@ export class OrderCraftComponent implements OnInit {
   }
   modalValue(value) {
     this.order = this.tBody[value];
+    this.tBody[value]['doublecloat'] = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
+    this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.getProSystemName(this.tBody[value]['pro_system']);
     console.log(value);
+  }
+  getProSystem() {
+    this.pro_systemName = this.user.getSysids();
+  }
+  getProSystemOid() {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (this.pro_system === this.pro_systemName[i]['name']) {
+        return this.pro_systemName[i]['sid'];
+      }
+    }
+  }
+  getProSystemName(pro_systemSid) {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        return this.pro_systemName[i]['name'];
+      }
+    }
   }
   chineseStatus(status: number): string {
     switch (status) {
@@ -113,8 +136,10 @@ export class OrderCraftComponent implements OnInit {
     this.order.pwet_film = this.film.get('pwet_film').value;
     this.order.bdry_film = this.film.get('bdry_film').value;
     this.order.bwet_film = this.film.get('bwet_film').value;
-    this.order.pro_system = this.film.get('pro_system').value;
+    this.order.pro_system = this.getProSystemOid();
     this.order.status = status;
+    this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
+    this.order.figura = this.order.figura === '有' ? '1' : '0';
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);

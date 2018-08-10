@@ -29,7 +29,7 @@
           <td *ngFor="let p of prop">{{tB[p]}}</td>
           <td *ngIf="btnGroup.length === 2">
             <button class="btn-success btn btn-xs">{{btnGroup[0]}}</button>
-            <button class="btn-danger btn btn-xs">{{btnGroup[1]}}</button>
+            <button class="btn-danger btn btn-xs" (click)="qrCode(tB['purchase'])">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1">
             <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
@@ -55,7 +55,7 @@
       </div>
       <div class="panel-body">
         <div class="row" *ngFor="let mp of modalProp;let i=index;">
-          <div class="col-md-3 col-sm-6" *ngFor="let m of mp;let j=index;">
+          <div class="col-sm-3 col-xs-6" *ngFor="let m of mp;let j=index;">
             <form class="form-inline">
               <label>{{dataName[i][j]}}:</label>
               <input type="text" title="" value="{{material[m]}}" [disabled]="true">
@@ -68,13 +68,13 @@
           </div>
         </div>
         <div class="row" *ngFor="let al of AlArr">
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label >{{AlName[0]}}:</label>
               <input title="" type="text" value="{{al[AlProp[0]]}}" [disabled]="true">
             </div>
           </div>
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label>{{AlName[1]}}:</label>
               <input title="" type="text" value="{{al[AlProp[1]]}}" [disabled]="true">
@@ -87,13 +87,13 @@
           </div>
         </div>
         <div class="row" *ngFor="let pt of PtArr">
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label >{{PtName[0]}}:</label>
               <input title="" type="text" value="{{pt[PtProp[0]]}}" [disabled]="true">
             </div>
           </div>
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label>{{PtName[1]}}:</label>
               <input title="" type="text" value="{{pt[PtProp[1]]}}" [disabled]="true">
@@ -106,13 +106,13 @@
           </div>
         </div>
         <div class="row" *ngFor="let ptd of PtdArr">
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label >{{PtdName[0]}}:</label>
               <input title="" type="text" value="{{ptd[PtdProp[0]]}}" [disabled]="true">
             </div>
           </div>
-          <div class="col-md-3 col-xs-6">
+          <div class="col-sm-3 col-xs-6">
             <div class="form-group">
               <label>{{PtdName[1]}}:</label>
               <input title="" type="text" value="{{ptd[PtdProp[1]]}}" [disabled]="true">
@@ -122,7 +122,7 @@
         <div class="row">
           <div class="col-md-12">
             <div>
-              <button class="btn btn-info pull-right" data-toggle="modal" data-target="#detial">关闭</button>
+              <button class="btn btn-info pull-right" data-toggle="modal" data-target="#detail">关闭</button>
             </div>
           </div>
         </div>

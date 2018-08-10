@@ -25,7 +25,8 @@ export class MaterialMessageComponent implements OnInit {
   material: any;
   btn = '审核';
   constructor(private materialHttp: MaterialHttpService, public page: PageService,
-              private activatedRoute: ActivatedRoute, private user: LoginIdService) {
+              private activatedRoute: ActivatedRoute, private user: LoginIdService,
+              private router: Router) {
     this.page.setRow(20);
     this.page.setUrl(this.url);
     this.activatedRoute.params.subscribe(() => {
@@ -90,6 +91,9 @@ export class MaterialMessageComponent implements OnInit {
         status: status
       }).subscribe(data => {
         console.log(data);
+        if (status === 2) {
+          this.qrCode();
+        }
       });
       this.getData(this.type);
       break;
@@ -99,9 +103,16 @@ export class MaterialMessageComponent implements OnInit {
         status: status
       }).subscribe(data => {
         console.log(data);
+        if (status === 2) {
+          this.qrCode();
+        }
       });
         this.getData(this.type);
         break;
     }
+  }
+  qrCode() {
+    const url = '/qrcode/' + this.material['purchase'] + '/' + this.type + '/1/1/1/1/1';
+    this.router.navigate([url]);
   }
 }

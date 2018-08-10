@@ -5,6 +5,6 @@ export class Url {
   url3 = '192.168.28.19:9080';
   url4 = '192.168.28.19:8090';
   getUrl() {
-    return this.url2;
+    return this.url;
   }
 }

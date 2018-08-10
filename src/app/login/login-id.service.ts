@@ -26,7 +26,7 @@ export class LoginIdService {
   public setSysids(value: any): void {
     this.sessionStorage['sysids'] = JSON.stringify(value);
   }
-  public getSysids(): void {
+  public getSysids(): any {
     return JSON.parse(this.sessionStorage['sysids'] || '{}');
   }
   public setObject(key: string, value: User): void {

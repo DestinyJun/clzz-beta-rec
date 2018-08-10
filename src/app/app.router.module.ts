@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import {CanActivate, RouterModule, Routes} from '@angular/router';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {QrcodeComponent} from './based/qrcode/qrcode.component';
-import {DepartmentButtonComponent} from './based/department-button/department-button.component';
 import {OrderpageComponent} from './based/orderpage/orderpage.component';
 import {CanrouteService} from './remind/canroute.service';
 import {MobieOrderComponent} from './based/mobie-order/mobie-order.component';
