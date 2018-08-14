@@ -6,7 +6,7 @@ import {TacticsComponent} from './tactics.component';
 import {TacticsMapComponent} from './tactics-map/tactics-map.component';
 import {TacticsOrderComponent} from './tactics-order/tactics-order.component';
 import {TacticsMarketingComponent} from './tactics-marketing/tactics-marketing.component';
-import {ToastService} from '../../remind/toast.service';
+import {TacticsOrderService} from './tactics-order/tactics-order.service';
 
 @NgModule({
   imports: [
@@ -20,6 +20,6 @@ import {ToastService} from '../../remind/toast.service';
     TacticsOrderComponent,
     TacticsMarketingComponent
   ],
-  providers: [ToastService],
+  providers: [TacticsOrderService],
 })
 export class TacticsModule { }

@@ -1,4 +1,5 @@
 <div class="container-fluid" style="position: relative">
-  <div echarts [options]="option" style="height: 800px"></div>
+  <div [merge]="updateData" echarts [options]="pipe" style="height: 150px"></div>
+  <div echarts (chartMouseOver)="chartMouseOver($event)" [options]="line" style="height: 250px"></div>
 </div>
 

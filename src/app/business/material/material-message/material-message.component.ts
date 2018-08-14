@@ -18,7 +18,7 @@ export class MaterialMessageComponent implements OnInit {
   tBody = [];
   type = 0;
   url = '/home/material/checked';
-  status = 2;
+  status = 1;
   PtArr = [];
   PtdArr = [];
   AlArr = [];
