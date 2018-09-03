@@ -2,8 +2,6 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as echarts from 'echarts';
 import {MonitorHttpService} from '../monitor-http.service';
-import {slideToRight} from '../../../routeAnimation';
-import {SensorService} from './sensor.service';
 import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({

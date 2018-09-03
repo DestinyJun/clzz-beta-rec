@@ -13,7 +13,7 @@ export class PageService {
   constructor(private router: Router) { // 默认当前第一页，最小页码为一页
   }
 
-  setPage(countNumber) { // 输入总数,每页行数, 设置最大页码，每页行数
+  setPage(countNumber) { // 输入总数, 设置最大页码
     this.countNumber = countNumber;
     if (countNumber % this.Row === 0 ) {
       this.max = countNumber / this.Row;

@@ -68,6 +68,8 @@ export class MaterialEntryComponent implements OnInit {
   paint: FormGroup;
   alJson = new ALJson();
   paintJson = new PaintJson();
+  pro_systemName: any;
+  pro_system: string;
   @Input() tBody = [];
   @Output() getData = new EventEmitter();
   @Output() pass = new EventEmitter();
@@ -119,13 +121,38 @@ export class MaterialEntryComponent implements OnInit {
     this.dataType = this.AlType;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getProSystem();
+  }
+  getProSystem() {
+    this.pro_systemName = this.user.getSysids();
+    console.log(this.pro_systemName, this.user.getSysids());
+  }
+  getProSystemOid() {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (this.pro_system === this.pro_systemName[i]['name']) {
+        return this.pro_systemName[i]['sid'];
+      }
+    }
+  }
+  getProSystemName(pro_systemSid) {
+    console.log(pro_systemSid);
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        console.log(pro_systemSid === this.pro_systemName[i]['sid']);
+        return this.pro_systemName[i]['name'];
+      }
+    }
+  }
   getModalData(index) {
     console.log(this.tBody[index]);
     console.log(this.AlArr);
     if (this.type === 0) {
+      this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
+      console.log(this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']));
       this.AL.patchValue(this.tBody[index]);
     } else {
+      this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
       this.paint.patchValue(this.tBody[index]);
     }
   }
@@ -163,7 +190,7 @@ export class MaterialEntryComponent implements OnInit {
     this.alJson.alprice = this.AL.get('alprice').value;
     this.alJson.supname = this.AL.get('supname').value;
     this.alJson.auditor = this.user.getObject('user').realName;
-    this.alJson.pro_system = this.AL.get('pro_system').value;
+    this.alJson.pro_system = this.getProSystemOid();
     this.alJson.arr = this.AlArr;
     console.log(this.alJson);
     this.http.post('http://' + this.url + '/element/Add-Aluminum', this.alJson)
@@ -190,7 +217,7 @@ export class MaterialEntryComponent implements OnInit {
     this.paintJson.dvolatile = this.paint.get('dvolatile').value;
     this.paintJson.diex_weight = this.paint.get('diex_weight').value;
     this.paintJson.diluent_weight = this.paint.get('diluent_weight').value;
-    this.paintJson.pro_system = this.paint.get('pro_system').value;
+    this.paintJson.pro_system = this.getProSystemOid();
     this.paintJson.arr1 = this.PtArr;
     this.paintJson.arr2 = this.PtdArr;
     console.log(this.paintJson);

@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {MonitorHttpService} from '../monitor-http.service';
-import {slideToRight} from '../../../routeAnimation';
 import * as echarts from 'echarts';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-temperature',
@@ -19,9 +19,11 @@ export class TemperatureComponent implements OnInit {
   Count: number;
   tips: string;
 
-  constructor(private http: MonitorHttpService) {
+  constructor(private http: MonitorHttpService, private user: LoginIdService) {
     this.option = [];
-    this.Temperature = this.http.FindTemperatureSensor();
+    this.Temperature = this.http.FindTemperatureSensor({
+      sysids: this.user.getObject('user').sysids
+    });
     this.getSensorId();
   }
 
@@ -56,7 +58,7 @@ export class TemperatureComponent implements OnInit {
 
   toDatestart(time) {
     let Hours = time.getHours(), Minutes = time.getMinutes();
-    if ( Minutes < 20) {
+    if (Minutes < 20) {
       Minutes += 40;
       Hours -= 1;
     } else {
@@ -72,7 +74,7 @@ export class TemperatureComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sid: body, starttime: starttime, deadline: deadline})
+    this.http.findhstorysensordata({sid: body, starttime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
       .subscribe(d => {
         if (d['status'] === '10') {
           console.log(d);
@@ -81,7 +83,8 @@ export class TemperatureComponent implements OnInit {
           const data = [];
           const DLength = d['values'].length;
           for (let j = 0; j < DLength; j++) {
-            dates.push(d['values'][j]['stime']);
+            const arr = d['values'][j]['stime'].split(' ');
+            dates.push(arr[1]);
             data.push(d['values'][j]['sdata']);
           }
           this.option.push({
@@ -94,7 +97,7 @@ export class TemperatureComponent implements OnInit {
             },
             title: {
               left: 'left',
-              text: SensorName + '数据图',
+              text: SensorName,
               textStyle: {
                 color: '#fff'
               },
@@ -128,25 +131,6 @@ export class TemperatureComponent implements OnInit {
                 }
               }
             },
-            dataZoom: [{
-              type: 'inside',
-              start: 0,
-              end: 100
-            }, {
-              start: 0,
-              end: 10,
-              handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,' +
-              '9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.' +
-              '4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-              handleSize: '80%',
-              handleStyle: {
-                color: '#fff',
-                shadowBlur: 3,
-                shadowColor: 'rgba(0, 0, 0, 0.6)',
-                shadowOffsetX: 2,
-                shadowOffsetY: 2
-              }
-            }],
             series: [
               {
                 name: '传感器数据',

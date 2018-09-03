@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginIdService} from '../../../login/login-id.service';
+import {Url} from '../../../getUrl';
 
 @Component({
   selector: 'app-inspection',
@@ -11,7 +12,7 @@ import {LoginIdService} from '../../../login/login-id.service';
 })
 export class InspectionComponent implements OnInit {
 
-  url = 'http://120.78.137.182/element-admin/find-inspection-result';
+  url = new Url().getUrl();
   row = 20;
   title: '巡检查看';
   tHead = ['#', '项目编号', '项目位置', '巡检时间', '巡检人员', '巡检描述', '查看附件'];
@@ -37,7 +38,7 @@ export class InspectionComponent implements OnInit {
   getData(page: number, row: number) {
     console.log(page);
     const  body = 'page=' + page + '&row=' + row + '&unitcode=' + this.user.getObject('user').sysids;
-    this.http.post(this.url, body, {headers: this.headers}).subscribe(data => {
+    this.http.post('http://' + this.url + '/element-admin/find-inspection-result', body, {headers: this.headers}).subscribe(data => {
       console.log(data);
       for (let i = 0; i < data['values'].length; i++) {
         const inspectiondata = JSON.parse(data['values'][i]['inspectiondata']);

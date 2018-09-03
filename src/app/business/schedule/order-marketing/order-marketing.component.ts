@@ -54,6 +54,7 @@ export class OrderMarketingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProSystem();
   }
   SeeOrders() {
     this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 1)
@@ -67,19 +68,18 @@ export class OrderMarketingComponent implements OnInit {
       });
   }
   modalValue(value) {
-    this.order = this.tBody[value];
     this.tBody[value]['doublecloat'] = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
     this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
     this.pro_system = this.tBody[value]['pro_system'];
     this.tBody[value]['pro_system'] = this.getProSystemName(this.tBody[value]['pro_system']);
+    this.order = this.tBody[value];
     console.log(this.tBody[value]);
   }
 
   havePass(status) {
     this.order['auditor'] = this.user.getObject('user').realName;
     this.order.status = status;
-    console.log(this.order);
-    this.order.pro_system = this.getProSystemOid();
+    this.order.pro_system = this.pro_system;
     this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
     this.order.figura = this.order.figura === '有' ? '1' : '0';
     this.http.UpdateOrders(this.order)
@@ -102,6 +102,7 @@ export class OrderMarketingComponent implements OnInit {
   }
   getProSystem() {
     this.pro_systemName = this.user.getSysids();
+    console.log(this.pro_systemName, this.user.getSysids());
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
@@ -111,8 +112,10 @@ export class OrderMarketingComponent implements OnInit {
     }
   }
   getProSystemName(pro_systemSid) {
+    console.log(pro_systemSid);
     for (let i = 0; i < this.pro_systemName.length; i++) {
       if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        console.log(pro_systemSid === this.pro_systemName[i]['sid']);
         return this.pro_systemName[i]['name'];
       }
     }

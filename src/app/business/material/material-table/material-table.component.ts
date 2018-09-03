@@ -61,16 +61,38 @@ export class MaterialTableComponent implements OnInit {
   @Output() pass = new EventEmitter();
   @Input() btn: string;
   type = 0;
+  pro_systemName: any;
+  pro_system: string;
   constructor(private activatedRoute: ActivatedRoute,
               private materialHttp: MaterialHttpService,
-              private router: Router) {
+              private router: Router, private user: LoginIdService) {
     this.modalProp = this.AlModalProp;
     this.dataName = this.AlDataName;
     this.material = new Aluminums();
   }
 
   ngOnInit() {
-
+    this.getProSystem();
+  }
+  getProSystem() {
+    this.pro_systemName = this.user.getSysids();
+    console.log(this.pro_systemName, this.user.getSysids());
+  }
+  getProSystemOid() {
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (this.pro_system === this.pro_systemName[i]['name']) {
+        return this.pro_systemName[i]['sid'];
+      }
+    }
+  }
+  getProSystemName(pro_systemSid) {
+    console.log(pro_systemSid);
+    for (let i = 0; i < this.pro_systemName.length; i++) {
+      if (pro_systemSid === this.pro_systemName[i]['sid']) {
+        console.log(pro_systemSid === this.pro_systemName[i]['sid']);
+        return this.pro_systemName[i]['name'];
+      }
+    }
   }
   qrCode(purchase) {
     const url = '/qrcode/' + purchase + '/' + this.type + '/1/1/1/1/1';
@@ -100,6 +122,7 @@ export class MaterialTableComponent implements OnInit {
     this.pass.emit(status);
   }
   modalValue(index) {
+    this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
     this.material = this.tBody[index];
     console.log(this.tBody[index]);
     if (this.type === 0) {
@@ -107,6 +130,7 @@ export class MaterialTableComponent implements OnInit {
         .subscribe(data => {
           console.log(data);
           this.AlArr = data['data'][0]['arr'];
+          console.log(this.AlArr);
           this.PtArr = this.PtdArr = [];
         });
     } else {

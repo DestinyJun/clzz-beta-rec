@@ -9,9 +9,9 @@ const mainRoutes: Routes = [
     path: '',
     component: ProductComponent,
     children: [
-      {path: 'procent', component: ProductEntryComponent},
-      {path: 'procout', component: ProductOutComponent},
-      {path: 'proenting', component: ProductEntringComponent}
+      {path: 'procent/:page', component: ProductEntryComponent},
+      {path: 'procout/:page', component: ProductOutComponent},
+      {path: 'proenting/:page', component: ProductEntringComponent}
     ]
   },
 ];

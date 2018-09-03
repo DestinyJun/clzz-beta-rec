@@ -28,7 +28,7 @@
           <td>{{type}}</td>
           <td *ngFor="let p of prop">{{tB[p]}}</td>
           <td *ngIf="btnGroup.length === 2">
-            <button class="btn-success btn btn-xs">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
             <button class="btn-danger btn btn-xs" (click)="qrCode(tB['purchase'])">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1">

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MainHttpService} from '../main-http.service';
 import {BigToSmall} from '../../../remind/ts/componentAnimation';
@@ -68,7 +67,7 @@ export class ListComponent implements OnInit {
     const body = {
       page: 1,
       row: 5,
-      status: 1,
+      status: 0,
       sysids: this.user.getObject('user').sysids
     };
     this.orderlist = this.http

@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {ProductHttpService} from '../product-http.service';
 import {asWindowsPath} from '@angular-devkit/core';
 import {slideToRight} from '../../../routeAnimation';
+import {PageService} from '../../../based/page.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-product-entry',
@@ -17,20 +19,31 @@ export class ProductEntryComponent implements OnInit {
   aluminumcode: string;
   oid: string;
   targetlist: string;
-  tHead = ['#', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
-  prop = ['targetlist', 'oid', 'aluminumcode', 'aluminumlength', 'warehousingindate', 'idt'];
-  btnGroup = ['打印', '转单'];
+  tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
+  prop = ['contractname', 'targetlist', 'oid', 'aluminumcode', 'aluminumlength', 'warehousingindate', 'idt'];
+  btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
-  constructor(private http: ProductHttpService) {
-    this.http.findfinishedwarehouse()
-      .subscribe(data => {
-        console.log(data);
-        this.tBody = data['values'];
-      });
+  row = 15;
+  constructor(private http: ProductHttpService, public page: PageService, private activatedRoute: ActivatedRoute) {
+    this.page.setRow(this.row);
+    this.page.setUrl('/home/product/procent');
+    this.activatedRoute.params.subscribe(() => {
+      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.initData();
+    });
+
   }
   ngOnInit() {
   }
 
+  initData() {
+    this.http.findfinishedwarehouse(this.page.getNowPage(), this.page.getRow())
+      .subscribe(data => {
+        console.log(data);
+        this.page.setPage(data['values']['num']);
+        this.tBody = data['values']['produceDTOs'];
+      });
+  }
   confirm(i) {
     if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
       this.http.amendorder({targetcode: i, oid: this.oid, aluminumcode: this.aluminumcode})
@@ -43,11 +56,11 @@ export class ProductEntryComponent implements OnInit {
         });
     }
   }
-  SeeOrders(j, i, k): void {
-    this.targetlist = k;
-    this.aluminumcode = j;
-    this.oid = i;
-    this.http.findamendorder({targetlist: k})
+  zhuan(index): void {
+    this.targetlist = this.tBody[index]['targetlist'];
+    this.oid = this.tBody[index]['oid'];
+    this.aluminumcode = this.tBody[index]['aluminumcode'];
+    this.http.findamendorder({targetlist: this.targetlist})
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];

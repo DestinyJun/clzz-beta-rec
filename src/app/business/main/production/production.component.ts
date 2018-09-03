@@ -1,6 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginIdService} from '../../../login/login-id.service';
+import {Url} from '../../../getUrl';
+import {options} from './option';
+import {s} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-production',
@@ -8,121 +11,19 @@ import {LoginIdService} from '../../../login/login-id.service';
   styleUrls: ['./production.component.css']
 })
 export class ProductionComponent implements OnInit {
-  public order = new Order();
-  public options = {
-
-    tooltip : {
-      trigger: 'axis',
-      axisPointer
-        :
-        {
-          type: 'cross',
-          label
-            :
-            {
-              backgroundColor: '#6a7985'
-            }
-        }
-    }
-    ,
-    grid: {
-      left: '3%',
-      right
-        :
-        '4%',
-      bottom
-        :
-        '-3px',
-      containLabel
-        :
-        true
-    }
-    ,
-    xAxis : [
-      {
-        type: 'category',
-        height: '100%',
-        boundaryGap: false,
-        data: ['', '', '', '', '', '', ''],
-        axisLabel: {
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#fff'
-          }
-        }
-      },
-    ],
-    yAxis
-      :
-      [
-        {
-          type: 'value',
-          axisLabel: {
-            textStyle: {
-              color: '#fff'
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#fff'
-            }
-          }
-        }
-      ],
-    series
-      :
-      [
-        {
-          name: '油漆厚度',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {normal: {}},
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '背漆厚度',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {normal: {}},
-          data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-          name: '底漆厚度',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {normal: {}},
-          data: [150, 232, 201, 154, 190, 330, 410]
-        },
-
-        {
-          name: '铝板厚度',
-          type: 'line',
-          stack: '总量',
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          areaStyle: {normal: {}},
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
-        }
-      ]
-  };
+  order = new Order();
+  url = new Url().getUrl();
+  options = options;
   public ModalChart: any;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) {
-    this.http.post('http://120.78.137.182/element-plc/order/audited', 'sysids=' + this.user.getObject('user').sysids,{
+    this.http.post('http://' + this.url + '/element-plc/order/audited', 'sysids=' + this.user.getObject('user').sysids, {
       headers: this.headers
-    })
-      .subscribe(data => {
+    }).subscribe(data => {
+        console.log(data);
         const length = data['values'].length;
         for (let i = 0; i < length; i++) {
-          if (data['values'][i]['status'] === 1) {
+          if (data['values'][i]['status'] === 2) {
             this.order = data['values'][i];
             break;
           }
@@ -132,14 +33,59 @@ export class ProductionComponent implements OnInit {
 
   ngOnInit() {
   }
+  toDatestart(time) {
+    let Hours = time.getHours(), Minutes = time.getMinutes();
+    if ( Minutes < 20) {
+      Minutes += 40;
+      Hours -= 1;
+    } else {
+      Minutes -= 20;
+    }
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
+  }
 
+  toDateend(time) {
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+  }
+  initMapData() {
+    this.http.post('http://' + this.url + '/element/find/thickness/sensor', 'sysids=' +
+      this.user.getObject('user').sysids, {headers: this.headers}).subscribe(data => {
+      console.log(data);
+      const length = data['values'].length;
+    });
+  }
+  timeData(sid, starttime, deadline) {
+    const body = {
+      sid: sid,
+      starttime: starttime,
+      deadline: deadline
+    };
+    this.http.post('http://' + this.url + '/element/find-hstory-sensordata', this.parameterSerialization(body), {
+      headers: this.headers
+    });
+  }
   ReSize(event) {
     this.ModalChart = event;
   }
   ReSizeInit() {
     setTimeout(() => this.ModalChart.resize(), 200);
   }
+  parameterSerialization(obj: object): string {
+    let result: string;
+    for (const prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        if (!result) {
+          result = prop + '=' + obj[prop];
+        } else {
+          result += '&' + prop + '=' + obj[prop];
+        }
+      }
+    }
+    return result;
   }
+}
 export class Order {
   altype: string;
   allength: string;

@@ -22,6 +22,7 @@ export class ScheduleTableComponent implements OnInit {
   @Output() formName = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() down = new EventEmitter();
+  @Output() searchOrder = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -48,6 +49,11 @@ export class ScheduleTableComponent implements OnInit {
   }
   sendIndex(index) {
     this.index.emit(index);
+  }
+  search(name) {
+    if (name !== '') {
+      this.searchOrder.emit(name);
+    }
   }
 }
 

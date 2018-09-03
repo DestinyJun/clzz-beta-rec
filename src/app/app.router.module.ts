@@ -13,10 +13,10 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'mobielogin/:username/:password/:web', component: MobieLoginComponent},
   {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
-  {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode/:address',
+  {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode/:city',
     component: QrcodeComponent, canActivate: [CanrouteService]},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},
-  {path: 'mobie/:targetlist/:aluminumcode/:address/:oid', component: MobieOrderComponent}
+  {path: 'mobie/:targetlist/:aluminumcode/:city/:oid', component: MobieOrderComponent}
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@ export class MobieOrderComponent implements OnInit {
 
   url = new Url().getUrl();
   order: Order;
-  address: string;
+  city: string;
   targetlist: string;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private route: ActivatedRoute) {
@@ -23,19 +23,21 @@ export class MobieOrderComponent implements OnInit {
         console.log(data);
         this.order = data['values'][0];
       });
-    this.address = this.route.snapshot.params['address'];
-    if (this.address !== 'false') {
+    this.city = this.route.snapshot.params['city'];
+    if (this.city !== 'false') {
       this.targetlist = this.route.snapshot.params['targetlist'];
-      this.ionViewWillEnter(this.address);
+      this.ionViewWillEnter(this.city);
     }
 
   }
-
-
   public ionViewWillEnter(city: string): object {
+    const myCity = new BMap.LocalCity();
+    myCity.get(address => {
+      this.city = address;
+    });
     const geolocation = new BMap.Geolocation();
     const that = this;
-    const ta = this.targetlist, ad = this.address, ht = this.http, ps = this.parameterSerialization, he = this.headers;
+    const ta = this.targetlist, ad = this.city, ht = this.http, ps = this.parameterSerialization, he = this.headers;
     let sg, st, eg, et, ss, body;
     geolocation.getCurrentPosition(function (r) {
       const geoc = new BMap.Geocoder();
