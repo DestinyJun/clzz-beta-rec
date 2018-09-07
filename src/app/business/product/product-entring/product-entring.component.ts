@@ -35,4 +35,9 @@ export class ProductEntringComponent implements OnInit {
         console.log(this.tBody);
       });
   }
+  searchProduct(contractName) {
+    this.http.searchWareHouseOut(contractName).subscribe(data => {
+      this.tBody = data['values']['contents'];
+    });
+  }
 }

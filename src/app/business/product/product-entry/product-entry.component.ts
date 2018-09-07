@@ -65,5 +65,10 @@ export class ProductEntryComponent implements OnInit {
         this.orders = data['values'];
       });
   }
+  searchProduct(contractName) {
+    this.http.searchWareHouseOut(contractName).subscribe(data => {
+      this.tBody = data['values']['contents'];
+    });
+  }
 }
 

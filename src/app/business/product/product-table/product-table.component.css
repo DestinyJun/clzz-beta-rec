@@ -1,3 +1,6 @@
 input{
-  color: black;
+  color: #000;
+  padding: 2px 5px;
+  border-radius: 1px;
+  height: 25px;
 }

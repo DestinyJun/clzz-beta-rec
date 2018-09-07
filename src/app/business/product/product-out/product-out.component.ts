@@ -32,4 +32,9 @@ export class ProductOutComponent implements OnInit {
         this.tBody = data['values']['contents'];
       });
   }
+  searchProduct(contractName) {
+    this.http.searchWareHouseOut(contractName).subscribe(data => {
+      this.tBody = data['values']['contents'];
+    });
+  }
 }

@@ -1,6 +1,11 @@
 <div>
   <div class="panel-heading">
     <span>{{title}}</span>
+    <div class="form-inline pull-right">
+      <span class="btn btn-info btn-xs" *ngIf="searchStatus" (click)="searchOff()">退出搜索</span>
+      <input type="text" #search class="form-control" placeholder="输入合同名,搜索成品" (keyup.enter)="searchProduct(search.value)">
+      <i class="fa fa-search" (click)="searchProduct(search.value)"></i>
+    </div>
   </div>
   <div class="panel-body">
     <div class="table-responsive">

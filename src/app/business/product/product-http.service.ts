@@ -25,7 +25,7 @@ export class ProductHttpService {
     return result;
   }
 
-  public findproduceinformation(page, row): Observable<any> {
+  findproduceinformation(page, row): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
@@ -46,6 +46,15 @@ export class ProductHttpService {
       headers: this.headers
     });
   }
+  searchWareHouseOut(contractName): Observable<any> {
+    const body = this.parameterSerialization({
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
+    });
+    return this.http.post('http://'  + this.url + '/element-plc/search-warehouse-out', body, {
+      headers: this.headers
+    });
+  }
 
   findwarehouseout(page, row): Observable<any> {
     const body = this.parameterSerialization({
@@ -58,7 +67,7 @@ export class ProductHttpService {
     });
   }
 
-  public findamendorder(obj: object): Observable<any> {
+  findamendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
     return this.http.post('http://' + this.url + '/element-plc/find-amend-order', body, {
@@ -66,7 +75,7 @@ export class ProductHttpService {
     });
   }
 
-  public amendorder(obj: object): Observable<any> {
+  amendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
     return this.http.post('http://' + this.url + '/element-plc/amend-order', body, {

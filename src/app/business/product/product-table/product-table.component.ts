@@ -17,9 +17,13 @@ export class ProductTableComponent implements OnInit {
   @Input() btnGroup: Array<string> = []; // 按钮组
   @Output() zhuandan = new EventEmitter();
   @Input() page: PageBetaService;
+  @Output() search = new EventEmitter();
+  @Output() searchOf = new EventEmitter();
+  searchStatus: boolean;
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.searchStatus = false;
   }
 
   qrcodeRoute(index) {
@@ -42,5 +46,13 @@ export class ProductTableComponent implements OnInit {
   }
   zhuan(index) {
     this.zhuandan.emit(index);
+  }
+  searchProduct(contractName) {
+    this.search.emit(contractName);
+    this.searchStatus = true;
+  }
+  searchOff() {
+    this.searchStatus = false;
+    this.searchOf.emit(false);
   }
 }

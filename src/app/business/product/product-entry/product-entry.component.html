@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <app-product-table title="已入库成品列表" [page]="pageBeta" (zhuandan)="zhuan($event)" [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
+  <app-product-table title="已入库成品列表" [page]="pageBeta" (zhuandan)="zhuan($event)" (search)="searchProduct($event)" (searchOf)="initData()"
+                     [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
 </div>
 <div class="modal fade bs-example-modal-sm" id="zhuandan" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
