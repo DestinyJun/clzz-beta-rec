@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {PageService} from '../../../based/page.service';
+import {PageBetaService} from '../../../based/page-beta.service';
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
@@ -15,7 +16,7 @@ export class ProductTableComponent implements OnInit {
   @Input() title: string; // 表格标题
   @Input() btnGroup: Array<string> = []; // 按钮组
   @Output() zhuandan = new EventEmitter();
-  @Input() page: PageService;
+  @Input() page: PageBetaService;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -24,20 +25,20 @@ export class ProductTableComponent implements OnInit {
   qrcodeRoute(index) {
     console.log(this.tBody[index]);
     this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
-      this.tBody[index]['aluminumlength'], this.tBody[index]['targetlist'],
-      this.tBody[index]['aluminumcode'], this.tBody[index]['city']]);
+      this.tBody[index]['aluminumLength'], this.tBody[index]['targetList'],
+      this.tBody[index]['aluminumCode'], this.tBody[index]['city']]);
   }
   qrcodeRouteN(index) {
     console.log(this.tBody[index]);
     this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
-      this.tBody[index]['aluminumlength'], this.tBody[index]['targetlist'],
-      this.tBody[index]['aluminumcode'], false]);
+      this.tBody[index]['aluminumLength'], this.tBody[index]['targetList'],
+      this.tBody[index]['aluminumCode'], false]);
   }
   qrcodeRouteNT(index) {
     console.log(this.tBody[index]);
     this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
-      this.tBody[index]['aluminumlength'], false,
-      this.tBody[index]['aluminumcode'], false]);
+      this.tBody[index]['aluminumLength'], false,
+      this.tBody[index]['aluminumCode'], false]);
   }
   zhuan(index) {
     this.zhuandan.emit(index);

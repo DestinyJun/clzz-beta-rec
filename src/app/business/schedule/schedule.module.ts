@@ -7,7 +7,6 @@ import {OrderMarketingComponent} from './order-marketing/order-marketing.compone
 import {OrderCraftComponent} from './order-craft/order-craft.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
-import {ToastService} from '../../remind/toast.service';
 import {ScheduleTableComponent} from './schedule-table/schedule-table.component';
 @NgModule({
   imports: [
@@ -24,6 +23,6 @@ import {ScheduleTableComponent} from './schedule-table/schedule-table.component'
     OrderAdjustmentComponent,
     ScheduleTableComponent
   ],
-  providers: [ToastService],
+  providers: [],
 })
 export class ScheduleModule { }

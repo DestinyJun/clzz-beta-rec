@@ -5,6 +5,7 @@ import {asWindowsPath} from '@angular-devkit/core';
 import {slideToRight} from '../../../routeAnimation';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
+import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
   selector: 'app-product-entry',
@@ -13,22 +14,20 @@ import {ActivatedRoute} from '@angular/router';
   animations: [slideToRight]
 })
 export class ProductEntryComponent implements OnInit {
-  @HostBinding('@routerAnimate') state;
-  products: Array<Products>;
   orders: Array<object>;
-  aluminumcode: string;
+  aluminumCode: string;
   oid: string;
-  targetlist: string;
+  targetList: string;
   tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
-  prop = ['contractname', 'targetlist', 'oid', 'aluminumcode', 'aluminumlength', 'warehousingindate', 'idt'];
+  prop = ['contractName', 'targetList', 'oid', 'aluminumCode', 'aluminumLength', 'wareHousingInDate', 'idt'];
   btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
   row = 15;
-  constructor(private http: ProductHttpService, public page: PageService, private activatedRoute: ActivatedRoute) {
-    this.page.setRow(this.row);
-    this.page.setUrl('/home/product/procent');
+  constructor(private http: ProductHttpService, public pageBeta: PageBetaService, private activatedRoute: ActivatedRoute) {
+    this.pageBeta.setPageSize(this.row);
+    this.pageBeta.setUrl('/home/product/procent');
     this.activatedRoute.params.subscribe(() => {
-      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.pageBeta.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.initData();
     });
 
@@ -37,16 +36,16 @@ export class ProductEntryComponent implements OnInit {
   }
 
   initData() {
-    this.http.findfinishedwarehouse(this.page.getNowPage(), this.page.getRow())
+    this.http.findfinishedwarehouse(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
       .subscribe(data => {
         console.log(data);
-        this.page.setPage(data['values']['num']);
-        this.tBody = data['values']['produceDTOs'];
+        this.pageBeta.setTotalPage(data['values']['totalPage']);
+        this.tBody = data['values']['contents'];
       });
   }
   confirm(i) {
     if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
-      this.http.amendorder({targetcode: i, oid: this.oid, aluminumcode: this.aluminumcode})
+      this.http.amendorder({targetCode: i, oid: this.oid, aluminumCode: this.aluminumCode})
         .subscribe(data => {
           if (data['status'] === '10') {
             window.confirm('转单成功');
@@ -57,36 +56,14 @@ export class ProductEntryComponent implements OnInit {
     }
   }
   zhuan(index): void {
-    this.targetlist = this.tBody[index]['targetlist'];
+    this.targetList = this.tBody[index]['targetList'];
     this.oid = this.tBody[index]['oid'];
-    this.aluminumcode = this.tBody[index]['aluminumcode'];
-    this.http.findamendorder({targetlist: this.targetlist})
+    this.aluminumCode = this.tBody[index]['aluminumCode'];
+    this.http.findamendorder({targetlist: this.targetList})
       .subscribe(data => {
         console.log(data);
         this.orders = data['values'];
       });
   }
-  Status(i): string {
-    if (i === 0) {
-      return '未入库';
-    } else if (i === 1) {
-      return '正在入库';
-    } else if (i === 2) {
-      return '已全部入库';
-    } else if (i === 4) {
-      return '已全出库';
-    }
-  }
-}
-export class Products {
-
-  constructor(
-    public  oid: string,
-    public  aluminumlength: string,
-    public  aluminumcode: string,
-    public  idt: string,
-    public warehousingindate: string,
-    public targetlist: string
-  ) {}
 }
 

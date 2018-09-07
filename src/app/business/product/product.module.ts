@@ -8,6 +8,7 @@ import {ProductEntringComponent} from './product-entring/product-entring.compone
 import {ProductHttpService} from './product-http.service';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 import {ProductTableComponent} from './product-table/product-table.component';
+import {PageBetaService} from '../../based/page-beta.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,6 @@ import {ProductTableComponent} from './product-table/product-table.component';
     ProductEntringComponent,
     ProductTableComponent
   ],
-  providers: [ProductHttpService],
+  providers: [ProductHttpService, PageBetaService],
 })
 export class ProductModule { }

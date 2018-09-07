@@ -1,5 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
-import {slideToRight} from '../routeAnimation';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LoginIdService} from '../login/login-id.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Url} from '../getUrl';
@@ -8,7 +7,6 @@ import {Url} from '../getUrl';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  animations: [slideToRight]
 })
 export class HomeComponent implements OnInit {
   State = 'in';

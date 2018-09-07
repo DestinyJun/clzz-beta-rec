@@ -29,7 +29,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysids: this.user.getObject('user').sysids
+      sysIds: this.user.getObject('user').sysids
     });
     return this.http.post('http://' + this.url + '/element-plc/find-produce-information-paging', body, {
       headers: this.headers
@@ -40,7 +40,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysids: this.user.getObject('user').sysids
+      sysIds: this.user.getObject('user').sysids
     });
     return this.http.post('http://'  + this.url + '/element-plc/find-finished-warehouse-paging', body, {
       headers: this.headers
@@ -51,7 +51,7 @@ export class ProductHttpService {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysids: this.user.getObject('user').sysids
+      sysIds: this.user.getObject('user').sysids
     });
     return this.http.post('http://' + this.url + '/element-plc/find-warehouse-out-paging', body, {
       headers: this.headers
