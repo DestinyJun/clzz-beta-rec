@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {LoginIdService} from '../../../login/login-id.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Url} from '../../../getUrl';
 
 @Injectable()
 export class SensorService {
@@ -14,6 +15,7 @@ export class SensorService {
   NoDataSensorJson: any;
   option: any;
   Datas: any;
+  url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) { }
 
@@ -23,7 +25,7 @@ export class SensorService {
       sysids: this.user.getObject('user').sysids,
     });
     console.log(body);
-    this.http.post<SystemModular>('http://120.78.137.182/element/SeeSystemModular', body, {
+    this.http.post<SystemModular>('http://' + this.url + '/element/SeeSystemModular', body, {
       headers: this.headers
     })
       .subscribe(data => {
@@ -81,21 +83,21 @@ export class SensorService {
   }
   public SeeSystemModular(sysid: object): Observable<any> {
     const body = this.parameterSerialization(sysid);
-    return this.http.post('http://120.78.137.182/element/SeeSystemModular', body, {
+    return this.http.post('http://' + this.url + '/element/SeeSystemModular', body, {
       headers: this.headers
     });
   }
 
   public FindDevicenameSensornameSensordata(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    return this.http.post('http://120.78.137.182/element/find/devicename/sensorname/sensordata', body, {
+    return this.http.post('http://' + this.url + '/element/find/devicename/sensorname/sensordata', body, {
       headers: this.headers
     });
   }
 
   public modularDeviceSensorName(mid: object): Observable<any> {
     const body = this.parameterSerialization(mid);
-    return this.http.post('http://120.78.137.182/element/find/modular/device/sensor/name', body, {
+    return this.http.post('http://' + this.url + '/element/find/modular/device/sensor/name', body, {
       headers: this.headers
     });
   }
@@ -103,7 +105,7 @@ export class SensorService {
   public findhstorysensordata(sid: object): Observable<any> {
     const body = this.parameterSerialization(sid);
     console.log(body);
-    return this.http.post('http://120.78.137.182/element/find-hstory-sensordata', body, {
+    return this.http.post('http://' + this.url + '/element/find-hstory-sensordata', body, {
       headers: this.headers
     });
   }

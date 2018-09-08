@@ -11,7 +11,7 @@ import {PageBetaService} from '../../../based/page-beta.service';
 export class ProductOutComponent implements OnInit {
   tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '出库时间', '操作'];
   tBody = [];
-  prop = ['contractName', 'targetList', 'oid', 'aluminumCode', 'aluminumLength', 'idt', 'wareHousingInDate', 'wareHousingOutDate'];
+  prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'wareHousingInDate', 'wareHousingOutDate'];
   btnGroup = ['打印已出库二维码'];
   row = 15;
   constructor(private http: ProductHttpService, public pageBeta: PageBetaService, private activatedRoute: ActivatedRoute) {
@@ -25,7 +25,7 @@ export class ProductOutComponent implements OnInit {
   ngOnInit() {
   }
   initData() {
-    this.http.findwarehouseout(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
+    this.http.findWareHouseOut(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
       .subscribe(data => {
         console.log(data);
         this.pageBeta.setTotalPage(data['values']['totalPage']);
@@ -34,7 +34,7 @@ export class ProductOutComponent implements OnInit {
   }
   searchProduct(contractName) {
     this.http.searchWareHouseOut(contractName).subscribe(data => {
-      this.tBody = data['values']['contents'];
+      this.tBody = data['values'];
     });
   }
 }

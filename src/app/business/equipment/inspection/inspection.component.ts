@@ -13,12 +13,14 @@ import {Url} from '../../../getUrl';
 export class InspectionComponent implements OnInit {
 
   url = new Url().getUrl();
-  row = 20;
+  row = 15;
   title: '巡检查看';
   tHead = ['#', '项目编号', '项目位置', '巡检时间', '巡检人员', '巡检描述', '查看附件'];
-  prop = ['itemcode', 'itemposition', 'idt', 'inspector', 'description'];
+  prop = ['itemCode', 'itemPosition', 'idt', 'inspector', 'description'];
   tBody = [];
   btnGroup = ['图片详情'];
+  imgUrl: string;
+  imageNames: Array<string> = [];
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, public page: PageService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
@@ -37,26 +39,22 @@ export class InspectionComponent implements OnInit {
 
   getData(page: number, row: number) {
     console.log(page);
-    const  body = 'page=' + page + '&row=' + row + '&unitcode=' + this.user.getObject('user').sysids;
+    const  body = 'page=' + page + '&row=' + row + '&unitCode=' + this.user.getObject('user').sysids;
     this.http.post('http://' + this.url + '/element-admin/find-inspection-result', body, {headers: this.headers}).subscribe(data => {
       console.log(data);
-      for (let i = 0; i < data['values'].length; i++) {
-        const inspectiondata = JSON.parse(data['values'][i]['inspectiondata']);
-        const inspection = new Inspection();
-        inspection.idt = data['values'][i].idt;
-        inspection.itemposition = data['values'][i].itemposition;
-        inspection.itemcode = data['values'][i].itemcode;
-        inspection.description = inspectiondata.description;
-        inspection.inspector = String(inspectiondata.inspector);
-        this.tBody.push(inspection);
+      this.tBody = data['values']['contents'];
+      for (let i = 0; i < this.tBody.length; i++) {
+        this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
+        this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
       }
     });
   }
-}
-class Inspection {
-  itemcode: string;
-  itemposition: string;
-  idt: string;
-  inspector: string;
-  description: string;
+
+  pictureIndex(index) {
+    this.imgUrl = this.tBody[index]['imgUrl'];
+    this.imageNames = this.tBody[index]['imageNames'];
+    for (let i = 0; i < this.imageNames.length; i++) {
+      this.imageNames[i] = this.imgUrl + '/' + this.imageNames[i];
+    }
+  }
 }

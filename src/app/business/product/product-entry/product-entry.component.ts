@@ -19,7 +19,7 @@ export class ProductEntryComponent implements OnInit {
   oid: string;
   targetList: string;
   tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
-  prop = ['contractName', 'targetList', 'oid', 'aluminumCode', 'aluminumLength', 'wareHousingInDate', 'idt'];
+  prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'wareHousingInDate', 'idt'];
   btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
   row = 15;
@@ -36,7 +36,7 @@ export class ProductEntryComponent implements OnInit {
   }
 
   initData() {
-    this.http.findfinishedwarehouse(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
+    this.http.findFinishedWareHouse(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
       .subscribe(data => {
         console.log(data);
         this.pageBeta.setTotalPage(data['values']['totalPage']);
@@ -66,8 +66,8 @@ export class ProductEntryComponent implements OnInit {
       });
   }
   searchProduct(contractName) {
-    this.http.searchWareHouseOut(contractName).subscribe(data => {
-      this.tBody = data['values']['contents'];
+    this.http.searchWareHouseIn(contractName).subscribe(data => {
+      this.tBody = data['values'];
     });
   }
 }

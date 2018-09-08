@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -13,13 +13,13 @@ export class TableComponent implements OnInit {
   @Input() tBody: Array<object>[]; // 表格主体数据
   @Input() title: string; // 表格标题
   @Input() btnGroup: Array<string> = []; // 按钮组
+  @Output() picture = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
 
   }
-
-  d() {
-    console.log(this.prop); console.log(this.tBody);
+  pictureIndex(index) {
+    this.picture.emit(index);
   }
 }

@@ -12,7 +12,7 @@ import {PageBetaService} from '../../../based/page-beta.service';
 })
 export class ProductEntringComponent implements OnInit {
   tHead = ['#', '合同名称', '订单编号', '铝卷单卷编号', '铝卷单卷长度(米)', '单卷出产时间', '操作'];
-  prop = ['contractName', 'oid', 'aluminumCode', 'aluminumLength', 'idt'];
+  prop = ['contractName', 'orderId', 'aluminumCode', 'aluminumLength', 'idt'];
   btnGroup = ['打印入库二维码'];
   tBody = [];
   pageSize = 15;
@@ -36,8 +36,9 @@ export class ProductEntringComponent implements OnInit {
       });
   }
   searchProduct(contractName) {
-    this.http.searchWareHouseOut(contractName).subscribe(data => {
-      this.tBody = data['values']['contents'];
+    this.http.searchFinishedProduct(contractName).subscribe(data => {
+      console.log(data);
+      this.tBody = data['values'];
     });
   }
 }

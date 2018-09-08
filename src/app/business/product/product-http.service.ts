@@ -36,7 +36,7 @@ export class ProductHttpService {
     });
   }
 
-  findfinishedwarehouse(page, row): Observable<any> {
+  findFinishedWareHouse(page, row): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
@@ -46,17 +46,38 @@ export class ProductHttpService {
       headers: this.headers
     });
   }
+  searchFinishedProduct(contractName): Observable<any> {
+    const body = this.parameterSerialization({
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
+    });
+    console.log(body);
+    return this.http.post('http://'  + this.url + '/element-plc/search-finished-product', body, {
+      headers: this.headers
+    });
+  }
+  searchWareHouseIn(contractName): Observable<any> {
+    const body = this.parameterSerialization({
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
+    });
+    console.log(body);
+    return this.http.post('http://'  + this.url + '/element-plc/search-warehouse-in', body, {
+      headers: this.headers
+    });
+  }
   searchWareHouseOut(contractName): Observable<any> {
     const body = this.parameterSerialization({
       contractName: contractName,
       sysIds: this.user.getObject('user').sysids
     });
+    console.log(body);
     return this.http.post('http://'  + this.url + '/element-plc/search-warehouse-out', body, {
       headers: this.headers
     });
   }
 
-  findwarehouseout(page, row): Observable<any> {
+  findWareHouseOut(page, row): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
