@@ -8,6 +8,7 @@ import {DeviceNewComponent} from './device-new/device-new.component';
 import {EquipmentHttpService} from './equipment-http.service';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 import {InspectionComponent} from './inspection/inspection.component';
+import {PageBetaService} from '../../based/page-beta.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +22,6 @@ import {InspectionComponent} from './inspection/inspection.component';
     DeviceNewComponent,
     InspectionComponent
   ],
-  providers: [EquipmentHttpService],
+  providers: [EquipmentHttpService, PageBetaService],
 })
 export class EquipmentModule { }

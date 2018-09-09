@@ -10,7 +10,9 @@ export class PageBetaService {
   private countNumber: number; // 计数总数
   private pageSize = 20; // 每页行数
   private url: string;
-  constructor(private router: Router) { // 默认当前第一页，最小页码为一页
+  private boolUrl: boolean;
+  constructor(private router: Router) {
+    this.boolUrl = true;
   }
 
   setTotalPage(totalPage) {
@@ -24,6 +26,9 @@ export class PageBetaService {
   }
   setUrl(url: string) {
     this.url = url;
+  }
+  setBoolUrl(bool: boolean) {
+    this.boolUrl = bool;
   }
   getPageNo(): number {
     return this.pageNo;
@@ -41,7 +46,9 @@ export class PageBetaService {
     console.log('nextPage');
     if (this.pageNo < this.totalPage) {
       this.pageNo++;
-      this.router.navigate([this.url + '/' + this.pageNo]);
+      if (this.boolUrl) {
+        this.router.navigate([this.url + '/' + this.pageNo]);
+      }
       return true;
     }
     return false;
@@ -51,7 +58,9 @@ export class PageBetaService {
     console.log('lastPage');
     if (this.pageNo > this.min) {
       this.pageNo--;
-      this.router.navigate([this.url + '/' + this.pageNo]);
+      if (this.boolUrl) {
+        this.router.navigate([this.url + '/' + this.pageNo]);
+      }
       return true;
     }
     return false;
@@ -65,7 +74,9 @@ export class PageBetaService {
         return false;
       } else {
         this.pageNo = skipNumber;
-        this.router.navigate([this.url + '/' + this.pageNo]);
+        if (this.boolUrl) {
+          this.router.navigate([this.url + '/' + this.pageNo]);
+        }
       }
     }
   }

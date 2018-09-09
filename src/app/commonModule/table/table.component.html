@@ -14,10 +14,10 @@
         <tr *ngFor="let i of tBody;let j = index">
           <td >{{j + 1}}</td>
           <td *ngFor="let p of prop">{{i[p]}}</td>
-          <td *ngIf="btnGroup.length > 0 && btnGroup[0] !== '图片详情'">
+          <td *ngIf="btnGroup.length > 0 && btnGroup[0] !== '查看详情'">
             <button *ngFor="let btn of btnGroup" class="btn-success btn btn-xs">{{btn}}</button>
           </td>
-          <td *ngIf="btnGroup.length > 0 && btnGroup[0] === '图片详情'">
+          <td *ngIf="btnGroup.length > 0 && btnGroup[0] === '查看详情'">
             <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#picture" (click)="pictureIndex(j)">{{btnGroup[0]}}</button>
           </td>
         </tr>
