@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import * as echarts from 'echarts';
-import {MonitorHttpService} from '../monitor-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
+import {SensorService} from './sensor.service';
 
 @Component({
   selector: 'app-sensor',
@@ -11,202 +11,205 @@ import {LoginIdService} from '../../../login/login-id.service';
 })
 export class SensorComponent implements OnInit {
   Modular: Array<object> = [];
-  ModularId = 'mod0001';
+  proSystem = this.user.getSysids();
+  ModularName: string;
+  proSystemName: string;
+  ModularId: string;
   ModalChart: any;
-  DeviceSensorJson: any;
+  DeviceSensorJson: Array<object> = [];
   DeviceSensor: Array<any> = [];
-  NoDataSensorJson: any;
   option: any;
   Datas: any;
-  Modularname: string;
   interval: any;
   modal3: any;
-  constructor(private activatedRoute: ActivatedRoute,
-              private http: MonitorHttpService,
-              private user: LoginIdService) {
+  constructor(private activatedRoute: ActivatedRoute, private http: SensorService, private user: LoginIdService) {
+    this.proSystemName = this.proSystem[0]['name'];
     this.ModularInit();
   }
   ngOnInit() {
-    this.DeviceSensorInit(this.ModularId);
+    console.log(this.user.getSysids());
+    // this.DeviceSensorInit(this.ModularId);
     // this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
-  }
-  ModularIdInit(i) {
-    this.DeviceSensorInit(i['mid']);
-    clearInterval(this.interval);
-    // this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
-    this.ModularId = i['mid'];
-    this.Modularname = i['mname'];
   }
   // 获取系统下模块
   ModularInit() {
-    this.http.SeeSystemModular({sysids: this.user.getObject('user').sysids})
-      .subscribe( data => {
-        console.log(data);
-        this.Modular = data['values'];
-        this.Modularname = this.Modular[0]['mname'];
-      });
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystemName === this.proSystem[i]['name']) {
+        this.http.findSystemModular({sysIds: this.proSystem[i]['sid']})
+          .subscribe( data => {
+            console.log(data);
+            this.Modular = data['values'];
+            console.log(this.Modular);
+            if (this.Modular !== null) {
+              this.ModularName = this.Modular[0]['mName'];
+              this.ModularIdInit();
+            } else {
+              this.DeviceSensor = [];
+            }
+          });
+        break;
+      }
+    }
+
+  }
+  // 模块Id初始化
+  ModularIdInit() {
+    for (let i = 0; i < this.Modular.length; i++) {
+      if (this.ModularName === this.Modular[i]['mName']) {
+        this.ModularId = this.Modular[i]['mId'];
+        this.DeviceSensorInit(this.ModularId);
+        break;
+      }
+    }
+    clearInterval(this.interval);
+    // this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
+  }
+  selectModular(mName) {
+    console.log(mName, this.ModularName);
+    if (mName !== this.ModularName) {
+      this.ModularName = mName;
+      this.ModularIdInit();
+    }
+  }
+  selectSystem(sid) {
+    if (sid !== this.proSystemName) {
+      this.proSystemName = sid;
+      this.ModularInit();
+    }
   }
 // 获取模块下设备-传感器-最新值-id
-  DeviceSensorInit(MId) {
-    console.log(MId);
-    this.http.FindDevicenameSensornameSensordata({mid: MId})
+  DeviceSensorInit(mId) {
+    console.log(mId);
+    this.http.FindDevicenameSensornameSensordata({mId: mId})
       .subscribe(data => {
         console.log(data);
-        data = data['values'];
-        this.DeviceSensorJson = data;
-        this.NoDataSensorInit(MId);
+        if (data['values'] === null) {
+          this.DeviceSensorInitRec(mId);
+        } else {
+          this.DeviceSensorJson = data['values'];
+          this.oneTwo();
+        }
       });
   }
-// 增加无数据设备传感器
-  NoDataSensorInit(MId) {
-    console.log(MId);
-    this.http.modularDeviceSensorName({mid: MId})
+// 无传感器最新值, 使用这个
+  DeviceSensorInitRec(mId) {
+    this.http.findDeviceNameSensorName({mId: mId})
       .subscribe(data => {
         console.log(data);
-        this.NoDataSensorJson = data['values'];
-        const putData = [];
-        const lengthNo = this.NoDataSensorJson.length;
-        const length = this.DeviceSensorJson.length;
-        if (length === 0) {
-          for (let i = 0; i < lengthNo; i++) {
-            putData.push({'Name': this.NoDataSensorJson[i], 'data': '---'});
-          }
-        } else {
-          for (let i = 0; i < lengthNo; i++) {
-            for (let j = 0; j < length; j++) {
-              if (this.NoDataSensorJson[i]['sid'] === this.DeviceSensorJson[j]['sid']) {
-                putData.push({'Name': this.NoDataSensorJson[i], 'data': this.DeviceSensorJson[j]['sdata']});
-                break;
-              } else if (j === length - 1) {
-                putData.push({'Name': this.NoDataSensorJson[i], 'data': '---'});
-              }
-            }
-          }
-        }
-        const deviceSensor: Array<any> = [];
-        let putlength = putData.length;
-        if (putlength % 2 === 0) {
-          for ( let i = 0; i < putlength; i += 2) {
-            deviceSensor.push({'one': putData[i], 'two': putData[i + 1]});
-          }
-        } else {
-          putlength = putlength - 1;
-          for ( let i = 0; i < putlength; i += 2) {
-            deviceSensor.push({'one': putData[i], 'two': putData[i + 1]});
-          }
-          deviceSensor.push({'one': putData[putlength], 'two': ''});
-        }
-        this.DeviceSensor = deviceSensor;
+        this.DeviceSensorJson = data['values'];
+        console.log(this.DeviceSensorJson);
+        this.oneTwo();
       });
   }
-
-  MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.Datas = this.http.findhstorysensordata({sid: body, starttime: starttime, deadline: deadline});
+  // 重构成{one:{name, data, sid},two:{name,data, sid}}
+  oneTwo() {
+    this.DeviceSensor = [];
+    const length = this.DeviceSensorJson.length;
+    for (let i = 0; i < length - 1; i += 2) {
+      this.DeviceSensor[i / 2] = {
+        one: {name: this.DeviceSensorJson[i]['dName'] + '___' + this.DeviceSensorJson[i]['sName'],
+          data: this.DeviceSensorJson[i]['sData'] || '已停机', sId: this.DeviceSensorJson[i]['sId']},
+        two: {name: this.DeviceSensorJson[i + 1]['dName'] + '___' + this.DeviceSensorJson[i + 1]['sName'],
+          data: this.DeviceSensorJson[i + 1]['sData'] || '已停机', sId: this.DeviceSensorJson[i]['sId']}
+      };
+    }
+    if (length / 2) {
+      this.DeviceSensor[(length - 1) / 2] = {
+        one: {name: this.DeviceSensorJson[length - 1]['dName'] + '___' + this.DeviceSensorJson[length - 1]['sName'],
+          data: this.DeviceSensorJson[length - 1]['sData'] || '已停机', sId: this.DeviceSensorJson[length - 1]['sId']},
+        two: null
+      };
+    }
+    console.log(this.DeviceSensor);
+  }
+  MapChart(sId: string, SensorName: string, starttime: string, deadline: string) {
+    this.Datas = this.http.findHistorySensorData({sid: sId, starttime: starttime, deadline: deadline});
     this.Datas.subscribe(d => {
-      if (d['status'] === '10') {
-        console.log(d);
+      console.log(d);
+      const dates = [];
+      const data = [];
+      if (d['values'] !== null) {
         const length = d['values'].length;
-        const dates = [];
-        const data = [];
         const DLength = d['values'].length;
         for (let j = 0; j < DLength; j++) {
-          dates.push(d['values'][j]['stime']);
-          data.push(d['values'][j]['sdata']);
+          dates[j] = (d['values'][j]['sTime']);
+          data[j] = (d['values'][j]['sData']);
         }
-        this.option = {
-          tooltip: {
-            trigger: 'axis',
-            color: '#fff',
-            position: function (pt) {
-              return [pt[0], '0%'];
-            }
-          },
-          title: {
-            left: 'left',
-            text: SensorName + '数据图',
-            textStyle: {
-              color: '#fff'
-            },
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: dates,
-            axisLabel: {
-              textStyle: {
-                color: '#fff'
-              }
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#fff'
-              }
-            }
-          },
-          yAxis: {
-            type: 'value',
-            boundaryGap: [0, '100%'],
-            axisLabel: {
-              textStyle: {
-                color: '#fff'
-              }
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#fff'
-              }
-            }
-          },
-          dataZoom: [{
-            type: 'inside',
-            start: 0,
-            end: 100
-          }, {
-            start: 0,
-            end: 10,
-            handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,' +
-            '9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.' +
-            '4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-            handleSize: '80%',
-            handleStyle: {
-              color: '#fff',
-              shadowBlur: 3,
-              shadowColor: 'rgba(0, 0, 0, 0.6)',
-              shadowOffsetX: 2,
-              shadowOffsetY: 2
-            }
-          }],
-          series: [
-            {
-              name: '传感器数据',
-              type: 'line',
-              smooth: true,
-              symbol: 'none',
-              sampling: 'average',
-              itemStyle: {
-                normal: {
-                  color: 'rgb(255, 70, 131)'
-                }
-              },
-              areaStyle: {
-                normal: {
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: 'rgb(255, 70, 131)'
-                  }, {
-                    offset: 1,
-                    color: 'rgb(255, 158, 68)'
-                  }])
-                }
-              },
-              data: data
-            }
-          ]
-        };
       } else if (d['status'] === '13') {
         console.log(d);
         console.log('id不存在');
       }
+      this.option = {
+        tooltip: {
+          trigger: 'axis',
+          color: '#fff',
+          position: function (pt) {
+            return [pt[0], '0%'];
+          }
+        },
+        title: {
+          left: 'left',
+          text: SensorName,
+          textStyle: {
+            color: '#fff'
+          },
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: dates,
+          axisLabel: {
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#fff'
+            }
+          }
+        },
+        yAxis: {
+          type: 'value',
+          boundaryGap: [0, '100%'],
+          axisLabel: {
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#fff'
+            }
+          }
+        },
+        series: [
+          {
+            name: '传感器数据',
+            type: 'line',
+            smooth: true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+              normal: {
+                color: 'rgb(255, 70, 131)'
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgb(255, 70, 131)'
+                }, {
+                  offset: 1,
+                  color: 'rgb(255, 158, 68)'
+                }])
+              }
+            },
+            data: data
+          }
+        ]
+      };
     });
   }
   deleteInterval() {
@@ -214,8 +217,8 @@ export class SensorComponent implements OnInit {
   }
   modal2(value) {
     clearInterval(this.modal3);
-    this.modal3 = setInterval(() => this.MapChart(value.Name.sid, value.Name.sname,
-      this.toDatestart(new Date()), this.toDateend(new Date())), 1000);
+    this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
+      this.toDatestart(new Date()), this.toDateend(new Date())), 2000);
     console.log(value);
   }
   ReSize(event) {

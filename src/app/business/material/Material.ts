@@ -1,3 +1,5 @@
+import {Input} from '@angular/core';
+
 export class Aluminums {
   purchase: string;
   alex_weight: string;
@@ -47,16 +49,15 @@ export class Arr {
 }
 export class ALJson  {
   purchase: string;
-  alweight: number;
-  altype: string;
-  alwidth: number;
-  althickness: number;
-  aldensity: string;
-  alprice: number;
-  supname: string;
-  wid: string;
+  alExpectWeight: number;
+  alType: string;
+  alWidth: number;
+  alThickness: number;
+  alDensity: string;
+  alPrice: number;
+  supName: string;
   auditor: string;
-  pro_system: string;
+  proSystem: string;
   arr: Array<Arr> = [];
 }
 export class PArr {
@@ -69,25 +70,64 @@ export class DArr {
 }
 export class PaintJson {
   purchase: string;
-  pname: string;
-  pdensity: number;
-  pcondensate: number;
+  pName: string;
+  pDensity: number;
+  pCondensate: number;
   ptype: string;
-  pvolatile: number;
+  pVolatile: number;
   price: number;
-  paex_weight: number;
-  supname: string;
-  wid: string;
+  paExpectWeight: number;
+  supName: string;
   auditor: string;
-  dname: string;
-  dtype: string;
+  dName: string;
+  dType: string;
   condensate: number;
-  dvolatile: number;
-  diluent_price: number;
-  diluent_weight: number;
-  diex_weight: number;
-  pro_system: string;
-  dprice: number;
+  dVolatile: number;
+  diExpectWeight: number;
+  proSystem: string;
+  dPrice: number;
   arr1: Array<PArr> = [];
   arr2: Array<DArr> = [];
 }
+export const AlDataName = [
+  ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
+  ['铝板型号', '铝板宽度(毫米)', '铝卷厚度(微米)', '铝卷密度'],
+  [ '厂家名称', '生产系统'],
+];
+export const AlModalProp = [
+  ['purchase', 'alExpectWeight', 'alPrice', 'amount'],
+  ['alType', 'alWidth', 'alThickness', 'alDensity'],
+  [ 'supName', 'proSystem'],
+];
+export const AlType = [
+  ['type', 'number', 'number', 'number'],
+  ['type', 'number', 'number', 'number'],
+  [ 'type', '生产系统'],
+];
+export const PtDataName = [
+  ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
+  ['油漆名称', '油漆固化物含量(%)', '油漆挥发份含量(%)', '油漆密度'],
+  ['稀释剂名称', '稀释剂总重量(千克)', '稀释剂单价(元/千克)', '稀释剂总价(元)'],
+  ['稀释剂类型', '稀释剂固化物含量(%)', '稀释剂挥发份含量(%)'],
+  ['稀释剂产品编号', '油漆类型', '油漆厂家名称', '生产系统'],
+];
+export const PtType = [
+  ['type', 'number', 'number', 'number'],
+  ['type', 'number', 'number', 'number'],
+  ['type', 'number', 'number', 'number'],
+  ['type', 'number', 'number', 'number'],
+  ['type', 'type', 'type', 'pro_system'],
+];
+export const PtModalProp = [
+  ['purchase', 'paExpectWeight', 'price', 'pamount'],
+  ['pName', 'pCondensate', 'pVolatile', 'pDensity'],
+  ['dName', 'diExpectWeight', 'dPrice', 'damount'],
+  ['dType', 'condensate', 'dVolatile'],
+  ['supNum', 'ptype', 'supName', 'proSystem'],
+];
+export const PtName = ['分桶号', '分桶重量'];
+export const PtdName = ['分桶号', '分桶重量'];
+export const PtProp = ['supId', 'paintWeight'];
+export const PtdProp = ['supNum', 'diluentWeight'];
+export const AlName = ['分卷号', '分卷重量'];
+export const AlProp = ['supId', 'alWeight'];

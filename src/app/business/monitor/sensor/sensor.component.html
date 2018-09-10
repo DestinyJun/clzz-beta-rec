@@ -1,14 +1,13 @@
 <div class="container-fluid">
   <div class="panel-heading">
-    感知层即时数据
-    <div class="dropdown pull-right" id="dropdown">
-      <button id="dLabel" class="btn btn-xs btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{Modularname}}
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li *ngFor="let i of Modular" (click)="ModularIdInit(i)">{{i['mname']}}</li>
-      </ul>
+    <span>感知层即时数据</span>
+    <div class="pull-right">
+      <select title="" class="btn btn-success" (click)="selectSystem(selectS.value)" #selectS>
+        <option  *ngFor="let i of proSystem" (click)="ModularIdInit(i)">{{i['name']}}</option>
+      </select>
+      <select title="" (click)="selectModular(selectM.value)" class="btn btn-info" #selectM>
+        <option  *ngFor="let i of Modular;let j=index">{{i['mName']}}</option>
+      </select>
     </div>
   </div>
   <div class="table-responsive panel-body" id="table">
@@ -19,10 +18,10 @@
       <tbody>
       <tr  *ngFor="let i of DeviceSensor;let j = index">
         <td>{{2 * j + 1}}</td>
-        <td (click)="modal2(i.one);ReSizeInit()" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['one']['Name']['dname']}} - {{i['one']['Name']['sname']}}</td>
+        <td (click)="modal2(i.one);ReSizeInit()" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['one']['name']}}</td>
         <td>{{i['one']['data']}}</td>
         <td *ngIf="i['two']">{{2 * j + 2}}</td>
-        <td (click)="modal2(i.two);ReSizeInit()" *ngIf="i['two']" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['two']['Name']['dname']}} - {{i['two']['Name']['sname'] }}</td>
+        <td (click)="modal2(i.two);ReSizeInit()" *ngIf="i['two']" data-toggle="modal" data-target=".bs-example-modal-lg">{{i['two']['name']}}</td>
         <td *ngIf="i['two']">{{i['two']['data']}}</td>
       </tr>
       </tbody>

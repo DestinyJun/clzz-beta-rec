@@ -16,6 +16,7 @@ import {TableComponent} from '../../commonModule/table/table.component';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 import {SensorService} from './sensor/sensor.service';
 import {PageBetaService} from '../../based/page-beta.service';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {PageBetaService} from '../../based/page-beta.service';
     CommonModule,
     MonitorRoutersModule,
     NgxEchartsModule,
-    CommonMmoduleModule
+    CommonMmoduleModule,
+    FormsModule
   ],
   declarations: [
     MonitorComponent,

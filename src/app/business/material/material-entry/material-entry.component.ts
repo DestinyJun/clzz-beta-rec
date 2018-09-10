@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../login/login-id.service';
-import {ALJson, Aluminums, Paint, PaintJson} from '../Material';
+import {AlDataName, ALJson, AlModalProp, AlType, PtDataName, PtType, PtModalProp, PtName,
+  Aluminums, Paint, PaintJson, PtdName, PtProp, PtdProp, AlName, AlProp} from '../Material';
 import {Url} from '../../../getUrl';
 
 @Component({
@@ -16,51 +17,21 @@ export class MaterialEntryComponent implements OnInit {
   formName: FormGroup;
   modalProp: any;
   dataName: any;
-  AlDataName = [
-    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-    ['铝板型号', '铝板宽度(毫米)', '铝卷厚度(微米)', '铝卷密度'],
-    [ '厂家名称', '生产系统'],
-  ];
-  AlModalProp = [
-    ['purchase', 'alweight', 'alprice', 'amount'],
-    ['altype', 'alwidth', 'althickness', 'aldensity'],
-    [ 'supname', 'pro_system'],
-  ];
-  AlType = [
-    ['type', 'number', 'number', 'number'],
-    ['type', 'number', 'number', 'number'],
-    [ 'type', '生产系统'],
-  ];
-  PtDataName = [
-    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-    ['油漆名称', '油漆固化物含量(%)', '油漆挥发份含量(%)', '油漆密度'],
-    ['稀释剂名称', '稀释剂总重量(千克)', '稀释剂单价(元/千克)', '稀释剂总价(元)'],
-    ['稀释剂类型', '稀释剂预计总重量(千克)', '稀释剂固化物含量(%)', '稀释剂挥发份含量(%)'],
-    ['稀释剂产品编号', '油漆类型', '油漆厂家名称', '生产系统'],
-  ];
-  PtType = [
-    ['type', 'number', 'number', 'number'],
-    ['type', 'number', 'number', 'number'],
-    ['type', 'number', 'number', 'number'],
-    ['type', 'number', 'number', 'number'],
-    ['type', 'type', 'type', 'pro_system'],
-  ];
+  AlDataName = AlDataName;
+  AlModalProp = AlModalProp;
+  AlType = AlType;
+  PtDataName = PtDataName;
+  PtType = PtType;
   dataType = [];
-  PtModalProp = [
-    ['purchase', 'paex_weight', 'price', 'pamount'],
-    ['pname', 'pcondensate', 'pvolatile', 'pdensity'],
-    ['dname', 'diex_weight', 'dprice', 'damount'],
-    ['diluent_type', 'diluent_weight', 'condensate', 'dvolatile'],
-    ['supnum', 'ptype', 'supname', 'pro_system'],
-  ];
-  PtName = ['分桶号', '分桶重量'];
-  PtdName = ['分桶号', '分桶重量'];
+  PtModalProp = PtModalProp;
+  PtName = PtName;
+  PtdName = PtdName;
   @Input() PtArr = [];
-  PtProp = ['supid', 'paint_weight'];
+  PtProp = PtProp;
   @Input() PtdArr = [];
-  PtdProp = ['supnum', 'diluent_weight'];
-  AlName = ['分卷号', '分卷重量'];
-  AlProp = ['alweight', 'supid'];
+  PtdProp = PtdProp;
+  AlName = AlName;
+  AlProp = AlProp;
   @Input() AlArr = [];
   @Input() btn: string;
   type = 0;
@@ -78,42 +49,40 @@ export class MaterialEntryComponent implements OnInit {
 
     this.AL = this.fb.group({
       purchase: ['', [Validators.required]],
-      alweight: ['', [Validators.required]],
-      altype: ['', [Validators.required]],
-      alwidth: ['', [Validators.required]],
-      althickness: ['', [Validators.required]],
-      aldensity: ['', [Validators.required]],
-      alprice: ['', [Validators.required]],
-      supname: ['', [Validators.required]],
-      wid: ['', [Validators.required]],
-      pro_system: ['', [Validators.required]],
+      alExpectWeight: ['', [Validators.required]],
+      alType: ['', [Validators.required]],
+      alWidth: ['', [Validators.required]],
+      alThickness: ['', [Validators.required]],
+      alDensity: ['', [Validators.required]],
+      alPrice: ['', [Validators.required]],
+      supName: ['', [Validators.required]],
+      wId: ['', [Validators.required]],
+      proSystem: ['', [Validators.required]],
       amount: ['', [Validators.required]],
       auditor: ['', [Validators.required]]
     });
     this.paint = this.fb.group({
-      pname: ['', Validators.required],
+      pName: ['', Validators.required],
       purchase: ['', Validators.required],
-      pdensity: ['', Validators.required],
-      pcondensate: ['', Validators.required],
+      pDensity: ['', Validators.required],
+      pCondensate: ['', Validators.required],
       ptype: ['', Validators.required],
-      pvolatile: ['', Validators.required],
+      pVolatile: ['', Validators.required],
       price: ['', Validators.required],
-      paex_weight: ['', Validators.required],
-      diluent_id: ['', Validators.required],
-      supname: ['', Validators.required],
+      paExpectWeight: ['', Validators.required],
+      diluentId: ['', Validators.required],
+      supName: ['', Validators.required],
       auditor: ['', Validators.required],
-      supnum: ['', Validators.required],
-      dname: ['', Validators.required],
-      dtype: ['', Validators.required],
+      supNum: ['', Validators.required],
+      dName: ['', Validators.required],
+      dType: ['', Validators.required],
       condensate: ['', Validators.required],
-      dvolatile: ['', Validators.required],
-      dprice: ['', Validators.required],
-      diluent_weight: ['', Validators.required],
-      diex_weight: ['', Validators.required],
-      pro_system: ['', Validators.required],
-      pamount: ['', Validators.required],
-      damount: ['', Validators.required],
-      diluent_type: ['', Validators.required]
+      dVolatile: ['', Validators.required],
+      dPrice: ['', Validators.required],
+      diExpectWeight: ['', Validators.required],
+      proSystem: ['', Validators.required],
+      pamount: [''],
+      damount: [''],
     });
     this.formName = this.AL;
     this.modalProp = this.AlModalProp;
@@ -182,15 +151,15 @@ export class MaterialEntryComponent implements OnInit {
   }
   submitAL(): void {
     this.alJson.purchase = this.AL.get('purchase').value;
-    this.alJson.alweight = this.AL.get('alweight').value;
-    this.alJson.altype = this.AL.get('altype').value;
-    this.alJson.alwidth = this.AL.get('alwidth').value;
-    this.alJson.althickness = this.AL.get('althickness').value;
-    this.alJson.aldensity = this.AL.get('aldensity').value;
-    this.alJson.alprice = this.AL.get('alprice').value;
-    this.alJson.supname = this.AL.get('supname').value;
+    this.alJson.alExpectWeight = this.AL.get('alExpectWeight').value;
+    this.alJson.alType = this.AL.get('alType').value;
+    this.alJson.alWidth = this.AL.get('alWidth').value;
+    this.alJson.alThickness = this.AL.get('alThickness').value;
+    this.alJson.alDensity = this.AL.get('alDensity').value;
+    this.alJson.alPrice = this.AL.get('alPrice').value;
+    this.alJson.supName = this.AL.get('supName').value;
     this.alJson.auditor = this.user.getObject('user').realName;
-    this.alJson.pro_system = this.getProSystemOid();
+    this.alJson.proSystem = this.getProSystemOid();
     this.alJson.arr = this.AlArr;
     console.log(this.alJson);
     this.http.post('http://' + this.url + '/element/Add-Aluminum', this.alJson)
@@ -201,23 +170,22 @@ export class MaterialEntryComponent implements OnInit {
   }
   submitPaint() {
     this.paintJson.purchase = this.paint.get('purchase').value;
-    this.paintJson.pname = this.paint.get('pname').value;
-    this.paintJson.pdensity = this.paint.get('pdensity').value;
-    this.paintJson.pcondensate = this.paint.get('pcondensate').value;
+    this.paintJson.pName = this.paint.get('pName').value;
+    this.paintJson.pDensity = this.paint.get('pDensity').value;
+    this.paintJson.pCondensate = this.paint.get('pCondensate').value;
     this.paintJson.ptype = this.paint.get('ptype').value;
-    this.paintJson.pvolatile = this.paint.get('pvolatile').value;
+    this.paintJson.pVolatile = this.paint.get('pVolatile').value;
     this.paintJson.price = this.paint.get('price').value;
-    this.paintJson.paex_weight = this.paint.get('paex_weight').value;
-    this.paintJson.supname = this.paint.get('supname').value;
+    this.paintJson.paExpectWeight = this.paint.get('paExpectWeight').value;
+    this.paintJson.supName = this.paint.get('supName').value;
     this.paintJson.auditor = this.user.getObject('user').realName;
-    this.paintJson.dname = this.paint.get('dname').value;
-    this.paintJson.dtype = this.paint.get('dtype').value;
-    this.paintJson.dprice = this.paint.get('dprice').value;
+    this.paintJson.dName = this.paint.get('dName').value;
+    this.paintJson.dType = this.paint.get('dType').value;
+    this.paintJson.dPrice = this.paint.get('dPrice').value;
     this.paintJson.condensate = this.paint.get('condensate').value;
-    this.paintJson.dvolatile = this.paint.get('dvolatile').value;
-    this.paintJson.diex_weight = this.paint.get('diex_weight').value;
-    this.paintJson.diluent_weight = this.paint.get('diluent_weight').value;
-    this.paintJson.pro_system = this.getProSystemOid();
+    this.paintJson.dVolatile = this.paint.get('dVolatile').value;
+    this.paintJson.diExpectWeight = this.paint.get('diExpectWeight').value;
+    this.paintJson.proSystem = this.getProSystemOid();
     this.paintJson.arr1 = this.PtArr;
     this.paintJson.arr2 = this.PtdArr;
     console.log(this.paintJson);
@@ -228,15 +196,15 @@ export class MaterialEntryComponent implements OnInit {
       });
   }
   addALArr() {
-    this.AlArr.push({'supid': null, 'alweight': null});
+    this.AlArr.push({'supId': null, 'alWeight': null});
   }
   addPtArr() {
     console.log('PtArr');
-    this.PtArr.push({'paint_weight': null, 'supid': null});
+    this.PtArr.push({'paintWeight': null, 'supId': null});
   }
   addPtdArr() {
     console.log('PtdArr');
-    this.PtdArr.push({'diluent_weight': null, 'supnum': null});
+    this.PtdArr.push({'supNum': null, 'diluentWeight': null});
   }
   readType() {
     if (this.type === 0) {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginIdService} from '../../../login/login-id.service';
 import {Url} from '../../../getUrl';
@@ -17,7 +16,7 @@ export class InspectionComponent implements OnInit {
   row = 15;
   title = '巡检查看';
   tHead = ['#', '项目名称', '项目位置', '巡检时间', '巡检人员', '巡检描述', '查看附件'];
-  prop = ['itemCode', 'itemPosition', 'idt', 'inspector', 'result'];
+  prop = ['itemName', 'itemPosition', 'idt', 'inspector', 'result'];
   tBody = [];
   btnGroup = ['查看详情'];
   imgUrl: string;
@@ -84,6 +83,7 @@ export class InspectionComponent implements OnInit {
         for (let i = 0; i < this.tBody.length; i++) {
           this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
           this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
+          this.tBody[i]['normal'] = JSON.parse(this.tBody[i]['normal']);
         }
       });
     } else {
@@ -99,6 +99,7 @@ export class InspectionComponent implements OnInit {
   }
   searchOff() {
     this.boolUrl = true;
+    this.searchPages = 1;
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(Number(this.activatedRoute.snapshot.params['page']));
       this.initData(this.page.getPageNo(), this.page.getPageSize());

@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <span>{{title}}</span>
       <div id="search" class="form-inline pull-right">
-        <input type="text" #inputName class="form-control" placeholder="搜索项目名称" (keyup.enter)="search(selectName, inputName.value)">
+        <input type="text" #inputName class="form-control" placeholder="搜索项目名称" (keyup.enter)="search(selectName.value, inputName.value)">
         <i class="fa fa-search" (click)="search(selectName.value, inputName.value)"></i>
       </div>
       <div class="pull-right">
@@ -56,7 +56,7 @@
         <div class="form-inline" style="display: inline-block;text-align: center;padding-top: 10px">
           <div *ngFor="let norN of normalNames;let i=index">
             <label>{{norN}}: </label>
-            <input title="" value="{{normalValues[i]}}">
+            <input title="" [ngStyle]="{'color': normalValues[i]==='异常'?'red':''}" value="{{normalValues[i]}}">
           </div>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">
