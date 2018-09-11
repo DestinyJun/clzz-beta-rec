@@ -1,12 +1,6 @@
-.dropdown-menu{
-  overflow-y: scroll;
-  height: 200px;
-}
-.panel-heading > .dropdown > ul{
-  background-color: rgba(33,51,63,1);
-  text-align: center;
-  cursor: pointer;
-}
-.panel-heading > .dropdown > ul >li:hover{
-  background-color: #1F9B8F;
+
+select{
+  width: auto;
+  margin-right: 5px;
+  padding-top: 1px;
 }

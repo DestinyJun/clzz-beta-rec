@@ -1,12 +1,17 @@
 <div class="container-fluid">
   <div class="panel-heading">
     <span>温度数据图</span>
+    <div class="pull-right">
+      <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+        <option  *ngFor="let i of proSystem">{{i['name']}}</option>
+      </select>
+    </div>
   </div>
   <div class="panel-body">
     <div>
       <div class="row ">
-        <div *ngFor="let op of option;let i=index" class="col-md-5" [ngClass]="{false:'col-md-offset-1'}[i%2!==0]">
-          <div echarts [options]="op"></div>
+        <div *ngFor="let op of option;let i=index" class="col-lg-2 col-md-4 col-sm-6">
+          <div echarts [options]="op" style="height: 300px"></div>
         </div>
       </div>
     </div>

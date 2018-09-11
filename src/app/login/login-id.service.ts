@@ -72,18 +72,6 @@ export class LoginIdService {
         }
       });
   }
-  jieXiSysids(sysids: string[]) {
-    const str = [];
-    for (let i = 1; i < sysids.length - 1; i++) {
-      let s = '';
-      while (sysids[i] !== ',' && i < sysids.length - 1) {
-        s += sysids[i];
-        i++;
-      }
-      str.push(s);
-    }
-    return str;
-  }
   loginOut(): boolean { // 用户退出
     const sid = { sid: this.getObject('user').sid };
     this.http.post('http://'  + this.url + '/element-admin/user/logout', sid)

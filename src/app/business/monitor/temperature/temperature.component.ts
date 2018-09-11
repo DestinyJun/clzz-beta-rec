@@ -10,49 +10,39 @@ import {LoginIdService} from '../../../login/login-id.service';
   styleUrls: ['./temperature.component.css']
 })
 export class TemperatureComponent implements OnInit {
-  Temperature: Observable<any>;
-  SensorId: Array<any> = [];
-  SensorDataTime: Array<any>[] = [];
-  SensorDataValue: Array<any>[] = [];
-  SensorDataName: Array<any>[] = [];
   option: Array<any>;
-  Count: number;
+  proSystem = this.user.getSysids();
+  proSystemName: string;
   tips: string;
 
   constructor(private http: MonitorHttpService, private user: LoginIdService) {
-    this.option = [];
-    this.Temperature = this.http.FindTemperatureSensor({
-      sysids: this.user.getObject('user').sysids
-    });
-    this.getSensorId();
+    this.proSystemName = this.proSystem[0]['name'];
+    this.initSensor();
   }
 
   ngOnInit() {
-
   }
-
-  getSensorId() {
-    this.Temperature.subscribe(data => {
-      console.log(data);
-      const length = data['values'].length;
-      this.Count = length;
-      for (let i = 0; i < length; i++) {
-        this.MapChart(data['values'][i]['sid'], data['values'][i]['sname'], this.toDatestart(new Date()), this.toDateend(new Date()));
-      }
-    });
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.initSensor();
+    }
   }
-
-  getTemperatureData() {
-    const length = this.SensorId.length;
-    for (let i = 0; i < length; i++) {
-      this.http.findhstorysensordata({
-        sid: this.SensorId[i],
-        starttime: this.toDatestart(new Date()),
-        deadline: this.toDateend(new Date())
-      })
-        .subscribe(data => {
-
+  initSensor() {
+    this.option = [];
+    for (let _i = 0; _i < this.proSystem.length; _i++) {
+      if (this.proSystem[_i]['name'] === this.proSystemName) {
+        this.http.FindTemperatureSensor({sysIds: this.proSystem[_i]['sid']}).subscribe(data => {
+          console.log(data);
+          if (data['values'] !== null) {
+            const length = data['values'].length;
+            for (let i = 0; i < length; i++) {
+              this.MapChart(data['values'][i]['sId'], data['values'][i]['sName'], this.toDatestart(new Date()), this.toDateend(new Date()));
+            }
+          }
         });
+        break;
+      }
     }
   }
 
@@ -74,94 +64,94 @@ export class TemperatureComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sid: body, starttime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
+    this.http.findhstorysensordata({sid: body, startTime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
       .subscribe(d => {
-        if (d['status'] === '10') {
-          console.log(d);
+        const dates = [];
+        const data = [];
+        console.log(d);
+        if (d['values'] !== null) {
           const length = d['values'].length;
-          const dates = [];
-          const data = [];
-          const DLength = d['values'].length;
-          for (let j = 0; j < DLength; j++) {
-            const arr = d['values'][j]['stime'].split(' ');
+          for (let j = 0; j < length; j++) {
+            const arr = d['values'][j]['sTime'].split(' ');
             dates.push(arr[1]);
-            data.push(d['values'][j]['sdata']);
+            data.push(d['values'][j]['sData']);
           }
-          this.option.push({
-            tooltip: {
-              trigger: 'axis',
-              color: '#fff',
-              position: function (pt) {
-                return [pt[0], '0%'];
-              }
-            },
-            title: {
-              left: 'left',
-              text: SensorName,
-              textStyle: {
-                color: '#fff'
-              },
-            },
-            xAxis: {
-              type: 'category',
-              boundaryGap: false,
-              data: dates,
-              axisLabel: {
-                textStyle: {
-                  color: '#fff'
-                }
-              },
-              axisLine: {
-                lineStyle: {
-                  color: '#fff'
-                }
-              }
-            },
-            yAxis: {
-              type: 'value',
-              boundaryGap: [0, '100%'],
-              axisLabel: {
-                textStyle: {
-                  color: '#fff'
-                }
-              },
-              axisLine: {
-                lineStyle: {
-                  color: '#fff'
-                }
-              }
-            },
-            series: [
-              {
-                name: '传感器数据',
-                type: 'line',
-                smooth: true,
-                symbol: 'none',
-                sampling: 'average',
-                itemStyle: {
-                  normal: {
-                    color: 'rgb(255, 70, 131)'
-                  }
-                },
-                areaStyle: {
-                  normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                      offset: 0,
-                      color: 'rgb(255, 70, 131)'
-                    }, {
-                      offset: 1,
-                      color: 'rgb(255, 158, 68)'
-                    }])
-                  }
-                },
-                data: data
-              }
-            ]
-          });
-        } else if (d['status'] === '13') {
+        } else {
           console.log(d);
           console.log('id不存在');
         }
+        this.option.push({
+          tooltip: {
+            trigger: 'axis',
+            color: '#fff',
+            position: function (pt) {
+              return [pt[0], '0%'];
+            }
+          },
+          title: {
+            left: 'left',
+            text: SensorName,
+            textStyle: {
+              color: '#fff',
+              fontSize: 16
+            },
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel: {
+              textStyle: {
+                color: '#fff'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            }
+          },
+          yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            axisLabel: {
+              textStyle: {
+                color: '#fff'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#fff'
+              }
+            }
+          },
+          series: [
+            {
+              name: '传感器数据',
+              type: 'line',
+              smooth: true,
+              symbol: 'none',
+              sampling: 'average',
+              itemStyle: {
+                normal: {
+                  color: 'rgb(255, 70, 131)'
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgb(255, 70, 131)'
+                  }, {
+                    offset: 1,
+                    color: 'rgb(255, 158, 68)'
+                  }])
+                }
+              },
+              data: data
+            }
+          ]
+        });
       });
   }
 }

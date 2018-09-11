@@ -17,7 +17,7 @@ export class EventMonComponent implements OnInit {
   constructor(private http: HttpService, public pageService: PageBetaService, private activatedRoute: ActivatedRoute) {
     this.pageService.setUrl('/home/monitor/event');
     this.activatedRoute.params.subscribe(() => {
-      this.pageService.setPageNo(this.activatedRoute.snapshot.params['nowPage']);
+      this.pageService.setPageNo(this.activatedRoute.snapshot.params['Page']);
       this.getData();
     });
   }
@@ -28,7 +28,7 @@ export class EventMonComponent implements OnInit {
     this.http.getEvent(this.pageService.getPageNo(), this.row).subscribe(data => {
       console.log(data);
       this.eventInfo = data['values']['contents'];
-      this.pageService.setPageNo(data['values']['totalPage']);
+      this.pageService.setTotalPage(data['values']['totalPage']);
     });
   }
 }

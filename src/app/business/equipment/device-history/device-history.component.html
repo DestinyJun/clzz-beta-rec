@@ -2,34 +2,19 @@
 <div class="container-fluid">
   <div class="panel-heading" id="dropdown">
     <span>传感器历史数据</span>
-    <!--     分割线      -->
-    <div class="dropdown pull-right" id="sensor">
-      <button class="btn btn-xs btn-info" id="dLabel3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        传感器
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel3">
-        <li *ngFor="let i of sensor" (click)="MapChart(i.sid, i.sname)">{{i.sname}}</li></ul>
-    </div>
-    <!--     分割线         -->
-    <div class="dropdown pull-right">
-      <button class="btn btn-xs btn-info" id="dLabel2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        生产设备
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel2">
-        <li *ngFor="let i of device" (click)="SensorInit(i.did)" data-toggle="modal" data-target="#SensorModal" aria-label="Close">{{i.dname}}</li>
-      </ul>
-    </div>
-    <!--           分割线           -->
-    <div class="dropdown pull-right">
-      <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        生产模块
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li *ngFor="let i of modular" (click)="DeviceInit(i.mid)">{{i.mname}}</li>
-      </ul>
+    <div class="pull-right">
+      <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+        <option  *ngFor="let i of proSystem">{{i['name']}}</option>
+      </select>
+      <select title="" class="btn btn-success" (click)="selectModular(selectM.value)" #selectM>
+        <option  *ngFor="let i of modular">{{i['mName']}}</option>
+      </select>
+      <select title="" class="btn btn-success" (click)="selectDevice(selectD.value)" #selectD>
+        <option  *ngFor="let i of device">{{i['dName']}}</option>
+      </select>
+      <select title="" class="btn btn-success" (click)="selectSensor(selectS.value)" #selectS>
+        <option  *ngFor="let i of sensor">{{i['sName']}}</option>
+      </select>
     </div>
   </div>
 

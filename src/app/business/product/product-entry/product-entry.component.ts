@@ -19,7 +19,7 @@ export class ProductEntryComponent implements OnInit {
   oid: string;
   targetList: string;
   tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
-  prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'wareHousingInDate', 'idt'];
+  prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'warehousingInDate'];
   btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
   row = 15;

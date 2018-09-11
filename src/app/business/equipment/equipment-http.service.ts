@@ -54,7 +54,7 @@ export class EquipmentHttpService {
 
   public SeeSystemModular(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
-    return this.http.post('http://' + this.url + '/element/SeeSystemModular', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-system-modular', body, {
       headers: this.headers
     });
   }

@@ -24,7 +24,7 @@ export class EventComponent implements OnInit {
     this.event = this.http.getEvent(1, 10);
     this.event.subscribe(data => {
       console.log(data);
-      this.Modal1 = data['values']['datas'];
+      this.Modal1 = data['values']['contents'];
     });
   }
   EventT(value) {

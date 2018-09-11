@@ -123,7 +123,7 @@ export class SensorComponent implements OnInit {
     console.log(this.DeviceSensor);
   }
   MapChart(sId: string, SensorName: string, starttime: string, deadline: string) {
-    this.Datas = this.http.findHistorySensorData({sid: sId, starttime: starttime, deadline: deadline});
+    this.Datas = this.http.findHistorySensorData({sId: sId, startTime: starttime, deadline: deadline});
     this.Datas.subscribe(d => {
       console.log(d);
       const dates = [];
@@ -229,11 +229,11 @@ export class SensorComponent implements OnInit {
   }
   toDatestart(time) {
     let Hours = time.getHours(), Minutes = time.getMinutes();
-    if ( Minutes < 20) {
-      Minutes += 40;
+    if ( Minutes < 10) {
+      Minutes += 50;
       Hours -= 1;
     } else {
-      Minutes -= 20;
+      Minutes -= 10;
     }
     return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
       + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();

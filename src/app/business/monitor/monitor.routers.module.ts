@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {path: 'sensor', component: SensorComponent, canDeactivate: [CanDeactivateGuardService]},
       {path: 'video', component: VideoComponent},
-      {path: 'event/:nowPage', component: EventMonComponent},
+      {path: 'event/:Page', component: EventMonComponent},
       {path: 'temperature', component: TemperatureComponent},
       {path: 'thickness', component: ThicknessComponent}
     ]
