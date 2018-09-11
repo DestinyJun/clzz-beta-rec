@@ -56,7 +56,7 @@ export class OrderQueryComponent implements OnInit {
   ];
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
               public page: PageService, private activatedRoute: ActivatedRoute) {
-    this.page.setRow(20);
+    this.page.setRow(15);
     this.page.setUrl('/home/schedule/ordque');
     this.activatedRoute.params.subscribe(() => {
       this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
@@ -114,6 +114,17 @@ export class OrderQueryComponent implements OnInit {
         return this.pro_systemName[i]['name'];
       }
     }
+  }
+  searchOrder(name) {
+    this.http.searchorders(1, 15, name)
+      .subscribe(data => {
+        console.log(data);
+        this.tBody = data['values']['datas'];
+        for (let i = 0; i < this.tBody.length; i++) {
+          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
+        }
+        this.page.setPage(data['values']['number']);
+      });
   }
   chineseStatus(status: number): string {
     switch (status) {

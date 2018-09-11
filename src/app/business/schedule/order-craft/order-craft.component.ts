@@ -2,8 +2,6 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginIdService} from '../../../login/login-id.service';
 import {ScheduleHttpService} from '../schedule-http.service';
-import {slideToRight} from '../../../routeAnimation';
-import {ToastService} from '../../../remind/toast.service';
 import {Order} from '../order';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
@@ -12,10 +10,8 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-order-craft',
   templateUrl: './order-craft.component.html',
   styleUrls: ['./order-craft.component.css'],
-  animations: [slideToRight]
 })
 export class OrderCraftComponent implements OnInit {
-  @HostBinding('@routerAnimate') state;
   order = new Order();
   film: FormGroup;
   pro_systemName = [];

@@ -11,8 +11,6 @@ import { MessageRemindComponent } from '../message-remind/message-remind.compone
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import {PositionNameService} from '../remind/position-name.service';
 import {MainModule} from '../business/main/main.module';
-import {ToastService} from '../remind/toast.service';
-
 
 @NgModule({
   imports: [
@@ -29,7 +27,7 @@ import {ToastService} from '../remind/toast.service';
     MessageRemindComponent,
     PersonalInfoComponent,
   ],
-  providers: [HomeService, PositionNameService, ToastService],
+  providers: [HomeService, PositionNameService],
   exports: [HomeComponent]
 })
 export class HomeModule {}

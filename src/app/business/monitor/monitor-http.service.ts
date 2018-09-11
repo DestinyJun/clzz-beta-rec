@@ -24,7 +24,7 @@ export class MonitorHttpService {
     return result;
   }
 
-  public SeeSystemModular(sysid: object): Observable<any> {
+  public findSystemModular(sysid: object): Observable<any> {
     const body = this.parameterSerialization(sysid);
     return this.http.post('http://' + this.url + '/element-plc/find-system-modular', body, {
       headers: this.headers
@@ -53,8 +53,9 @@ export class MonitorHttpService {
     });
   }
 
-  public FindTemperatureSensor(): Observable<any> {
-    const body = this.parameterSerialization({timeStamp: Date()});
+  public FindTemperatureSensor(obj): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    console.log(body);
     return this.http.post('http://' + this.url + '/element/find/temperature/sensor', body, {
       headers: this.headers
     });

@@ -29,6 +29,12 @@ export class LoginIdService {
   public getSysids(): any {
     return JSON.parse(this.sessionStorage['sysids'] || '{}');
   }
+  public setAddress(value: any): void {
+    this.sessionStorage['address'] = JSON.stringify(value);
+  }
+  public getAddress(): any {
+    return JSON.parse(this.sessionStorage['address'] || '{}');
+  }
   public setObject(key: string, value: User): void {
     this.sessionStorage[key] = JSON.stringify(value);
   }

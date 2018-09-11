@@ -1,6 +1,6 @@
 <div>
   <div class="panel-heading">
-    <span (click)="d()">{{title}}</span>
+    <span>{{title}}</span>
   </div>
   <div class="panel-body">
     <div class="table-responsive">
@@ -14,9 +14,12 @@
         <tr *ngFor="let i of tBody;let j = index">
           <td >{{j + 1}}</td>
           <td *ngFor="let p of prop">{{i[p]}}</td>
-          <td *ngIf="btnGroup.length > 0">
+          <td *ngIf="btnGroup.length > 0 && btnGroup[0] !== '查看详情'">
             <button *ngFor="let btn of btnGroup" class="btn-success btn btn-xs">{{btn}}</button>
-          </td> <!-- 有按钮则生成 -->
+          </td>
+          <td *ngIf="btnGroup.length > 0 && btnGroup[0] === '查看详情'">
+            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#picture" (click)="pictureIndex(j)">{{btnGroup[0]}}</button>
+          </td>
         </tr>
         </tbody>
       </table>

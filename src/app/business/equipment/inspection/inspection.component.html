@@ -1,3 +1,76 @@
 <div class="container-fluid">
-  <app-table title="巡检查看" [tHead]="tHead" [prop]="prop" [tBody]="tBody" [btnGroup]="btnGroup"></app-table>
+  <div>
+    <div class="panel-heading">
+      <span>{{title}}</span>
+      <div id="search" class="form-inline pull-right">
+        <input type="text" #inputName class="form-control" placeholder="搜索项目名称" (keyup.enter)="search(selectName.value, inputName.value)">
+        <i class="fa fa-search" (click)="search(selectName.value, inputName.value)"></i>
+      </div>
+      <div class="pull-right">
+        <span class="btn btn-danger btn-xs" *ngIf="!boolUrl" (click)="searchOff()">退出搜索</span>
+        <select #selectName title="" class="btn btn-xs btn-info">
+          <option>全部</option>
+          <option>正常</option>
+          <option>异常</option>
+        </select>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th *ngFor="let th of tHead">{{th}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let i of tBody;let j = index">
+            <td >{{j + 1}}</td>
+            <td *ngFor="let p of prop" [ngStyle]="{'color': i[p]==='异常'?'red':''}">{{i[p]}}</td>
+            <td>
+              <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#picture" (click)="pictureIndex(j)">{{btnGroup[0]}}</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="burster">
+          <button type="button" class="btn btn-primary" (click)="page.lastPage();searchPage(selectName.value, inputName.value)">上一页</button>
+          <button type="button" class="btn btn-primary" (click)="page.nextPage();searchPage(selectName.value, inputName.value)">下一页</button>
+          当前第{{page.getPageNo()}}页，共{{page.getTotalPage()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value);searchPage(selectName.value, inputName.value)" type="number" title=""> 页
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="picture" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-heading">
+        <span>订单详细信息</span>
+      </div>
+      <div class="panel-body" *ngIf="imageNames !== null" >
+        <div style="display: inline-block;text-align: center" *ngFor="let imgN of imageNames">
+          <img [src]="imgUrl + '/' + imgN">
+        </div>
+        <div class="form-inline" style="display: inline-block;text-align: center;padding-top: 10px">
+          <div *ngFor="let norN of normalNames;let i=index">
+            <label>{{norN}}: </label>
+            <input title="" [ngStyle]="{'color': normalValues[i]==='异常'?'red':''}" value="{{normalValues[i]}}">
+          </div>
+        </div>
+        <div class="row" style="text-align: left;margin: 0 10px">
+          <button class="btn btn-info pull-right" data-toggle="modal" data-target="#picture">关闭</button>
+        </div>
+      </div>
+      <div class="panel-body" *ngIf="imageNames === null">
+        <div style="height: 400px;background: rgba(255,255,255,.5); text-align: center">
+          <h2>没有图片</h2>
+        </div>
+        <div class="row" style="text-align: left;margin: 0 10px">
+          <button class="btn btn-info pull-right" data-toggle="modal" data-target="#picture">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

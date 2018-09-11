@@ -1,20 +1,17 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
-import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
-import {slideToRight} from '../../../routeAnimation';
+import {ActivatedRoute} from '@angular/router';
 import {PageService} from '../../../based/page.service';
-import {MaterialEntryComponent} from '../material-entry/material-entry.component';
 
 @Component({
   selector: 'app-material-check',
   templateUrl: './material-check.component.html',
   styleUrls: ['./material-check.component.css'],
-  animations: [slideToRight]
 })
 export class MaterialCheckComponent implements OnInit {
   tHead = ['采购单编号', '生产厂家', '入库时间', '单价', '重量', '状态', '操作'];
-  prop = ['purchase', 'supname', 'idt', 'alprice', 'alexweight', 'status'];
+  prop = ['purchase', 'supName', 'idt', 'alPrice', 'alExpectWeight', 'status'];
   btnGroup = ['详情'];
   tBody = [];
   type = 0;
@@ -24,7 +21,7 @@ export class MaterialCheckComponent implements OnInit {
   btn = '提交';
   constructor(private materialHttp: MaterialHttpService, public page: PageService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
-    this.page.setRow(20);
+    this.page.setRow(15);
     this.page.setUrl(this.url);
     this.activatedRoute.params.subscribe(() => {
       this.page.setNowPage(this.activatedRoute.snapshot.params['page']);

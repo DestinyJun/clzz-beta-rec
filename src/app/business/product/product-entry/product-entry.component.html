@@ -1,12 +1,14 @@
 <div class="container-fluid">
-  <app-product-table title="已入库成品列表" [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <app-product-table title="已入库成品列表" [page]="pageBeta" (zhuandan)="zhuan($event)" (search)="searchProduct($event)" (searchOf)="initData()"
+                     [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
+</div>
+<div class="modal fade bs-example-modal-sm" id="zhuandan" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="panel-body">
         <h5>选择待生产订单</h5>
-        <h6 style="text-align: center" (click)="confirm(i)" *ngFor="let i of orders">订单号:{{i}}</h6>
-        <button class="pull-right btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">关闭</button>
+        <h4 style="text-align: center" (click)="confirm(i)" *ngFor="let i of orders">订单号:{{i}}</h4>
+        <button class="pull-right btn btn-success" data-toggle="modal" data-target="#zhuandan">关闭</button>
       </div>
     </div>
   </div>

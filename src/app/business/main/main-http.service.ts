@@ -10,7 +10,7 @@ export class MainHttpService {
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient) { }
 
-  private parameterSerialization(obj: object): string {
+  parameterSerialization(obj: object): string {
     let result: string;
     for (const prop in obj) {
       if (obj.hasOwnProperty(prop)) {

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div *ngIf="purchase==='false'">
     <ngx-qrcode [qrc-value]="value" [qrc-element-type]="elementType" [qrc-version]="12" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-    <div><h3>订单编号:{{targetlist}} 生产编号:{{oid}} 铝卷单卷编号:{{aluminumcode}} 铝卷单卷长度:{{aluminumlength}}米</h3></div>
+    <div><h4>订单编号:{{targetlist}} 生产编号:{{oid}} 铝卷单卷编号:{{aluminumcode}} 铝卷单卷长度:{{aluminumlength}}米</h4></div>
     <div><span>贵铝彩铝有限公司</span></div>
   </div>
   <div *ngIf="purchase!=='false'">

@@ -42,7 +42,7 @@ export class FailedMaterialComponent implements OnInit {
     this.materialHttp.findrawpage(body).subscribe(data => {
       console.log(data);
       this.tBody = data['values']['datas'];
-      this.page.setPage(data['values']['number']);
+      this.page.setPage(data['values']['num']);
     });
   }
 }

@@ -1,3 +1,3 @@
 <div class="container-fluid">
-  <app-product-table title="待入库成品列表" [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
+  <app-product-table title="待入库成品列表" [page]="pageBeta" (searchOf)="initData()" (search)="searchProduct($event)" [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody"></app-product-table>
 </div>

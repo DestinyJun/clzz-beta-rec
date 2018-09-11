@@ -11,3 +11,8 @@
   border-radius: 5px 5px 0 0;
   color: white;
 }
+.timeInput input{
+  color: black;
+  width: 48px;
+  height: 20px;
+}

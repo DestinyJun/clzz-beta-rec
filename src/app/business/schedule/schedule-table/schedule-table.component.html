@@ -6,8 +6,8 @@
       <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#add" (click)="addOrder()">录入订单</button>
     </div>
     <div id="search" class="form-inline pull-right">
-      <input type="text" class="form-control" placeholder="搜索订单">
-      <i class="fa fa-search"></i>
+      <input type="text" #inputName class="form-control" placeholder="搜索合同名和客户名" (keyup.enter)="search(inputName.value)">
+      <i class="fa fa-search" ></i>
     </div>
   </div>
   <div class="panel-body">

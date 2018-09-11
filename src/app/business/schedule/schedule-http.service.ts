@@ -8,6 +8,7 @@ import {Url} from '../../getUrl';
 export class ScheduleHttpService {
 
   seeOrders = new SeeOrders(this.user.getObject('user').sysids);
+  searchOrders = new SearchOrders(this.user.getObject('user').sysids);
   url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) { }
@@ -43,11 +44,19 @@ export class ScheduleHttpService {
     });
   }
 
-  public SeeOrders(page, row, status): Observable<any> {
+  SeeOrders(page, row, status): Observable<any> {
     this.seeOrders.set(page, row, status);
     const body = this.parameterSerialization(this.seeOrders);
     console.log(body);
     return this.http.post('http://' + this.url + '/element/See-Orders', body, {
+      headers: this.headers
+    });
+  }
+  searchorders(page, row, status): Observable<any> {
+    this.searchOrders.set(page, row, status);
+    const body = this.parameterSerialization(this.searchOrders);
+    console.log(body);
+    return this.http.post('http://' + this.url + '/element/search-orders', body, {
       headers: this.headers
     });
   }
@@ -102,4 +111,18 @@ class SeeOrders {
 class UpdateOrders {
   status: string;
   oid: string;
+}
+class SearchOrders {
+  page: string;
+  row: string;
+  search: string;
+  sysids: string;
+  constructor(sysids) {
+    this.sysids = sysids;
+  }
+  set(page, row, status) {
+    this.page = page;
+    this.row = row;
+    this.search = status;
+  }
 }

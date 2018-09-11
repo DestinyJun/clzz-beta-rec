@@ -25,35 +25,70 @@ export class ProductHttpService {
     return result;
   }
 
-  public findproduceinformation(): Observable<any> {
+  findproduceinformation(page, row): Observable<any> {
     const body = this.parameterSerialization({
-      sysids: this.user.getObject('user').sysids
+      page: page,
+      row: row,
+      sysIds: this.user.getObject('user').sysids
     });
-    return this.http.post('http://' + this.url + '/element-plc/find-produce-information', body, {
+    return this.http.post('http://' + this.url + '/element-plc/find-produce-information-paging', body, {
       headers: this.headers
     });
   }
 
-  public findfinishedwarehouse(): Observable<any> {
+  findFinishedWareHouse(page, row): Observable<any> {
     const body = this.parameterSerialization({
-      sysids: this.user.getObject('user').sysids
+      page: page,
+      row: row,
+      sysIds: this.user.getObject('user').sysids
     });
-    return this.http.post('http://'  + this.url + '/element-plc/find-finished-warehouse', body, {
+    return this.http.post('http://'  + this.url + '/element-plc/find-finished-warehouse-paging', body, {
       headers: this.headers
     });
   }
-
-  public findwarehouseout(): Observable<any> {
+  searchFinishedProduct(contractName): Observable<any> {
     const body = this.parameterSerialization({
-      sysids: this.user.getObject('user').sysids
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
     });
     console.log(body);
-    return this.http.post('http://' + this.url + '/element-plc/find-warehouse-out', body, {
+    return this.http.post('http://'  + this.url + '/element-plc/search-finished-product', body, {
+      headers: this.headers
+    });
+  }
+  searchWareHouseIn(contractName): Observable<any> {
+    const body = this.parameterSerialization({
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
+    });
+    console.log(body);
+    return this.http.post('http://'  + this.url + '/element-plc/search-warehouse-in', body, {
+      headers: this.headers
+    });
+  }
+  searchWareHouseOut(contractName): Observable<any> {
+    const body = this.parameterSerialization({
+      contractName: contractName,
+      sysIds: this.user.getObject('user').sysids
+    });
+    console.log(body);
+    return this.http.post('http://'  + this.url + '/element-plc/search-warehouse-out', body, {
       headers: this.headers
     });
   }
 
-  public findamendorder(obj: object): Observable<any> {
+  findWareHouseOut(page, row): Observable<any> {
+    const body = this.parameterSerialization({
+      page: page,
+      row: row,
+      sysIds: this.user.getObject('user').sysids
+    });
+    return this.http.post('http://' + this.url + '/element-plc/find-warehouse-out-paging', body, {
+      headers: this.headers
+    });
+  }
+
+  findamendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
     return this.http.post('http://' + this.url + '/element-plc/find-amend-order', body, {
@@ -61,7 +96,7 @@ export class ProductHttpService {
     });
   }
 
-  public amendorder(obj: object): Observable<any> {
+  amendorder(obj: object): Observable<any> {
     const body = this.parameterSerialization(obj);
     console.log(body);
     return this.http.post('http://' + this.url + '/element-plc/amend-order', body, {
