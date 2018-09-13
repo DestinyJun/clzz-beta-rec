@@ -23,6 +23,8 @@ export class InspectionComponent implements OnInit {
   imageNames: Array<string> = [];
   normalNames: Array<string> = [];
   normalValues: Array<string> = [];
+  proSystem: Array<object>;
+  proSystemName: string;
   searchPages = 1;
   boolUrl: boolean;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -30,30 +32,39 @@ export class InspectionComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.page.setUrl('/home/equipment/inspection');
     this.page.setPageSize(this.row);
+    this.proSystem = this.user.getSysids();
     this.boolUrl = true;
     console.log(this.page.getPageNo());
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(Number(this.activatedRoute.snapshot.params['page']));
-      this.initData(this.page.getPageNo(), this.page.getPageSize());
+      this.initData();
     });
   }
 
   ngOnInit() {
   }
-
-  initData(page: number, row: number) {
-    console.log(page);
-    const  body = 'page=' + page + '&row=' + row + '&unitCode=' + this.user.getObject('user').sysids;
-    this.http.post('http://' + this.url + '/element-admin/find-inspection-result', body, {headers: this.headers}).subscribe(data => {
-      console.log(data);
-      this.tBody = data['values']['contents'];
-      this.page.setTotalPage(data['values']['totalPage']);
-      for (let i = 0; i < this.tBody.length; i++) {
-        this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
-        this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
-        this.tBody[i]['normal'] = JSON.parse(this.tBody[i]['normal']);
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.initData();
+    }
+  }
+  initData() {
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        const  body = 'page=' + this.page.getPageNo() + '&row=' + this.row + '&unitCode=' + this.proSystem[i]['sysId'];
+        this.http.post('http://' + this.url + '/element-admin/find-inspection-result', body, {headers: this.headers}).subscribe(data => {
+          console.log(data);
+          this.tBody = data['values']['contents'];
+          this.page.setTotalPage(data['values']['totalPage']);
+          for (let i = 0; i < this.tBody.length; i++) {
+            this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
+            this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
+            this.tBody[i]['normal'] = JSON.parse(this.tBody[i]['normal']);
+          }
+        });
       }
-    });
+    }
   }
 
   pictureIndex(index) {
@@ -87,7 +98,7 @@ export class InspectionComponent implements OnInit {
         }
       });
     } else {
-      this.initData(this.activatedRoute.snapshot.params['page'], this.row);
+      this.initData();
     }
   }
 
@@ -102,7 +113,7 @@ export class InspectionComponent implements OnInit {
     this.searchPages = 1;
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(Number(this.activatedRoute.snapshot.params['page']));
-      this.initData(this.page.getPageNo(), this.page.getPageSize());
+      this.initData();
     });
   }
 }

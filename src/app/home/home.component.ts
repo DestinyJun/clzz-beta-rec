@@ -10,19 +10,10 @@ import {Url} from '../getUrl';
 })
 export class HomeComponent implements OnInit {
   State = 'in';
-  url = new Url().getUrl();
   @Output() InfoTg = new EventEmitter();
   @Output() sidebar = new EventEmitter();
-  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   ToastInformation: string;
-  constructor(public LoginId: LoginIdService, private http: HttpClient) {
-    this.http.post('http://' + this.url + '/element/find-system-sysid', '', {
-      headers: this.headers
-    })
-      .subscribe(data => {
-        this.LoginId.setSysids(data['values']);
-        console.log(this.LoginId.getSysids());
-      });
+  constructor() {
 }
 
   ToastInfo(event) {

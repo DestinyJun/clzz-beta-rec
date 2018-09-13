@@ -65,5 +65,5 @@ class User {
   realName: string;
   sid: string;
   status: string;
-  sysids: string;
+  sysids: Array<string>;
 }

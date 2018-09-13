@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
     ] , true),
     new NavList('设备运行', 'fa fa-th-large', false, [
       new NavListChild('感知历史数据', false, 'equipment/devhis'),
-      new NavListChild('设备信息', false, 'equipment/devnew'),
+      new NavListChild('设备信息', false, 'equipment/devnew/1'),
       new NavListChild('设备巡检', false, 'equipment/inspection/1'),
     ] , true),
     new NavList('生产排程', 'fa fa-outdent', false, [

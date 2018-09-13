@@ -9,6 +9,8 @@ input{
   height: 25px;
 }
 select{
-  width: 58px;
+  width: auto;
+  padding-top: 2px;
+  font-size: 12px;
   margin-right: 5px;
 }

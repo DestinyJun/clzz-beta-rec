@@ -3,7 +3,7 @@
     <span>感知层即时数据</span>
     <div class="pull-right">
       <select title="" class="btn btn-success" (click)="selectSystem(selectS.value)" #selectS>
-        <option  *ngFor="let i of proSystem" (click)="ModularIdInit(i)">{{i['name']}}</option>
+        <option  *ngFor="let i of proSystem" (click)="ModularIdInit(i)">{{i['sysName']}}</option>
       </select>
       <select title="" (click)="selectModular(selectM.value)" class="btn btn-info" #selectM>
         <option  *ngFor="let i of Modular;let j=index">{{i['mName']}}</option>

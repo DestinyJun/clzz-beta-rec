@@ -16,7 +16,7 @@ export class HttpService {
     const body = this.parameterSerialization({
       'page': page,
       'row': row,
-      'sysids': this.user.getObject('user').sysids
+      'sysids': this.user.getSysids()[0]['sysId']
     });
     console.log(body);
     return this.http.post('http://' + this.url + '/element/query-event', body, {

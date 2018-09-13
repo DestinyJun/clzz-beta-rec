@@ -23,14 +23,15 @@ export class DeviceHistoryComponent implements OnInit {
   modularName: string;
   deviceName: string;
   sensorName: string;
-  sensorId: string;
+  startTime: any;
+  deadline: any;
   height = '0';
   constructor(
     private user: LoginIdService, private activatedRoute: ActivatedRoute, private http: EquipmentHttpService) {
     this.height = window.innerHeight - 400 + 'px';
     this.proSystem = this.user.getSysids();
     console.log(this.proSystem);
-    this.proSystemName = this.proSystem[0]['name'];
+    this.proSystemName = this.proSystem[0]['sysName'];
   }
 
   ngOnInit() {
@@ -39,8 +40,8 @@ export class DeviceHistoryComponent implements OnInit {
   /*模块初始化数据*/
   modularInit() {
     for (let i = 0; i < this.proSystem.length; i++) {
-      if (this.proSystemName === this.proSystem[i]['name']) {
-        this.http.SeeSystemModular({sysIds: this.proSystem[i]['sid']})
+      if (this.proSystemName === this.proSystem[i]['sysName']) {
+        this.http.SeeSystemModular({sysIds: this.proSystem[i]['sysId']})
           .subscribe( data => {
             console.log(data);
             this.modular = data['values'];

@@ -23,19 +23,19 @@ export class SensorComponent implements OnInit {
   interval: any;
   modal3: any;
   constructor(private activatedRoute: ActivatedRoute, private http: SensorService, private user: LoginIdService) {
-    this.proSystemName = this.proSystem[0]['name'];
+    this.proSystemName = this.proSystem[0]['sysName'];
     this.ModularInit();
   }
   ngOnInit() {
-    console.log(this.user.getSysids());
+    console.log(this.user.getSysids()[0]);
     // this.DeviceSensorInit(this.ModularId);
     // this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
   }
   // 获取系统下模块
   ModularInit() {
     for (let i = 0; i < this.proSystem.length; i++) {
-      if (this.proSystemName === this.proSystem[i]['name']) {
-        this.http.findSystemModular({sysIds: this.proSystem[i]['sid']})
+      if (this.proSystemName === this.proSystem[i]['sysName']) {
+        this.http.findSystemModular({sysIds: this.proSystem[i]['sysId']})
           .subscribe( data => {
             console.log(data);
             this.Modular = data['values'];

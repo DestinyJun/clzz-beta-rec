@@ -16,7 +16,7 @@ export class TemperatureComponent implements OnInit {
   tips: string;
 
   constructor(private http: MonitorHttpService, private user: LoginIdService) {
-    this.proSystemName = this.proSystem[0]['name'];
+    this.proSystemName = this.proSystem[0]['sysName'];
     this.initSensor();
   }
 
@@ -31,8 +31,8 @@ export class TemperatureComponent implements OnInit {
   initSensor() {
     this.option = [];
     for (let _i = 0; _i < this.proSystem.length; _i++) {
-      if (this.proSystem[_i]['name'] === this.proSystemName) {
-        this.http.FindTemperatureSensor({sysIds: this.proSystem[_i]['sid']}).subscribe(data => {
+      if (this.proSystem[_i]['sysName'] === this.proSystemName) {
+        this.http.FindTemperatureSensor({sysIds: this.proSystem[_i]['sysId']}).subscribe(data => {
           console.log(data);
           if (data['values'] !== null) {
             const length = data['values'].length;

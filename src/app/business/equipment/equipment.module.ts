@@ -9,12 +9,16 @@ import {EquipmentHttpService} from './equipment-http.service';
 import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 import {InspectionComponent} from './inspection/inspection.component';
 import {PageBetaService} from '../../based/page-beta.service';
+import {CalendarModule} from 'primeng/primeng';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     NgxEchartsModule,
     EquipmentRoutersModule,
-    CommonMmoduleModule
+    CommonMmoduleModule,
+    FormsModule,
+    CalendarModule
   ],
   declarations: [
     EquipmentComponent,

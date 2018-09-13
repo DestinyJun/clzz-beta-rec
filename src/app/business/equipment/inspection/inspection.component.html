@@ -14,6 +14,11 @@
           <option>异常</option>
         </select>
       </div>
+      <div class="pull-right">
+        <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+          <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
+        </select>
+      </div>
     </div>
     <div class="panel-body">
       <div class="table-responsive">

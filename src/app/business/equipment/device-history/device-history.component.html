@@ -4,7 +4,7 @@
     <span>传感器历史数据</span>
     <div class="pull-right">
       <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
-        <option  *ngFor="let i of proSystem">{{i['name']}}</option>
+        <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
       </select>
       <select title="" class="btn btn-success" (click)="selectModular(selectM.value)" #selectM>
         <option  *ngFor="let i of modular">{{i['mName']}}</option>
@@ -20,6 +20,10 @@
 
   <div class="panel-body" [ngStyle]="{'height': height}">
     <div echarts [options]="option"></div>
+    <div>
+      <p-calendar [showTime]="true" inputStyleClass="calendar" [(ngModel)]="startTime"></p-calendar>
+      <p-calendar [showTime]="true" inputStyleClass="calendar" [(ngModel)]="deadline"></p-calendar>
+    </div>
   </div>
 </div>
 

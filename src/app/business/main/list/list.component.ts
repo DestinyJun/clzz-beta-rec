@@ -51,8 +51,8 @@ export class ListComponent implements OnInit {
     const body = {
       page: 1,
       row: 5,
-      status: 0,
-      sysids: this.user.getObject('user').sysids
+      status: -1,
+      sysids: this.user.getSysids()[0]['sysId']
     };
     this.http.SeeOrders(body).subscribe(data => {
         console.log(data);

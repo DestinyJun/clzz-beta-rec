@@ -60,10 +60,12 @@ export class LoginIdService {
           this.setObject('user', data);
           console.log(this.sessionStorage);
           this.setBool('loginStatus', true);
+          this.setSysids(JSON.parse(data['systemInfo']));
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           console.log(data.sid);
           this.setObject('user', data);
+          this.setSysids(JSON.parse(data['systemInfo']));
           this.route.navigate(['/home']);
           this.setBool('loginStatus', true);
         } else {
@@ -95,5 +97,5 @@ class User {
   realName: string;
   sid: string;
   status: string;
-  sysids: string;
+  sysids: Array<string>;
 }
