@@ -7,8 +7,8 @@ import {Url} from '../../getUrl';
 @Injectable()
 export class ScheduleHttpService {
 
-  seeOrders = new SeeOrders(this.user.getObject('user').sysids);
-  searchOrders = new SearchOrders(this.user.getObject('user').sysids);
+  seeOrders = new SeeOrders();
+  searchOrders = new SearchOrders();
   url = new Url().getUrl();
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) { }
@@ -35,25 +35,25 @@ export class ScheduleHttpService {
     });
   }
 
-  public OrderAudited(): Observable<any> {
+  public OrderAudited(sysIds): Observable<any> {
     const body = this.parameterSerialization({
-      sysids: this.user.getObject('user').sysids
+      sysIds: sysIds
     });
     return this.http.post('http://' + this.url + '/element-plc/order/audited', body, {
       headers: this.headers
     });
   }
 
-  SeeOrders(page, row, status): Observable<any> {
-    this.seeOrders.set(page, row, status);
+  SeeOrders(page, row, status, sysIds): Observable<any> {
+    this.seeOrders.set(page, row, status, sysIds);
     const body = this.parameterSerialization(this.seeOrders);
     console.log(body);
     return this.http.post('http://' + this.url + '/element/See-Orders', body, {
       headers: this.headers
     });
   }
-  searchorders(page, row, status): Observable<any> {
-    this.searchOrders.set(page, row, status);
+  searchorders(page, row, status, sysIds): Observable<any> {
+    this.searchOrders.set(page, row, status, sysIds);
     const body = this.parameterSerialization(this.searchOrders);
     console.log(body);
     return this.http.post('http://' + this.url + '/element/search-orders', body, {
@@ -99,13 +99,11 @@ class SeeOrders {
   row: string;
   status: string;
   sysids: string;
-  constructor(sysids) {
-    this.sysids = sysids;
-  }
-  set(page, row, status) {
+  set(page, row, status, sysIds) {
     this.page = page;
     this.row = row;
     this.status = status;
+    this.sysids = sysIds;
   }
 }
 class UpdateOrders {
@@ -117,12 +115,10 @@ class SearchOrders {
   row: string;
   search: string;
   sysids: string;
-  constructor(sysids) {
-    this.sysids = sysids;
-  }
-  set(page, row, status) {
+  set(page, row, search, sysIds) {
     this.page = page;
     this.row = row;
-    this.search = status;
+    this.search = search;
+    this.sysids = sysIds;
   }
 }

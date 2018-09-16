@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <app-schedule-table title="营销审核订单列表" (index)="modalValue($event)" [page]="page"
+  <app-schedule-table title="营销审核订单列表" (index)="modalValue($event)" [page]="page" (searchOrder)="searchOrder($event)"
+                      (pageSearch)="pageSearch($event)" (offSearch)="SeeOrders()" (sProSystem)="selectSystem($event)"
                       [tBody]="tBody" [tHead]="tHead" [btnGroup]="btnGroup" [prop]="prop"></app-schedule-table>
 </div>
 <div class="modal fade bs-example-modal-lg" id="add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">

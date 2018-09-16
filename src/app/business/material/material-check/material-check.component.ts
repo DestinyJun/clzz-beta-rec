@@ -3,6 +3,7 @@ import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageService} from '../../../based/page.service';
+import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
   selector: 'app-material-check',
@@ -16,35 +17,54 @@ export class MaterialCheckComponent implements OnInit {
   tBody = [];
   type = 0;
   url = '/home/material/matche';
+  proSystem = this.user.getSysids();
+  row = 15;
+  proSystemName = this.proSystem[0]['sysName'];
   status = 0;
   toggleBtn: any;
   btn = '提交';
-  constructor(private materialHttp: MaterialHttpService, public page: PageService,
+  constructor(private materialHttp: MaterialHttpService, public page: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
-    this.page.setRow(15);
+    this.page.setPageSize(this.row);
     this.page.setUrl(this.url);
     this.activatedRoute.params.subscribe(() => {
-      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
-      this.getData(this.type);
+      this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
+      this.getData();
     });
   }
 
   ngOnInit() {
   }
-  getData(type) {
+  toggleType(type) {
     this.type = type;
-    console.log(type);
-    const body = {
-      sysids: this.user.getObject('user').sysids,
-      page: this.page.getNowPage(),
-      row: this.page.getRow(),
-      mode: this.type,
-      status: this.status
-    };
-    this.materialHttp.findrawpage(body).subscribe(data => {
-      console.log(data);
-      this.tBody = data['values']['datas'];
-      this.page.setPage(data['values']['num']);
-    });
+    this.getData();
+  }
+  selectSystem(name) {
+    if (this.proSystemName !== name) {
+      this.proSystemName = name;
+      this.getData();
+    }
+  }
+  getData() {
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        const body = {
+          sysids: this.proSystem[i]['sysId'],
+          page: this.page.getPageNo(),
+          row: this.row,
+          mode: this.type,
+          status: this.status
+        };
+        this.materialHttp.findrawpage(body).subscribe(data => {
+          console.log(data);
+          if (data['values']['contents'] !== null) {
+            this.tBody = data['values']['contents'];
+            this.page.setTotalPage(data['values']['totalPage']);
+          } else {
+            this.tBody = [];
+          }
+        });
+      }
+    }
   }
 }

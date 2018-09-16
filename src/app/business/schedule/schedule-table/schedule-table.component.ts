@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PageService} from '../../../based/page.service';
+import {LoginIdService} from '../../../login/login-id.service';
+import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
   selector: 'app-schedule-table',
@@ -16,14 +18,21 @@ export class ScheduleTableComponent implements OnInit {
   @Input() title: string; // 表格标题
   @Input() btnGroup: Array<string> = []; // 按钮组
   @Output() index = new EventEmitter();
-  @Input() page: PageService;
+  @Input() page: PageBetaService;
   @Input() btn: true;
   @Input() status: string;
   @Output() formName = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() down = new EventEmitter();
   @Output() searchOrder = new EventEmitter();
-  constructor() { }
+  proSystem = this.user.getSysids();
+  @Output() sProSystem = new EventEmitter();
+  @Output() offSearch = new EventEmitter();
+  @Output() pageSearch = new EventEmitter();
+  searchButton: boolean;
+  constructor(private user: LoginIdService) {
+    this.searchButton = false;
+  }
 
   ngOnInit() {
 
@@ -51,9 +60,20 @@ export class ScheduleTableComponent implements OnInit {
     this.index.emit(index);
   }
   search(name) {
+    this.searchButton = true;
     if (name !== '') {
       this.searchOrder.emit(name);
     }
+  }
+  selectSystem(name) {
+    this.sProSystem.emit(name);
+  }
+  searchOff() {
+    this.searchButton = false;
+    this.offSearch.emit(false);
+  }
+  searchPage(name) {
+    this.pageSearch.emit(name);
   }
 }
 

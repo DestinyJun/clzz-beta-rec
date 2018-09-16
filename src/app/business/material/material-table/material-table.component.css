@@ -11,3 +11,8 @@ label{
   display: block;
   padding-top: 5px;
 }
+select{
+  width: auto;
+  padding: 2px;
+  font-size: 12px;
+}

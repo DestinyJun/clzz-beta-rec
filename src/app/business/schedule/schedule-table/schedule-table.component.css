@@ -4,3 +4,8 @@ input{
   border-radius: 1px;
   height: 25px;
 }
+select{
+  width: auto;
+  font-size: 14px;
+  padding: 2px;
+}

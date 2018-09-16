@@ -8,6 +8,7 @@ import {OrderCraftComponent} from './order-craft/order-craft.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
 import {ScheduleTableComponent} from './schedule-table/schedule-table.component';
+import {PageBetaService} from '../../based/page-beta.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,6 @@ import {ScheduleTableComponent} from './schedule-table/schedule-table.component'
     OrderAdjustmentComponent,
     ScheduleTableComponent
   ],
-  providers: [],
+  providers: [PageBetaService],
 })
 export class ScheduleModule { }

@@ -5,6 +5,7 @@ import {ScheduleHttpService} from '../schedule-http.service';
 import {Order} from '../order';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
+import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
   selector: 'app-order-craft',
@@ -16,6 +17,10 @@ export class OrderCraftComponent implements OnInit {
   film: FormGroup;
   pro_systemName = [];
   pro_system: string;
+  proSystem = this.user.getSysids();
+  row = 15;
+  proSystemName = this.proSystem[0]['sysName'];
+  pageOrder: PageBetaService;
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
@@ -55,11 +60,11 @@ export class OrderCraftComponent implements OnInit {
     ['number', 'number', 'type']
   ];
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private activatedRoute: ActivatedRoute,
-  private user: LoginIdService, public page: PageService) {
-    this.page.setRow(20);
+  private user: LoginIdService, public page: PageBetaService) {
+    this.page.setPageSize(this.row);
     this.page.setUrl('/home/schedule/ordcra');
     this.activatedRoute.params.subscribe(() => {
-      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
     });
     this.film = this.fb.group({
@@ -77,16 +82,29 @@ export class OrderCraftComponent implements OnInit {
   ngOnInit() {
     this.getProSystem();
   }
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.SeeOrders();
+    }
+  }
   SeeOrders() {
-    this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 2)
-      .subscribe(data => {
-        console.log(data);
-        this.tBody = data['values']['datas'];
-        for (let i = 0; i < this.tBody.length; i++) {
-          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
-        }
-        this.page.setPage(Number(data['values']['number']));
-      });
+    if (this.page.boolUrl === false) {
+      this.page.boolUrl = true;
+    }
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        this.http.SeeOrders(this.page.getPageNo(), this.row, 2, this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.tBody = data['values']['contents'];
+            for (let j = 0; j < this.tBody.length; j++) {
+              this.tBody[j]['ostatus'] = this.chineseStatus(Number(this.tBody[j]['ostatus']));
+            }
+            this.page.setTotalPage(data['values']['totalPage']);
+          });
+      }
+    }
   }
   modalValue(value) {
     this.order = this.tBody[value];
@@ -100,15 +118,15 @@ export class OrderCraftComponent implements OnInit {
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (this.pro_system === this.pro_systemName[i]['name']) {
-        return this.pro_systemName[i]['sid'];
+      if (this.pro_system === this.pro_systemName[i]['sysName']) {
+        return this.pro_systemName[i]['sysId'];
       }
     }
   }
   getProSystemName(pro_systemSid) {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (pro_systemSid === this.pro_systemName[i]['sid']) {
-        return this.pro_systemName[i]['name'];
+      if (pro_systemSid === this.pro_systemName[i]['sysId']) {
+        return this.pro_systemName[i]['sysName'];
       }
     }
   }
@@ -141,6 +159,34 @@ export class OrderCraftComponent implements OnInit {
         console.log(data);
         this.SeeOrders();
       });
+  }
+  initPageSearch() {
+    this.page.setBoolUrl(false);
+    this.page.setPageNo(1);
+  }
+  pageSearch(name) {
+    if (this.page.boolUrl === false) {
+      this.searchOrder(name);
+    }
+  }
+  searchOrder(name) {
+    if (this.page.boolUrl === true) {
+      this.initPageSearch();
+    }
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        this.http.searchorders(this.page.getPageNo(), this.row, name, this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.tBody = data['values']['contents'];
+            for (let j = 0; j < this.tBody.length; j++) {
+              this.tBody[j]['ostatus'] = this.chineseStatus(Number(this.tBody[j]['ostatus']));
+            }
+            this.page.setTotalPage(data['values']['totalPage']);
+          });
+        break;
+      }
+    }
   }
 
 }

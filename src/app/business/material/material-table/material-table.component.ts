@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
 import {Aluminums, Paint} from '../Material';
+import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
   selector: 'app-material-table',
@@ -56,10 +57,12 @@ export class MaterialTableComponent implements OnInit {
   @Input() btnGroup: Array<string> = []; // 按钮组
   @Input() url: string;
   @Input() status: number;
-  @Input() page: PageService;
+  @Input() page: PageBetaService;
   @Output() getData = new EventEmitter();
   @Output() pass = new EventEmitter();
   @Input() btn: string;
+  proSystem = this.user.getSysids();
+  @Output() sProSystem = new EventEmitter();
   type = 0;
   pro_systemName: any;
   pro_system: string;
@@ -142,5 +145,8 @@ export class MaterialTableComponent implements OnInit {
           this.AlArr = [];
         });
     }
+  }
+  selectSystem(name) {
+    this.sProSystem.emit(name);
   }
 }

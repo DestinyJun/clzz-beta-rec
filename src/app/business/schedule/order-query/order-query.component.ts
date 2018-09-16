@@ -1,17 +1,16 @@
-import {Component, HostBinding, OnInit, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
-import {slideToRight} from '../../../routeAnimation';
 import {LoginIdService} from '../../../login/login-id.service';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
+import {PageBetaService} from '../../../based/page-beta.service';
+import {btnGroup, dataName, modalProp, prop, propType, tBody, tHead} from './queryList';
 
 @Component({
   selector: 'app-order-query',
   templateUrl: './order-query.component.html',
   styleUrls: ['./order-query.component.css'],
-  animations: [slideToRight]
 })
 export class OrderQueryComponent implements OnInit {
   order: FormGroup;
@@ -22,44 +21,23 @@ export class OrderQueryComponent implements OnInit {
   doublecloat: string;
   pro_system: string;
   figura: string;
+  row = 15;
   pro_systemName = [];
-  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
-  tBody = [];
-  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
-  btnGroup = ['修改', '删除'];
-  dataName = [
-    ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
-    ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
-    ['背漆类型', '背漆成像', '背漆方案'],
-    ['底漆类型', '底漆成像', '底漆方案'],
-    ['面漆类型', '面漆成像', '面漆方案'],
-    ['联系电话', '国家', '省份', '城市'],
-    ['控制误差', '预计交货时间', '预计发货时间', '地址'],
-  ];
-  propType = [
-    ['type', 'type', 'number', 'number'],
-    ['type', 'number', 'number', 'number'],
-    ['type', 'type', 'number'],
-    ['type', 'type', 'number'],
-    ['type', 'type', 'number'],
-    ['type', 'type', 'type', 'type'],
-    ['number', 'date', 'date', 'type'],
-  ];
-  modalProp = [
-    ['contractname', 'cname', 'price', 'amount'],
-    ['altype', 'area', 'alwidth', 'althickness'],
-    ['btype', 'bccd', 'bprogram'],
-    ['ptype', 'pccd', 'pprogram'],
-    ['ftype', 'fccd', 'fprogram'],
-    [ 'tel', 'country', 'province', 'city'],
-    ['deviation', 'exdelitime', 'exshiptime', 'address']
-  ];
+  proSystem = this.user.getSysids();
+  proSystemName = this.proSystem[0]['sysName'];
+  tHead = tHead;
+  tBody = tBody;
+  prop = prop;
+  btnGroup = btnGroup;
+  dataName = dataName;
+  propType = propType;
+  modalProp = modalProp;
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
-              public page: PageService, private activatedRoute: ActivatedRoute) {
-    this.page.setRow(15);
+              public page: PageBetaService, private activatedRoute: ActivatedRoute) {
+    this.page.setPageSize(this.row);
     this.page.setUrl('/home/schedule/ordque');
     this.activatedRoute.params.subscribe(() => {
-      this.page.setNowPage(this.activatedRoute.snapshot.params['page']);
+      this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
     });
     this.formName = this.order2 = this.order = this.fb.group({
@@ -103,28 +81,45 @@ export class OrderQueryComponent implements OnInit {
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (this.pro_system === this.pro_systemName[i]['name']) {
-        return this.pro_systemName[i]['sid'];
+      if (this.pro_system === this.pro_systemName[i]['sysName']) {
+        return this.pro_systemName[i]['sysId'];
       }
     }
   }
   getProSystemName(pro_systemSid) {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (pro_systemSid === this.pro_systemName[i]['sid']) {
-        return this.pro_systemName[i]['name'];
+      if (pro_systemSid === this.pro_systemName[i]['sysId']) {
+        return this.pro_systemName[i]['sysName'];
       }
     }
   }
+  initPageSearch() {
+    this.page.setBoolUrl(false);
+    this.page.setPageNo(1);
+  }
+  pageSearch(name) {
+    if (this.page.boolUrl === false) {
+      this.searchOrder(name);
+    }
+  }
   searchOrder(name) {
-    this.http.searchorders(1, 15, name)
-      .subscribe(data => {
-        console.log(data);
-        this.tBody = data['values']['datas'];
-        for (let i = 0; i < this.tBody.length; i++) {
-          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
-        }
-        this.page.setPage(data['values']['number']);
-      });
+    if (this.page.boolUrl === true) {
+      this.initPageSearch();
+    }
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        this.http.searchorders(this.page.getPageNo(), this.row, name, this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.tBody = data['values']['contents'];
+            for (let j = 0; j < this.tBody.length; j++) {
+              this.tBody[j]['ostatus'] = this.chineseStatus(Number(this.tBody[j]['ostatus']));
+            }
+            this.page.setTotalPage(data['values']['totalPage']);
+          });
+        break;
+      }
+    }
   }
   chineseStatus(status: number): string {
     switch (status) {
@@ -138,16 +133,29 @@ export class OrderQueryComponent implements OnInit {
       case 8: return '已出库';
     }
   }
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.SeeOrders();
+    }
+  }
   SeeOrders() {
-    this.http.SeeOrders(this.page.getNowPage(), this.page.getRow(), 0)
-      .subscribe(data => {
-        console.log(data);
-        this.tBody = data['values']['datas'];
-        for (let i = 0; i < this.tBody.length; i++) {
-          this.tBody[i]['ostatus'] = this.chineseStatus(Number(this.tBody[i]['ostatus']));
-        }
-        this.page.setPage(data['values']['number']);
-      });
+    if (this.page.boolUrl === false) {
+      this.page.setBoolUrl(true);
+    }
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        this.http.SeeOrders(this.page.getPageNo(), this.row, 0, this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.tBody = data['values']['contents'];
+            for (let j = 0; j < this.tBody.length; j++) {
+              this.tBody[j]['ostatus'] = this.chineseStatus(Number(this.tBody[j]['ostatus']));
+            }
+            this.page.setTotalPage(data['values']['totalPage']);
+          });
+      }
+    }
   }
   deleteOrder(index) {
     if (window.confirm('确认删除吗？') ) {

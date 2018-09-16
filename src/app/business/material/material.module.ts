@@ -13,6 +13,7 @@ import {CheckedMaterialComponent} from './checked-material/checked-material.comp
 import {FailedMaterialComponent} from './failed-material/failed-material.component';
 import {UnauditedMaterialComponent} from './unaudited-material/unaudited-material.component';
 import {MaterialTableComponent} from './material-table/material-table.component';
+import {PageBetaService} from '../../based/page-beta.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,6 +32,6 @@ import {MaterialTableComponent} from './material-table/material-table.component'
     UnauditedMaterialComponent,
     MaterialTableComponent
   ],
-  providers: [InfoStatusService, MaterialHttpService],
+  providers: [InfoStatusService, MaterialHttpService, PageBetaService],
 })
 export class MaterialModule { }

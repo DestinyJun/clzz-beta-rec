@@ -99,17 +99,17 @@ export class MaterialEntryComponent implements OnInit {
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (this.pro_system === this.pro_systemName[i]['name']) {
-        return this.pro_systemName[i]['sid'];
+      if (this.pro_system === this.pro_systemName[i]['sysName']) {
+        return this.pro_systemName[i]['sysId'];
       }
     }
   }
   getProSystemName(pro_systemSid) {
     console.log(pro_systemSid);
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (pro_systemSid === this.pro_systemName[i]['sid']) {
-        console.log(pro_systemSid === this.pro_systemName[i]['sid']);
-        return this.pro_systemName[i]['name'];
+      if (pro_systemSid === this.pro_systemName[i]['sysId']) {
+        console.log(pro_systemSid === this.pro_systemName[i]['sysId']);
+        return this.pro_systemName[i]['sysName'];
       }
     }
   }

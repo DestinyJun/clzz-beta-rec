@@ -10,7 +10,7 @@ export class PageBetaService {
   private countNumber: number; // 计数总数
   private pageSize = 20; // 每页行数
   private url: string;
-  private boolUrl: boolean;
+  public boolUrl: boolean;
   constructor(private router: Router) {
     this.boolUrl = true;
   }

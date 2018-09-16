@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <app-material-table title="原材料信息" [url]="url" [page]="page" (getData)="getData($event);entry.toggleBtn($event)"
-                      [tHead]="tHead" [prop]="prop" [tBody]="tBody" [btnGroup]="btnGroup" [btn]="btn">
+  <app-material-table title="原材料信息" [url]="url" [page]="page" (getData)="toggleType($event);entry.toggleBtn($event)" (sProSystem)="selectSystem($event)"
+                      [tHead]="tHead" [prop]="prop" [tBody]="tBody" [btnGroup]="btnGroup" [btn]="btn" (sProSystem)="selectSystem($event)">
   </app-material-table>
 </div>
 <app-material-entry #entry [btn]="btn" (getData)="getData($event)"></app-material-entry>
