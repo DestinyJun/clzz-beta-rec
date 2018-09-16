@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
 import {ActivatedRoute} from '@angular/router';
-import {PageService} from '../../../based/page.service';
 import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
