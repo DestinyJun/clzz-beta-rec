@@ -42,8 +42,10 @@
       </table>
     </div>
     <div class="burster form-inline">
-      <button type="button" class="btn btn-primary" (click)="page.lastPage();searchPage(inputName.value)">上一页</button>
-      <button type="button" class="btn btn-primary" (click)="page.nextPage();searchPage(inputName.value)">下一页</button>
+      <button type="button" class="btn btn-primary" *ngIf="title!=='任务调排'" (click)="page.lastPage();searchPage(inputName.value)">上一页</button>
+      <button type="button" class="btn btn-primary" *ngIf="title!=='任务调排'" (click)="page.nextPage();searchPage(inputName.value)">下一页</button>
+      <button type="button" class="btn btn-primary" *ngIf="title==='任务调排'" (click)="page.lastPage()">上一页</button>
+      <button type="button" class="btn btn-primary" *ngIf="title==='任务调排'" (click)="page.nextPage()">下一页</button>
       当前第{{page.getPageNo()}}页，共{{page.getTotalPage()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value)" type="number" title=""> 页
     </div>
   </div>

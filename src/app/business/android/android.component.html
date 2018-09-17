@@ -12,10 +12,29 @@
         </thead>
         <tbody>
         <tr *ngFor="let app of appInfor;let i=index">
-          <td>{{i+1}}</td><td>{{app.version}}</td><td>{{app.versionName}}</td><td>{{app.utime}}</td><td><a target="_self" download={{app.versionName}} href={{app.url}} class="btn btn-success">{{app.description}}.apk</a></td>
+          <td>{{i+1}}</td><td>{{app.version}}</td>
+          <td>{{app.versionName}}</td>
+          <td>{{app.utime}}</td>
+          <td><button data-toggle="modal" data-target="#qrcode" class="btn btn-success" (click)="qrcode(i)">{{app.description}}.apk</button></td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
+<div class="modal fade bs-example-modal-sm" id="qrcode" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content" style="width: auto">
+      <div class="panel-heading">
+        <span> {{title}}.apk二维码</span>
+      </div>
+      <div class="panel-body" style="text-align: center">
+        <ngx-qrcode [qrc-value]="value" [qrc-element-type]="elementType" [qrc-version]="12" [qrc-errorCorrectionLevel]="'H'"></ngx-qrcode>
+      <div><button class="btn btn-info pull-right" data-toggle="modal" data-target="#qrcode">关闭</button></div>
+      </div>
+      <div></div>
+    </div>
+  </div>
+
 </div>

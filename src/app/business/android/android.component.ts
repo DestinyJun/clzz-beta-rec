@@ -11,6 +11,9 @@ export class AndroidComponent implements OnInit {
 
   url = new Url().getUrl();
   appInfor: Array<AppInfo>;
+  value: string;
+  title: string;
+  elementType: 'url' | 'canvas' | 'imag' = 'url';
   constructor(private http: HttpClient) {
     this.http.post('http://' + this.url + '/element-admin/version/an-query', '')
       .subscribe(data => {
@@ -24,10 +27,9 @@ export class AndroidComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  download(url) {
-    console.log(url);
-    window.open(url);
+  qrcode(index) {
+    this.value = this.appInfor[index]['url'];
+    this.title = this.appInfor[index]['description'];
   }
 }
 class AppInfo {
