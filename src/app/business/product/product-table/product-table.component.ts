@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {Router} from '@angular/router';
 import {PageService} from '../../../based/page.service';
 import {PageBetaService} from '../../../based/page-beta.service';
+import {LoginIdService} from '../../../login/login-id.service';
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
@@ -19,28 +20,30 @@ export class ProductTableComponent implements OnInit {
   @Input() page: PageBetaService;
   @Output() search = new EventEmitter();
   @Output() searchOf = new EventEmitter();
+  proSystem = this.user.getSysids();
+  @Output() sProSystem = new EventEmitter();
   searchStatus: boolean;
-  constructor(private router: Router) { }
-
+  constructor(private router: Router, private user: LoginIdService) { }
+  @Input() burster: boolean;
   ngOnInit() {
     this.searchStatus = false;
   }
 
   qrcodeRoute(index) {
     console.log(this.tBody[index]);
-    this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
+    this.router.navigate(['qrcode', false, false, this.tBody[index]['orderId'],
       this.tBody[index]['aluminumLength'], this.tBody[index]['targetList'],
       this.tBody[index]['aluminumCode'], this.tBody[index]['city']]);
   }
   qrcodeRouteN(index) {
     console.log(this.tBody[index]);
-    this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
+    this.router.navigate(['qrcode', false, false, this.tBody[index]['orderId'],
       this.tBody[index]['aluminumLength'], this.tBody[index]['targetList'],
       this.tBody[index]['aluminumCode'], false]);
   }
   qrcodeRouteNT(index) {
     console.log(this.tBody[index]);
-    this.router.navigate(['qrcode', false, false, this.tBody[index]['oid'],
+    this.router.navigate(['qrcode', false, false, this.tBody[index]['orderId'],
       this.tBody[index]['aluminumLength'], false,
       this.tBody[index]['aluminumCode'], false]);
   }
@@ -54,5 +57,8 @@ export class ProductTableComponent implements OnInit {
   searchOff() {
     this.searchStatus = false;
     this.searchOf.emit(false);
+  }
+  selectSystem(name) {
+    this.sProSystem.emit(name);
   }
 }

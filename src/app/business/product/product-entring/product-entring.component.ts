@@ -4,6 +4,7 @@ import {slideToRight} from '../../../routeAnimation';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-product-entring',
@@ -15,9 +16,13 @@ export class ProductEntringComponent implements OnInit {
   prop = ['contractName', 'orderId', 'aluminumCode', 'aluminumLength', 'idt'];
   btnGroup = ['打印入库二维码'];
   tBody = [];
-  pageSize = 15;
-  constructor(private http: ProductHttpService, public pageBeta: PageBetaService, private activatedRoute: ActivatedRoute) {
-    this.pageBeta.setPageSize(this.pageSize);
+  proSystem = this.user.getSysids();
+  row = 15;
+  proSystemName = this.proSystem[0]['sysName'];
+  burster = true;
+  constructor(private http: ProductHttpService, public pageBeta: PageBetaService,
+              private activatedRoute: ActivatedRoute, private user: LoginIdService) {
+    this.pageBeta.setPageSize(this.row);
     this.pageBeta.setUrl('/home/product/proenting');
     this.activatedRoute.params.subscribe(() => {
       this.pageBeta.setPageNo(this.activatedRoute.snapshot.params['page']);
@@ -27,18 +32,29 @@ export class ProductEntringComponent implements OnInit {
   ngOnInit() {
   }
   initData() {
-    this.http.findproduceinformation(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
-      .subscribe(data => {
-        console.log(data);
-        this.pageBeta.setTotalPage(data['values']['totalPage']);
-        this.tBody = data['values']['contents'];
-        console.log(this.tBody);
-      });
+    this.burster = true;
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystemName === this.proSystem[i]['sysName']) {
+        this.http.findproduceinformation(this.pageBeta.getPageNo(), this.pageBeta.getPageSize(), this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.pageBeta.setTotalPage(data['values']['totalPage']);
+            this.tBody = data['values']['contents'];
+          });
+      }
+    }
   }
   searchProduct(contractName) {
+    this.burster = false;
     this.http.searchFinishedProduct(contractName).subscribe(data => {
       console.log(data);
       this.tBody = data['values'];
     });
+  }
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.initData();
+    }
   }
 }

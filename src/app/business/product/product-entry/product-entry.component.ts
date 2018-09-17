@@ -6,6 +6,7 @@ import {slideToRight} from '../../../routeAnimation';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
+import {LoginIdService} from '../../../login/login-id.service';
 
 @Component({
   selector: 'app-product-entry',
@@ -22,8 +23,12 @@ export class ProductEntryComponent implements OnInit {
   prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'warehousingInDate'];
   btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
+  proSystem = this.user.getSysids();
   row = 15;
-  constructor(private http: ProductHttpService, public pageBeta: PageBetaService, private activatedRoute: ActivatedRoute) {
+  proSystemName = this.proSystem[0]['sysName'];
+  burster = true;
+  constructor(private http: ProductHttpService, public pageBeta: PageBetaService,
+              private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.pageBeta.setPageSize(this.row);
     this.pageBeta.setUrl('/home/product/procent');
     this.activatedRoute.params.subscribe(() => {
@@ -36,12 +41,17 @@ export class ProductEntryComponent implements OnInit {
   }
 
   initData() {
-    this.http.findFinishedWareHouse(this.pageBeta.getPageNo(), this.pageBeta.getPageSize())
-      .subscribe(data => {
-        console.log(data);
-        this.pageBeta.setTotalPage(data['values']['totalPage']);
-        this.tBody = data['values']['contents'];
-      });
+    this.burster = true;
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystemName === this.proSystem[i]['sysName']) {
+        this.http.findFinishedWareHouse(this.pageBeta.getPageNo(), this.pageBeta.getPageSize(), this.proSystem[i]['sysId'])
+          .subscribe(data => {
+            console.log(data);
+            this.pageBeta.setTotalPage(data['values']['totalPage']);
+            this.tBody = data['values']['contents'];
+          });
+      }
+    }
   }
   confirm(i) {
     if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
@@ -66,9 +76,16 @@ export class ProductEntryComponent implements OnInit {
       });
   }
   searchProduct(contractName) {
+    this.burster = false;
     this.http.searchWareHouseIn(contractName).subscribe(data => {
       this.tBody = data['values'];
     });
+  }
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.initData();
+    }
   }
 }
 

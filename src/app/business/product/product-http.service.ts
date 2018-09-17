@@ -25,23 +25,23 @@ export class ProductHttpService {
     return result;
   }
 
-  findproduceinformation(page, row): Observable<any> {
+  findproduceinformation(page, row, sysIds): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysIds: this.user.getObject('user').sysids
+      sysIds: sysIds
     });
     return this.http.post('http://' + this.url + '/element-plc/find-produce-information-paging', body, {
       headers: this.headers
     });
   }
 
-  findFinishedWareHouse(page, row): Observable<any> {
+  findFinishedWareHouse(page, row, sysIds): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysIds: this.user.getObject('user').sysids
-    });
+      sysIds: sysIds
+  });
     return this.http.post('http://'  + this.url + '/element-plc/find-finished-warehouse-paging', body, {
       headers: this.headers
     });
@@ -77,11 +77,11 @@ export class ProductHttpService {
     });
   }
 
-  findWareHouseOut(page, row): Observable<any> {
+  findWareHouseOut(page, row, sysId): Observable<any> {
     const body = this.parameterSerialization({
       page: page,
       row: row,
-      sysIds: this.user.getObject('user').sysids
+      sysIds: sysId
     });
     return this.http.post('http://' + this.url + '/element-plc/find-warehouse-out-paging', body, {
       headers: this.headers

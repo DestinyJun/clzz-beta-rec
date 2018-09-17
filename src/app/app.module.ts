@@ -18,8 +18,6 @@ import { MobieLoginComponent } from './mobie-login/mobie-login.component';
 import {ModalModule} from 'ngx-bootstrap';
 import {PageService} from './based/page.service';
 
-
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -37,6 +35,7 @@ import {PageService} from './based/page.service';
     OrderpageComponent,
     MobieOrderComponent,
     MobieLoginComponent,
+
   ],
   providers: [LoginIdService, UtilsService, CanrouteService, InfoStatusService, PageService],
   bootstrap: [AppComponent]

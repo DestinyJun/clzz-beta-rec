@@ -5,13 +5,13 @@
     <div class="pull-left" *ngIf="btn">
       <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#add" (click)="addOrder()">录入订单</button>
     </div>
-    <div id="search" class="form-inline pull-right">
+    <div id="search" class="form-inline pull-right" >
       <button class="btn btn-info btn-xs" *ngIf="searchButton" (click)="searchOff()">退出搜索</button>
       <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
         <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
       </select>
-      <input type="text" #inputName class="form-control" placeholder="搜索合同名和客户名" (keyup.enter)="search(inputName.value)">
-      <i class="fa fa-search" (click)="search(inputName.value)" ></i>
+      <input *ngIf="title!=='任务调排'" type="text" #inputName class="form-control" placeholder="搜索合同名和客户名" (keyup.enter)="search(inputName.value)">
+      <i *ngIf="title!=='任务调排'" class="fa fa-search" (click)="search(inputName.value)" ></i>
     </div>
   </div>
   <div class="panel-body">

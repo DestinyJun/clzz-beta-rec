@@ -30,7 +30,7 @@
               <div *ngIf="i === 1" class="col-xs-6 col-sm-3">
                 <label>生产线:</label>
                 <select title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let pn of pro_systemName">{{pn['name']}}</option>
+                  <option *ngFor="let pn of pro_systemName">{{pn['sysName']}}</option>
                 </select>
               </div>
             </div>

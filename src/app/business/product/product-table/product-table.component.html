@@ -2,6 +2,9 @@
   <div class="panel-heading">
     <span>{{title}}</span>
     <div class="form-inline pull-right">
+      <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+        <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
+      </select>
       <span class="btn btn-info btn-xs" *ngIf="searchStatus" (click)="searchOff()">退出搜索</span>
       <input type="text" #search class="form-control" placeholder="输入合同名,搜索成品" (keyup.enter)="searchProduct(search.value)">
       <i class="fa fa-search" (click)="searchProduct(search.value)"></i>
@@ -32,7 +35,7 @@
         </tr>
         </tbody>
       </table>
-      <div class="burster">
+      <div class="burster" *ngIf="burster">
         <button type="button" class="btn btn-primary" (click)="page.lastPage()">上一页</button>
         <button type="button" class="btn btn-primary" (click)="page.nextPage()">下一页</button>
         当前第{{page.getPageNo()}}页，共{{page.getTotalPage()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value)" type="number" title=""> 页

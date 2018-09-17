@@ -3,7 +3,20 @@ import {PageService} from '../../../based/page.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialHttpService} from '../material-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
-import {Aluminums, Paint} from '../Material';
+import {
+  AlDataName,
+  AlModalProp,
+  AlName,
+  AlProp,
+  Aluminums,
+  Paint,
+  PtDataName,
+  PtdName,
+  PtdProp,
+  PtModalProp,
+  PtName,
+  PtProp
+} from '../Material';
 import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
@@ -16,38 +29,18 @@ export class MaterialTableComponent implements OnInit {
   modalProp: any;
   dataName: any;
   material: any;
-  AlDataName = [
-    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-    ['铝板型号', '铝板宽度(毫米)', '铝卷厚度(微米)', '铝卷密度'],
-    [ '厂家名称', '生产系统'],
-  ];
-  AlModalProp = [
-    ['purchase', 'alweight', 'alprice', 'amount'],
-    ['altype', 'alwidth', 'althickness', 'aldensity'],
-    [ 'supname', 'pro_system'],
-  ];
-  PtDataName = [
-    ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-    ['油漆名称', '油漆固化物含量(%)', '油漆挥发份含量(%)', '油漆密度'],
-    ['稀释剂名称', '稀释剂总重量(千克)', '稀释剂单价(元/千克)', '稀释剂总价(元)'],
-    ['稀释剂类型', '稀释剂预计总重量(千克)', '稀释剂固化物含量(%)', '稀释剂挥发份含量(%)'],
-    ['稀释剂产品编号', '油漆类型', '油漆厂家名称', '生产系统'],
-  ];
-  PtModalProp = [
-    ['purchase', 'paex_weight', 'price', 'pamount'],
-    ['pname', 'pcondensate', 'pvolatile', 'pdensity'],
-    ['dname', 'diex_weight', 'dprice', 'damount'],
-    ['diluent_type', 'diluent_weight', 'condensate', 'dvolatile'],
-    ['supnum', 'ptype', 'supname', 'pro_system'],
-  ];
-  PtName = ['分桶号', '分桶重量'];
-  PtdName = ['分桶号', '分桶重量'];
+  AlDataName = AlDataName;
+  AlModalProp = AlModalProp;
+  PtDataName = PtDataName;
+  PtModalProp = PtModalProp;
+  PtName = PtName;
+  PtdName = PtdName;
   PtArr = [];
-  PtProp = ['supid', 'paint_weight'];
+  PtProp = PtProp;
   PtdArr = [];
-  PtdProp = ['supnumber', 'diluentweight'];
-  AlName = ['分卷号', '分卷重量'];
-  AlProp = ['al_weight', 'supplier_number'];
+  PtdProp = PtdProp;
+  AlName = AlName;
+  AlProp = AlProp;
   AlArr = [];
   @Input() tHead: Array<string>; // 表格头部列式信息
   @Input() fontSize: number; // 字体大小
@@ -83,17 +76,17 @@ export class MaterialTableComponent implements OnInit {
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (this.pro_system === this.pro_systemName[i]['name']) {
-        return this.pro_systemName[i]['sid'];
+      if (this.pro_system === this.pro_systemName[i]['sysName']) {
+        return this.pro_systemName[i]['sysId'];
       }
     }
   }
   getProSystemName(pro_systemSid) {
     console.log(pro_systemSid);
     for (let i = 0; i < this.pro_systemName.length; i++) {
-      if (pro_systemSid === this.pro_systemName[i]['sid']) {
-        console.log(pro_systemSid === this.pro_systemName[i]['sid']);
-        return this.pro_systemName[i]['name'];
+      if (pro_systemSid === this.pro_systemName[i]['sysId']) {
+        console.log(pro_systemSid === this.pro_systemName[i]['sysId']);
+        return this.pro_systemName[i]['sysName'];
       }
     }
   }
@@ -125,7 +118,7 @@ export class MaterialTableComponent implements OnInit {
     this.pass.emit(status);
   }
   modalValue(index) {
-    this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
+    this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']);
     this.material = this.tBody[index];
     console.log(this.tBody[index]);
     if (this.type === 0) {

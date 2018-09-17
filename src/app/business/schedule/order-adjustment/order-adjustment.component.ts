@@ -30,10 +30,10 @@ export class OrderAdjustmentComponent implements OnInit {
   down(j) {
     console.log(j);
     this.http.OrderMobileFunction({
-      oidone: this.tBody[j]['oid'] ,
-      oidtwo: this.tBody[j + 1]['oid'],
-      priorityone: this.tBody[j]['priority'],
-      prioritytwo: this.tBody[j + 1]['priority']
+      orderIdOne: this.tBody[j]['orderId'] ,
+      orderIdTwo: this.tBody[j + 1]['orderId'],
+      priorityOne: this.tBody[j]['priority'],
+      priorityTwo: this.tBody[j + 1]['priority']
     })
       .subscribe(data => {
         this.SeeOrders();

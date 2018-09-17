@@ -35,7 +35,6 @@ export class SidebarComponent implements OnInit {
       new NavListChild('原材料未审核', false, 'material/unaudited/1'),
       new NavListChild('原材料已审核', false, 'material/checked/1'),
       new NavListChild('原材料审核失败', false, 'material/failed/1'),
-      new NavListChild('原材料审核', false, 'material/matmes/1')
     ] , true),
     new NavList('成品管理', 'fa fa-hdd-o', false, [
       new NavListChild('待入库成品', false, 'product/proenting/1'),

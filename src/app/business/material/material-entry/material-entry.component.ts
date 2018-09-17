@@ -117,11 +117,11 @@ export class MaterialEntryComponent implements OnInit {
     console.log(this.tBody[index]);
     console.log(this.AlArr);
     if (this.type === 0) {
-      this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
-      console.log(this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']));
+      this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']);
+      console.log(this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']));
       this.AL.patchValue(this.tBody[index]);
     } else {
-      this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
+      this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']);
       this.paint.patchValue(this.tBody[index]);
     }
   }

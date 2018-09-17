@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { OrderAdjustmentComponent } from './order-adjustment/order-adjustment.component';
 import {ScheduleTableComponent} from './schedule-table/schedule-table.component';
 import {PageBetaService} from '../../based/page-beta.service';
+import {ProcessParameterPackageComponent} from './process-parameter-package/process-parameter-package.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,8 @@ import {PageBetaService} from '../../based/page-beta.service';
     OrderMarketingComponent,
     OrderCraftComponent,
     OrderAdjustmentComponent,
-    ScheduleTableComponent
+    ScheduleTableComponent,
+    ProcessParameterPackageComponent,
   ],
   providers: [PageBetaService],
 })

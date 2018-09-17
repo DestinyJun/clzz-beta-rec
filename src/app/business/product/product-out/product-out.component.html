@@ -1,4 +1,4 @@
 <div class="container-fluid">
-  <app-product-table [tBody]="tBody" [page]="pageBeta" [tHead]="tHead" [btnGroup]="btnGroup"
+  <app-product-table [tBody]="tBody" [page]="pageBeta" [tHead]="tHead" [btnGroup]="btnGroup" [burster]="burster" (sProSystem)="selectSystem($event)"
                      [prop]="prop" title="已出库产品列表" (searchOf)="initData()" (search)="searchProduct($event)"></app-product-table>
 </div>
