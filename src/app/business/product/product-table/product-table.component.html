@@ -27,7 +27,7 @@
           </td>
           <td *ngIf="btnGroup[0]==='打印出库二维码'">
             <button class="btn-success btn btn-xs" (click)="qrcodeRouteN(j)">{{btnGroup[0]}}</button>
-            <button (click)="zhuan(j)" class="btn-danger btn btn-xs" data-toggle="modal" data-target="#zhuandan">{{btnGroup[1]}}</button>
+            <button (click)="zhuan(j)" class="btn-danger btn btn-xs" data-toggle="modal" data-target="#menuTable">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup[0]==='打印已出库二维码'">
             <button class="btn-success btn btn-xs" (click)="qrcodeRoute(j)">{{btnGroup[0]}}</button>

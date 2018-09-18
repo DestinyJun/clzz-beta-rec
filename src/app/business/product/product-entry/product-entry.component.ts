@@ -15,9 +15,8 @@ import {LoginIdService} from '../../../login/login-id.service';
   animations: [slideToRight]
 })
 export class ProductEntryComponent implements OnInit {
-  orders: Array<object>;
   aluminumCode: string;
-  oid: string;
+  name: string;
   targetList: string;
   tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
   prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'warehousingInDate'];
@@ -27,6 +26,9 @@ export class ProductEntryComponent implements OnInit {
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
   burster = true;
+  menuHead = ['#', '合同名称', '转单'];
+  menuProp = ['contractName'];
+  menuBody = [];
   constructor(private http: ProductHttpService, public pageBeta: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.pageBeta.setPageSize(this.row);
@@ -53,9 +55,11 @@ export class ProductEntryComponent implements OnInit {
       }
     }
   }
-  confirm(i) {
-    if (window.confirm('是否将成品' + this.oid + '转到待生产订单' + i + '?')) {
-      this.http.amendorder({targetCode: i, oid: this.oid, aluminumCode: this.aluminumCode})
+  confirm(index) {
+    const name = this.tBody[index]['contractName'];
+    if (window.confirm('是否将' + this.name + '转到待生产订单' + name + '?')) {
+      this.http.amendorder({targetCode: this.tBody[index]['targetList'],
+        oid: this.tBody[index]['orderId'], aluminumCode: this.aluminumCode})
         .subscribe(data => {
           if (data['status'] === '10') {
             window.confirm('转单成功');
@@ -67,12 +71,12 @@ export class ProductEntryComponent implements OnInit {
   }
   zhuan(index): void {
     this.targetList = this.tBody[index]['targetList'];
-    this.oid = this.tBody[index]['oid'];
+    this.name = this.tBody[index]['contractName'];
     this.aluminumCode = this.tBody[index]['aluminumCode'];
-    this.http.findamendorder({targetlist: this.targetList})
+    this.http.findamendorder({targetList: this.targetList})
       .subscribe(data => {
         console.log(data);
-        this.orders = data['values'];
+        this.menuBody = data['values'];
       });
   }
   searchProduct(contractName) {

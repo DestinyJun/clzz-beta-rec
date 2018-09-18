@@ -20,7 +20,7 @@ export class OrderCraftComponent implements OnInit {
   proSystem = this.user.getSysids();
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
-  pageOrder: PageBetaService;
+  oid: string;
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
   prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
@@ -112,6 +112,7 @@ export class OrderCraftComponent implements OnInit {
     this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
     this.pro_system = this.getProSystemName(this.tBody[value]['pro_system']);
     console.log(value);
+    this.oid = this.tBody[value]['oid'];
   }
   getProSystem() {
     this.pro_systemName = this.user.getSysids();

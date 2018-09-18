@@ -109,7 +109,7 @@ export class MaterialTableComponent implements OnInit {
   }
   readType() {
     if (this.type === 0) {
-      return '铝板';
+      return '铝卷';
     } else if (this.type === 1) {
       return '油漆';
     }

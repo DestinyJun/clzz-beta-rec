@@ -66,7 +66,7 @@ export class MaterialEntryComponent implements OnInit {
       purchase: ['', Validators.required],
       pDensity: ['', Validators.required],
       pCondensate: ['', Validators.required],
-      ptype: ['', Validators.required],
+      pType: ['', Validators.required],
       pVolatile: ['', Validators.required],
       price: ['', Validators.required],
       paExpectWeight: ['', Validators.required],
@@ -149,6 +149,24 @@ export class MaterialEntryComponent implements OnInit {
       this.submitPaint();
     }
   }
+  deleteAlArr(index) {
+    for (let i = index + 1; i < this.AlArr.length; i++) {
+      this.AlArr[i - 1] = this.AlArr[i];
+    }
+    this.AlArr.length--;
+  }
+  deletePtArr(index) {
+    for (let i = index + 1; i < this.PtArr.length; i++) {
+      this.PtArr[i - 1] = this.PtArr[i];
+    }
+    this.PtArr.length--;
+  }
+  deletePtdArr(index) {
+    for (let i = index + 1; i < this.PtdArr.length; i++) {
+      this.PtdArr[i - 1] = this.PtdArr[i];
+    }
+    this.PtdArr.length--;
+  }
   submitAL(): void {
     this.alJson.purchase = this.AL.get('purchase').value;
     this.alJson.alExpectWeight = this.AL.get('alExpectWeight').value;
@@ -173,7 +191,7 @@ export class MaterialEntryComponent implements OnInit {
     this.paintJson.pName = this.paint.get('pName').value;
     this.paintJson.pDensity = this.paint.get('pDensity').value;
     this.paintJson.pCondensate = this.paint.get('pCondensate').value;
-    this.paintJson.ptype = this.paint.get('ptype').value;
+    this.paintJson.pType = this.paint.get('pType').value;
     this.paintJson.pVolatile = this.paint.get('pVolatile').value;
     this.paintJson.price = this.paint.get('price').value;
     this.paintJson.paExpectWeight = this.paint.get('paExpectWeight').value;

@@ -1,14 +1,31 @@
 <div class="container-fluid">
   <app-product-table title="已入库成品列表" [page]="pageBeta" (zhuandan)="zhuan($event)" (search)="searchProduct($event)" (searchOf)="initData()"
-                     [prop]="prop" [btnGroup]="btnGroup" [tHead]="tHead" [tBody]="tBody" (sProSystem)="selectSystem($event)"></app-product-table>
+                     [prop]="prop" [btnGroup]="btnGroup" [burster]="burster"  [tHead]="tHead" [tBody]="tBody" (sProSystem)="selectSystem($event)"></app-product-table>
 </div>
-<div class="modal fade bs-example-modal-sm" id="zhuandan" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade bs-example-modal-sm" id="menuTable" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
+      <div class="panel-heading"><span>选择转单</span></div>
       <div class="panel-body">
-        <h5>选择待生产订单</h5>
-        <h4 style="text-align: center" (click)="confirm(i)" *ngFor="let i of orders">订单号:{{i}}</h4>
-        <button class="pull-right btn btn-success" data-toggle="modal" data-target="#zhuandan">关闭</button>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th *ngFor="let th of menuHead">{{th}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tB of menuBody;let j = index">
+              <td >{{j + 1}}</td>
+              <td *ngFor="let p of menuProp">{{tB[p]}}</td>
+              <td>
+                <button class="btn-success btn btn-xs" data-toggle="modal" (click)="confirm(j)">转单</button>
+              </td> <!-- 有按钮则生成 -->
+            </tr>
+            </tbody>
+          </table>
+          <button class="pull-right btn btn-success btn-xs" data-toggle="modal" data-target="#menuTable">关闭</button>
+        </div>
       </div>
     </div>
   </div>

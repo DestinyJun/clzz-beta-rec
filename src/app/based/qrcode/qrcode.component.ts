@@ -45,8 +45,8 @@ export class QrcodeComponent implements OnInit {
           headers: this.headers
         }).subscribe(data => {
           console.log(data);
-          this.pa = data['QRcode_pa'];
-          this.di = data['QRcode_di'];
+          this.pa = data['QRcodePa'];
+          this.di = data['QRcodeDi'];
         });
       } else {
         this.http.post('http://' + this.url + '/element/alQRcode', 'purchase=' + this.purchase, {

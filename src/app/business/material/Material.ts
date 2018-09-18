@@ -73,7 +73,7 @@ export class PaintJson {
   pName: string;
   pDensity: number;
   pCondensate: number;
-  ptype: string;
+  pType: string;
   pVolatile: number;
   price: number;
   paExpectWeight: number;
@@ -123,7 +123,7 @@ export const PtModalProp = [
   ['pName', 'pCondensate', 'pVolatile', 'pDensity'],
   ['dName', 'diExpectWeight', 'dPrice', 'damount'],
   ['dType', 'condensate', 'dVolatile'],
-  ['supNum', 'ptype', 'supName', 'proSystem'],
+  ['supNum', 'pType', 'supName', 'proSystem'],
 ];
 export const PtName = ['分桶号', '分桶重量'];
 export const PtdName = ['分桶号', '分桶重量'];

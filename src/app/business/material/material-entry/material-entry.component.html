@@ -27,7 +27,7 @@
                 <button class="btn btn-md btn-success" (click)="addALArr()">添加分卷</button>
               </div>
             </div>
-            <div class="row" *ngFor="let al of AlArr">
+            <div class="row" *ngFor="let al of AlArr;let i=index">
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{AlName[0]}}:</label>
@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <button class="btn btn-success btn-xs">删除</button>
+                <button class="btn btn-danger btn-xs" (click)="deleteAlArr(i)">删除</button>
               </div>
             </div>
             <div class="row" *ngIf="type === 1">
@@ -49,7 +49,7 @@
                 <button class="btn btn-md btn-success" (click)="addPtArr()">添加油漆桶</button>
               </div>
             </div>
-            <div class="row" *ngFor="let pt of PtArr">
+            <div class="row" *ngFor="let pt of PtArr;let i=index">
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtName[0]}}:</label>
@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <button class="btn btn-success btn-xs">删除</button>
+                <button class="btn btn-danger btn-xs" (click)="deletePtArr(i)">删除</button>
               </div>
             </div>
             <div class="row" *ngIf="type === 1">
@@ -71,7 +71,7 @@
                 <button class="btn btn-md btn-success" (click)="addPtdArr()">添加稀释剂桶</button>
               </div>
             </div>
-            <div class="row" *ngFor="let ptd of PtdArr">
+            <div class="row" *ngFor="let ptd of PtdArr;let i=index">
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtdName[0]}}:</label>
@@ -85,7 +85,7 @@
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <button class="btn btn-success btn-xs">删除</button>
+                <button class="btn btn-danger btn-xs" (click)="deletePtdArr(i)">删除</button>
               </div>
             </div>
           </form>
