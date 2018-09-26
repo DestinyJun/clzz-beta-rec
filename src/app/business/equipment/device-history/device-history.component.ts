@@ -14,7 +14,6 @@ import {LoginIdService} from '../../../login/login-id.service';
 export class DeviceHistoryComponent implements OnInit {
   sid: string;
   option: any;
-  Datas: Observable<any>;
   proSystem: Array<object> = [];
   modular: Array<object> = [];
   device: Array<object> = [];
@@ -74,7 +73,8 @@ export class DeviceHistoryComponent implements OnInit {
           .subscribe(data => {
             console.log(data);
             this.sensor = data['values'][0]['sensor'];
-            this.MapChart(this.sensor[0]['sId'], this.sensor[0]['sName']);
+            this.sensorName = this.sensor[i]['sName'];
+            this.MapChart(this.sensor[i]['sId'], this.sensor[i]['sName'], this.toDatestart(new Date()), this.toDateend(new Date()));
           });
       }
     }
@@ -102,19 +102,72 @@ export class DeviceHistoryComponent implements OnInit {
       this.sensorName = name;
       for (let i = 0; i < this.sensor.length; i++) {
         if (this.sensorName === this.sensor[i]['sName']) {
-          this.MapChart(this.sensor[i]['sId'], this.sensorName);
+          this.MapChart(this.sensor[i]['sId'], this.sensorName, this.toDatestart(new Date()), this.toDateend(new Date()));
           break;
         }
       }
     }
   }
-
-  MapChart(sId: string, SensorName: string) {
-    this.Datas = this.http.seesensordata({sId: sId});
-    this.Datas.subscribe(d => {
+  seeHistory() {
+    // enum Month {Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec}
+    console.log(this.startTime, this.deadline);
+    console.log(this.startTime.toString().split(' '));
+    const sTime = this.startTime.toString().split(' ');
+    const dTime = this.deadline.toString().split(' ');
+    for (let i = 0; i < this.sensor.length; i++) {
+      if (this.sensorName === this.sensor[i]['sName']) {
+        this.MapChart(this.sensor[i]['sId'], this.sensorName,
+          sTime[3] + '-' + this.numberMonth(sTime[1]) + '-' + sTime[2] + ' ' + sTime[4],
+          dTime[3] + '-' + this.numberMonth(dTime[1]) + '-' + dTime[2] + ' ' + dTime[4]);
+        break;
+      }
+    }
+  }
+  numberMonth(month: string) {
+    if (month === 'Jan') {
+      return 1;
+    }
+    if (month === 'Feb') {
+      return 2;
+    }
+    if (month === 'Mar') {
+      return 3;
+    }
+    if (month === 'Apr') {
+      return 4;
+    }
+    if (month === 'May') {
+      return 5;
+    }
+    if (month === 'Jun') {
+      return 6;
+    }
+    if (month === 'Jul') {
+      return 7;
+    }
+    if (month === 'Aug') {
+      return 8;
+    }
+    if (month === 'Sep') {
+      return 9;
+    }
+    if (month === 'Oct') {
+      return 10;
+    }
+    if (month === 'Nov') {
+      return 11;
+    }
+    if (month === 'Dec') {
+      return 12;
+    }
+  }
+  MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
+    this.http.findhstorysensordata({sid: body, startTime: starttime, deadline: deadline})
+      .subscribe(d => {
+        console.log(d);
       const dates = [];
       const data = [];
-      if (d['status'] === '10') {
+      if (d['values'] !== null) {
         const length = d['values'].length;
         for (let j = 0; j < length; j++) {
           dates.push(d['values'][j]['sTime']);
@@ -216,4 +269,25 @@ export class DeviceHistoryComponent implements OnInit {
       };
     });
   }
+  toDatestart(time) {
+    let Hours = time.getHours(), Minutes = time.getMinutes();
+    if (Minutes < 20) {
+      Minutes += 40;
+      Hours -= 1;
+    } else {
+      Minutes -= 20;
+    }
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
+  }
+
+  toDateend(time) {
+    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
+      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+  }
+}
+export class MyModel {
+
+  value: Date;
+
 }

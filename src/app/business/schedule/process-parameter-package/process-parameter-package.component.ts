@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {modalName, modalProp} from './parameter';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Url} from '../../../getUrl';
 
 @Component({
@@ -17,7 +17,6 @@ export class ProcessParameterPackageComponent implements OnInit {
   url = new Url().getUrl();
   modify = false;
   @Input() oid: string;
-  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.process = this.formBuilder.group({
       data_pack_time: ['', Validators.required],
@@ -72,6 +71,7 @@ export class ProcessParameterPackageComponent implements OnInit {
       exhaust_air_volume_1_d: ['', Validators.required],
       exhaust_air_volume_2: ['', Validators.required],
       exhaust_air_volume_2_d: ['', Validators.required],
+      order_id: ['']
     });
   }
 
@@ -82,28 +82,17 @@ export class ProcessParameterPackageComponent implements OnInit {
   initProcess() {
     const body = {order_id: this.oid};
     console.log(body);
-    this.http.post('http://' + this.url + '/element/see-product-pack', body).subscribe(data => {
+    this.http.post('http://' + this.url + '/element-admin/technics/product-data-query', body).subscribe(data => {
       console.log(data);
       this.process.patchValue(data['data']);
     });
   }
   modifyProcess() {
+    const body: object = this.process.value;
+    body['order_id'] = this.oid;
     console.log(this.process);
-    this.http.post('http://' + this.url + '/element/update-product-pack', this.process.value).subscribe(data => {
+    this.http.post('http://' + this.url + '/element-admin/technics/product-data-alert', body).subscribe(data => {
       console.log(data);
     });
-  }
-  private parameterSerialization(obj: object): string {
-    let result: string;
-    for (const prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        if (!result) {
-          result = prop + '=' + obj[prop];
-        } else {
-          result += '&' + prop + '=' + obj[prop];
-        }
-      }
-    }
-    return result;
   }
 }

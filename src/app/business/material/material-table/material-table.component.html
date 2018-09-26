@@ -29,11 +29,13 @@
           <td>{{type}}</td>
           <td *ngFor="let p of prop">{{tB[p]}}</td>
           <td *ngIf="btnGroup.length === 2">
-            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" *ngIf="btnGroup[0]!=='审核'" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" *ngIf="btnGroup[0]==='审核'" data-toggle="modal" data-target="#entry" (click)="modalValue(j)">{{btnGroup[0]}}</button>
             <button class="btn-danger btn btn-xs" (click)="qrCode(tB['purchase'])">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1">
-            <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" *ngIf="btnGroup[0]!=='审核'" data-toggle="modal" data-target="#detail" (click)="modalValue(j)">{{btnGroup[0]}}</button>
+            <button class="btn-success btn btn-xs" *ngIf="btnGroup[0]==='审核'" data-toggle="modal" data-target="#entry" (click)="modalValue(j)">{{btnGroup[0]}}</button>
           </td> <!-- 有按钮则生成 -->
         </tr>
         </tbody>
@@ -120,14 +122,13 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div>
-              <button class="btn btn-info pull-right" data-toggle="modal" data-target="#detail">关闭</button>
-            </div>
+        <div class="col-md-12">
+          <div>
+            <button class="btn btn-info pull-right" data-toggle="modal" data-target="#detail">关闭</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {LoginIdService} from '../../../login/login-id.service';
-import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
 import {btnGroup, dataName, modalProp, prop, propType, tBody, tHead} from './queryList';
@@ -16,15 +15,21 @@ export class OrderQueryComponent implements OnInit {
   order: FormGroup;
   order2: FormGroup;
   formName: FormGroup;
-  orderOid: string;
   btnName = '提交';
   doublecloat: string;
   pro_system: string;
+  countryIndex: number;
+  provinceIndex: number;
+  city: Array<any>;
+  countryName: string;
+  provinceName: string;
+  cityName: string;
   figura: string;
   row = 15;
   pro_systemName = [];
   proSystem = this.user.getSysids();
   proSystemName = this.proSystem[0]['sysName'];
+  position: Array<any> = [];
   tHead = tHead;
   tBody = tBody;
   prop = prop;
@@ -69,11 +74,13 @@ export class OrderQueryComponent implements OnInit {
       exdelitime: ['', Validators.required],
       exshiptime: ['', Validators.required],
       pro_system: [''],
+      oid: ['']
     });
   }
 
   ngOnInit() {
     this.getProSystem();
+    this.initPosition();
   }
 
   getProSystem() {
@@ -167,56 +174,32 @@ export class OrderQueryComponent implements OnInit {
     }
   }
   addOrder() {
+    this.order.reset();
     this.formName = this.order;
     this.btnName = '提交';
   }
-  modalValue(value) {
-    console.log(this.tBody[value]);
-    this.doublecloat = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
-    this.figura = this.tBody[value]['figura'] === 1 ? '有' : '无';
-    this.pro_system = this.getProSystemName(this.tBody[value]['pro_system']);
-    console.log(value);
-    this.order2.patchValue(this.tBody[value]);
-    this.order2.patchValue({'area': this.tBody[value]['allength'] * this.order2.get('alwidth').value});
+  modalValue(index) {
+    console.log(this.tBody[index]);
+    this.tBody[index]['exdelitime'] = '20' + this.tBody[index]['exdelitime'].split(' ')[0];
+    this.tBody[index]['exshiptime'] = '20' + this.tBody[index]['exshiptime'].split(' ')[0];
+    this.doublecloat = this.tBody[index]['doublecloat'] === 1 ? '是' : '否';
+    this.figura = this.tBody[index]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.getProSystemName(this.tBody[index]['pro_system']);
+    this.order2.patchValue(this.tBody[index]);
+    this.order2.patchValue({'area': this.tBody[index]['allength'] * this.order2.get('alwidth').value});
+    this.order2.patchValue({'amount': this.order2.get('area').value * this.order2.get('price').value});
     this.formName = this.order2;
-    this.orderOid = this.tBody[value]['oid'];
     this.btnName = '修改完成';
-    console.log(this.tBody[value]);
+    console.log(this.tBody[index]);
   }
   submitOrder() {
     this.order = this.formName;
-    this.order.patchValue({'allength': this.order.get('area').value / this.order.get('alwidth').value});
-    const body = {
-      cname: this.order.get('cname').value,
-      contractname: this.order.get('contractname').value,
-      tel: this.order.get('tel').value,
-      altype: this.order.get('altype').value,
-      allength: this.order.get('area').value / this.order.get('alwidth').value,
-      alwidth: this.order.get('alwidth').value,
-      althickness: this.order.get('althickness').value ,
-      ftype: this.order.get('ftype').value,
-      fprogram: this.order.get('fprogram').value,
-      fccd: this.order.get('fccd').value,
-      ptype: this.order.get('ptype').value,
-      pprogram: this.order.get('pprogram').value,
-      pccd: this.order.get('pccd').value,
-      doublecloat: this.doublecloat === '是' ? 1 : 0,
-      figura: this.figura === '有' ? 1 : 0,
-      btype: this.order.get('btype').value,
-      bprogram: this.order.get('bprogram').value,
-      bccd: this.order.get('bccd').value,
-      address: this.order.get('address').value,
-      submitter: this.user.getObject('user').realName,
-      exdelitime: this.order.get('exdelitime').value,
-      exshiptime: this.order.get('exshiptime').value,
-      pro_system: this.getProSystemOid(),
-      country: this.order.get('country').value,
-      province: this.order.get('province').value,
-      city: this.order.get('city').value,
-      price: this.order.get('price').value,
-      deviation: this.order.get('deviation').value,
-      amount: this.order.get('amount').value,
-    };
+    const body = this.order.value;
+    body['pro_system'] = this.getProSystemOid();
+    body['doublecloat'] = this.doublecloat === '是' ? 1 : 0;
+    body['figura'] = this.figura === '有' ? 1 : 0;
+    body['allength'] = body['area'] / body['alwidth'];
+    body['submitter'] = this.user.getObject('user').realName;
     console.log(body);
     this.http.AddOrders(body)
       .subscribe(data => {console.log(data);
@@ -225,40 +208,12 @@ export class OrderQueryComponent implements OnInit {
   }
   modifyOrder() {
     this.order2 = this.formName;
-    this.order2.patchValue({'allength': this.order.get('area').value / this.order.get('alwidth').value});
-    const body = {
-      cname: this.order2.get('cname').value,
-      contractname: this.order2.get('contractname').value,
-      tel: this.order2.get('tel').value,
-      altype: this.order2.get('altype').value,
-      allength: this.order2.get('area').value / this.order.get('alwidth').value,
-      alwidth: this.order2.get('alwidth').value,
-      althickness: this.order2.get('althickness').value ,
-      ftype: this.order2.get('ftype').value,
-      fprogram: this.order2.get('fprogram').value,
-      fccd: this.order2.get('fccd').value,
-      ptype: this.order2.get('ptype').value,
-      pprogram: this.order2.get('pprogram').value,
-      pccd: this.order2.get('pccd').value,
-      doublecloat: this.doublecloat === '是' ? 1 : 0,
-      figura: this.figura === '有' ? 1 : 0,
-      btype: this.order2.get('btype').value,
-      bprogram: this.order2.get('bprogram').value,
-      bccd: this.order2.get('bccd').value,
-      address: this.order2.get('address').value,
-      submitter: this.user.getObject('user').realName,
-      exdelitime: this.order2.get('exdelitime').value,
-      exshiptime: this.order2.get('exshiptime').value,
-      pro_system: this.getProSystemOid(),
-      country: this.order2.get('country').value,
-      province: this.order2.get('province').value,
-      city: this.order2.get('city').value,
-      price: this.order2.get('price').value,
-      deviation: this.order2.get('deviation').value,
-      amount: this.order2.get('amount').value,
-      auditor: null,
-      oid: this.orderOid
-    };
+    const body = this.order2.value;
+    body['pro_system'] = this.getProSystemOid();
+    body['doublecloat'] = this.doublecloat === '是' ? 1 : 0;
+    body['figura'] = this.figura === '有' ? 1 : 0;
+    body['allength'] = body['area'] / body['alwidth'];
+    body['submitter'] = this.user.getObject('user').realName;
     console.log(body);
     this.http.UpdateOrders(body)
       .subscribe(data => {console.log(data);
@@ -268,5 +223,59 @@ export class OrderQueryComponent implements OnInit {
   btnBool() {
     return this.formName.invalid || this.figura === undefined
       || this.pro_system === undefined || this.doublecloat === undefined;
+  }
+  initPosition() {
+    this.http.findCountryProvinceCity().subscribe(data => {
+      console.log(data);
+      let country: string, province: string, city: string;
+      for (let i = 0, ic = 0, ip = 0, _ic = 0; i < data['values'].length; i++) {
+        if (ic === 0 || country !== data['values'][i]['country']) {
+          this.position[ic] = {name: data['values'][i]['country'],
+            province: [{name: data['values'][i]['province'], city: [data['values'][i]['city']]}]};
+          ic++;
+          ip = 1;
+          _ic = 1;
+          country = data['values'][i]['country'];
+          province = data['values'][i]['province'];
+          city = data['values'][i]['city'];
+        } else {
+          if (province !== data['values'][i]['province']) {
+            this.position[ic - 1]['province'][ip] = {name: data['values'][i]['province'], city: [data['values'][i]['city']]};
+            ip++;
+            _ic = 1;
+            province = data['values'][i]['province'];
+          } else {
+            this.position[ic - 1]['province'][ip - 1]['city'][_ic] = data['values'][i]['city'];
+            _ic++;
+          }
+        }
+      }
+
+      console.log(this.position);
+    });
+  }
+  selectCountry(name) {
+    if (name !== this.countryName) {
+      this.countryName = name;
+      for (let i = 0; i < this.position.length; i++) {
+        if (this.countryName === this.position[i]['name']) {
+          this.countryIndex = i;
+          this.provinceIndex = 0;
+          break;
+        }
+      }
+    }
+  }
+  selectProvince(name) {
+    if (name !== this.provinceName) {
+      this.provinceName = name;
+      for (let i = 0; i < this.position[this.countryIndex]['province'].length; i++) {
+        if (this.provinceName === this.position[this.countryIndex]['province'][i]['name']) {
+          this.city = this.position[this.countryIndex]['province'][i]['city'];
+          this.provinceIndex = i;
+          break;
+        }
+      }
+    }
   }
 }

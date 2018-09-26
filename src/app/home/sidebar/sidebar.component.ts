@@ -32,7 +32,8 @@ export class SidebarComponent implements OnInit {
     ] , true),
     new NavList('原材料管理', 'fa fa-sitemap', false, [
       new NavListChild('原材料信息', false, 'material/matche/1'),
-      new NavListChild('原材料未审核', false, 'material/unaudited/1'),
+      new NavListChild('原材料审核', false, 'material/matmes/1'),
+      // new NavListChild('原材料未审核', false, 'material/unaudited/1'),
       new NavListChild('原材料已审核', false, 'material/checked/1'),
       new NavListChild('原材料审核失败', false, 'material/failed/1'),
     ] , true),

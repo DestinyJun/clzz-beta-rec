@@ -14,7 +14,7 @@ export class ProductionComponent implements OnInit {
   order = new Order();
   url = new Url().getUrl();
   options = options;
-  public ModalChart: any;
+  ModalChart: any;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) {
     this.http.post('http://' + this.url + '/element-plc/order/audited', 'sysids=' + this.user.getObject('user').sysids, {

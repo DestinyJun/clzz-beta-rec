@@ -127,7 +127,7 @@ export const PtModalProp = [
 ];
 export const PtName = ['分桶号', '分桶重量'];
 export const PtdName = ['分桶号', '分桶重量'];
-export const PtProp = ['supid', 'paintWeight'];
+export const PtProp = ['supId', 'paintWeight'];
 export const PtdProp = ['supNum', 'diluentWeight'];
 export const AlName = ['分卷号', '分卷重量'];
 export const AlProp = ['supId', 'alWeight'];

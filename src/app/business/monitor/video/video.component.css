@@ -82,3 +82,8 @@ a:hover{
   padding-left: 35px;
   text-decoration: none;
 }
+select{
+  width: auto;
+  margin-right: 5px;
+  padding-top: 1px;
+}

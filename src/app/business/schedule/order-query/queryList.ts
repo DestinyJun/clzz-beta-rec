@@ -8,7 +8,7 @@ export const dataName = [
   ['背漆类型', '背漆成像', '背漆方案'],
   ['底漆类型', '底漆成像', '底漆方案'],
   ['面漆类型', '面漆成像', '面漆方案'],
-  ['联系电话', '国家', '省份', '城市'],
+  // ['联系电话', '国家', '省份', '城市'],
   ['控制误差', '预计交货时间', '预计发货时间', '地址'],
 ];
 export const propType = [
@@ -26,6 +26,6 @@ export const modalProp = [
   ['btype', 'bccd', 'bprogram'],
   ['ptype', 'pccd', 'pprogram'],
   ['ftype', 'fccd', 'fprogram'],
-  [ 'tel', 'country', 'province', 'city'],
+  // [ 'tel', 'country', 'province', 'city'],
   ['deviation', 'exdelitime', 'exshiptime', 'address']
 ];

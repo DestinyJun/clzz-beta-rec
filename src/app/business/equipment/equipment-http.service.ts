@@ -44,7 +44,13 @@ export class EquipmentHttpService {
       headers: this.headers
     });
   }
-
+  public findhstorysensordata(sid: object): Observable<any> {
+    const body = this.parameterSerialization(sid);
+    console.log(body);
+    return this.http.post('http://' + this.url + '/element/find-hstory-sensordata', body, {
+      headers: this.headers
+    });
+  }
   public SeeDeviceSensor(did: object): Observable<any> {
     const body = this.parameterSerialization(did);
     return this.http.post('http://' + this.url + '/element/SeeDeviceSensor', body, {

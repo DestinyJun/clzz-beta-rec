@@ -93,6 +93,11 @@ export class ScheduleHttpService {
       headers: this.headers
     });
   }
+  findCountryProvinceCity() {
+    return this.http.post('http://' + this.url + '/element/find-country-province-city', '', {
+      headers: this.headers
+    });
+  }
 }
 class SeeOrders {
   page: string;

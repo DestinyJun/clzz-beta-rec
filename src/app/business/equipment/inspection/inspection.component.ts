@@ -23,8 +23,8 @@ export class InspectionComponent implements OnInit {
   imageNames: Array<string> = [];
   normalNames: Array<string> = [];
   normalValues: Array<string> = [];
-  proSystem: Array<object>;
-  proSystemName: string;
+  proSystem = this.user.getSysids();
+  proSystemName = this.proSystem[0]['sysName'];
   searchPages = 1;
   boolUrl: boolean;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -32,7 +32,6 @@ export class InspectionComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.page.setUrl('/home/equipment/inspection');
     this.page.setPageSize(this.row);
-    this.proSystem = this.user.getSysids();
     this.boolUrl = true;
     console.log(this.page.getPageNo());
     this.activatedRoute.params.subscribe(() => {
@@ -57,10 +56,9 @@ export class InspectionComponent implements OnInit {
           console.log(data);
           this.tBody = data['values']['contents'];
           this.page.setTotalPage(data['values']['totalPage']);
-          for (let i = 0; i < this.tBody.length; i++) {
-            this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
-            this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
-            this.tBody[i]['normal'] = JSON.parse(this.tBody[i]['normal']);
+          for (let j = 0; j < this.tBody.length; j++) {
+            this.tBody[j]['inspector'] = JSON.parse(this.tBody[j]['inspector']);
+            this.tBody[j]['imageNames'] = JSON.parse(this.tBody[j]['imageNames']);
           }
         });
       }

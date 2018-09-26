@@ -14,7 +14,7 @@ export class UnauditedMaterialComponent implements OnInit {
 
   tHead = ['采购单编号', '生产厂家', '入库时间', '单价', '重量', '状态', '操作'];
   prop = ['purchase', 'supname', 'idt', 'alprice', 'alexweight', 'status'];
-  btnGroup = ['详情'];
+  btnGroup = ['审核'];
   tBody = [];
   type = 0;
   url = '/home/material/unaudited';

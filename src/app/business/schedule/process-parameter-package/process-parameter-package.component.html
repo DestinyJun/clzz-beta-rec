@@ -7,20 +7,20 @@
       </div>
       <div class="panel-body">
         <div class="form">
-          <form [formGroup]="process" novalidate>
+          <form [formGroup]="process">
             <div class="row" *ngFor="let mp of modalProp;let i=index;">
               <div class="col-xs-6 col-sm-3"  *ngFor="let m of mp;let j=index;">
                 <div class="form-group">
                   <label class="control-label">{{modalName[i][j]}}:</label>
-                  <input title="" class="form-control" type="number" formControlName="{{m}}" [disabled]="!modify">
+                  <input title="" class="form-control" type="number" formControlName="{{m}}">
                 </div>
               </div>
             </div>
           </form>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button class="btn btn-success" (click)="modify=true" data-toggle="modal" [disabled]="modify" data-target="#process">修改工艺包</button>
-          <button class="btn btn-success" (click)="modifyProcess();modify=false;" [disabled]="!modify" data-toggle="modal" data-target="#process">修改完成</button>
+          <button class="btn btn-success" (click)="modify=true">修改工艺包</button>
+          <button class="btn btn-success" (click)="modifyProcess();modify=false;" [disabled]="!modify">修改完成</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target="#process">关闭</button>
         </div>
       </div>

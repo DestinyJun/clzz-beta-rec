@@ -17,3 +17,8 @@ label{
 input{
   color: #000;
 }
+select{
+
+  color: black;
+  width: auto;
+}

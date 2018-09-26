@@ -16,9 +16,15 @@
           <form [formGroup]="formName">
             <div class="row" *ngFor="let mp of modalProp;let i=index;">
               <div class="col-md-3 col-xs-6" *ngFor="let m of mp;let j=index;">
-                <div class="form-group">
+                <div class="form-group" *ngIf="dataName[i][j]!=='生产系统'">
                   <label>{{dataName[i][j]}}:</label>
                   <input type="{{dataType[i][j]}}" title="" formControlName="{{m}}">
+                </div>
+                <div class="form-group" *ngIf="dataName[i][j]==='生产系统'">
+                  <label>{{dataName[i][j]}}:</label>
+                  <select  title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}" >
+                    <option *ngFor="let pS of pro_systemName">{{pS['sysName']}}</option>
+                  </select>
                 </div>
               </div>
             </div>

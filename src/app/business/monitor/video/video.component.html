@@ -1,14 +1,10 @@
 <div class="container-fluid">
   <div class="panel-heading">
     <span>视频数据监视</span>
-    <div class="dropdown pull-right">
-      <button class="btn btn-xs btn-info" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        生产系统1
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li>生产系统1</li></ul>
-      <button class="btn" [ngClass]="{'btn-success':toggleTitle==='当前外网','btn-danger':toggleTitle==='当前内网'}" (click)="toggleUrl()">{{toggleTitle}}</button>
+    <div class="pull-right">
+      <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+        <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
+      </select>
     </div>
     <div>
 

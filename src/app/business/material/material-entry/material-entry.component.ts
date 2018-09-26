@@ -37,8 +37,6 @@ export class MaterialEntryComponent implements OnInit {
   type = 0;
   AL: FormGroup;
   paint: FormGroup;
-  alJson = new ALJson();
-  paintJson = new PaintJson();
   pro_systemName: any;
   pro_system: string;
   @Input() tBody = [];
@@ -118,16 +116,19 @@ export class MaterialEntryComponent implements OnInit {
     console.log(this.AlArr);
     if (this.type === 0) {
       this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']);
-      console.log(this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']));
+      this.tBody[index]['amount'] = this.tBody[index]['alPrice'] * this.tBody[index]['alWeight'];
+      this.pro_system = this.tBody[index]['proSystem'];
       this.AL.patchValue(this.tBody[index]);
+      //  this.AL.setValue({['amount']: this.tBody[index]['alPrice'] * this.tBody[index]['alWeight']});
     } else {
       this.tBody[index]['proSystem'] = this.getProSystemName(this.tBody[index]['proSystem']);
+      this.pro_system = this.tBody[index]['proSystem'];
       this.paint.patchValue(this.tBody[index]);
     }
   }
   toggleBtn(btnName) {
-    console.log('btnName');
     this.type = btnName;
+    console.log(this.type);
     if (this.type === 0) {
       this.formName = this.AL;
       this.modalProp = this.AlModalProp;
@@ -135,6 +136,7 @@ export class MaterialEntryComponent implements OnInit {
       this.PtArr = this.PtdArr = [];
       this.dataType = this.AlType;
     } else {
+      console.log(1);
       this.formName = this.paint;
       this.modalProp = this.PtModalProp;
       this.dataName = this.PtDataName;
@@ -168,46 +170,25 @@ export class MaterialEntryComponent implements OnInit {
     this.PtdArr.length--;
   }
   submitAL(): void {
-    this.alJson.purchase = this.AL.get('purchase').value;
-    this.alJson.alExpectWeight = this.AL.get('alExpectWeight').value;
-    this.alJson.alType = this.AL.get('alType').value;
-    this.alJson.alWidth = this.AL.get('alWidth').value;
-    this.alJson.alThickness = this.AL.get('alThickness').value;
-    this.alJson.alDensity = this.AL.get('alDensity').value;
-    this.alJson.alPrice = this.AL.get('alPrice').value;
-    this.alJson.supName = this.AL.get('supName').value;
-    this.alJson.auditor = this.user.getObject('user').realName;
-    this.alJson.proSystem = this.getProSystemOid();
-    this.alJson.arr = this.AlArr;
-    console.log(this.alJson);
-    this.http.post('http://' + this.url + '/element/Add-Aluminum', this.alJson)
+    const body = this.AL.value;
+    body['auditor'] = this.user.getName();
+    body['proSystem'] = this.getProSystemOid();
+    body['arr'] = this.AlArr;
+    console.log(body);
+    this.http.post('http://' + this.url + '/element/Add-Aluminum', body)
       .subscribe(data => {
         console.log(data);
         this.getData.emit(this.type);
       });
   }
   submitPaint() {
-    this.paintJson.purchase = this.paint.get('purchase').value;
-    this.paintJson.pName = this.paint.get('pName').value;
-    this.paintJson.pDensity = this.paint.get('pDensity').value;
-    this.paintJson.pCondensate = this.paint.get('pCondensate').value;
-    this.paintJson.pType = this.paint.get('pType').value;
-    this.paintJson.pVolatile = this.paint.get('pVolatile').value;
-    this.paintJson.price = this.paint.get('price').value;
-    this.paintJson.paExpectWeight = this.paint.get('paExpectWeight').value;
-    this.paintJson.supName = this.paint.get('supName').value;
-    this.paintJson.auditor = this.user.getObject('user').realName;
-    this.paintJson.dName = this.paint.get('dName').value;
-    this.paintJson.dType = this.paint.get('dType').value;
-    this.paintJson.dPrice = this.paint.get('dPrice').value;
-    this.paintJson.condensate = this.paint.get('condensate').value;
-    this.paintJson.dVolatile = this.paint.get('dVolatile').value;
-    this.paintJson.diExpectWeight = this.paint.get('diExpectWeight').value;
-    this.paintJson.proSystem = this.getProSystemOid();
-    this.paintJson.arr1 = this.PtArr;
-    this.paintJson.arr2 = this.PtdArr;
-    console.log(this.paintJson);
-    this.http.post('http://' + this.url + '/element/Add-Paint', this.paintJson)
+    const body = this.paint.value;
+    body['auditor'] = this.user.getObject('user').realName;
+    body['proSystem'] = this.getProSystemOid();
+    body['arr1'] = this.PtArr;
+    body['arr2'] = this.PtdArr;
+    console.log(body);
+    this.http.post('http://' + this.url + '/element/Add-Paint', body)
       .subscribe(data => {
         console.log(data);
         this.getData.emit(this.type);

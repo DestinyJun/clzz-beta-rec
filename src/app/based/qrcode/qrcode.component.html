@@ -20,7 +20,7 @@
       </div>
       <div *ngFor="let p of pa" class="col-md-3">
         <ngx-qrcode [qrc-value]="stringify(p)" [qrc-element-type]="elementType" [qrc-version]="12" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-        <div><h4>ID: {{p.paint_id}}</h4></div>
+        <div><h4>ID: {{p['paintId']}}</h4></div>
       </div>
     </div>
     <div class="row" *ngIf="mode==='0'">
@@ -29,7 +29,7 @@
       </div>
       <div *ngFor="let a of al" class="col-md-3">
         <ngx-qrcode [qrc-value]="stringify(a)" [qrc-element-type]="elementType" [qrc-version]="12" [qrc-errorCorrectionLevel]="L"></ngx-qrcode>
-        <div><h4>ID: {{a.al_id}}</h4></div>
+        <div><h4>ID: {{a['alId']}}</h4></div>
       </div>
     </div>
   </div>

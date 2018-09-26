@@ -13,6 +13,10 @@ export class HomeComponent implements OnInit {
   @Output() InfoTg = new EventEmitter();
   @Output() sidebar = new EventEmitter();
   ToastInformation: string;
+  country: Array<any>;
+  province: Array<any>;
+  city: Array<any>;
+  position: any;
   constructor() {
 }
 

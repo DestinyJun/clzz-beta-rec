@@ -42,6 +42,24 @@
                   <option *ngFor="let pn of pro_systemName">{{pn['sysName']}}</option>
                 </select>
               </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>国家:</label>
+                <select title="" (click)="selectCountry(country.value)" #country>
+                  <option *ngFor="let cn of position">{{cn['name']}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>省份:</label>
+                <select title="" (click)="selectProvince(province.value)" #province>
+                  <option *ngFor="let pn of position[countryIndex]['province']">{{pn['name']}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>城市:</label>
+                <select title="">
+                  <option *ngFor="let c of city">{{c}}</option>
+                </select>
+              </div>
             </div>
           </form>
         </div>

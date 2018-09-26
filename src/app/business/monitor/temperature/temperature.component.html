@@ -8,18 +8,27 @@
     </div>
   </div>
   <div class="panel-body">
-    <div>
-      <div class="row ">
-        <div *ngFor="let op of option;let i=index" class="col-lg-2 col-md-4 col-sm-6">
-          <div echarts [options]="op" style="height: 300px"></div>
-        </div>
+    <div class="row ">
+      <div *ngFor="let op of option;let i=index" data-toggle="modal" data-target="#map" class="col-lg-2 col-md-4 col-sm-6" (click)="modalValue(i)">
+        <div echarts [options]="op" style="height: 300px"></div>
       </div>
     </div>
   </div>
 
 </div>
-<div *ngIf="tips">
-  <h2 style="text-align: center;color: white">
-    {{tips}}
-  </h2>
+<div class="modal fade bs-example-modal-lg" id="map" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+      <div class="panel-heading">
+        <span>温度图</span>
+      </div>
+      <div class="panel-body" >
+        <div class="row" echarts [options]="options" style="height: 500px" (chartInit)="initOptions($event)">
+
+        </div>
+        <button class="btn btn-info pull-right" data-toggle="modal" data-target="#map">关闭</button>
+      </div>
+    </div>
+  </div>
 </div>

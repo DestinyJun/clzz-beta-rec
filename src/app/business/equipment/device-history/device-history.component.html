@@ -2,28 +2,29 @@
 <div class="container-fluid">
   <div class="panel-heading" id="dropdown">
     <span>传感器历史数据</span>
+    <div class="calendar">
+      <p-calendar dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" [(ngModel)]="startTime"></p-calendar>
+      <p-calendar dateFormat="yy-mm-dd" [showTime]="true" hourFormat="24" [(ngModel)]="deadline"></p-calendar>
+      <button class="btn btn-success btn-xs" [disabled]="!(startTime < deadline)" (click)="seeHistory()">确认</button>
+    </div>
     <div class="pull-right">
-      <select title="" class="btn btn-success" (click)="selectSystem(selectPs.value)" #selectPs>
+      <select title="" class="btn btn-info" (click)="selectSystem(selectPs.value)" #selectPs>
         <option  *ngFor="let i of proSystem">{{i['sysName']}}</option>
       </select>
-      <select title="" class="btn btn-success" (click)="selectModular(selectM.value)" #selectM>
+      <select title="" class="btn btn-info" (click)="selectModular(selectM.value)" #selectM>
         <option  *ngFor="let i of modular">{{i['mName']}}</option>
       </select>
-      <select title="" class="btn btn-success" (click)="selectDevice(selectD.value)" #selectD>
+      <select title="" class="btn btn-info" (click)="selectDevice(selectD.value)" #selectD>
         <option  *ngFor="let i of device">{{i['dName']}}</option>
       </select>
-      <select title="" class="btn btn-success" (click)="selectSensor(selectS.value)" #selectS>
+      <select title="" class="btn btn-info" (click)="selectSensor(selectS.value)" #selectS>
         <option  *ngFor="let i of sensor">{{i['sName']}}</option>
       </select>
     </div>
   </div>
 
-  <div class="panel-body" [ngStyle]="{'height': height}">
+  <div class="panel-body">
     <div echarts [options]="option"></div>
-    <div>
-      <p-calendar [showTime]="true" inputStyleClass="calendar" [(ngModel)]="startTime"></p-calendar>
-      <p-calendar [showTime]="true" inputStyleClass="calendar" [(ngModel)]="deadline"></p-calendar>
-    </div>
   </div>
 </div>
 

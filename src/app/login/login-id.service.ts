@@ -17,6 +17,12 @@ export class LoginIdService {
   public get(key: string): string | boolean {
     return this.sessionStorage[key] || false;
   }
+  public setName(value: string | boolean): void {
+    this.sessionStorage['realName'] = value;
+  }
+  public getName(): string | boolean {
+    return this.sessionStorage['realName'] || false;
+  }
   public setBool(key: string, value: boolean): void {
     this.sessionStorage[key] = value;
   }
@@ -61,6 +67,7 @@ export class LoginIdService {
           console.log(this.sessionStorage);
           this.setBool('loginStatus', true);
           this.setSysids(JSON.parse(data['systemInfo']));
+          this.setName(name);
           this.route.navigate(['/home']);
         } else if (data['status'] === '14') {
           console.log(data.sid);
@@ -68,6 +75,7 @@ export class LoginIdService {
           this.setSysids(JSON.parse(data['systemInfo']));
           this.route.navigate(['/home']);
           this.setBool('loginStatus', true);
+          this.setName(name);
         } else {
           this.setBool('loginStatus', false);
           return '用户名密码错误';

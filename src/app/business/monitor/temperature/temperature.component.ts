@@ -1,5 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {MonitorHttpService} from '../monitor-http.service';
 import * as echarts from 'echarts';
 import {LoginIdService} from '../../../login/login-id.service';
@@ -13,8 +12,8 @@ export class TemperatureComponent implements OnInit {
   option: Array<any>;
   proSystem = this.user.getSysids();
   proSystemName: string;
-  tips: string;
-
+  options: any;
+  echartMap: any;
   constructor(private http: MonitorHttpService, private user: LoginIdService) {
     this.proSystemName = this.proSystem[0]['sysName'];
     this.initSensor();
@@ -45,7 +44,15 @@ export class TemperatureComponent implements OnInit {
       }
     }
   }
-
+  modalValue(index) {
+    this.options = this.option[index];
+    setTimeout(() => this.echartMap.resize(), 500);
+    console.log(this.options);
+  }
+  initOptions(event) {
+    console.log(event);
+    this.echartMap = event;
+  }
   toDatestart(time) {
     let Hours = time.getHours(), Minutes = time.getMinutes();
     if (Minutes < 20) {

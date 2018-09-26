@@ -59,7 +59,7 @@ export class ProductEntryComponent implements OnInit {
     const name = this.tBody[index]['contractName'];
     if (window.confirm('是否将' + this.name + '转到待生产订单' + name + '?')) {
       this.http.amendorder({targetCode: this.tBody[index]['targetList'],
-        oid: this.tBody[index]['orderId'], aluminumCode: this.aluminumCode})
+        orderId: this.tBody[index]['orderId'], aluminumCode: this.aluminumCode})
         .subscribe(data => {
           if (data['status'] === '10') {
             window.confirm('转单成功');
@@ -72,11 +72,11 @@ export class ProductEntryComponent implements OnInit {
   zhuan(index): void {
     this.targetList = this.tBody[index]['targetList'];
     this.name = this.tBody[index]['contractName'];
-    this.aluminumCode = this.tBody[index]['aluminumCode'];
     this.http.findamendorder({targetList: this.targetList})
       .subscribe(data => {
         console.log(data);
         this.menuBody = data['values'];
+        this.aluminumCode = data['aluminumCode'];
       });
   }
   searchProduct(contractName) {

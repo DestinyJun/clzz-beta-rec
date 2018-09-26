@@ -3,6 +3,7 @@ import {slideToRight} from '../../../routeAnimation';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser';
 import {LoginIdService} from '../../../login/login-id.service';
+import {Url} from '../../../getUrl';
 
 @Component({
   selector: 'app-video',
@@ -15,12 +16,15 @@ export class VideoComponent implements OnInit {
   Cam: Array<Camera> = [];
   baseHeight = 30;
   baseColor = '#209E91';
+  proSystem = this.user.getSysids();
+  proSystemName = this.proSystem[0]['sysName'];
+  url = new Url().getUrl();
   vlcV: Array<any> = [];
   vlcVName: Array<string> = [];
   urlName = 'outer_url';
   toggleTitle = '当前外网';
   videoTree = {
-    'name': '总平台', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': [
+    'name': this.proSystemName, 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': [
       {'name': '一号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
       {'name': '二号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
       {'name': '三号视频窗口', 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': this.Cam},
@@ -28,17 +32,30 @@ export class VideoComponent implements OnInit {
     ]
   };
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, private user: LoginIdService) {
-    this.QueryCameraNumber({
-      gid: 1,
-      page: 1,
-      row: 1,
-      sysids: this.user.getObject('user').sysids
-    });
+    this.initCamera();
   }
 
   ngOnInit() {
   }
-
+  selectSystem(name) {
+    if (name !== this.proSystemName) {
+      this.proSystemName = name;
+      this.videoTree.name = this.proSystemName;
+      this.initCamera();
+    }
+  }
+  initCamera() {
+    for (let i = 0; i < this.proSystem.length; i++) {
+      if (this.proSystem[i]['sysName'] === this.proSystemName) {
+        this.QueryCameraNumber({
+          gId: 1,
+          page: 1,
+          row: 1,
+          sysIds: this.proSystem[i]['sysId']
+        });
+      }
+    }
+  }
   toggleUrl() {
     this.urlName = this.urlName === 'outer_url' ? 'inner_url' : 'outer_url';
     this.toggleTitle = this.toggleTitle === '当前内网' ? '当前外网' : '当前内网';
@@ -120,16 +137,20 @@ export class VideoComponent implements OnInit {
   QueryCameraNumber(obj) {
     const body = this.parameterSerialization(obj);
     console.log(body);
-    this.http.post('http://120.78.137.182/element/QueryCamera', body, {
+    this.http.post('http://' + this.url + '/element/QueryCamera', body, {
       headers: this.headers
     }).subscribe(data => {
       console.log(data);
-      this.QueryCamera({
-        gid: 1,
-        page: 1,
-        row: data['values']['number'],
-        sysids: this.user.getObject('user').sysids
-      });
+      for (let i = 0; i < this.proSystem.length; i++) {
+        if (this.proSystem[i]['sysName'] === this.proSystemName) {
+          this.QueryCamera({
+            gId: 1,
+            page: 1,
+            row: data['values']['totalRecord'],
+            sysIds: this.proSystem[i]['sysId']
+          });
+        }
+      }
     });
   }
   QueryCamera(obj) {
@@ -139,10 +160,10 @@ export class VideoComponent implements OnInit {
     const camera3: Array<Camera> = [];
     const body = this.parameterSerialization(obj);
     console.log(body);
-    this.http.post('http://120.78.137.182/element/QueryCamera', body, {
+    this.http.post('http://' + this.url + '/element/QueryCamera', body, {
       headers: this.headers
     }).subscribe(data => {
-      this.camera = data['values']['datas'];
+      this.camera = data['values']['contents'];
       this.camera.map((value, index) => {
         switch (index % 4) {
           case 0:

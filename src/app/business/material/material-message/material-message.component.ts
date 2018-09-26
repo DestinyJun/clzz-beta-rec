@@ -3,7 +3,6 @@ import {MaterialHttpService} from '../material-http.service';
 import {slideToRight} from '../../../routeAnimation';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginIdService} from '../../../login/login-id.service';
-import {PageService} from '../../../based/page.service';
 import {PageBetaService} from '../../../based/page-beta.service';
 
 @Component({
