@@ -27,6 +27,9 @@ export class MaterialMessageComponent implements OnInit {
   proSystem = this.user.getSysids();
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
+  tips: string;
+  tipsHidden: boolean;
+  tipsColor: string;
   constructor(private materialHttp: MaterialHttpService, public page: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService,
               private router: Router) {
@@ -113,6 +116,16 @@ export class MaterialMessageComponent implements OnInit {
         console.log(data);
         if (status === 2) {
           this.qrCode();
+        } else {
+          if (data['status'] === '10') {
+            this.tips = '已设置为不通过';
+            this.tipsColor = '#5cb85c';
+            this.tipHiddening();
+          } else {
+            this.tips = '设置失败';
+            this.tipsColor = '#d9534f';
+            this.tipHiddening();
+          }
         }
       });
       this.getData();
@@ -125,6 +138,16 @@ export class MaterialMessageComponent implements OnInit {
         console.log(data);
         if (status === 2) {
           this.qrCode();
+        } else {
+          if (data['status'] === '10') {
+            this.tips = '已设置为不通过';
+            this.tipsColor = '#5cb85c';
+            this.tipHiddening();
+          } else {
+            this.tips = '设置失败';
+            this.tipsColor = '#d9534f';
+            this.tipHiddening();
+          }
         }
       });
         this.getData();
@@ -134,5 +157,10 @@ export class MaterialMessageComponent implements OnInit {
   qrCode() {
     const url = '/qrcode/' + this.material['purchase'] + '/' + this.type + '/1/1/1/1/1';
     this.router.navigate([url]);
+  }
+  tipHiddening() {
+    console.log(1);
+    this.tipsHidden = true;
+    setTimeout(() => this.tipsHidden = false, 2000);
   }
 }

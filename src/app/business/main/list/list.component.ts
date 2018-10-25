@@ -83,8 +83,9 @@ export class ListComponent implements OnInit {
     }
   }
   modal(value): void {
+    console.log(value);
     let i;
-    for (i = 0; i < value.ostatus - 1; i++) {
+    for (i = 0; i < value.ostatus; i++) {
       this.buttonDisabled[i] = false;
     }
     for (; i < 8; i++) {

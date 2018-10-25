@@ -32,7 +32,9 @@
         "../node_modules/echarts/dist/echarts.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
         "../node_modules/bootstrap/js/tooltip.js",
-        "../node_modules/bootstrap/js/popover.js"
+        "../node_modules/bootstrap/js/popover.js",
+        "../node_modules/echarts/dist/echarts.min.js",
+        "../node_modules/echarts/dist/extension/bmap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {PageService} from '../../../based/page.service';
 import {PageBetaService} from '../../../based/page-beta.service';
 import {LoginIdService} from '../../../login/login-id.service';
 @Component({
@@ -31,6 +30,7 @@ export class ProductTableComponent implements OnInit {
 
   qrcodeRoute(index) {
     console.log(this.tBody[index]);
+    this.user.setOrder(this.tBody[index]);
     this.router.navigate(['qrcode', false, false, this.tBody[index]['orderId'],
       this.tBody[index]['aluminumLength'], this.tBody[index]['targetList'],
       this.tBody[index]['aluminumCode'], this.tBody[index]['city']]);

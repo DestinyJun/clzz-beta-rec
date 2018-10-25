@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Url} from '../getUrl';
 @Injectable()
 export class LoginIdService {
   url = new Url().getUrl();
-  public sessionStorage: any;
+  sessionStorage: any;
+  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private route: Router) {
     this.sessionStorage = sessionStorage;
   }
@@ -35,16 +36,27 @@ export class LoginIdService {
   public getSysids(): any {
     return JSON.parse(this.sessionStorage['sysids'] || '{}');
   }
+  public setPosition(value: any): void {
+    this.sessionStorage['position'] = JSON.stringify(value);
+  }
+  public getPosition(): any {
+    return JSON.parse(this.sessionStorage['position'] || '{}');
+  }
   public setAddress(value: any): void {
     this.sessionStorage['address'] = JSON.stringify(value);
   }
   public getAddress(): any {
     return JSON.parse(this.sessionStorage['address'] || '{}');
   }
-  public setObject(key: string, value: User): void {
+  public setObject(key: string, value: any): void {
     this.sessionStorage[key] = JSON.stringify(value);
   }
-
+  public setOrder(value: any): void {
+    this.sessionStorage['order'] = JSON.stringify(value);
+  }
+  public getOrder(): any {
+    return JSON.parse(this.sessionStorage['order'] || '{}');
+  }
   public getObject(key: string): User | any {
     return JSON.parse(this.sessionStorage[key] || '{}');
   }
@@ -54,6 +66,7 @@ export class LoginIdService {
   }
 
   public login(name: string, password: string): string | void { // 用户登录:用户名 密码
+    this.initPosition();
     const body = {
       uname: name,
       upwd: password,
@@ -93,11 +106,47 @@ export class LoginIdService {
     this.http.post('http://'  + this.url + '/element-admin/user/sid-update', sid)
       .subscribe(data => {});
   }
+  findCountryProvinceCity() {
+    return this.http.post('http://' + this.url + '/element/find-country-province-city', '', {
+      headers: this.headers
+    });
+  }
   setProSystem() {
     this.http.post('http://' + this.url + '/element/find-prosystem', '')
       .subscribe(data => {
         console.log(data);
       });
+  }
+  initPosition() {
+    this.findCountryProvinceCity().subscribe(data => {
+      console.log(data);
+      const position: Array<any> = [];
+      let country: string, province: string, city: string;
+      for (let i = 0, ic = 0, ip = 0, _ic = 0; i < data['values'].length; i++) {
+        if (ic === 0 || country !== data['values'][i]['country']) {
+          position[ic] = {name: data['values'][i]['country'],
+            province: [{name: data['values'][i]['province'], city: [data['values'][i]['city']]}]};
+          ic++;
+          ip = 1;
+          _ic = 1;
+          country = data['values'][i]['country'];
+          province = data['values'][i]['province'];
+          city = data['values'][i]['city'];
+        } else {
+          if (province !== data['values'][i]['province']) {
+            position[ic - 1]['province'][ip] = {name: data['values'][i]['province'], city: [data['values'][i]['city']]};
+            ip++;
+            _ic = 1;
+            province = data['values'][i]['province'];
+          } else {
+            position[ic - 1]['province'][ip - 1]['city'][_ic] = data['values'][i]['city'];
+            _ic++;
+          }
+        }
+      }
+      console.log(position);
+      this.setPosition(position);
+    });
   }
 }
 

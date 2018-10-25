@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-schedule-table title="营销审核订单列表" (index)="modalValue($event)" [page]="page" (searchOrder)="searchOrder($event)"
+  <app-schedule-table #table [tipsColor]="tipsColor" [tips]="tips" title="营销审核订单列表" (index)="modalValue($event)" [page]="page" (searchOrder)="searchOrder($event)"
                       (pageSearch)="pageSearch($event)" (offSearch)="SeeOrders()" (sProSystem)="selectSystem($event)"
                       [tBody]="tBody" [tHead]="tHead" [btnGroup]="btnGroup" [prop]="prop"></app-schedule-table>
 </div>
@@ -20,8 +20,8 @@
           </div>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button class="btn btn-success" (click)="havePass(2)" data-toggle="modal" data-target=".bs-example-modal-lg">通过</button>
-          <button class="btn btn-danger" (click)="havePass(11)" data-toggle="modal" data-target=".bs-example-modal-lg">不通过</button>
+          <button class="btn btn-success" (click)="havePass(2);table.tipHiddening()" data-toggle="modal" data-target=".bs-example-modal-lg">通过</button>
+          <button class="btn btn-danger" (click)="havePass(11);table.tipHiddening()" data-toggle="modal" data-target=".bs-example-modal-lg">不通过</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">关闭</button>
         </div>
       </div>

@@ -71,7 +71,7 @@ export class ThicknessComponent implements OnInit {
   }
 
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sid: body, startTime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
+    this.http.findhstorysensordata({sId: body, startTime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
       .subscribe(d => {
         const dates = [];
         const data = [];

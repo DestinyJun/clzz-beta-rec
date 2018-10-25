@@ -74,7 +74,8 @@ export class DeviceHistoryComponent implements OnInit {
             console.log(data);
             this.sensor = data['values'][0]['sensor'];
             this.sensorName = this.sensor[i]['sName'];
-            this.MapChart(this.sensor[i]['sId'], this.sensor[i]['sName'], this.toDatestart(new Date()), this.toDateend(new Date()));
+            this.MapChart(this.sensor[i]['sId'], this.sensor[i]['sName'],
+              this.toDatestart(new Date()), this.toDateend(new Date()));
           });
       }
     }
@@ -102,7 +103,9 @@ export class DeviceHistoryComponent implements OnInit {
       this.sensorName = name;
       for (let i = 0; i < this.sensor.length; i++) {
         if (this.sensorName === this.sensor[i]['sName']) {
-          this.MapChart(this.sensor[i]['sId'], this.sensorName, this.toDatestart(new Date()), this.toDateend(new Date()));
+          this.MapChart(this.sensor[i]['sId'], this.sensorName,
+            this.numberTime(this.startTime) || this.toDatestart(new Date()),
+            this.numberTime(this.deadline) || this.toDateend(new Date()));
           break;
         }
       }
@@ -111,14 +114,11 @@ export class DeviceHistoryComponent implements OnInit {
   seeHistory() {
     // enum Month {Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec}
     console.log(this.startTime, this.deadline);
-    console.log(this.startTime.toString().split(' '));
-    const sTime = this.startTime.toString().split(' ');
-    const dTime = this.deadline.toString().split(' ');
     for (let i = 0; i < this.sensor.length; i++) {
       if (this.sensorName === this.sensor[i]['sName']) {
         this.MapChart(this.sensor[i]['sId'], this.sensorName,
-          sTime[3] + '-' + this.numberMonth(sTime[1]) + '-' + sTime[2] + ' ' + sTime[4],
-          dTime[3] + '-' + this.numberMonth(dTime[1]) + '-' + dTime[2] + ' ' + dTime[4]);
+          this.numberTime(this.startTime),
+          this.numberTime(this.deadline));
         break;
       }
     }
@@ -161,8 +161,15 @@ export class DeviceHistoryComponent implements OnInit {
       return 12;
     }
   }
+  numberTime(time) {
+    if (time === undefined) {
+      return null;
+    }
+    const sTime = time.toString().split(' ');
+    return sTime[3] + '-' + this.numberMonth(sTime[1]) + '-' + sTime[2] + ' ' + sTime[4];
+  }
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sid: body, startTime: starttime, deadline: deadline})
+    this.http.findhstorysensordata({sId: body, startTime: starttime, deadline: deadline})
       .subscribe(d => {
         console.log(d);
       const dates = [];

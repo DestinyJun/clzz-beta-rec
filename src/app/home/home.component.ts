@@ -1,12 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {LoginIdService} from '../login/login-id.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Url} from '../getUrl';
+import {leftToRight} from './sidebar/sidebarAnimation';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  animations: [leftToRight]
 })
 export class HomeComponent implements OnInit {
   State = 'in';

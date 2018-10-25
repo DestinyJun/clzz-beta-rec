@@ -20,6 +20,7 @@ export class OrderCraftComponent implements OnInit {
   proSystem = this.user.getSysids();
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
+  ostatus: string;
   oid: string;
   tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
@@ -47,18 +48,8 @@ export class OrderCraftComponent implements OnInit {
     ['submitter', 'audit', 'audittime', 'address'],
     ['tel', 'exdelitime', 'exshiptime']
   ];
-  craftName = [
-    ['面漆干膜修正(微米)', '面漆湿膜修正(微米)', '底漆干膜修正(微米)', '底漆湿膜修正(微米)'],
-    ['背漆干膜修正(微米)', '背漆湿膜修正(微米)']
-  ];
-  craftProp = [
-    ['fdry_film', 'fwet_film', 'bdry_film', 'bwet_film'],
-    ['pdry_film', 'pwet_film']
-  ];
-  craftType = [
-    ['number', 'number', 'number', 'number'],
-    ['number', 'number', 'type']
-  ];
+  tips: string;
+  tipsColor: string;
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private activatedRoute: ActivatedRoute,
   private user: LoginIdService, public page: PageBetaService) {
     this.page.setPageSize(this.row);
@@ -66,15 +57,6 @@ export class OrderCraftComponent implements OnInit {
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
-    });
-    this.film = this.fb.group({
-      fdry_film: ['', Validators.required],
-      fwet_film: ['', Validators.required],
-      bdry_film: ['', Validators.required],
-      bwet_film: ['', Validators.required],
-      pdry_film: ['', Validators.required],
-      pwet_film: ['', Validators.required],
-      pro_system: [''],
     });
   }
 
@@ -106,13 +88,13 @@ export class OrderCraftComponent implements OnInit {
       }
     }
   }
-  modalValue(value) {
-    this.order = this.tBody[value];
-    this.tBody[value]['doublecloat'] = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
-    this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
-    this.pro_system = this.getProSystemName(this.tBody[value]['pro_system']);
-    console.log(value);
-    this.oid = this.tBody[value]['oid'];
+  modalValue(index) {
+    this.ostatus = this.tBody[index]['ostatus'];
+    this.order = this.tBody[index];
+    this.tBody[index]['doublecloat'] = this.tBody[index]['doublecloat'] === 1 ? '是' : '否';
+    this.tBody[index]['figura'] = this.tBody[index]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.getProSystemName(this.tBody[index]['pro_system']);
+    this.oid = this.tBody[index]['oid'];
   }
   getProSystem() {
     this.pro_systemName = this.user.getSysids();
@@ -131,34 +113,25 @@ export class OrderCraftComponent implements OnInit {
       }
     }
   }
-  chineseStatus(status: number): string {
-    switch (status) {
-      case 1: return '待销售经理审核';
-      case 2: return '待生产经理审核';
-      case 3: return '已完成审核';
-      case 4: return '准备生产';
-      case 5: return '正在生产';
-      case 6: return '待入库';
-      case 7: return '已入库';
-      case 8: return '已出库';
-    }
-  }
+
   havePass(status) {
     this.order.pro_auditor = this.user.getObject('user').realName;
-    this.order.fdry_film = this.film.get('fdry_film').value;
-    this.order.fwet_film = this.film.get('fwet_film').value;
-    this.order.pdry_film = this.film.get('pdry_film').value;
-    this.order.pwet_film = this.film.get('pwet_film').value;
-    this.order.bdry_film = this.film.get('bdry_film').value;
-    this.order.bwet_film = this.film.get('bwet_film').value;
     this.order.pro_system = this.getProSystemOid();
     this.order.status = status;
     this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
     this.order.figura = this.order.figura === '有' ? '1' : '0';
+    this.order['ostatus'] = this.englishStatus(this.ostatus);
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
+        if (data['status'] === '10') {
+          this.tips = '设置成功!';
+          this.tipsColor = '#5cb85c';
+        } else {
+          this.tips = '设置失败!';
+          this.tipsColor = '#d9534f';
+        }
       });
   }
   initPageSearch() {
@@ -189,5 +162,43 @@ export class OrderCraftComponent implements OnInit {
       }
     }
   }
-
+  chineseStatus(status: number): string {
+    switch (status) {
+      case 1: return '待销售经理审核';
+      case 2: return '待生产经理审核';
+      case 3: return '已完成审核';
+      case 4: return '准备生产';
+      case 5: return '正在生产';
+      case 6: return '待入库';
+      case 7: return '已入库';
+      case 8: return '已出库';
+    }
+  }
+  englishStatus(status: string) {
+    console.log(status);
+    if (status === '待销售经理审核') {
+      return 1;
+    }
+    if (status === '待生产经理审核') {
+      return 2;
+    }
+    if (status === '已完成审核') {
+      return 3;
+    }
+    if (status === '准备生产') {
+      return 4;
+    }
+    if (status === '正在生产') {
+      return 5;
+    }
+    if (status === '待入库') {
+      return 6;
+    }
+    if (status === '已入库') {
+      return 7;
+    }
+    if (status === '已出库') {
+      return 8;
+    }
+  }
 }

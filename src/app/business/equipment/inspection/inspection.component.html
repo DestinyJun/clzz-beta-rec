@@ -8,7 +8,7 @@
       </div>
       <div class="pull-right">
         <span class="btn btn-danger btn-xs" *ngIf="!boolUrl" (click)="searchOff()">退出搜索</span>
-        <select #selectName title="" class="btn btn-xs btn-info">
+        <select #selectName title="" class="btn btn-xs btn-info" (click)="searchSelect(selectName.value, inputName.value)">
           <option>全部</option>
           <option>正常</option>
           <option>异常</option>

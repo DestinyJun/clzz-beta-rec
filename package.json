@@ -33,7 +33,7 @@
     "intl": "^1.2.5",
     "jquery": "^3.2.1",
     "ngx-bootstrap": "^2.0.5",
-    "ngx-echarts": "^2.0.1",
+    "ngx-echarts": "^2.3.1",
     "ngx-qrcode": "0.1.0-rc.1",
     "ngx-qrcode2": "0.0.5",
     "npm": "^6.2.0",

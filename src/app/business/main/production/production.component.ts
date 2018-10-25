@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginIdService} from '../../../login/login-id.service';
 import {Url} from '../../../getUrl';
 import {options} from './option';
-import {s} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-production',
@@ -17,17 +16,11 @@ export class ProductionComponent implements OnInit {
   ModalChart: any;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) {
-    this.http.post('http://' + this.url + '/element-plc/order/audited', 'sysids=' + this.user.getObject('user').sysids, {
+    this.http.post('http://' + this.url + '/element/hostMessage', 'sysids=' + this.user.getSysids()[0]['sysId'], {
       headers: this.headers
     }).subscribe(data => {
-        console.log(data);
-        const length = data['values'].length;
-        for (let i = 0; i < length; i++) {
-          if (data['values'][i]['status'] === 2) {
-            this.order = data['values'][i];
-            break;
-          }
-        }
+      console.log(data);
+      this.order = data['values']['datas'][0];
       });
   }
 

@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {Url} from '../../getUrl';
+import {LoginIdService} from '../../login/login-id.service';
 declare let BMap;
 
 @Component({
@@ -13,16 +14,13 @@ declare let BMap;
 export class MobieOrderComponent implements OnInit {
 
   url = new Url().getUrl();
-  order: Order;
+  order: any;
   city: string;
   targetlist: string;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
-    this.FindOrdersId({oid: this.route.snapshot.params['targetlist']})
-      .subscribe(data => {
-        console.log(data);
-        this.order = data['values'][0];
-      });
+  constructor(private http: HttpClient, private route: ActivatedRoute, private user: LoginIdService) {
+    console.log(this.user);
+    console.log(this.order);
     this.city = this.route.snapshot.params['city'];
     if (this.city !== 'false') {
       this.targetlist = this.route.snapshot.params['targetlist'];
@@ -67,6 +65,10 @@ export class MobieOrderComponent implements OnInit {
     return body;
   }
   ngOnInit() {
+    this.FindOrdersId({oid: this.targetlist}).subscribe(data => {
+      console.log(data);
+      this.order = data['values'][0];
+    });
   }
 
   public FindOrdersId(obj: object): Observable<any> {
@@ -88,15 +90,4 @@ export class MobieOrderComponent implements OnInit {
     }
     return result;
   }
-}
-export class Order {
-  constructor(
-    public altype: string,
-    public allength: string,
-    public alwidth: string,
-    public althickness: string,
-    public ftype: string,
-    public fthickness: string,
-    public fccd: string,
-    public fprogram: string) {}
 }

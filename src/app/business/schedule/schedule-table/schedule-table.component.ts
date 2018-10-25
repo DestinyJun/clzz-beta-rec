@@ -29,6 +29,9 @@ export class ScheduleTableComponent implements OnInit {
   @Output() sProSystem = new EventEmitter();
   @Output() offSearch = new EventEmitter();
   @Output() pageSearch = new EventEmitter();
+  @Input() tips: string;
+  @Input() tipsColor: string;
+  tipsHidden: boolean;
   searchButton: boolean;
   constructor(private user: LoginIdService) {
     this.searchButton = false;
@@ -74,6 +77,10 @@ export class ScheduleTableComponent implements OnInit {
   }
   searchPage(name) {
     this.pageSearch.emit(name);
+  }
+  tipHiddening() {
+    this.tipsHidden = true;
+    setTimeout(() => this.tipsHidden = false, 1500);
   }
 }
 

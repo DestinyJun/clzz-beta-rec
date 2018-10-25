@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-schedule-table title="订单信息列表" (searchOrder)="searchOrder($event)" (pageSearch)="pageSearch($event)" (offSearch)="SeeOrders()"
+  <app-schedule-table #table title="订单信息列表" [tipsColor]="tipsColor" [tips]="tips" (searchOrder)="searchOrder($event)" (pageSearch)="pageSearch($event)" (offSearch)="SeeOrders()"
                       (index)="modalValue($event)" [page]="page" [btn]="true" (delete)="deleteOrder($event)" (sProSystem)="selectSystem($event)"
                       [tBody]="tBody" [tHead]="tHead" [btnGroup]="btnGroup" [prop]="prop" (formName)="addOrder()"></app-schedule-table>
 </div>
@@ -44,28 +44,28 @@
               </div>
               <div class="col-xs-6 col-sm-3">
                 <label>国家:</label>
-                <select title="" (click)="selectCountry(country.value)" #country>
+                <select title="" (click)="selectCountry()" #country [(ngModel)]="countryName" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let cn of position">{{cn['name']}}</option>
                 </select>
               </div>
               <div class="col-xs-6 col-sm-3">
                 <label>省份:</label>
-                <select title="" (click)="selectProvince(province.value)" #province>
-                  <option *ngFor="let pn of position[countryIndex]['province']">{{pn['name']}}</option>
+                <select title="" (click)="selectProvince()" #province [(ngModel)]="provinceName" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let pn of provinces">{{pn['name']}}</option>
                 </select>
               </div>
               <div class="col-xs-6 col-sm-3">
                 <label>城市:</label>
-                <select title="">
-                  <option *ngFor="let c of city">{{c}}</option>
+                <select title="" #city [(ngModel)]="cityName" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let c of citys">{{c}}</option>
                 </select>
               </div>
             </div>
           </form>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">
-          <button class="btn btn-success" *ngIf="btnName === '提交'" (click)="submitOrder()" data-toggle="modal" data-target="#add" [disabled]="btnBool()">提交</button>
-          <button class="btn btn-success" *ngIf="btnName === '修改完成'" (click)="modifyOrder()" data-toggle="modal" data-target="#add">修改完成</button>
+          <button class="btn btn-success" *ngIf="btnName === '提交'" (click)="submitOrder();table.tipHiddening()" data-toggle="modal" data-target="#add" [disabled]="btnBool()">提交</button>
+          <button class="btn btn-success" *ngIf="btnName === '修改完成'" (click)="modifyOrder();table.tipHiddening()" data-toggle="modal" data-target="#add">修改完成</button>
           <button class="btn btn-info pull-right" data-toggle="modal" data-target="#add">关闭</button>
         </div>
       </div>

@@ -7,7 +7,7 @@ export const dataName = [
   ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
   ['背漆类型', '背漆成像', '背漆方案'],
   ['底漆类型', '底漆成像', '底漆方案'],
-  ['面漆类型', '面漆成像', '面漆方案'],
+  ['面漆类型', '面漆成像', '面漆方案', '联系电话'],
   // ['联系电话', '国家', '省份', '城市'],
   ['控制误差', '预计交货时间', '预计发货时间', '地址'],
 ];
@@ -16,8 +16,8 @@ export const propType = [
   ['type', 'number', 'number', 'number'],
   ['type', 'type', 'number'],
   ['type', 'type', 'number'],
-  ['type', 'type', 'number'],
-  ['type', 'type', 'type', 'type'],
+  ['type', 'type', 'number', ['number']],
+  // ['type', 'type', 'type', 'type'],
   ['number', 'date', 'date', 'type'],
 ];
 export const modalProp = [
@@ -25,7 +25,7 @@ export const modalProp = [
   ['altype', 'area', 'alwidth', 'althickness'],
   ['btype', 'bccd', 'bprogram'],
   ['ptype', 'pccd', 'pprogram'],
-  ['ftype', 'fccd', 'fprogram'],
-  // [ 'tel', 'country', 'province', 'city'],
+  ['ftype', 'fccd', 'fprogram', 'tel'],
+  // [ , 'country', 'province', 'city'],
   ['deviation', 'exdelitime', 'exshiptime', 'address']
 ];

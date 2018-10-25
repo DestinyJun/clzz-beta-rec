@@ -85,14 +85,6 @@ export class ScheduleHttpService {
       headers: this.headers
     });
   }
-
-  public FindOrdersId(obj: object): Observable<any> {
-    const body = this.parameterSerialization(obj);
-    console.log(body);
-    return this.http.post('http://' + this.url + '/element/FindOrdersId', body, {
-      headers: this.headers
-    });
-  }
   findCountryProvinceCity() {
     return this.http.post('http://' + this.url + '/element/find-country-province-city', '', {
       headers: this.headers

@@ -22,7 +22,7 @@ export class OrderMarketingComponent implements OnInit {
   proSystem = this.user.getSysids();
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
-  pageOrder: PageBetaService;
+  ostatus: string;
   dataName = [
     ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
     ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
@@ -45,6 +45,8 @@ export class OrderMarketingComponent implements OnInit {
     ['submitter', 'audit'],
     ['tel', 'exdelitime', 'exshiptime', 'pro_system']
   ];
+  tips: string;
+  tipsColor: string;
   constructor(private http: ScheduleHttpService, private user: LoginIdService,
               public page: PageBetaService, private activatedRoute: ActivatedRoute) {
     this.page.setPageSize(this.row);
@@ -82,18 +84,20 @@ export class OrderMarketingComponent implements OnInit {
       }
     }
   }
-  modalValue(value) {
-    this.tBody[value]['doublecloat'] = this.tBody[value]['doublecloat'] === 1 ? '是' : '否';
-    this.tBody[value]['figura'] = this.tBody[value]['figura'] === 1 ? '有' : '无';
-    this.pro_system = this.tBody[value]['pro_system'];
-    this.tBody[value]['pro_system'] = this.getProSystemName(this.tBody[value]['pro_system']);
-    this.order = this.tBody[value];
-    console.log(this.tBody[value]);
+  modalValue(index) {
+    this.ostatus = this.tBody[index]['ostatus'];
+    this.tBody[index]['doublecloat'] = this.tBody[index]['doublecloat'] === 1 ? '是' : '否';
+    this.tBody[index]['figura'] = this.tBody[index]['figura'] === 1 ? '有' : '无';
+    this.pro_system = this.tBody[index]['pro_system'];
+    this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
+    this.order = this.tBody[index];
+    console.log(this.tBody[index]);
   }
 
   havePass(status) {
     this.order['auditor'] = this.user.getObject('user').realName;
     this.order.status = status;
+    this.order['ostatus'] = this.englishStatus(this.ostatus);
     this.order.pro_system = this.pro_system;
     this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
     this.order.figura = this.order.figura === '有' ? '1' : '0';
@@ -101,20 +105,16 @@ export class OrderMarketingComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.SeeOrders();
+        if (data['status'] === '10') {
+          this.tips = '设置成功!';
+          this.tipsColor = '#5cb85c';
+        } else {
+          this.tips = '设置失败!';
+          this.tipsColor = '#d9534f';
+        }
       });
   }
-  chineseStatus(status: number): string {
-    switch (status) {
-      case 1: return '待销售经理审核';
-      case 2: return '待生产经理审核';
-      case 3: return '已完成审核';
-      case 4: return '准备生产';
-      case 5: return '正在生产';
-      case 6: return '待入库';
-      case 7: return '已入库';
-      case 8: return '已出库';
-    }
-  }
+
   getProSystem() {
     this.pro_systemName = this.user.getSysids();
     console.log(this.pro_systemName, this.user.getSysids());
@@ -159,6 +159,45 @@ export class OrderMarketingComponent implements OnInit {
           });
         break;
       }
+    }
+  }
+  chineseStatus(status: number): string {
+    switch (status) {
+      case 1: return '待销售经理审核';
+      case 2: return '待生产经理审核';
+      case 3: return '已完成审核';
+      case 4: return '准备生产';
+      case 5: return '正在生产';
+      case 6: return '待入库';
+      case 7: return '已入库';
+      case 8: return '已出库';
+    }
+  }
+  englishStatus(status: string) {
+    console.log(status);
+    if (status === '待销售经理审核') {
+      return 1;
+    }
+    if (status === '待生产经理审核') {
+      return 2;
+    }
+    if (status === '已完成审核') {
+      return 3;
+    }
+    if (status === '准备生产') {
+      return 4;
+    }
+    if (status === '正在生产') {
+      return 5;
+    }
+    if (status === '待入库') {
+      return 6;
+    }
+    if (status === '已入库') {
+      return 7;
+    }
+    if (status === '已出库') {
+      return 8;
     }
   }
 }

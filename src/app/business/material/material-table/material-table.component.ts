@@ -54,14 +54,18 @@ export class MaterialTableComponent implements OnInit {
   @Output() getData = new EventEmitter();
   @Output() pass = new EventEmitter();
   @Input() btn: string;
+  @Input() tips: string;
+  @Input() tipsColor: string;
   proSystem = this.user.getSysids();
   @Output() sProSystem = new EventEmitter();
   type = 0;
   pro_systemName: any;
   pro_system: string;
+  tipsHidden: boolean;
   constructor(private activatedRoute: ActivatedRoute,
               private materialHttp: MaterialHttpService,
               private router: Router, private user: LoginIdService) {
+    this.tipsHidden = false;
     this.modalProp = this.AlModalProp;
     this.dataName = this.AlDataName;
     this.material = new Aluminums();
@@ -141,5 +145,9 @@ export class MaterialTableComponent implements OnInit {
   }
   selectSystem(name) {
     this.sProSystem.emit(name);
+  }
+  tipHiddening() {
+    this.tipsHidden = true;
+    setTimeout(() => this.tipsHidden = false, 2000);
   }
 }

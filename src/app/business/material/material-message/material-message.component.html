@@ -35,5 +35,8 @@
     </div>
   </div>
 </div>
+<div class="tip" *ngIf="tipsHidden">
+  <span [ngStyle]="{color: tipsColor}">{{tips}}</span>
+</div>
 <app-material-entry [tBody]="tBody" [AlArr]="AlArr" [PtArr]="PtArr" [PtdArr]="PtdArr" [btn]="btn"
                     (getData)="toggleType($event)" (pass)="havePass($event)" #entry></app-material-entry>

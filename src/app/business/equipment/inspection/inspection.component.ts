@@ -25,6 +25,7 @@ export class InspectionComponent implements OnInit {
   normalValues: Array<string> = [];
   proSystem = this.user.getSysids();
   proSystemName = this.proSystem[0]['sysName'];
+  selectName = '全部';
   searchPages = 1;
   boolUrl: boolean;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -83,20 +84,30 @@ export class InspectionComponent implements OnInit {
       selectName = '';
     }
     if (selectName !== '' || inputName !== '') {
-      const  body = 'page=' + this.searchPages + '&row=' + this.row + '&unitCode=' + this.user.getObject('user').sysids
-        + '&result=' + selectName + '&itemName=' + inputName;
-      this.http.post('http://' + this.url + '/element-admin/inspection-result-search', body, {headers: this.headers}).subscribe(data => {
-        console.log(data);
-        this.tBody = data['values']['contents'];
-        this.page.setTotalPage(data['values']['totalPage']);
-        for (let i = 0; i < this.tBody.length; i++) {
-          this.tBody[i]['inspector'] = JSON.parse(this.tBody[i]['inspector']);
-          this.tBody[i]['imageNames'] = JSON.parse(this.tBody[i]['imageNames']);
-          this.tBody[i]['normal'] = JSON.parse(this.tBody[i]['normal']);
+      for (let i = 0; i < this.proSystem.length; i++) {
+        if (this.proSystemName === this.proSystem[i]['sysName']) {
+          const  body = 'page=' + this.searchPages + '&row=' + this.row + '&unitCode=' + this.proSystem[i]['sysId']
+            + '&result=' + selectName + '&itemName=' + inputName;
+          this.http.post('http://' + this.url + '/element-admin/inspection-result-search',
+            body, {headers: this.headers}).subscribe(data => {
+            console.log(data);
+            this.tBody = data['values']['contents'];
+            this.page.setTotalPage(data['values']['totalPage']);
+            for (let j = 0; j < this.tBody.length; j++) {
+              this.tBody[j]['inspector'] = JSON.parse(this.tBody[j]['inspector']);
+              this.tBody[j]['imageNames'] = JSON.parse(this.tBody[j]['imageNames']);
+            }
+          });
+          break;
         }
-      });
-    } else {
-      this.initData();
+      }
+    }
+  }
+  searchSelect(selectName, inputName) {
+    console.log(selectName, inputName);
+    if (this.selectName !== selectName || inputName !== '') {
+      this.selectName = selectName;
+      this.search(selectName, inputName);
     }
   }
 

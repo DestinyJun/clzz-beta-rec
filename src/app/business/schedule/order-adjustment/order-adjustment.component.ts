@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {ScheduleHttpService} from '../schedule-http.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginIdService} from '../../../login/login-id.service';
@@ -18,6 +18,8 @@ export class OrderAdjustmentComponent implements OnInit {
   proSystem = this.user.getSysids();
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
+  tips: string;
+  tipsColor: string;
   constructor(private http: ScheduleHttpService, private activatedRoute: ActivatedRoute,
               public page: PageBetaService, private user: LoginIdService) {
     this.page.setPageSize(this.row);
@@ -37,6 +39,13 @@ export class OrderAdjustmentComponent implements OnInit {
     })
       .subscribe(data => {
         this.SeeOrders();
+        if (data['status'] === '10') {
+          this.tips = '下移成功!';
+          this.tipsColor = '#5cb85c';
+        } else {
+          this.tips = '下移失败!';
+          this.tipsColor = '#d9534f';
+        }
       });
   }
   SeeOrders() {

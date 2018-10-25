@@ -49,6 +49,9 @@
   </div>
 
 </div>
+<div class="tip" *ngIf="tipsHidden">
+  <span [ngStyle]="{color: tipsColor}">{{tips}}</span>
+</div>
 <div class="modal fade bs-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
 

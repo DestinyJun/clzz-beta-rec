@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-schedule-table title="工艺订单列表" (index)="modalValue($event)" [tHead]="tHead"
+  <app-schedule-table #table [tips]="tips" [tipsColor]="tipsColor" title="工艺订单列表" (index)="modalValue($event)" [tHead]="tHead"
                       [page]="page" [prop]="prop" [btnGroup]="btnGroup" [tBody]="tBody"></app-schedule-table>
 </div>
 <div class="modal fade bs-example-modal-lg" id="add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -17,28 +17,16 @@
               <input type="text" title="" value=" {{order[m]}}" [disabled]="true">
             </form>
           </div>
-        </div>
-        <div id="film">
-          <form [formGroup]="film" novalidate style="padding: 0">
-            <div class="row" *ngFor="let cp of craftProp;let i=index">
-              <div class="col-sm-3 col-xs-6" *ngFor="let c of cp;let j=index">
-                <div class="form-group">
-                  <label>{{craftName[i][j]}}</label>
-                  <input title="" type="{{craftType[i][j]}}" formControlName="{{c}}">
-                </div>
-              </div>
-              <div *ngIf="i === 1" class="col-xs-6 col-sm-3">
-                <label>生产线:</label>
-                <select title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let pn of pro_systemName">{{pn['sysName']}}</option>
-                </select>
-              </div>
-            </div>
-          </form>
+          <div *ngIf="i === 8" class="col-xs-6 col-sm-3">
+            <label>生产线:</label>
+            <select title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let pn of pro_systemName">{{pn['sysName']}}</option>
+            </select>
+          </div>
         </div>
           <div class="row" style="text-align: left;margin: 0 10px">
-            <button class="btn btn-success" (click)="havePass(3)" data-toggle="modal" data-target="#add" [disabled]="film.invalid">通过</button>
-            <button class="btn btn-danger" (click)="havePass(11)" data-toggle="modal" data-target="#add">不通过</button>
+            <button class="btn btn-success" (click)="havePass(3);table.tipHiddening()" data-toggle="modal" data-target="#add">通过</button>
+            <button class="btn btn-danger" (click)="havePass(11);table.tipHiddening()" data-toggle="modal" data-target="#add">不通过</button>
             <button class="btn btn-info" data-toggle="modal" data-target="#process" (click)="process.initProcess()">查看工艺包</button>
             <button class="btn btn-info pull-right" data-toggle="modal" data-target="#add">关闭</button>
           </div>

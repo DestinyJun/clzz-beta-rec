@@ -56,16 +56,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="modal-title" id="myModalLabel">流程图</span>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="text-align: center">
         <div class="row" id="sct">
           <div class="col-md-6">
             <div class="col-md-12">
-              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[0]" type="button" class="btn btn-success btn-raised">订单录入</button></div>
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[0]" type="button" style="font-size: 12px" class="btn btn-success btn-raised">待销售经理审核</button></div>
             </div>
             <div class="col-md-12">
-              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[1]" type="button" style="border-color: rgba(183,30,88,0.82);background-color: rgba(183,30,88,0.82)" class="btn btn-success btn-raised">一审</button></div>
+              <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[1]" type="button" style="font-size:12px;border-color: rgba(183,30,88,0.82);background-color: rgba(183,30,88,0.82)" class="btn btn-success btn-raised">待生产经理审核</button></div>
             </div>
-            <div class="col-md-12"><div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[2]" type="button" style="border-color: rgba(183,69,23,0.81);background-color: rgba(183,69,23,0.81)" class="btn btn-success btn-raised">二审</button></div></div>
+            <div class="col-md-12"><div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[2]" type="button" style="font-size:12px;border-color: rgba(183,69,23,0.81);background-color: rgba(183,69,23,0.81)" class="btn btn-success btn-raised">已完成审核</button></div></div>
             <div class="col-md-12">
               <div class="button-wrapper ng-scope"><button [disabled]="buttonDisabled[3]" type="button" style="border-color: rgba(170,183,36,0.82);background-color: rgba(170,183,36,0.82)" class="btn btn-success btn-raised">等待生产</button></div>
             </div>
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
       </div>
     </div>
   </div>

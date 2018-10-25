@@ -42,6 +42,7 @@ export class MaterialEntryComponent implements OnInit {
   @Input() tBody = [];
   @Output() getData = new EventEmitter();
   @Output() pass = new EventEmitter();
+  @Output() tips = new EventEmitter();
   constructor(private http: HttpClient, private fb: FormBuilder, private user: LoginIdService) {
 
 
@@ -179,6 +180,11 @@ export class MaterialEntryComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.getData.emit(this.type);
+        if (data['status'] === '10') {
+          this.tips.emit('铝卷录入成功! 10');
+        } else {
+          this.tips.emit('铝卷录入失败! 11');
+        }
       });
   }
   submitPaint() {
@@ -192,6 +198,11 @@ export class MaterialEntryComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.getData.emit(this.type);
+        if (data['status'] === '10') {
+          this.tips.emit('油漆录入成功! 10');
+        } else {
+          this.tips.emit('油漆录入失败! 11');
+        }
       });
   }
   addALArr() {

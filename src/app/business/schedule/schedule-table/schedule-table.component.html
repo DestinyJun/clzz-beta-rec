@@ -29,10 +29,10 @@
           <td *ngFor="let p of prop">{{tb[p]}}</td>
           <td *ngIf="btnGroup.length === 2 ">
             <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#add" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
-            <button class="btn-danger btn btn-xs" (click)="deleteOrder(j)">{{btnGroup[1]}}</button>
+            <button class="btn-danger btn btn-xs" (click)="deleteOrder(j);tipHiddening()">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1 && btnGroup[0] === '下移'">
-            <button class="btn-danger btn btn-xs" (click)="downOrder(j)" [disabled]="tb['status']==='正在生产....'||j===tBody.length - 1">{{btnGroup[0]}}</button>
+            <button class="btn-danger btn btn-xs" (click)="downOrder(j);tipHiddening()" [disabled]="tb['status']==='正在生产....'||j===tBody.length - 1">{{btnGroup[0]}}</button>
           </td>
           <td *ngIf="btnGroup.length === 1 && btnGroup[0] !== '下移'">
             <button class="btn-success btn btn-xs" data-toggle="modal" data-target="#add" (click)="sendIndex(j)">{{btnGroup[0]}}</button>
@@ -47,6 +47,9 @@
       <button type="button" class="btn btn-primary" *ngIf="title==='任务调排'" (click)="page.lastPage()">上一页</button>
       <button type="button" class="btn btn-primary" *ngIf="title==='任务调排'" (click)="page.nextPage()">下一页</button>
       当前第{{page.getPageNo()}}页，共{{page.getTotalPage()}}页 ,跳到 <input #input (keyup.enter)="page.skipPage(input.value)" type="number" title=""> 页
+    </div>
+    <div class="tip" *ngIf="tipsHidden">
+      <span [ngStyle]="{color: tipsColor}">{{tips}}</span>
     </div>
   </div>
 

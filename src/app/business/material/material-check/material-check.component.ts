@@ -22,6 +22,8 @@ export class MaterialCheckComponent implements OnInit {
   status = 0;
   toggleBtn: any;
   btn = '提交';
+  tips: string;
+  tipsColor: string;
   constructor(private materialHttp: MaterialHttpService, public page: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.page.setPageSize(this.row);
@@ -64,6 +66,15 @@ export class MaterialCheckComponent implements OnInit {
           }
         });
       }
+    }
+  }
+  getTips(tips: string) {
+    this.tips = tips.split(' ')[0];
+    console.log(tips.split(' '));
+    if (tips.split(' ')[1] === '10') {
+      this.tipsColor = '#5cb85c';
+    } else {
+      this.tipsColor = '#d9534f';
     }
   }
 }
