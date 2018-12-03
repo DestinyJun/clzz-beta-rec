@@ -12,8 +12,13 @@ import {options} from './option';
 export class ProductionComponent implements OnInit {
   order = new Order();
   url = new Url().getUrl();
-  options = options;
+  options: any;
   ModalChart: any;
+  length = 0;
+  bt = [];
+  ft = [];
+  pt = [];
+  dateTime = [];
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private user: LoginIdService) {
     this.http.post('http://' + this.url + '/element/hostMessage', 'sysids=' + this.user.getSysids()[0]['sysId'], {
@@ -21,26 +26,18 @@ export class ProductionComponent implements OnInit {
     }).subscribe(data => {
       console.log(data);
       this.order = data['values']['datas'][0];
+      for (let i = 0; i < data['values']['thickness'].length; i++) {
+        this.bt[i] = data['values']['thickness'][i]['bottomThickness'];
+        this.ft[i] = data['values']['thickness'][i]['finishThickness'];
+        this.pt[i] = data['values']['thickness'][i]['plateThickness'];
+        this.dateTime[i] = data['values']['thickness'][i]['datetime'];
+        this.length = data['values']['length'];
+      }
+      this.initOption();
       });
   }
 
   ngOnInit() {
-  }
-  toDatestart(time) {
-    let Hours = time.getHours(), Minutes = time.getMinutes();
-    if ( Minutes < 20) {
-      Minutes += 40;
-      Hours -= 1;
-    } else {
-      Minutes -= 20;
-    }
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
-  }
-
-  toDateend(time) {
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
   }
   initMapData() {
     this.http.post('http://' + this.url + '/element/find/thickness/sensor', 'sysids=' +
@@ -48,6 +45,80 @@ export class ProductionComponent implements OnInit {
       console.log(data);
       const length = data['values'].length;
     });
+  }
+  initOption() {
+    this.options = {
+      tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#269b97'
+          }}},
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '5px',
+        containLabel: true
+      },
+      xAxis : [{
+        type: 'category',
+        height: '100%',
+        boundaryGap: false,
+        data: this.dateTime,
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
+        }
+      }],
+      yAxis: [{
+        type: 'value',
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
+        }
+      }],
+      series: [{
+        name: '底漆厚度',
+        type: 'line',
+        stack: '总量',
+        areaStyle: {normal: {}},
+        data: this.bt
+      },
+        {
+          name: '铝板厚度',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {color: '#269b97'}},
+          data: this.pt
+        },
+        {
+          name: '面漆厚度',
+          type: 'line',
+          stack: '总量',
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
+          areaStyle: {normal: {}},
+          data: this.ft
+        }
+      ]
+    };
   }
   timeData(sid, starttime, deadline) {
     const body = {

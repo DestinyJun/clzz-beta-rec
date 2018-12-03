@@ -13,41 +13,75 @@
       </div>
       <div class="panel-body">
         <div class="form">
-          <form [formGroup]="formName">
-            <div class="row" *ngFor="let mp of modalProp;let i=index;">
-              <div class="col-md-3 col-xs-6" *ngFor="let m of mp;let j=index;">
-                <div class="form-group" *ngIf="dataName[i][j]!=='生产系统'">
-                  <label>{{dataName[i][j]}}:</label>
-                  <input type="{{dataType[i][j]}}" title="" formControlName="{{m}}">
+          <form [formGroup]="paint" *ngIf="formName === 'paint'">
+            <div class="row">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>原料批号:</label>
+                  <input type="text" class="form-control" title="原料批号" formControlName="purchase">
                 </div>
-                <div class="form-group" *ngIf="dataName[i][j]==='生产系统'">
-                  <label>{{dataName[i][j]}}:</label>
-                  <select  title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}" >
-                    <option *ngFor="let pS of pro_systemName">{{pS['sysName']}}</option>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>厂家名称:</label>
+                  <input type="text" class="form-control" title="厂家名称" formControlName="supName">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>油漆类型:</label>
+                  <select class="form-control"  title="" [(ngModel)]="pType" [ngModelOptions]="{standalone: true}" >
+                    <option *ngFor="let pT of pTypes">{{pT}}</option>
                   </select>
                 </div>
               </div>
-            </div>
-            <div class="row" *ngIf="type === 0">
-              <div class="col-md-12">
-                <button class="btn btn-md btn-success" (click)="addALArr()">添加分卷</button>
-              </div>
-            </div>
-            <div class="row" *ngFor="let al of AlArr;let i=index">
               <div class="col-md-3 col-xs-6">
-                <div class="form-group">
-                  <label>{{AlName[0]}}:</label>
-                  <input type="text" title="" [(ngModel)]="al[AlProp[0]]" [ngModelOptions]="{standalone: true}">
+                <div class="form-group" >
+                  <label>油漆颜色:</label>
+                  <input type="text" class="form-control" title="油漆颜色" formControlName="paintColor">
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <div class="form-group">
-                  <label>{{AlName[1]}}:</label>
-                  <input type="text" title="" [(ngModel)]="al[AlProp[1]]" [ngModelOptions]="{standalone: true}">
+                <label>油漆用途:</label>
+                <select  title="" class="form-control" [(ngModel)]="paintPurpose" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let pP of paintPurposeS">{{pP}}</option>
+                </select>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>油漆总重量(千克):</label>
+                  <input type="number" class="form-control" title="油漆总重量" formControlName="paExpectWeight">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>稀释剂类型:</label>
+                  <select class="form-control"  title="" [(ngModel)]="dType" [ngModelOptions]="{standalone: true}" >
+                    <option *ngFor="let dT of dTypes">{{dT}}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <button class="btn btn-danger btn-xs" (click)="deleteAlArr(i)">删除</button>
+                <label>稀释剂用途:</label>
+                <select  title="" class="form-control" [(ngModel)]="diluentPurpose" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let dP of diluentPurposeS">{{dP}}</option>
+                </select>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>稀释剂总重量(千克):</label>
+                  <input type="number" class="form-control" title="稀释剂总重量" formControlName="diExpectWeight">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <label>生产系统:</label>
+                <select  title="" class="form-control" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let pS of pro_systemName">{{pS['sysName']}}</option>
+                </select>
               </div>
             </div>
             <div class="row" *ngIf="type === 1">
@@ -59,20 +93,20 @@
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtName[0]}}:</label>
-                  <input type="text" title="" [(ngModel)]="pt[PtProp[0]]" [ngModelOptions]="{standalone: true}">
+                  <input [disabled]="true" class="form-control" type="text" title="" [(ngModel)]="pt[PtProp[0]]" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtName[1]}}:</label>
-                  <input type="text" title="" [(ngModel)]="pt[PtProp[1]]" [ngModelOptions]="{standalone: true}">
+                  <input type="text" title="" class="form-control" [(ngModel)]="pt[PtProp[1]]" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
-                <button class="btn btn-danger btn-xs" (click)="deletePtArr(i)">删除</button>
+                <button class="btn btn-danger btn-xs"  (click)="deletePtArr(i)">删除</button>
               </div>
             </div>
-            <div class="row" *ngIf="type === 1">
+            <div class="row">
               <div class="col-md-12">
                 <button class="btn btn-md btn-success" (click)="addPtdArr()">添加稀释剂桶</button>
               </div>
@@ -81,17 +115,87 @@
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtdName[0]}}:</label>
-                  <input type="text" title="" [(ngModel)]="ptd[PtdProp[0]]" [ngModelOptions]="{standalone: true}">
+                  <input [disabled]="true" type="text" title="" class="form-control" [(ngModel)]="ptd[PtdProp[0]]" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
                 <div class="form-group">
                   <label>{{PtdName[1]}}:</label>
-                  <input type="text" title="" [(ngModel)]="ptd[PtdProp[1]]" [ngModelOptions]="{standalone: true}">
+                  <input type="text" title="" class="form-control" [(ngModel)]="ptd[PtdProp[1]]" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-3 col-xs-6">
                 <button class="btn btn-danger btn-xs" (click)="deletePtdArr(i)">删除</button>
+              </div>
+            </div>
+          </form>
+          <form [formGroup]="AL" *ngIf="formName === 'AL'">
+            <div class="row">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>原料批号:</label>
+                  <input type="text" class="form-control" title="原料批号" formControlName="purchase">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>总重量(千克):</label>
+                  <input type="number" class="form-control" title="总重量(千克)" formControlName="alExpectWeight">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <label>合金状态:</label>
+                <select class="form-control" title="" [(ngModel)]="alType" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let al of alTypes">{{al}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>铝卷厚度(微米):</label>
+                  <input class="form-control" type="number" title="铝卷厚度(微米)" formControlName="alThickness">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>铝卷宽度(毫米):</label>
+                  <input class="form-control" type="number" title="铝卷宽度" formControlName="alWidth">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group" >
+                  <label>厂家名称:</label>
+                  <input class="form-control" type="text" title="厂家名称" formControlName="supName">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <label>生产系统:</label>
+                <select class="form-control" title="" [(ngModel)]="pro_system" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let pS of pro_systemName">{{pS['sysName']}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-md-12">
+                <button class="btn btn-md btn-success" (click)="addALArr()">添加分卷</button>
+              </div>
+            </div>
+            <div class="row" *ngFor="let al of AlArr;let i=index">
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{AlName[0]}}:</label>
+                  <input class="form-control" [disabled]="true" type="text" title="" [(ngModel)]="al[AlProp[0]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                  <label>{{AlName[1]}}:</label>
+                  <input class="form-control" type="text" title="" [(ngModel)]="al[AlProp[1]]" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 col-xs-6">
+                <button class="btn btn-danger btn-xs" (click)="deleteAlArr(i)">删除</button>
               </div>
             </div>
           </form>

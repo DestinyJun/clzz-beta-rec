@@ -9,17 +9,19 @@ import {LoginIdService} from '../../../login/login-id.service';
   styleUrls: ['./temperature.component.css']
 })
 export class TemperatureComponent implements OnInit {
-  option: Array<any>;
+  option: Array<any> = [];
   proSystem = this.user.getSysids();
   proSystemName: string;
   options: any;
   echartMap: any;
+  interval: any;
   constructor(private http: MonitorHttpService, private user: LoginIdService) {
     this.proSystemName = this.proSystem[0]['sysName'];
     this.initSensor();
   }
 
   ngOnInit() {
+    this.interval = setInterval(() => this.initSensor(), 10000);
   }
   selectSystem(name) {
     if (name !== this.proSystemName) {
@@ -28,7 +30,6 @@ export class TemperatureComponent implements OnInit {
     }
   }
   initSensor() {
-    this.option = [];
     for (let _i = 0; _i < this.proSystem.length; _i++) {
       if (this.proSystem[_i]['sysName'] === this.proSystemName) {
         this.http.FindTemperatureSensor({sysIds: this.proSystem[_i]['sysId']}).subscribe(data => {
@@ -36,7 +37,8 @@ export class TemperatureComponent implements OnInit {
           if (data['values'] !== null) {
             const length = data['values'].length;
             for (let i = 0; i < length; i++) {
-              this.MapChart(data['values'][i]['sId'], data['values'][i]['sName'], this.toDatestart(new Date()), this.toDateend(new Date()));
+              this.MapChart(i, data['values'][i]['sId'], data['values'][i]['sName'],
+                this.user.toDatestart(new Date()), this.user.toDateend(new Date()));
             }
           }
         });
@@ -53,25 +55,8 @@ export class TemperatureComponent implements OnInit {
     console.log(event);
     this.echartMap = event;
   }
-  toDatestart(time) {
-    let Hours = time.getHours(), Minutes = time.getMinutes();
-    if (Minutes < 20) {
-      Minutes += 40;
-      Hours -= 1;
-    } else {
-      Minutes -= 20;
-    }
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
-  }
-
-  toDateend(time) {
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
-  }
-
-  MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sId: body, startTime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
+  MapChart(index: number, body: string, SensorName: string, starttime: string, deadline: string) {
+    this.http.findhstorysensordata({sId: body, startTime: this.user.toDatestart(new Date()), deadline: this.user.toDateend(new Date())})
       .subscribe(d => {
         const dates = [];
         const data = [];
@@ -87,7 +72,7 @@ export class TemperatureComponent implements OnInit {
           console.log(d);
           console.log('id不存在');
         }
-        this.option.push({
+        this.option[index] = ({
           tooltip: {
             trigger: 'axis',
             color: '#fff',

@@ -3,18 +3,39 @@
     <table class="table table-bordered">
       <tbody>
       <tr>
-        <td>铝卷类型</td><td>{{order?.altype}}</td><td>铝卷长度(米)</td><td>{{order?.allength}}</td>
+        <td>项目名</td><td>{{order?.cname}}</td><td>合金状态</td><td>{{order?.altype}}</td>
       </tr>
       <tr>
         <td>铝卷宽度(毫米)</td><td>{{order?.alwidth}}</td><td>铝卷厚度(微米)</td><td>{{order?.althickness}}</td>
       </tr>
       <tr>
-        <td>面漆型号</td><td>{{order?.ftype}}</td><td>面漆厚度(微米)</td><td>{{order?.fthickness}}</td>
+        <td>背漆类型</td><td>{{order?.btype}}</td><td>底漆类型</td><td>{{order?.ptype}}</td>
       </tr>
       <tr>
-        <td>面漆成像</td><td>{{order?.fccd}}</td><td>面漆方案</td><td>{{order?.fprogram}}</td>
+        <td>面漆类型</td><td>{{order?.ftype}}</td><td>背漆颜色</td><td>{{order?.backColor}}</td>
+      </tr>
+      <tr>
+        <td>底漆颜色</td><td>{{order?.primerColor}}</td><td>面漆颜色</td><td>{{order?.finishColor}}</td>
+      </tr>
+      <tr>
+        <td>背漆上机粘度</td><td>{{order?.bprogram}}</td><td>底漆上机粘度</td><td>{{order?.pprogram}}</td>
+      </tr>
+      <tr>
+        <td>面漆上机粘度</td><td>{{order?.fprogram}}</td><td>是否双面</td><td>{{order?.doublecloat}}</td>
+      </tr>
+      <tr>
+        <td>花纹有无</td><td>{{order?.figura}}</td><td>预计交货时间</td><td>{{order?.exdelitime}}</td>
+      </tr>
+      <tr>
+        <td>预计发货时间</td><td>{{order?.exshiptime}}</td><td>联系电话</td><td>{{order?.tel}}</td>
       </tr>
       </tbody>
     </table>
   </div>
+  <div style="text-align: center">
+    <div echarts [options]="options" style="height: 400px"></div>
+    <h5>    贵州中铝彩铝科技有限公司</h5>
+    <h5>  贵阳红鸟智能技术服务有限公司</h5>
+  </div>
 </div>
+

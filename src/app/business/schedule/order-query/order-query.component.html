@@ -13,12 +13,81 @@
       <div class="panel-body">
         <div class="form">
           <form [formGroup]="formName" novalidate>
-            <div class="row" *ngFor="let mp of modalProp;let i=index;">
-              <div class="col-xs-6 col-sm-3"  *ngFor="let m of mp;let j=index;">
-                <div class="form-group">
-                  <label class="control-label">{{dataName[i][j]}}:</label>
-                  <input title="" class="form-control" type="{{propType[i][j]}}" formControlName="{{m}}">
-                </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">项目名:</label>
+                <input title="项目名" class="form-control" type="text" formControlName="cname">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label>合金状态:</label>
+                <select title="" [(ngModel)]="altype" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let al of altypes">{{al}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">铝板总重量（吨）:</label>
+                <input title="铝板总重量" class="form-control" type="number" formControlName="alweight">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">铝板宽度（毫米）:</label>
+                <input title="铝板宽度" class="form-control" type="number" formControlName="alwidth">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">铝板厚度（微米）:</label>
+                <input title="铝板厚度" class="form-control" type="number" formControlName="althickness">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label>背漆类型:</label>
+                <select title="背漆类型" [(ngModel)]="btype" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let type of bpftypes">{{type}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>底漆类型:</label>
+                <select title="底漆类型" [(ngModel)]="ptype" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let type of bpftypes">{{type}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>面漆类型:</label>
+                <select title="面漆类型" [(ngModel)]="ftype" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let type of bpftypes">{{type}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">背漆颜色:</label>
+                <input title="背漆颜色" class="form-control" type="text" formControlName="backColor">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">底漆颜色:</label>
+                <input title="底漆颜色" class="form-control" type="text" formControlName="primerColor">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">面漆颜色:</label>
+                <input title="面漆颜色" class="form-control" type="text" formControlName="finishColor">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label>背漆上机粘度:</label>
+                <input title="背漆上机粘度" type="number" class="form-control" (blur)="minMax(1)"
+                       [(ngModel)]="bprogram" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>底漆上机粘度:</label>
+                <input title="底漆上机粘度" type="number" class="form-control" (blur)="minMax(2)"
+                       [(ngModel)]="pprogram" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label>面漆上机粘度:</label>
+                <input title="面漆上机粘度" type="number" class="form-control" (blur)="minMax(3)"
+                       [(ngModel)]="fprogram" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="row">
@@ -42,6 +111,8 @@
                   <option *ngFor="let pn of pro_systemName">{{pn['sysName']}}</option>
                 </select>
               </div>
+            </div>
+            <div class="row">
               <div class="col-xs-6 col-sm-3">
                 <label>国家:</label>
                 <select title="" (click)="selectCountry()" #country [(ngModel)]="countryName" [ngModelOptions]="{standalone: true}">
@@ -59,6 +130,24 @@
                 <select title="" #city [(ngModel)]="cityName" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let c of citys">{{c}}</option>
                 </select>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">客户地址:</label>
+                <input title="地址" class="form-control" type="text" formControlName="address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">预计交货时间:</label>
+                <input title="预计交货时间" type="date" class="form-control" [(ngModel)]="exdelitime" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">预计发货时间:</label>
+                <input title="预计发货时间" type="date" class="form-control" [(ngModel)]="exshiptime" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <label class="control-label">联系电话:</label>
+                <input title="联系电话" class="form-control" type="text" formControlName="tel">
               </div>
             </div>
           </form>

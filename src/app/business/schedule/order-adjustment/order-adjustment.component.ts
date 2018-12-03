@@ -23,7 +23,7 @@ export class OrderAdjustmentComponent implements OnInit {
   constructor(private http: ScheduleHttpService, private activatedRoute: ActivatedRoute,
               public page: PageBetaService, private user: LoginIdService) {
     this.page.setPageSize(this.row);
-    this.page.setUrl('/home/schedule/ordadj');
+    this.page.setUrl('/home/true/schedule/ordadj');
     this.activatedRoute.params.subscribe(() => {
       this.page.setTotalPage(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();

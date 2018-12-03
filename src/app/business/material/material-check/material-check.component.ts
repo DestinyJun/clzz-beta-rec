@@ -10,8 +10,8 @@ import {PageBetaService} from '../../../based/page-beta.service';
   styleUrls: ['./material-check.component.css'],
 })
 export class MaterialCheckComponent implements OnInit {
-  tHead = ['采购单编号', '生产厂家', '入库时间', '单价', '重量', '状态', '操作'];
-  prop = ['purchase', 'supName', 'idt', 'alPrice', 'alExpectWeight', 'status'];
+  tHead = ['采购单编号', '生产厂家', '入库时间', '总重量', '状态', '操作'];
+  prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
   btnGroup = ['详情'];
   tBody = [];
   type = 0;

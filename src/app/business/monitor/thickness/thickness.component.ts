@@ -36,7 +36,8 @@ export class ThicknessComponent implements OnInit {
           if (data['values'] !== null) {
             const length = data['values'].length;
             for (let i = 0; i < length; i++) {
-              this.MapChart(data['values'][i]['sId'], data['values'][i]['sName'], this.toDatestart(new Date()), this.toDateend(new Date()));
+              this.MapChart(data['values'][i]['sId'], data['values'][i]['sName'],
+                this.user.toDatestart(new Date()), this.user.toDateend(new Date()));
             }
           }
         });
@@ -53,25 +54,9 @@ export class ThicknessComponent implements OnInit {
     console.log(event);
     this.echartMap = event;
   }
-  toDatestart(time) {
-    let Hours = time.getHours(), Minutes = time.getMinutes();
-    if (Minutes < 20) {
-      Minutes += 40;
-      Hours -= 1;
-    } else {
-      Minutes -= 20;
-    }
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
-  }
-
-  toDateend(time) {
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
-  }
 
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {
-    this.http.findhstorysensordata({sId: body, startTime: this.toDatestart(new Date()), deadline: this.toDateend(new Date())})
+    this.http.findhstorysensordata({sId: body, startTime: this.user.toDatestart(new Date()), deadline: this.user.toDateend(new Date())})
       .subscribe(d => {
         const dates = [];
         const data = [];

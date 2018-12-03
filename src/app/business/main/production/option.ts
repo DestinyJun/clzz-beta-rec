@@ -49,13 +49,6 @@ export const options = {
     data: [120, 132, 101, 134, 90, 230, 210]
   },
     {
-      name: '背漆厚度',
-      type: 'line',
-      stack: '总量',
-      areaStyle: {normal: {}},
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
       name: '底漆厚度',
       type: 'line',
       stack: '总量',

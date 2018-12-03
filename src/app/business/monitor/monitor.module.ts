@@ -17,6 +17,7 @@ import {CommonMmoduleModule} from '../../commonModule/common-mmodule.module';
 import {SensorService} from './sensor/sensor.service';
 import {PageBetaService} from '../../based/page-beta.service';
 import {FormsModule} from '@angular/forms';
+import {TemperatureIntervalService} from './temperature-interval.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import {FormsModule} from '@angular/forms';
     ThicknessComponent
   ],
   providers: [HttpService, MonitorHttpService, PageBetaService,
-    SensorService, CanDeactivateGuardService],
+    SensorService, CanDeactivateGuardService, TemperatureIntervalService],
   exports: [SensorComponent]
 })
 export class MonitorModule { }

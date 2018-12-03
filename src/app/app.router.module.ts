@@ -12,7 +12,7 @@ const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'mobielogin/:username/:password/:web', component: MobieLoginComponent},
-  {path: 'home', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
+  {path: 'home/:mobie', loadChildren: 'app/home/home.module#HomeModule', canActivate: [CanrouteService]},
   {path: 'qrcode/:purchase/:mode/:oid/:aluminumlength/:targetlist/:aluminumcode/:city',
     component: QrcodeComponent, canActivate: [CanrouteService]},
   {path: 'orderpage', component: OrderpageComponent, canActivate: [CanrouteService]},

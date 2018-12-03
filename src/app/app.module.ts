@@ -17,6 +17,7 @@ import {LoginModule} from './login/login.module';
 import { MobieLoginComponent } from './mobie-login/mobie-login.component';
 import {ModalModule} from 'ngx-bootstrap';
 import {PageService} from './based/page.service';
+import {NgxEchartsModule} from 'ngx-echarts';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {PageService} from './based/page.service';
     NgxQRCodeModule,
     ModalModule.forRoot(),
     BrowserAnimationsModule,
-    LoginModule
+    LoginModule,
+    NgxEchartsModule
   ],
   declarations: [
     AppComponent,

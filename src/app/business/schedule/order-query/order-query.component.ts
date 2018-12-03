@@ -5,6 +5,7 @@ import {LoginIdService} from '../../../login/login-id.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
 import {btnGroup, dataName, modalProp, prop, propType, tBody, tHead} from './queryList';
+import {b} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-order-query',
@@ -16,9 +17,18 @@ export class OrderQueryComponent implements OnInit {
   order2: FormGroup;
   formName: FormGroup;
   btnName = '提交';
-  doublecloat: string;
+  doublecloat = '是';
   pro_system: string;
-  figura: string;
+  figura = '无';
+  altype: string;
+  btype: string;
+  ptype: string;
+  ftype: string;
+  bprogram = 60;
+  pprogram = 60;
+  fprogram = 60;
+  altypes = [];
+  bpftypes = [];
   row = 15;
   pro_systemName = [];
   proSystem = this.user.getSysids();
@@ -28,68 +38,114 @@ export class OrderQueryComponent implements OnInit {
   provinces = this.country[0]['province'];
   citys =  this.provinces[0]['city'];
   countryName = this.country[0]['name'];
-  provinceName = this.provinces[0]['name'];
-  cityName = this.citys[0];
+  provinceName = '贵州省';
+  cityName = '贵阳';
   tHead = tHead;
   tBody = tBody;
   prop = prop;
   btnGroup = btnGroup;
-  dataName = dataName;
-  propType = propType;
   modalProp = modalProp;
   ostatus: string;
   tips: string;
   tipsColor: string;
+  exdelitime: string;
+  exshiptime: string;
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private user: LoginIdService,
               public page: PageBetaService, private activatedRoute: ActivatedRoute) {
-    console.log(this.position);
-    console.log(this.provinces);
-    console.log(this.citys);
+    console.log((new Date()).getDate());
     this.page.setPageSize(this.row);
-    this.page.setUrl('/home/schedule/ordque');
+    this.page.setUrl('/home/true/schedule/ordque');
+    this.http.alloyState().subscribe(data => {
+      this.altypes = data['values'];
+      this.altype = this.altypes[0];
+    });
+    this.http.normsType().subscribe(data => {
+      this.bpftypes = data['values'];
+      this.btype = this.ptype = this.ftype = this.bpftypes[0];
+    });
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
     });
     this.formName = this.order2 = this.order = this.fb.group({
-      contractname: ['', Validators.required],
       cname: ['', Validators.required],
-      price: ['', Validators.required],
-      amount: ['', Validators.required],
-      altype: ['', Validators.required],
-      area: ['', Validators.required],
+      altype: [''],
       alwidth: ['', Validators.required],
+      alweight: ['', Validators.required],
       althickness: ['', Validators.required],
-      btype: ['', Validators.required],
-      bccd: ['', Validators.required],
-      bprogram: ['', Validators.required],
-      ptype: ['', Validators.required],
-      pccd: ['', Validators.required],
-      pprogram: ['', Validators.required],
-      ftype: ['', Validators.required],
-      fccd: ['', Validators.required],
-      fprogram: ['', Validators.required],
+      btype: [''],
+      bprogram: ['60'],
+      ptype: [''],
+      pprogram: ['60'],
+      ftype: [''],
+      fprogram: ['60'],
+      backColor: ['', Validators.required],
+      primerColor: ['', Validators.required],
+      finishColor: ['', Validators.required],
       doublecloat: [''],
       country: [''],
       province: [''],
       city: [''],
-      deviation: ['', Validators.required],
       figura: [''],
       address: ['', Validators.required],
       tel: ['', Validators.required],
-      exdelitime: ['', Validators.required],
-      exshiptime: ['', Validators.required],
+      exdelitime: [''],
+      exshiptime: [''],
       pro_system: [''],
-      oid: ['']
+      oid: [''],
+      username: ['']
     });
   }
 
   ngOnInit() {
     this.getProSystem();
+    this.selectProvince();
+    this.cityName = '贵阳';
+    this.dateZero();
   }
-
+  dateZero() {
+    const date = new Date();
+    const month = date.getMonth();
+    const day = date.getDate();
+    let Omonth: string, Oday: string;
+    if (month < 10) {
+    Omonth = '0' + month;
+    } else {
+      Omonth = month.toString();
+    }
+    if (day < 10) {
+      Oday = '0' + day;
+    } else {
+      Oday = day.toString();
+    }
+    this.exdelitime = date.getFullYear() + '-' + Omonth + '-' + Oday;
+    this.exshiptime = date.getFullYear() + '-' + Omonth + '-' + Oday;
+  }
+  minMax(program: number) {
+    switch (program) {
+      case 1: if (this.bprogram < 20) {
+        this.bprogram = 20;
+      } else if (this.bprogram > 120) {
+        this.bprogram = 120;
+      }
+      break;
+      case 2: if (this.pprogram < 20) {
+        this.pprogram = 20;
+      } else if (this.pprogram > 120) {
+        this.pprogram = 120;
+      }
+      break;
+      case 3: if (this.fprogram < 20) {
+        this.fprogram = 20;
+      } else if (this.fprogram > 120) {
+        this.fprogram = 120;
+      }
+      break;
+    }
+  }
   getProSystem() {
     this.pro_systemName = this.user.getSysids();
+    this.pro_system = this.pro_systemName[0]['sysName'];
   }
   getProSystemOid() {
     for (let i = 0; i < this.pro_systemName.length; i++) {
@@ -159,7 +215,10 @@ export class OrderQueryComponent implements OnInit {
   }
   deleteOrder(index) {
     if (window.confirm('确认删除吗？') ) {
-      const body = {delete_id: this.tBody[index]['oid']};
+      const body = {
+        delete_id: this.tBody[index]['oid'],
+        username: this.user.getName()
+      };
       this.http.DelOrders(body)
         .subscribe(data => {
           this.SeeOrders();
@@ -181,8 +240,15 @@ export class OrderQueryComponent implements OnInit {
   modalValue(index) {
     console.log(this.tBody[index]);
     this.ostatus = this.tBody[index]['ostatus'];
-    this.tBody[index]['exdelitime'] = '20' + this.tBody[index]['exdelitime'].split(' ')[0];
-    this.tBody[index]['exshiptime'] = '20' + this.tBody[index]['exshiptime'].split(' ')[0];
+    this.altype = this.tBody[index]['altype'];
+    this.bprogram = this.tBody[index]['bprogram'];
+    this.pprogram = this.tBody[index]['pprogram'];
+    this.fprogram = this.tBody[index]['fprogram'];
+    this.btype = this.tBody[index]['btype'];
+    this.ptype = this.tBody[index]['ptype'];
+    this.ftype = this.tBody[index]['ftype'];
+    this.exdelitime = '20' + this.tBody[index]['exdelitime'].split(' ')[0];
+    this.exshiptime = '20' + this.tBody[index]['exshiptime'].split(' ')[0];
     this.countryName = this.tBody[index]['country'];
     this.provinceName = this.tBody[index]['province'];
     this.cityName = this.tBody[index]['city'];
@@ -190,8 +256,6 @@ export class OrderQueryComponent implements OnInit {
     this.figura = this.tBody[index]['figura'] === 1 ? '有' : '无';
     this.pro_system = this.getProSystemName(this.tBody[index]['pro_system']);
     this.order2.patchValue(this.tBody[index]);
-    this.order2.patchValue({'area': this.tBody[index]['allength'] * this.order2.get('alwidth').value / 100});
-    this.order2.patchValue({'amount': this.order2.get('area').value * this.order2.get('price').value});
     this.formName = this.order2;
     this.btnName = '修改完成';
     console.log(this.tBody[index]);
@@ -199,14 +263,23 @@ export class OrderQueryComponent implements OnInit {
   submitOrder() {
     this.order = this.formName;
     const body = this.order.value;
+    body['altype'] = this.altype;
+    body['bprogram'] = this.bprogram;
+    body['pprogram'] = this.pprogram;
+    body['fprogram'] = this.fprogram;
+    body['btype'] = this.btype;
+    body['ptype'] = this.ptype;
+    body['ftype'] = this.ftype;
     body['pro_system'] = this.getProSystemOid();
     body['doublecloat'] = this.doublecloat === '是' ? 1 : 0;
     body['figura'] = this.figura === '有' ? 1 : 0;
-    body['allength'] = body['area'] / body['alwidth'] * 100;
     body['submitter'] = this.user.getObject('user').realName;
     body['country'] = this.countryName;
     body['province'] = this.provinceName;
     body['city'] = this.cityName;
+    body['exdelitime'] = this.exdelitime;
+    body['exshiptime'] = this.exshiptime;
+    body['username'] = this.user.getName();
     console.log(body);
     this.http.AddOrders(body)
       .subscribe(data => {console.log(data);
@@ -223,15 +296,24 @@ export class OrderQueryComponent implements OnInit {
   modifyOrder() {
     this.order2 = this.formName;
     const body = this.order2.value;
+    body['altype'] = this.altype;
+    body['bprogram'] = this.bprogram;
+    body['pprogram'] = this.pprogram;
+    body['fprogram'] = this.fprogram;
+    body['btype'] = this.btype;
+    body['ptype'] = this.ptype;
+    body['ftype'] = this.ftype;
     body['pro_system'] = this.getProSystemOid();
     body['doublecloat'] = this.doublecloat === '是' ? 1 : 0;
     body['figura'] = this.figura === '有' ? 1 : 0;
-    body['allength'] = body['area'] / body['alwidth'] * 100;
     body['ostatus'] = this.englishStatus(this.ostatus);
     body['submitter'] = this.user.getObject('user').realName;
     body['country'] = this.countryName;
     body['province'] = this.provinceName;
     body['city'] = this.cityName;
+    body['exdelitime'] = this.exdelitime;
+    body['exshiptime'] = this.exshiptime;
+    body['username'] = this.user.getName();
     console.log(body);
     this.http.UpdateOrders(body)
       .subscribe(data => {console.log(data);

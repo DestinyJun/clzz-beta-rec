@@ -16,9 +16,16 @@ label{
 }
 input{
   color: #000;
+  border-radius: 0;
+  border-width: 2px;
+  border-color: #fff;
+  height: 26px;
+  padding: 1px 0 1px 0;
 }
 select{
-
+  height: 26px;
+  padding: 1px 0 1px 0;
+  width: 100%;
   color: black;
-  width: auto;
+  border-radius: 0;
 }

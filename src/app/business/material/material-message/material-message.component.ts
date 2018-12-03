@@ -12,8 +12,8 @@ import {PageBetaService} from '../../../based/page-beta.service';
   animations: [slideToRight]
 })
 export class MaterialMessageComponent implements OnInit {
-  tHead = ['类型', '采购单编号', '生产厂家', '入库时间', '单价', '重量', '状态', '操作'];
-  prop = ['purchase', 'supname', 'idt', 'alprice', 'alexweight', 'status'];
+  tHead = ['类型', '采购单编号', '生产厂家', '入库时间', '总重量', '状态', '操作'];
+  prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
   btnGroup = ['详情'];
   tBody = [];
   type = 0;
@@ -77,7 +77,19 @@ export class MaterialMessageComponent implements OnInit {
   }
   toggleBtn(type) {
     this.type = type;
+    if (type === 0) {
+      this.prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
+    } else {
+      this.prop = ['purchase', 'supName', 'idt', 'paExpectWeight', 'status'];
+    }
     this.getData();
+  }
+  statusC(status) {
+    switch (status) {
+      case 1: return '未审核';
+      case 2: return '已审核';
+      case 3: return '审核未通过';
+    }
   }
   readType() {
     if (this.type === 0) {

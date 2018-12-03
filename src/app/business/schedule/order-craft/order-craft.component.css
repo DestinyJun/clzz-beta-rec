@@ -16,9 +16,6 @@
 #table .table-bordered > tfoot > tr>td{
   border: 1px solid rgba(0,0,0,0);
 }
-input{
-  color: #000;
-}
 .modal-header{
   background-color: rgba(55,96,108,0.8);
   color: #FFFFFF;
@@ -58,4 +55,12 @@ select{
   padding: 1px 0 1px 0;
   width: 100%;
   color: black;
+}
+input{
+  color: #000;
+  border-radius: 0;
+  border-width: 2px;
+  border-color: #fff;
+  height: 26px;
+  padding: 1px 0 1px 0;
 }

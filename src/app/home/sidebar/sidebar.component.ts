@@ -74,10 +74,10 @@ export class SidebarComponent implements OnInit {
     if (!(list.children.length > 0)) {
         console.log(list);
         if (list.title === '首页') {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home/true']);
           this.Name.set('positionName', '首页');
         } else {
-          this.router.navigate(['/home/android']);
+          this.router.navigate(['/home/true/android']);
           this.Name.set('positionName', '安卓');
         }
       for (let i = 0; i < mainul.children.length; i++) {

@@ -28,11 +28,11 @@
     </div>
     <div (click)="ReSizeInit()" data-toggle="modal" data-target="#myModal" echarts [options]="options" style="height: 200px"></div>
     <div class="product-list-footer">
-      <p>订单完成度</p>
+      <p>订单完成度{{length}}%</p>
       <div class="progress" style="background-color: rgba(192,192,192,0.3); height: 10px;">
         <div class="progress-bar progress-bar-info progress-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-             style="width: 40%; color:blue;">
-          <span class="sr-only">40% 完成</span>
+             [ngStyle]="{'width': length + '%'}">
+          <span class="sr-only">{{length}}% 完成</span>
         </div>
       </div>
     </div>

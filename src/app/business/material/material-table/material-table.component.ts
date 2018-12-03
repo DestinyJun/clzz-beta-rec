@@ -118,6 +118,13 @@ export class MaterialTableComponent implements OnInit {
       return '油漆';
     }
   }
+  statusC(status) {
+    switch (status) {
+      case 1: return '未审核';
+      case 2: return '已审核';
+      case 3: return '审核未通过';
+    }
+  }
   havePass(status) {
     this.pass.emit(status);
   }

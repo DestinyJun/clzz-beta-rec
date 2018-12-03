@@ -28,8 +28,12 @@ export class SensorComponent implements OnInit {
   }
   ngOnInit() {
     console.log(this.user.getSysids()[0]);
-    // this.DeviceSensorInit(this.ModularId);
-    // this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
+    this.DeviceSensorInit(this.ModularId);
+    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
+
+    setTimeout(() => this.interval, 1000);
+    // setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
+    // setInterval(() => console.log(2), 1000);
   }
   // 获取系统下模块
   ModularInit() {
@@ -77,7 +81,7 @@ export class SensorComponent implements OnInit {
       this.ModularInit();
     }
   }
-// 获取模块下设备-传感器-最新值-id
+// 获取模块下设备传感器最新值-id
   DeviceSensorInit(mId) {
     console.log(mId);
     this.http.FindDevicenameSensornameSensordata({mId: mId})
@@ -217,8 +221,8 @@ export class SensorComponent implements OnInit {
   }
   modal2(value) {
     clearInterval(this.modal3);
-    this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
-      this.toDatestart(new Date()), this.toDateend(new Date())), 2000);
+    // this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
+      // this.user.toDatestart(new Date()), this.user.toDateend(new Date())), 2000);
     console.log(value);
   }
   ReSize(event) {
@@ -226,20 +230,5 @@ export class SensorComponent implements OnInit {
   }
   ReSizeInit() {
     setTimeout(() => this.ModalChart.resize(), 500);
-  }
-  toDatestart(time) {
-    let Hours = time.getHours(), Minutes = time.getMinutes();
-    if ( Minutes < 10) {
-      Minutes += 50;
-      Hours -= 1;
-    } else {
-      Minutes -= 10;
-    }
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + Hours + ':' + Minutes + ':' + time.getSeconds();
-  }
-  toDateend(time) {
-    return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate()
-      + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
   }
 }

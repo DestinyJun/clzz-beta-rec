@@ -6,6 +6,7 @@ import {Order} from '../order';
 import {PageService} from '../../../based/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
+import {dataName, modalProp} from '../order-query/queryList';
 
 @Component({
   selector: 'app-order-craft',
@@ -22,38 +23,18 @@ export class OrderCraftComponent implements OnInit {
   proSystemName = this.proSystem[0]['sysName'];
   ostatus: string;
   oid: string;
-  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tHead = ['订单编号', '项目名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
-  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  prop = ['oid', 'cname', 'exdelitime', 'submitter', 'ostatus'];
   btnGroup = ['审核'];
-  dataName = [
-    ['合同名', '客户名', '单价', '总价:'],
-    ['铝板类型', '铝板长度', '铝板宽度', '铝板厚度'],
-    ['背漆类型', '背漆方案选择', '背漆厚度', '背漆湿膜厚度'],
-    ['背漆成像', '底漆方案', '底漆湿膜厚度', '面漆方案'],
-    ['面漆类型 ', '面漆厚度', '面漆方案', '花纹'],
-    ['底漆类型', '底漆厚度', '底漆湿膜厚度', '底漆成像'],
-    ['Id', '状态', '控制误差', '是否双面涂'],
-    ['提交人', '修改人', '录入时间', '地址'],
-    [ '联系电话', '预计交货时间', '预计发货时间']
-  ];
-  modalProp = [
-    ['contractname', 'cname', 'price', 'amount'],
-    ['altype', 'allength', 'alwidth', 'althickness'],
-    ['btype', 'bprogram', 'bchickness', 'bchicknessw'],
-    ['bccd', 'pprogram', 'pthicknessw', 'pccd'],
-    ['ftype', 'fthickness', 'fprogram', 'figure'],
-    ['ptype', 'pthickness', 'pthicknessw', 'pccd'],
-    ['oid', 'ostatus', 'deviation', 'doublecloat'],
-    ['submitter', 'audit', 'audittime', 'address'],
-    ['tel', 'exdelitime', 'exshiptime']
-  ];
+  dataName = dataName;
+  modalProp = modalProp;
   tips: string;
   tipsColor: string;
   constructor(private http: ScheduleHttpService, private fb: FormBuilder, private activatedRoute: ActivatedRoute,
   private user: LoginIdService, public page: PageBetaService) {
     this.page.setPageSize(this.row);
-    this.page.setUrl('/home/schedule/ordcra');
+    this.page.setUrl('/home/true/schedule/ordcra');
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
@@ -121,6 +102,7 @@ export class OrderCraftComponent implements OnInit {
     this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
     this.order.figura = this.order.figura === '有' ? '1' : '0';
     this.order['ostatus'] = this.englishStatus(this.ostatus);
+    this.order['username'] = this.user.getName();
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);

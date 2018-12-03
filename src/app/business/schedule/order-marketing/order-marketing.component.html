@@ -8,14 +8,14 @@
 
     <div class="modal-content">
       <div class="panel-heading">
-        <span>订单详细信息</span>
+        <span>订单信息审核</span>
       </div>
       <div class="panel-body">
         <div class="row" *ngFor="let mp of modalProp;let i=index;">
           <div class="col-md-3 col-sm-6" *ngFor="let m of mp;let j=index;">
             <form class="form-inline">
               <label>{{dataName[i][j]}}:</label>
-              <input type="text" title="" value=" {{order[m]}}" [disabled]="true">
+              <input class="form-control" type="text" title="" value=" {{order[m]}}" [disabled]="true">
             </form>
           </div>
         </div>

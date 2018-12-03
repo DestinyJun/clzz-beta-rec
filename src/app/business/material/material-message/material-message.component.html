@@ -16,9 +16,9 @@
           <th *ngFor="let th of tHead">{{th}}</th>
         </tr>
         <tr *ngFor="let tb of tBody;let j =index">
-          <td>{{j}}</td>
+          <td>{{j + 1}}</td>
           <td>{{readType()}}</td>
-          <td *ngFor="let p of prop">{{tb[p]}}</td>
+          <td *ngFor="let p of prop">{{p==='status'?statusC(tb[p]):tb[p]}}</td>
           <td>
             <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#entry" (click)="modalValue(j);entry.getModalData(j)" >审核</button></td>
         </tr>

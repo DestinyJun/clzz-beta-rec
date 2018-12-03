@@ -27,6 +27,21 @@ export class ScheduleHttpService {
     return result;
   }
 
+  public normsPurpose(): Observable<any> {
+    return this.http.post('http://' + this.url + '/element/nomrsPurpose', ' ', {
+      headers: this.headers
+    });
+  }
+  public normsType(): Observable<any> {
+    return this.http.post('http://' + this.url + '/element/normsType', ' ', {
+      headers: this.headers
+    });
+  }
+  public alloyState(): Observable<any> {
+    return this.http.post('http://' + this.url + '/element/alloyState', ' ', {
+      headers: this.headers
+    });
+  }
   public OrderMobileFunction(move: object): Observable<any> {
     const body = this.parameterSerialization(move);
     console.log(body);

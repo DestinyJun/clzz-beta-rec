@@ -81,12 +81,12 @@ export class LoginIdService {
           this.setBool('loginStatus', true);
           this.setSysids(JSON.parse(data['systemInfo']));
           this.setName(name);
-          this.route.navigate(['/home']);
+          this.route.navigate(['/home/true']);
         } else if (data['status'] === '14') {
           console.log(data.sid);
           this.setObject('user', data);
           this.setSysids(JSON.parse(data['systemInfo']));
-          this.route.navigate(['/home']);
+          this.route.navigate(['/home/true']);
           this.setBool('loginStatus', true);
           this.setName(name);
         } else {
@@ -147,6 +147,30 @@ export class LoginIdService {
       console.log(position);
       this.setPosition(position);
     });
+  }
+  toDatestart(time) {
+    let Hours = time.getHours(), Minutes = time.getMinutes();
+    if (Minutes < 20) {
+      Minutes += 40;
+      Hours -= 1;
+    } else {
+      Minutes -= 20;
+    }
+    return time.getFullYear() + '-' + this.addZero(time.getMonth() + 1) + '-' + this.addZero(time.getDate())
+      + ' ' + this.addZero(Hours) + ':' + this.addZero(Minutes) + ':' + this.addZero(time.getSeconds());
+  }
+
+  toDateend(time) {
+    return time.getFullYear() + '-' + this.addZero(time.getMonth() + 1) + '-' + this.addZero(time.getDate())
+      + ' ' + this.addZero(time.getHours()) + ':' + this.addZero(time.getMinutes()) + ':' + this.addZero(time.getSeconds());
+  }
+
+  addZero(number) {
+    if (number < 10) {
+      return '0' + number;
+    } else {
+      return number;
+    }
   }
 }
 

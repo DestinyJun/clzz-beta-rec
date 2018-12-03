@@ -1,11 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {LoginIdService} from '../../../login/login-id.service';
 import {ScheduleHttpService} from '../schedule-http.service';
-import {PageService} from '../../../based/page.service';
 import {Order} from '../order';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
-
+import {dataName, modalProp} from '../order-query/queryList';
 @Component({
   selector: 'app-order-marketing',
   templateUrl: './order-marketing.component.html',
@@ -13,9 +12,9 @@ import {PageBetaService} from '../../../based/page-beta.service';
 })
 export class OrderMarketingComponent implements OnInit {
   order = new Order();
-  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tHead = ['订单编号', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
-  prop = ['oid', 'cname', 'contractname', 'exdelitime', 'submitter', 'ostatus'];
+  prop = ['oid', 'cname', 'exdelitime', 'submitter', 'ostatus'];
   btnGroup = ['审核'];
   pro_systemName = [];
   pro_system: string;
@@ -23,34 +22,14 @@ export class OrderMarketingComponent implements OnInit {
   row = 15;
   proSystemName = this.proSystem[0]['sysName'];
   ostatus: string;
-  dataName = [
-    ['合同名', '客户名', '单价(元/平方米)', '总价(元)'],
-    ['铝板类型', '铝板面积(平方米)', '铝板宽度(毫米)', '铝板厚度(微米)'],
-    ['背漆类型', '背漆成像', '背漆方案'],
-    ['底漆类型', '底漆成像', '底漆方案'],
-    ['面漆类型', '面漆成像', '面漆方案'],
-    ['是否双面涂', '国家', '省份', '城市'],
-    ['控制误差', '花纹有无', '地址'],
-    ['提交人', '修改人'],
-    [ '联系电话', '预计交货时间', '预计发货时间', '生产线']
-    ];
-  modalProp = [
-    ['contractname', 'cname', 'price', 'amount'],
-    ['altype', 'area', 'alwidth', 'althickness'],
-    ['btype', 'bccd', 'bprogram'],
-    ['ptype', 'pccd', 'pprogram'],
-    ['ftype', 'fccd', 'fprogram'],
-    [ 'doublecloat', 'country', 'province', 'city'],
-    ['deviation', 'figura', 'address'],
-    ['submitter', 'audit'],
-    ['tel', 'exdelitime', 'exshiptime', 'pro_system']
-  ];
+  dataName = dataName;
+  modalProp = modalProp;
   tips: string;
   tipsColor: string;
   constructor(private http: ScheduleHttpService, private user: LoginIdService,
               public page: PageBetaService, private activatedRoute: ActivatedRoute) {
     this.page.setPageSize(this.row);
-    this.page.setUrl('/home/schedule/ordmar');
+    this.page.setUrl('/home/true/schedule/ordmar');
     this.activatedRoute.params.subscribe(() => {
       this.page.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.SeeOrders();
@@ -96,11 +75,12 @@ export class OrderMarketingComponent implements OnInit {
 
   havePass(status) {
     this.order['auditor'] = this.user.getObject('user').realName;
-    this.order.status = status;
+    this.order['status'] = status;
+    this.order['username'] = this.user.getName();
     this.order['ostatus'] = this.englishStatus(this.ostatus);
-    this.order.pro_system = this.pro_system;
-    this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
-    this.order.figura = this.order.figura === '有' ? '1' : '0';
+    this.order['pro_system'] = this.pro_system;
+    this.order['doublecloat'] = this.order.doublecloat === '是' ? '1' : '0' ;
+    this.order['figura'] = this.order.figura === '有' ? '1' : '0';
     this.http.UpdateOrders(this.order)
       .subscribe(data => {
         console.log(data);

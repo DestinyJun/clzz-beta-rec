@@ -75,7 +75,7 @@ export class DeviceHistoryComponent implements OnInit {
             this.sensor = data['values'][0]['sensor'];
             this.sensorName = this.sensor[i]['sName'];
             this.MapChart(this.sensor[i]['sId'], this.sensor[i]['sName'],
-              this.toDatestart(new Date()), this.toDateend(new Date()));
+              this.user.toDatestart(new Date()), this.user.toDateend(new Date()));
           });
       }
     }
@@ -104,8 +104,8 @@ export class DeviceHistoryComponent implements OnInit {
       for (let i = 0; i < this.sensor.length; i++) {
         if (this.sensorName === this.sensor[i]['sName']) {
           this.MapChart(this.sensor[i]['sId'], this.sensorName,
-            this.numberTime(this.startTime) || this.toDatestart(new Date()),
-            this.numberTime(this.deadline) || this.toDateend(new Date()));
+            this.numberTime(this.startTime) || this.user.toDatestart(new Date()),
+            this.numberTime(this.deadline) || this.user.toDateend(new Date()));
           break;
         }
       }
@@ -166,6 +166,7 @@ export class DeviceHistoryComponent implements OnInit {
       return null;
     }
     const sTime = time.toString().split(' ');
+    console.log(sTime);
     return sTime[3] + '-' + this.numberMonth(sTime[1]) + '-' + sTime[2] + ' ' + sTime[4];
   }
   MapChart(body: string, SensorName: string, starttime: string, deadline: string) {

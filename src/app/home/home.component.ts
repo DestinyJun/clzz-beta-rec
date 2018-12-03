@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {leftToRight} from './sidebar/sidebarAnimation';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,10 @@ export class HomeComponent implements OnInit {
   province: Array<any>;
   city: Array<any>;
   position: any;
-  constructor() {
+  mobie: string;
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.mobie = this.activatedRoute.snapshot.params['mobie'];
+    console.log(this.mobie);
 }
 
   ToastInfo(event) {

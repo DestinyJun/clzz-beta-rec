@@ -21,7 +21,7 @@ export class VideoComponent implements OnInit {
   url = new Url().getUrl();
   vlcV: Array<any> = [];
   vlcVName: Array<string> = [];
-  urlName = 'outer_url';
+  urlName = 'outerUrl';
   toggleTitle = '当前外网';
   videoTree = {
     'name': this.proSystemName, 'icon': 'glyphicon glyphicon-triangle-right', 'open': this.baseHeight, 'color': false, 'child': [

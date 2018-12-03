@@ -90,44 +90,38 @@ export class PaintJson {
   arr2: Array<DArr> = [];
 }
 export const AlDataName = [
-  ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-  ['铝板型号', '铝板宽度(毫米)', '铝卷厚度(微米)', '铝卷密度'],
-  [ '厂家名称', '生产系统'],
+  ['原料批号', '总重量(千克)', '合金状态'],
+  ['铝板宽度(毫米)', '铝卷厚度(微米)', '厂家名称'],
+  [ '生产系统'],
 ];
 export const AlModalProp = [
-  ['purchase', 'alExpectWeight', 'alPrice', 'amount'],
-  ['alType', 'alWidth', 'alThickness', 'alDensity'],
-  [ 'supName', 'proSystem'],
+  ['purchase', 'alExpectWeight', 'alType'],
+  [ 'alWidth', 'alThickness',  'supName'],
+  ['proSystem'],
 ];
 export const AlType = [
-  ['type', 'number', 'number', 'number'],
-  ['type', 'number', 'number', 'number'],
-  [ 'type', '生产系统'],
+  ['text', 'number', 'number'],
+  ['number', 'number', 'text'],
+  [ 'text'],
 ];
 export const PtDataName = [
-  ['采购单号', '总重量(千克)', '单价(元/千克)', '总价(元)'],
-  ['油漆名称', '油漆固化物含量(%)', '油漆挥发份含量(%)', '油漆密度'],
-  ['稀释剂名称', '稀释剂总重量(千克)', '稀释剂单价(元/千克)', '稀释剂总价(元)'],
-  ['稀释剂类型', '稀释剂固化物含量(%)', '稀释剂挥发份含量(%)'],
-  ['稀释剂产品编号', '油漆类型', '油漆厂家名称', '生产系统'],
+  ['原料批号', '厂家名称'],
+  ['油漆类型', '油漆颜色', '油漆用途', '油漆总重量'],
+  ['稀释剂类型', '稀释剂用途', '稀释剂总重量(千克)', '生产系统'],
 ];
 export const PtType = [
-  ['type', 'number', 'number', 'number'],
-  ['type', 'number', 'number', 'number'],
-  ['type', 'number', 'number', 'number'],
-  ['type', 'number', 'number', 'number'],
-  ['type', 'type', 'type', 'pro_system'],
+  ['text', 'text'],
+  ['text', 'text', 'text', 'number'],
+  ['text', 'text', 'text', 'text'],
 ];
 export const PtModalProp = [
-  ['purchase', 'paExpectWeight', 'price', 'pamount'],
-  ['pName', 'pCondensate', 'pVolatile', 'pDensity'],
-  ['dName', 'diExpectWeight', 'dPrice', 'damount'],
-  ['dType', 'condensate', 'dVolatile'],
-  ['supNum', 'pType', 'supName', 'proSystem'],
+  ['purchase', 'supName'],
+  ['pType', 'paintColor', 'paintPurpose', 'paExpectWeight'],
+  ['dType', 'diluentPurpose', 'diExpectWeight', 'proSystem'],
 ];
 export const PtName = ['分桶号', '分桶重量'];
 export const PtdName = ['分桶号', '分桶重量'];
-export const PtProp = ['supId', 'paintWeight'];
+export const PtProp = ['supid', 'paintWeight'];
 export const PtdProp = ['supNum', 'diluentWeight'];
 export const AlName = ['分卷号', '分卷重量'];
 export const AlProp = ['supId', 'alWeight'];

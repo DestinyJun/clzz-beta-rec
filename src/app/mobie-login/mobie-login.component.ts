@@ -29,14 +29,14 @@ export class MobieLoginComponent implements OnInit {
             this.user.setObject('user', data);
             this.user.setSysids(JSON.parse(data['systemInfo']));
             this.user.setName(name);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/false']);
           } else if (data['status'] === '14') {
             this.user.setBool('loginStatus', true);
             this.tips = '用户已在线';
             this.user.setObject('user', data);
             this.user.setSysids(JSON.parse(data['systemInfo']));
             this.user.setName(name);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home/false']);
           } else {
             this.tips = '用户名或密码错误';
           }

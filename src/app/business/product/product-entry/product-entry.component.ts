@@ -18,8 +18,8 @@ export class ProductEntryComponent implements OnInit {
   aluminumCode: string;
   name: string;
   targetList: string;
-  tHead = ['#', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
-  prop = ['contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'warehousingInDate'];
+  tHead = ['#', '生产批号', '合同名称', '订单编号', '生产编号', '铝卷单卷编号', '铝卷单卷长度', '出产时间', '入库时间', '操作'];
+  prop = ['proBatchNumber', 'contractName', 'targetList', 'orderId', 'aluminumCode', 'aluminumLength', 'idt', 'warehousingInDate'];
   btnGroup = ['打印出库二维码', '转单'];
   tBody = [];
   proSystem = this.user.getSysids();
@@ -32,7 +32,7 @@ export class ProductEntryComponent implements OnInit {
   constructor(private http: ProductHttpService, public pageBeta: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
     this.pageBeta.setPageSize(this.row);
-    this.pageBeta.setUrl('/home/product/procent');
+    this.pageBeta.setUrl('/home/true/product/procent');
     this.activatedRoute.params.subscribe(() => {
       this.pageBeta.setPageNo(this.activatedRoute.snapshot.params['page']);
       this.initData();
