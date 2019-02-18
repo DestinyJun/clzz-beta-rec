@@ -8,16 +8,17 @@ import {TemperatureComponent} from './temperature/temperature.component';
 import {ThicknessComponent} from './thickness/thickness.component';
 import {CanDeactivateGuardService} from './can-deactivate-guard.service';
 import {TemperatureIntervalService} from './temperature-interval.service';
+import {ThicknessIntervalService} from './thickness-interval.service';
 const routes: Routes = [
   {
     path: '',
     component: MonitorComponent,
     children: [
       {path: 'sensor', component: SensorComponent, canDeactivate: [CanDeactivateGuardService]},
-      {path: 'video', component: VideoComponent, canDeactivate: [TemperatureIntervalService]},
+      {path: 'video', component: VideoComponent},
       {path: 'event/:Page', component: EventMonComponent},
-      {path: 'temperature', component: TemperatureComponent},
-      {path: 'thickness', component: ThicknessComponent}
+      {path: 'temperature', component: TemperatureComponent, canDeactivate: [TemperatureIntervalService]},
+      {path: 'thickness', component: ThicknessComponent, canDeactivate: [ThicknessIntervalService]}
     ]
   },
 ];

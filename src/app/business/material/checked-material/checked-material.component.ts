@@ -13,8 +13,8 @@ import {PageBetaService} from '../../../based/page-beta.service';
 })
 export class CheckedMaterialComponent implements OnInit {
 
-  tHead = ['采购单编号', '生产厂家', '入库时间', '重量', '状态', '操作'];
-  prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
+  tHead = ['合金状态', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+  prop = ['alType', 'purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
   btnGroup = ['详情', '打印二维码'];
   tBody = [];
   type = 0;
@@ -38,9 +38,11 @@ export class CheckedMaterialComponent implements OnInit {
   toggleType(type) {
     this.type = type;
     if (type === 0) {
-      this.prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
+      this.tHead = ['合金状态', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+      this.prop = ['alType', 'purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
     } else {
-      this.prop = ['purchase', 'supName', 'idt', 'paExpectWeight', 'status'];
+      this.tHead = ['油漆类型', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+      this.prop = ['pType', 'purchase', 'supName', 'idt', 'paExpectWeight', 'status'];
     }
     this.getData();
   }

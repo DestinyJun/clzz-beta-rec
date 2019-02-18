@@ -74,25 +74,34 @@ export class OrderMarketingComponent implements OnInit {
   }
 
   havePass(status) {
-    this.order['auditor'] = this.user.getObject('user').realName;
-    this.order['status'] = status;
-    this.order['username'] = this.user.getName();
-    this.order['ostatus'] = this.englishStatus(this.ostatus);
-    this.order['pro_system'] = this.pro_system;
-    this.order['doublecloat'] = this.order.doublecloat === '是' ? '1' : '0' ;
-    this.order['figura'] = this.order.figura === '有' ? '1' : '0';
-    this.http.UpdateOrders(this.order)
-      .subscribe(data => {
+    if (status !== 11) {
+      this.order['auditor'] = this.user.getObject('user').realName;
+      this.order['status'] = status;
+      this.order['username'] = this.user.getName();
+      this.order['ostatus'] = this.englishStatus(this.ostatus);
+      this.order['pro_system'] = this.pro_system;
+      this.order['doublecloat'] = this.order.doublecloat === '是' ? '1' : '0' ;
+      this.order['figura'] = this.order.figura === '有' ? '1' : '0';
+      this.http.UpdateOrders(this.order)
+        .subscribe(data => {
+          console.log(data);
+          this.SeeOrders();
+          if (data['status'] === '10') {
+            this.tips = '设置成功!';
+            this.tipsColor = '#5cb85c';
+          } else {
+            this.tips = '设置失败!';
+            this.tipsColor = '#d9534f';
+          }
+        });
+    } else {
+      this.http.NotpassOrders({
+        oid: this.order.oid,
+        username: this.user.getName()
+      }).subscribe(data => {
         console.log(data);
-        this.SeeOrders();
-        if (data['status'] === '10') {
-          this.tips = '设置成功!';
-          this.tipsColor = '#5cb85c';
-        } else {
-          this.tips = '设置失败!';
-          this.tipsColor = '#d9534f';
-        }
       });
+    }
   }
 
   getProSystem() {

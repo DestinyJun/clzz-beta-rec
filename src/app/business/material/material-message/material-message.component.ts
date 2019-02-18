@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MaterialHttpService} from '../material-http.service';
 import {slideToRight} from '../../../routeAnimation';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,8 +12,8 @@ import {PageBetaService} from '../../../based/page-beta.service';
   animations: [slideToRight]
 })
 export class MaterialMessageComponent implements OnInit {
-  tHead = ['类型', '采购单编号', '生产厂家', '入库时间', '总重量', '状态', '操作'];
-  prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
+  tHead = ['合金状态', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+  prop = ['alType', 'purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
   btnGroup = ['详情'];
   tBody = [];
   type = 0;
@@ -78,9 +78,11 @@ export class MaterialMessageComponent implements OnInit {
   toggleBtn(type) {
     this.type = type;
     if (type === 0) {
-      this.prop = ['purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
+      this.tHead = ['合金状态', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+      this.prop = ['alType', 'purchase', 'supName', 'idt', 'alExpectWeight', 'status'];
     } else {
-      this.prop = ['purchase', 'supName', 'idt', 'paExpectWeight', 'status'];
+      this.tHead = ['油漆类型', '采购单编号', '生产厂家', '入库时间', '总重量（吨）', '状态', '操作'];
+      this.prop = ['pType', 'purchase', 'supName', 'idt', 'paExpectWeight', 'status'];
     }
     this.getData();
   }
@@ -123,21 +125,16 @@ export class MaterialMessageComponent implements OnInit {
       case 0: this.materialHttp.updateal({
         purchase: this.material['purchase'],
         pro_auditor: this.user.getObject('user').realName,
-        status: status
+        status: status,
+        username: this.user.getName()
       }).subscribe(data => {
         console.log(data);
-        if (status === 2) {
+        if (data['status'] === '10') {
           this.qrCode();
         } else {
-          if (data['status'] === '10') {
-            this.tips = '已设置为不通过';
-            this.tipsColor = '#5cb85c';
-            this.tipHiddening();
-          } else {
-            this.tips = '设置失败';
-            this.tipsColor = '#d9534f';
-            this.tipHiddening();
-          }
+          this.tips = data['14'];
+          this.tipsColor = '#d9534f';
+          this.tipHiddening();
         }
       });
       this.getData();
@@ -145,21 +142,16 @@ export class MaterialMessageComponent implements OnInit {
       case 1: this.materialHttp.allauditpa({
         purchase: this.material['purchase'],
         pro_auditor: this.user.getObject('user').realName,
-        status: status
+        status: status,
+        username: this.user.getName()
       }).subscribe(data => {
         console.log(data);
-        if (status === 2) {
+        if (data['status'] === '10') {
           this.qrCode();
         } else {
-          if (data['status'] === '10') {
-            this.tips = '已设置为不通过';
-            this.tipsColor = '#5cb85c';
-            this.tipHiddening();
-          } else {
-            this.tips = '设置失败';
+            this.tips = data['14'];
             this.tipsColor = '#d9534f';
             this.tipHiddening();
-          }
         }
       });
         this.getData();

@@ -23,14 +23,25 @@
           <td >{{j + 1}}</td>
           <td *ngFor="let p of prop">{{i[p]}}</td>
           <td *ngIf="btnGroup[0]==='打印入库二维码'">
-            <button class="btn-success btn btn-xs" (click)="qrcodeRouteNT(j)">{{btnGroup[0]}}</button>
+            <a class="btn-success btn btn-xs" target="_blank" [routerLink]="
+            ['/qrcode', false, false, tBody[j]['orderId'],
+            tBody[j]['aluminumLength'], false,
+            tBody[j]['aluminumCode'], false]">{{btnGroup[0]}}</a>
           </td>
           <td *ngIf="btnGroup[0]==='打印出库二维码'">
-            <button class="btn-success btn btn-xs" (click)="qrcodeRouteN(j)">{{btnGroup[0]}}</button>
+            <a class="btn-success btn btn-xs" target="_blank" [routerLink]="[
+            '/qrcode', false, false, tBody[j]['orderId'],
+            tBody[j]['aluminumLength'], tBody[j]['targetList'],
+            tBody[j]['aluminumCode'], false
+            ]">{{btnGroup[0]}}</a>
             <button (click)="zhuan(j)" class="btn-danger btn btn-xs" data-toggle="modal" data-target="#menuTable">{{btnGroup[1]}}</button>
           </td>
           <td *ngIf="btnGroup[0]==='打印已出库二维码'">
-            <button class="btn-success btn btn-xs" (click)="qrcodeRoute(j)">{{btnGroup[0]}}</button>
+            <a class="btn-success btn btn-xs" target="_blank" [routerLink]="[
+              '/qrcode', false, false, tBody[j]['orderId'],
+              tBody[j]['aluminumLength'], tBody[j]['targetList'],
+              tBody[j]['aluminumCode'], tBody[j]['city']
+            ]">{{btnGroup[0]}}</a>
           </td>
         </tr>
         </tbody>

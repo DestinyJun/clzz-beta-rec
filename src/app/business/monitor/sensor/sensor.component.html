@@ -31,7 +31,7 @@
 
 <!-- 模态框-->
 
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div (click)="deleteInterval()" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div echarts [options]="option" (chartInit)="ReSize($event)" style="width: 100%;height:600px;background-color: #21333f; text-align: center" ></div>

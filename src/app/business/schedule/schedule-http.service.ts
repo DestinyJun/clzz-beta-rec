@@ -49,7 +49,12 @@ export class ScheduleHttpService {
       headers: this.headers
     });
   }
-
+  public NotpassOrders(obj: object): Observable<any> {
+    const body = this.parameterSerialization(obj);
+    return this.http.post('http://' + this.url + '/element/NotpassOrders', body, {
+      headers: this.headers
+    });
+  }
   public OrderAudited(sysIds): Observable<any> {
     const body = this.parameterSerialization({
       sysIds: sysIds

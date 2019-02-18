@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpService} from '../../../based/http.service';
 import {ActivatedRoute} from '@angular/router';
 import {PageBetaService} from '../../../based/page-beta.service';
@@ -15,7 +15,7 @@ export class EventMonComponent implements OnInit {
   prop: Array<string> = ['event_id', 'event_type', 'pro_system', 'event_name', 'event_date', 'event_attachment'];
   tHead: Array<string> = ['#', 'ID', '事件类型', '所在生产线', '事件简述', '发生时间', '附件'];
   constructor(private http: HttpService, public pageService: PageBetaService, private activatedRoute: ActivatedRoute) {
-    this.pageService.setUrl('/home/monitor/event');
+    this.pageService.setUrl('/home/true/monitor/event');
     this.activatedRoute.params.subscribe(() => {
       this.pageService.setPageNo(this.activatedRoute.snapshot.params['Page']);
       this.getData();

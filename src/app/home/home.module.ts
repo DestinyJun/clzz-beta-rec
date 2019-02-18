@@ -11,12 +11,15 @@ import { MessageRemindComponent } from '../message-remind/message-remind.compone
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import {PositionNameService} from '../remind/position-name.service';
 import {MainModule} from '../business/main/main.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutersModule,
-    MainModule
+    MainModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     HomeComponent,

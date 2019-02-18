@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Url} from '../../getUrl';
 
@@ -35,8 +35,9 @@ export class QrcodeComponent implements OnInit {
       this.targetlist = this.route.snapshot.params['targetlist'];
       this.aluminumlength = this.route.snapshot.params['aluminumlength'];
       this.city = this.route.snapshot.params['city'];
-      this.value = 'http://' + '120.78.138.104' + '/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode + '/'
+      this.value = 'http://www.gyrbi.com/ColorAlum/#/mobie/' + this.targetlist + '/' + this.aluminumcode + '/'
         + this.city + '/' + this.oid;
+      console.log(this.value);
     } else {
       this.mode = this.route.snapshot.params['mode'];
       console.log(this.mode !== '0');

@@ -11,9 +11,9 @@
           <img class="rounded-circle" src="./assets/images/Nasta.png" alt="">
           <div class="user-photo-toggle" [hidden]="infoToggle">
             <ul class="list-group">
-              <li class="list-group-item" aria-hidden="true">
+              <li class="list-group-item" aria-hidden="true" [routerLink]="['/home/true/perInfo']">
                 <i class="fa fa-user-o"></i>
-                <span [routerLink]="['/home/perInfo']">个人信息</span>
+                <span >个人信息</span>
               </li>
               <li class="list-group-item" aria-hidden="true">
                 <i class="fa fa-cog"></i>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>/
 </nav>
 
 <div class="progressbar"></div>

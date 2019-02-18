@@ -71,7 +71,7 @@ export class OrderQueryComponent implements OnInit {
       cname: ['', Validators.required],
       altype: [''],
       alwidth: ['', Validators.required],
-      alweight: ['', Validators.required],
+      alWeight: ['', Validators.required],
       althickness: ['', Validators.required],
       btype: [''],
       bprogram: ['60'],
@@ -105,7 +105,7 @@ export class OrderQueryComponent implements OnInit {
   }
   dateZero() {
     const date = new Date();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     let Omonth: string, Oday: string;
     if (month < 10) {

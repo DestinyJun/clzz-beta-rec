@@ -2,40 +2,48 @@
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>
-      <tr>
-        <td>项目名</td><td>{{order?.cname}}</td><td>合金状态</td><td>{{order?.altype}}</td>
+      <tr *ngFor="let odp of orderProp;let i = index">
+        <td>{{orderName[i]}}</td><td>{{order[odp]}}</td>
       </tr>
       <tr>
-        <td>铝卷宽度(毫米)</td><td>{{order?.alwidth}}</td><td>铝卷厚度(微米)</td><td>{{order?.althickness}}</td>
+        <td colspan="2" style="text-align: center">原材料-铝卷信息</td>
+      </tr>
+      <tr *ngFor="let rap of rawAProp;let i = index">
+        <td>{{rawAName[i]}}</td><td>{{rawAluminum[rap]}}</td>
       </tr>
       <tr>
-        <td>背漆类型</td><td>{{order?.btype}}</td><td>底漆类型</td><td>{{order?.ptype}}</td>
+        <td colspan="2" style="text-align: center">原材料-油漆信息</td>
+      </tr>
+      <tr *ngFor="let rpp of rawPProp;let i = index">
+        <td>{{rawPName[i]}}</td><td>{{rawPaint[rpp]}}</td>
       </tr>
       <tr>
-        <td>面漆类型</td><td>{{order?.ftype}}</td><td>背漆颜色</td><td>{{order?.backColor}}</td>
+        <td colspan="2" style="text-align: center">原材料-稀释剂信息</td>
       </tr>
-      <tr>
-        <td>底漆颜色</td><td>{{order?.primerColor}}</td><td>面漆颜色</td><td>{{order?.finishColor}}</td>
-      </tr>
-      <tr>
-        <td>背漆上机粘度</td><td>{{order?.bprogram}}</td><td>底漆上机粘度</td><td>{{order?.pprogram}}</td>
-      </tr>
-      <tr>
-        <td>面漆上机粘度</td><td>{{order?.fprogram}}</td><td>是否双面</td><td>{{order?.doublecloat}}</td>
-      </tr>
-      <tr>
-        <td>花纹有无</td><td>{{order?.figura}}</td><td>预计交货时间</td><td>{{order?.exdelitime}}</td>
-      </tr>
-      <tr>
-        <td>预计发货时间</td><td>{{order?.exshiptime}}</td><td>联系电话</td><td>{{order?.tel}}</td>
+      <tr *ngFor="let rdp of rawDProp;let i = index">
+        <td>{{rawDName[i]}}</td><td>{{rawDiluent[rdp]}}</td>
       </tr>
       </tbody>
     </table>
   </div>
-  <div style="text-align: center">
+  <div style="text-align: center; padding-bottom: 20px">
     <div echarts [options]="options" style="height: 400px"></div>
-    <h5>    贵州中铝彩铝科技有限公司</h5>
-    <h5>  贵阳红鸟智能技术服务有限公司</h5>
   </div>
+  <h3 style="text-align: center ">操作数据内容</h3>
+  <table class="table table-bordered" *ngFor="let opHD of operationsHistoryDTOS">
+  <tr>
+    <td>操作内容</td><td colspan="2">{{opHD.operations}}</td>
+  </tr>
+  <tr>
+    <td>值</td><td colspan="2">{{opHD.value}}</td>
+  </tr>
+  <tr>
+    <td>操作日期</td><td colspan="2">{{opHD.datetime}}</td>
+  </tr>
+  </table>
+<div style="text-align: center">
+  <h5><img src="./assets/images/clzl.ico" width="20"> 贵州中铝彩铝科技有限公司</h5>
+  <h5><img src="./assets/images/rbi.ico" width="20"> 贵阳红鸟智能技术服务有限公司</h5>
+</div>
 </div>
 

@@ -61,7 +61,7 @@
         <div class="form-inline" style="display: inline-block;text-align: center;padding-top: 10px">
           <div *ngFor="let norN of normalNames;let i=index">
             <label>{{norN}}: </label>
-            <input title="" [ngStyle]="{'color': normalValues[i]==='异常'?'red':''}" value="{{normalValues[i]}}">
+            <input title="" class="form-control" [ngStyle]="{'color': normalValues[i]==='异常'?'red':''}" value="{{normalValues[i]}}" [disabled]="true">
           </div>
         </div>
         <div class="row" style="text-align: left;margin: 0 10px">

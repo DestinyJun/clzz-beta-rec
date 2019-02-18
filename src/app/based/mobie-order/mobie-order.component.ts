@@ -18,15 +18,35 @@ export class MobieOrderComponent implements OnInit {
   pt = [];
   dateTime = [];
   url = new Url().getUrl();
-  order: any;
+  order = new Order();
+  operationsHistoryDTOS = [];
+  rawAluminum = new RawAluminum();
+  rawPaint = new RawPaint();
+  rawDiluent = new RawDiluent();
+  orderProp = [
+    'contractName', 'alType', 'aluminumLength', 'alWidth', 'alThickness', 'backType',
+    'primerType', 'finishType', 'backColor', 'primerColor', 'finishColor', 'backProgram',
+    'primerProgram', 'finishProgram', 'doubleCloat', 'figura', 'exDeliveryTime', 'exShipTime',
+    'tel', 'productionTime'
+  ];
+  orderName = [
+    '项目名', '合金状态', '单卷长度(米)', '铝卷宽度(毫米)', '铝卷厚度(微米)', '背漆类型',
+    '底漆类型', '面漆类型', '背漆颜色', '底漆颜色', '面漆颜色', '背漆上机粘度',
+    '底漆上机粘度', '面漆上机粘度', '是否双面', '花纹有无', '预计交货时间', '预计发货时间',
+    '联系电话', '出产时间'
+  ];
+  rawAProp = ['alId', 'purchase', 'supplier', 'alWeight', 'alType', 'idt', 'upt'];
+  rawAName = ['铝卷编号', '原料批号', '厂家名称', '单卷重量', '合金状态', '入库时间', '出库时间'];
+  rawPProp = ['purchase', 'paintPurpose', 'paintColor', 'paintType', 'supplier', 'idt', 'udt'];
+  rawPName = ['原料批号', '油漆用途', '油漆颜色', '油漆类型', '生产厂家', '入库时间', '出库时间'];
+  rawDProp = ['purchase', 'supplier', 'diluentType', 'diluentPurpose', 'idt', 'upt'];
+  rawDName = ['采购批号', '生产厂家', '稀释剂类型', '稀释剂用途', '入库时间', '出库时间'];
   city: string;
   targetlist: string;
   oid: string;
   aluminumcode: string;
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, private route: ActivatedRoute, private user: LoginIdService) {
-    console.log(this.user);
-    console.log(this.order);
     this.city = this.route.snapshot.params['city'];
     if (this.city !== 'false') {
       this.ionViewWillEnter(this.city);
@@ -39,13 +59,20 @@ export class MobieOrderComponent implements OnInit {
       aluminumCode: this.aluminumcode,
       targetList: this.targetlist
     }).subscribe(data => {
+      console.log(data);
+      this.order = data['values']['finishProduceDataDTOS'];
       for (let i = 0; i < data['values']['homePageThicknessDTOS'].length; i++) {
         this.bt[i] = data['values']['homePageThicknessDTOS'][i]['bottomThickness'];
         this.ft[i] = data['values']['homePageThicknessDTOS'][i]['finishThickness'];
         this.pt[i] = data['values']['homePageThicknessDTOS'][i]['plateThickness'];
         this.dateTime[i] = data['values']['homePageThicknessDTOS'][i]['datetime'];
-        // this.order = data['finishProduceDataDTOS'];
       }
+      this.operationsHistoryDTOS = data['values']['operationsHistoryDTOS'];
+      this.operationsHistoryDTOS['doubleCloat'] = this.operationsHistoryDTOS['doubleCloat'] === 1 ? '是' : '否';
+      this.operationsHistoryDTOS['figura'] = this.operationsHistoryDTOS['figura'] === 1 ? '有' : '无';
+      this.rawPaint = data['values']['rawPaint'];
+      this.rawDiluent = data['values']['rawDiluent'];
+      this.rawAluminum = data['values']['rawAluminum'];
       this.initOption();
     });
   }
@@ -86,10 +113,6 @@ export class MobieOrderComponent implements OnInit {
     return body;
   }
   ngOnInit() {
-    this.FindOrdersId({oid: this.oid}).subscribe(data => {
-      console.log(data);
-      this.order = data['values'][0];
-    });
   }
   initOption() {
     this.options = {
@@ -135,33 +158,28 @@ export class MobieOrderComponent implements OnInit {
           }
         }
       }],
-      series: [{
-        name: '铝板厚度',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: this.pt
-      },
+      series: [
+        {
+          name: '铝板厚度',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: this.pt
+        },
         {
           name: '底漆厚度',
           type: 'line',
           stack: '总量',
-          areaStyle: {normal: {color: '#269b97'}},
+          areaStyle: {normal: {color: '#082d37'}},
           data: this.bt
         },
         {
           name: '面漆厚度',
           type: 'line',
           stack: '总量',
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
           areaStyle: {normal: {}},
           data: this.ft
-        }
+        },
       ]
     };
   }
@@ -190,4 +208,53 @@ export class MobieOrderComponent implements OnInit {
     }
     return result;
   }
+}
+class Order {
+  contractName: string;
+  alType: string;
+  alWidth: string;
+  alThickness: string;
+  backType: string;
+  primerType: string;
+  finishType: string;
+  backColor: string;
+  primerColor: string;
+  finishColor: string;
+  backProgram: string;
+  primerProgram: string;
+  finishProgram: string;
+  doubleCloat: number;
+  figura: number;
+  exDeliveryTime: string;
+  exShipTime: string;
+  tel: string;
+  aluminumLength: string;
+  proBatchNumber: string;
+  productionTime: string;
+}
+class RawAluminum {
+  alId: string;
+  purchase: string;
+  supplier: string;
+  alWeight: string;
+  alType: string;
+  idt: string;
+  upt: string;
+}
+class RawPaint {
+  purchase: string;
+  paintPurpose: string;
+  paintColor: string;
+  paintType: string;
+  supplier: string;
+  idt: string;
+  udt: string;
+}
+class RawDiluent {
+  purchase: string;
+  supplier: string;
+  diluentType: string;
+  diluentPurpose: string;
+  idt: string;
+  upt: string;
 }

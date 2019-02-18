@@ -30,7 +30,11 @@ export const modalName = [
   ['面漆干膜厚度(微米)', '面漆干膜厚度误差(微米)', '面漆湿膜厚度(微米)', '面漆湿膜厚度误差(微米)'],
 ];
 
-
+export const objectName = [
+  'bottom_dry_thickness', 'bottom_dry_thickness_d', 'bottom_wet_thickness', 'bottom_wet_thickness_d',
+  'back_dry_thickness', 'back_dry_thickness_d', 'back_wet_thickness', 'back_wet_thickness_d',
+  'surface_dry_thickness', 'surface_dry_thickness_d', 'surface_wet_thickness', 'surface_wet_thickness_d',
+];
 
 
 

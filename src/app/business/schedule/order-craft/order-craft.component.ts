@@ -24,8 +24,8 @@ export class OrderCraftComponent implements OnInit {
   ostatus: string;
   oid: string;
   tHead = ['订单编号', '项目名称', '预计发货时间', '录入人员', '订单状态', '操作'];
-  tBody = [];
   prop = ['oid', 'cname', 'exdelitime', 'submitter', 'ostatus'];
+  tBody = [];
   btnGroup = ['审核'];
   dataName = dataName;
   modalProp = modalProp;
@@ -70,11 +70,13 @@ export class OrderCraftComponent implements OnInit {
     }
   }
   modalValue(index) {
+    console.log(this.getProSystemName(this.tBody[index]['pro_system']));
     this.ostatus = this.tBody[index]['ostatus'];
     this.order = this.tBody[index];
     this.tBody[index]['doublecloat'] = this.tBody[index]['doublecloat'] === 1 ? '是' : '否';
     this.tBody[index]['figura'] = this.tBody[index]['figura'] === 1 ? '有' : '无';
-    this.pro_system = this.getProSystemName(this.tBody[index]['pro_system']);
+    this.pro_system = this.tBody[index]['pro_system'];
+    this.tBody[index]['pro_system'] = this.getProSystemName(this.tBody[index]['pro_system']);
     this.oid = this.tBody[index]['oid'];
   }
   getProSystem() {
@@ -96,25 +98,34 @@ export class OrderCraftComponent implements OnInit {
   }
 
   havePass(status) {
-    this.order.pro_auditor = this.user.getObject('user').realName;
-    this.order.pro_system = this.getProSystemOid();
-    this.order.status = status;
-    this.order.doublecloat = this.order.doublecloat === '是' ? '1' : '0' ;
-    this.order.figura = this.order.figura === '有' ? '1' : '0';
-    this.order['ostatus'] = this.englishStatus(this.ostatus);
-    this.order['username'] = this.user.getName();
-    this.http.UpdateOrders(this.order)
-      .subscribe(data => {
+    if (status !== 11) {
+      this.order['auditor'] = this.user.getObject('user').realName;
+      this.order['status'] = status;
+      this.order['username'] = this.user.getName();
+      this.order['ostatus'] = this.englishStatus(this.ostatus);
+      this.order['pro_system'] = this.pro_system;
+      this.order['doublecloat'] = this.order.doublecloat === '是' ? '1' : '0' ;
+      this.order['figura'] = this.order.figura === '有' ? '1' : '0';
+      this.http.UpdateOrders(this.order)
+        .subscribe(data => {
+          console.log(data);
+          this.SeeOrders();
+          if (data['status'] === '10') {
+            this.tips = '设置成功!';
+            this.tipsColor = '#5cb85c';
+          } else {
+            this.tips = '设置失败!';
+            this.tipsColor = '#d9534f';
+          }
+        });
+    } else {
+      this.http.NotpassOrders({
+        oid: this.order.oid,
+        username: this.user.getName()
+      }).subscribe(data => {
         console.log(data);
-        this.SeeOrders();
-        if (data['status'] === '10') {
-          this.tips = '设置成功!';
-          this.tipsColor = '#5cb85c';
-        } else {
-          this.tips = '设置失败!';
-          this.tipsColor = '#d9534f';
-        }
       });
+    }
   }
   initPageSearch() {
     this.page.setBoolUrl(false);

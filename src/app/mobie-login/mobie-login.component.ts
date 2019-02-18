@@ -49,7 +49,7 @@ export class MobieLoginComponent implements OnInit {
             this.user.setBool('loginStatus', true);
             this.user.setSysids(JSON.parse(data['systemInfo']));
             this.user.setName(name);
-            this.router.navigate(['/home/monitor/sensor']);
+            this.router.navigate(['/home/false/monitor/sensor']);
           } else if (data['status'] === '14') {
             this.tips = '用户已在线';
             this.user.setObject('user', data);
@@ -57,7 +57,7 @@ export class MobieLoginComponent implements OnInit {
             this.user.setSysids(JSON.parse(data['systemInfo']));
             this.user.setName(name);
             console.log(14);
-            this.router.navigate(['/home/monitor/sensor']);
+            this.router.navigate(['/home/false/monitor/sensor']);
           } else {
             console.log(15);
             this.tips = '用户名或密码错误';

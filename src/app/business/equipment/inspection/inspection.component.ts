@@ -31,7 +31,7 @@ export class InspectionComponent implements OnInit {
   private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
   constructor(private http: HttpClient, public page: PageBetaService,
               private activatedRoute: ActivatedRoute, private user: LoginIdService) {
-    this.page.setUrl('/home/equipment/inspection');
+    this.page.setUrl('/home/true/equipment/inspection');
     this.page.setPageSize(this.row);
     this.boolUrl = true;
     console.log(this.page.getPageNo());
@@ -69,10 +69,11 @@ export class InspectionComponent implements OnInit {
   pictureIndex(index) {
     this.imgUrl = this.tBody[index]['imgUrl'];
     this.imageNames = this.tBody[index]['imageNames'];
-    console.log(this.tBody[index]['normal']);
-    for (let i = 0; i < this.tBody[index]['normal'].length; i += 2) {
-      this.normalNames[i / 2] = this.tBody[index]['normal'][i];
-      this.normalValues[i / 2] = this.tBody[index]['normal'][i + 1];
+    const normal = JSON.parse(this.tBody[index]['normal']);
+    console.log(normal);
+    for (let i = 0; i < normal.length; i += 2) {
+      this.normalNames[i / 2] = normal[i];
+      this.normalValues[i / 2] = normal[i + 1];
     }
   }
 

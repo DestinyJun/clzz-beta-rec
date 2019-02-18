@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {CanDeactivate} from '@angular/router';
-import {TemperatureComponent} from './temperature/temperature.component';
+import {ThicknessComponent} from './thickness/thickness.component';
 
 @Injectable()
-export class TemperatureIntervalService implements CanDeactivate<TemperatureComponent> {
+export class ThicknessIntervalService implements CanDeactivate<ThicknessComponent> {
   canDeactivate(
-    component: TemperatureComponent
+    component: ThicknessComponent
   ) {
     console.log(11);
     clearInterval(component.interval);

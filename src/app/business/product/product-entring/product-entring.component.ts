@@ -10,8 +10,8 @@ import {LoginIdService} from '../../../login/login-id.service';
   styleUrls: ['./product-entring.component.css'],
 })
 export class ProductEntringComponent implements OnInit {
-  tHead = ['#', '生产批号', '合同名称', '订单编号', '铝卷单卷编号', '铝卷单卷长度(米)', '单卷出产时间', '操作'];
-  prop = ['proBatchNumber', 'contractName', 'orderId', 'aluminumCode', 'aluminumLength', 'idt'];
+  tHead = ['#', '生产批号', '项目名称', '订单编号', '铝卷单卷编号', '铝卷单卷长度(米)', '单卷出产时间', '操作'];
+  prop = ['proBatchNumber', 'customerName', 'orderId', 'aluminumCode', 'aluminumLength', 'idt'];
   btnGroup = ['打印入库二维码'];
   tBody = [];
   proSystem = this.user.getSysids();

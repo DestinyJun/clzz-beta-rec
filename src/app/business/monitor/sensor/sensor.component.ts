@@ -30,8 +30,6 @@ export class SensorComponent implements OnInit {
     console.log(this.user.getSysids()[0]);
     this.DeviceSensorInit(this.ModularId);
     this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
-
-    setTimeout(() => this.interval, 1000);
     // setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
     // setInterval(() => console.log(2), 1000);
   }
@@ -65,7 +63,7 @@ export class SensorComponent implements OnInit {
         break;
       }
     }
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
     // this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
   }
   selectModular(mName) {
@@ -221,8 +219,8 @@ export class SensorComponent implements OnInit {
   }
   modal2(value) {
     clearInterval(this.modal3);
-    // this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
-      // this.user.toDatestart(new Date()), this.user.toDateend(new Date())), 2000);
+    this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
+      this.user.toDatestart(new Date()), this.user.toDateend(new Date())), 2000);
     console.log(value);
   }
   ReSize(event) {

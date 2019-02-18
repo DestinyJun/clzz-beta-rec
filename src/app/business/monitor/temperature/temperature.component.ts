@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {MonitorHttpService} from '../monitor-http.service';
 import * as echarts from 'echarts';
 import {LoginIdService} from '../../../login/login-id.service';
@@ -21,7 +21,7 @@ export class TemperatureComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.interval = setInterval(() => this.initSensor(), 10000);
+    this.interval = setInterval(() => {this.initSensor(); console.log(10); }, 10000);
   }
   selectSystem(name) {
     if (name !== this.proSystemName) {

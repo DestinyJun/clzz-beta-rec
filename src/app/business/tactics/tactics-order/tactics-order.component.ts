@@ -55,8 +55,14 @@ export class TacticsOrderComponent implements OnInit {
 
   pipeChart() {
     this.pipe = {
+      grid: {
+        left: '3%',
+        right: '4%',
+        top: '15px',
+        containLabel: true
+      },
       legend: {},
-      backgroundColor: '#269b97',
+      backgroundColor: '#05616c',
       series: [
         {
           type: 'pie',
@@ -71,9 +77,19 @@ export class TacticsOrderComponent implements OnInit {
   lineChart() {
     this.line = {
       legend: {},
-      backgroundColor: '#1F9B8F',
+      backgroundColor: '#05616c',
       xAxis: {
-        data: this.xAxisData
+        data: this.xAxisData,
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
+        }
       },
       tooltip: {
         trigger: 'axis',
@@ -82,7 +98,18 @@ export class TacticsOrderComponent implements OnInit {
         backgroundColor: ''
       },
       formatter: '{c}',
-      yAxis: {gridIndex: 0},
+      yAxis: {gridIndex: 0,
+        axisLabel: {
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#fff'
+          }
+        }
+      },
       series: [
         {type: 'line', smooth: true, data: this.data[0]},
         {type: 'line', smooth: true, data: this.data[1]},
@@ -107,10 +134,12 @@ export class TacticsOrderComponent implements OnInit {
     return data;
   }
   chartMouseOver(event) {
+    console.log(1);
     this.pipe.series[0].data = this.pieData(event.dataIndex);
     this.updateData = {
       series: this.pipe.series
     };
+    console.log(this.updateData);
   }
 
   initProductions(data: Array<any>) {

@@ -18,6 +18,7 @@ import {SensorService} from './sensor/sensor.service';
 import {PageBetaService} from '../../based/page-beta.service';
 import {FormsModule} from '@angular/forms';
 import {TemperatureIntervalService} from './temperature-interval.service';
+import {ThicknessIntervalService} from './thickness-interval.service';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import {TemperatureIntervalService} from './temperature-interval.service';
     ThicknessComponent
   ],
   providers: [HttpService, MonitorHttpService, PageBetaService,
-    SensorService, CanDeactivateGuardService, TemperatureIntervalService],
+    SensorService, CanDeactivateGuardService, TemperatureIntervalService, ThicknessIntervalService],
   exports: [SensorComponent]
 })
 export class MonitorModule { }

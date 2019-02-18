@@ -23,7 +23,7 @@ export const propType = [
 ];
 export const modalProp = [
   ['cname'],
-  ['altype', 'alweight', 'alwidth', 'althickness'],
+  ['altype', 'alWeight', 'alwidth', 'althickness'],
   ['btype', 'ptype', 'ftype'],
   ['backColor', 'primerColor', 'finishColor'],
   ['bprogram', 'pprogram', 'fprogram'],

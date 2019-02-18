@@ -10,9 +10,9 @@ import {PageBetaService} from '../../../based/page-beta.service';
   styleUrls: ['./order-adjustment.component.css'],
 })
 export class OrderAdjustmentComponent implements OnInit {
-  tHead = ['订单编号', '客户名称', '合同名称', '预计发货时间', '录入人员', '订单状态', '操作'];
+  tHead = ['订单编号', '项目名称', '预计发货时间', '录入人员', '订单状态', '操作'];
   tBody = [];
-  prop = ['orderId', 'cName', 'contractName', 'exdelitime', 'submitter', 'status'];
+  prop = ['orderId', 'cName', 'exdelitime', 'submitter', 'status'];
   btnGroup = ['下移'];
   oid = new Oid();
   proSystem = this.user.getSysids();

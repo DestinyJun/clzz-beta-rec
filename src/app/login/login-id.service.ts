@@ -15,7 +15,7 @@ export class LoginIdService {
     this.sessionStorage[key] = value;
   }
 
-  public get(key: string): string | boolean {
+  public get(key: string): any {
     return this.sessionStorage[key] || false;
   }
   public setName(value: string | boolean): void {

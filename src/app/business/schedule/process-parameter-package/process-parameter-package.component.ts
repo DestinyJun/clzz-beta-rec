@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {modalName, modalProp} from './parameter';
+import {modalName, modalProp, objectName} from './parameter';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Url} from '../../../getUrl';
@@ -13,9 +13,11 @@ export class ProcessParameterPackageComponent implements OnInit {
 
   modalProp = modalProp;
   modalName = modalName;
+  objectName = objectName;
   process: FormGroup;
   url = new Url().getUrl();
   modify = false;
+  processObject: object;
   @Input() oid: string;
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.process = this.formBuilder.group({
@@ -85,12 +87,15 @@ export class ProcessParameterPackageComponent implements OnInit {
     this.http.post('http://' + this.url + '/element-admin/technics/product-data-query', body).subscribe(data => {
       console.log(data);
       this.process.patchValue(data['data']);
+      this.processObject = data['data'];
     });
   }
   modifyProcess() {
-    const body: object = this.process.value;
+    const body: object = this.processObject;
     body['order_id'] = this.oid;
-    console.log(this.process);
+    for (let i = 0; i < this.objectName.length; i++) {
+      body[this.objectName[i]] = this.process.value[this.objectName[i]];
+    }
     this.http.post('http://' + this.url + '/element-admin/technics/product-data-alert', body).subscribe(data => {
       console.log(data);
     });

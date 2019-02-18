@@ -1,8 +1,7 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginIdService} from '../../../login/login-id.service';
 import {Url} from '../../../getUrl';
-import {options} from './option';
 
 @Component({
   selector: 'app-production',
@@ -14,7 +13,7 @@ export class ProductionComponent implements OnInit {
   url = new Url().getUrl();
   options: any;
   ModalChart: any;
-  length = 0;
+  length: number;
   bt = [];
   ft = [];
   pt = [];
@@ -31,9 +30,10 @@ export class ProductionComponent implements OnInit {
         this.ft[i] = data['values']['thickness'][i]['finishThickness'];
         this.pt[i] = data['values']['thickness'][i]['plateThickness'];
         this.dateTime[i] = data['values']['thickness'][i]['datetime'];
-        this.length = data['values']['length'];
       }
+      this.length = data['values']['length'];
       this.initOption();
+      console.log(this.length);
       });
   }
 
@@ -43,7 +43,6 @@ export class ProductionComponent implements OnInit {
     this.http.post('http://' + this.url + '/element/find/thickness/sensor', 'sysids=' +
       this.user.getObject('user').sysids, {headers: this.headers}).subscribe(data => {
       console.log(data);
-      const length = data['values'].length;
     });
   }
   initOption() {
@@ -90,19 +89,20 @@ export class ProductionComponent implements OnInit {
           }
         }
       }],
-      series: [{
-        name: '底漆厚度',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: this.bt
-      },
+      series: [
         {
           name: '铝板厚度',
           type: 'line',
           stack: '总量',
-          areaStyle: {normal: {color: '#269b97'}},
+          areaStyle: {normal: {}},
           data: this.pt
+        },
+        {
+          name: '底漆厚度',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {color: '#269b97'}},
+          data: this.bt
         },
         {
           name: '面漆厚度',
@@ -116,7 +116,7 @@ export class ProductionComponent implements OnInit {
           },
           areaStyle: {normal: {}},
           data: this.ft
-        }
+        },
       ]
     };
   }
@@ -137,7 +137,7 @@ export class ProductionComponent implements OnInit {
     setTimeout(() => this.ModalChart.resize(), 200);
   }
   parameterSerialization(obj: object): string {
-    let result: string;
+    let result = '';
     for (const prop in obj) {
       if (obj.hasOwnProperty(prop)) {
         if (!result) {
