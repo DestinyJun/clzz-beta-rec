@@ -11,7 +11,7 @@ import {PositionNameService} from '../../remind/position-name.service';
 export class SidebarComponent implements OnInit {
 
   public navLists: NavList[] = [
-    new NavList('首页', 'main',  false, [], true),
+    new NavList('首页', 'fa fa-home',  false, [], true),
     new NavList('生产监视', 'fa fa-laptop', false, [
       new NavListChild('感知数据即时监视', false, 'monitor/sensor'),
       new NavListChild('视频数据即时监视', false, 'monitor/video'),
