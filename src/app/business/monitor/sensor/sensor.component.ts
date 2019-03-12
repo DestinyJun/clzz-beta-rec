@@ -18,7 +18,7 @@ export class SensorComponent implements OnInit {
   ModalChart: any;
   DeviceSensorJson: Array<object> = [];
   DeviceSensor: Array<any> = [];
-  option: any;
+  option: any = {};
   Datas: any;
   interval: any;
   modal3: any;
@@ -27,9 +27,8 @@ export class SensorComponent implements OnInit {
     this.ModularInit();
   }
   ngOnInit() {
-    console.log(this.user.getSysids()[0]);
     this.DeviceSensorInit(this.ModularId);
-    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
+    this.interval = setInterval(() => {this.DeviceSensorInit(this.ModularId);}, 3000);
     // setInterval(() => {this.DeviceSensorInit(this.ModularId); console.log(1); }, 3000);
     // setInterval(() => console.log(2), 1000);
   }
@@ -39,9 +38,7 @@ export class SensorComponent implements OnInit {
       if (this.proSystemName === this.proSystem[i]['sysName']) {
         this.http.findSystemModular({sysIds: this.proSystem[i]['sysId']})
           .subscribe( data => {
-            console.log(data);
             this.Modular = data['values'];
-            console.log(this.Modular);
             if (this.Modular !== null) {
               this.ModularName = this.Modular[0]['mName'];
               this.ModularIdInit();
@@ -67,7 +64,6 @@ export class SensorComponent implements OnInit {
     // this.interval = setInterval(() => this.DeviceSensorInit(i['mid']), 3000);
   }
   selectModular(mName) {
-    console.log(mName, this.ModularName);
     if (mName !== this.ModularName) {
       this.ModularName = mName;
       this.ModularIdInit();
@@ -81,10 +77,8 @@ export class SensorComponent implements OnInit {
   }
 // 获取模块下设备传感器最新值-id
   DeviceSensorInit(mId) {
-    console.log(mId);
     this.http.FindDevicenameSensornameSensordata({mId: mId})
       .subscribe(data => {
-        console.log(data);
         if (data['values'] === null) {
           this.DeviceSensorInitRec(mId);
         } else {
@@ -97,9 +91,7 @@ export class SensorComponent implements OnInit {
   DeviceSensorInitRec(mId) {
     this.http.findDeviceNameSensorName({mId: mId})
       .subscribe(data => {
-        console.log(data);
         this.DeviceSensorJson = data['values'];
-        console.log(this.DeviceSensorJson);
         this.oneTwo();
       });
   }
@@ -122,7 +114,6 @@ export class SensorComponent implements OnInit {
         two: null
       };
     }
-    console.log(this.DeviceSensor);
   }
   MapChart(sId: string, SensorName: string, starttime: string, deadline: string) {
     this.Datas = this.http.findHistorySensorData({sId: sId, startTime: starttime, deadline: deadline});
@@ -138,8 +129,6 @@ export class SensorComponent implements OnInit {
           data[j] = (d['values'][j]['sData']);
         }
       } else if (d['status'] === '13') {
-        console.log(d);
-        console.log('id不存在');
       }
       this.option = {
         tooltip: {
@@ -186,7 +175,7 @@ export class SensorComponent implements OnInit {
           }
         },
         series: [
-          {
+          /*{
             name: '传感器数据',
             type: 'line',
             smooth: true,
@@ -208,8 +197,8 @@ export class SensorComponent implements OnInit {
                 }])
               }
             },
-            data: data
-          }
+            data: null
+          }*/
         ]
       };
     });
@@ -221,10 +210,10 @@ export class SensorComponent implements OnInit {
     clearInterval(this.modal3);
     this.modal3 = setInterval(() => this.MapChart(value.sId, value.name,
       this.user.toDatestart(new Date()), this.user.toDateend(new Date())), 2000);
-    console.log(value);
   }
   ReSize(event) {
     this.ModalChart = event;
+    console.log(event);
   }
   ReSizeInit() {
     setTimeout(() => this.ModalChart.resize(), 500);

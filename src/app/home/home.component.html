@@ -1,14 +1,16 @@
 <div style="padding-left: 0;">
-  <app-header style="z-index: 1000" (sidebar)="SideBar()" ></app-header>
+  <app-header style="z-index: 1000" (sidebar)="SideBar()"></app-header>
   <div style="margin-top: 66px;margin-bottom: 40px">
-    <div *ngIf="mobie==='true'" style="position: relative;z-index: 900" [@sidebarAnimate]="State"><app-sidebar></app-sidebar></div>
+    <div *ngIf="mobie==='true'" style="position: relative;z-index: 900" [@sidebarAnimate]="State">
+      <app-sidebar></app-sidebar>
+    </div>
     <div class="home" style="position: relative">
-      <div  class="toast" [hidden]="true">
+      <div class="toast" [hidden]="true">
         {{ToastInformation}}
       </div>
       <app-position-bar></app-position-bar>
       <router-outlet></router-outlet>
-      <app-footer  style="z-index: 1000"></app-footer>
+      <app-footer style="z-index: 1000"></app-footer>
     </div>
   </div>
 </div>

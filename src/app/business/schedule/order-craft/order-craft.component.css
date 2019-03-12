@@ -36,6 +36,7 @@
   text-align: left;
   padding: 0;
   border-radius: 0 0 6px 6px;
+  background-color: #253847;
 }
 .row > div{
   margin-bottom: 15px;
